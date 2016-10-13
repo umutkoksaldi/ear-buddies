@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public final class ExampleAndroidTest {
     // TODO replace this with your own tests.
 
-    @Test
+   /* @Test
     public void onePlusOneIsTwo() {
         assertThat(MainActivity.add(1, 1), is(2));
     }
@@ -31,5 +31,5 @@ public final class ExampleAndroidTest {
     public void packageNameIsCorrect() {
         final Context context = InstrumentationRegistry.getTargetContext();
         assertThat(context.getPackageName(), is("ch.epfl.sweng.project"));
-    }
+    }*/
 }
