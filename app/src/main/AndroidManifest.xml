@@ -4,6 +4,8 @@
 
     <!-- TODO: Depending on your app's features, enable some Android features here
                such as backups or search indexing -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="false"
