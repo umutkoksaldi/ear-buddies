@@ -7,8 +7,8 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Unit tests!
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public final class ExampleAndroidTest {
     // TODO replace this with your own tests.
 
-    @Test
+   /* @Test
     public void onePlusOneIsTwo() {
         assertThat(MainActivity.add(1, 1), is(2));
     }
@@ -26,7 +26,7 @@ public final class ExampleAndroidTest {
     public void twoPlusTwoIsFour() {
         assertThat(MainActivity.add(2, 2), is(4));
     }
-
+*/
     @Test
     public void packageNameIsCorrect() {
         final Context context = InstrumentationRegistry.getTargetContext();
