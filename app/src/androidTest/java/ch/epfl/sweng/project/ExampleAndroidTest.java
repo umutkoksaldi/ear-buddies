@@ -1,8 +1,14 @@
 package ch.epfl.sweng.project;
 
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Unit tests!
@@ -20,10 +26,10 @@ public final class ExampleAndroidTest {
     public void twoPlusTwoIsFour() {
         assertThat(MainActivity.add(2, 2), is(4));
     }
-
+*/
     @Test
     public void packageNameIsCorrect() {
         final Context context = InstrumentationRegistry.getTargetContext();
         assertThat(context.getPackageName(), is("ch.epfl.sweng.project"));
-    }*/
+    }
 }
