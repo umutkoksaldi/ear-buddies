@@ -32,4 +32,5 @@ public class Pager extends FragmentStatePagerAdapter{
     public int getCount() {
         return mTabCount;
     }
+
 }
