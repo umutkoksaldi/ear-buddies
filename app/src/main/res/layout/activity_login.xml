@@ -11,9 +11,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ch.epfl.sweng.project.Login"
-    android:background="@drawable/login_background">
+    android:background="@drawable/login_background"
+    tools:ignore="Overdraw">
 
     <ImageView
+        tools:ignore="ContentDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logo"
@@ -23,6 +25,7 @@
         android:layout_centerHorizontal="true"/>
 
     <ImageButton
+        android:contentDescription="@string/launch_facebook_connection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/facebook_placeholder"

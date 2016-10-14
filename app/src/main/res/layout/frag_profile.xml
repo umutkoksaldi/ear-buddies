@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
+        tools:ignore="ContentDescription"
         android:id="@+id/coverPicProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2">
         <ImageView
+            tools:ignore="ContentDescription"
             android:id="@+id/profilePicProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +38,7 @@
             android:id="@+id/editNameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
+            android:text="@string/edit"
             android:layout_alignBaseline="@+id/nameProfile"
             android:layout_alignBottom="@+id/nameProfile"
             android:layout_toLeftOf="@+id/nameProfile"
@@ -44,7 +48,6 @@
             android:id="@+id/nameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Arnaud Hennig"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>

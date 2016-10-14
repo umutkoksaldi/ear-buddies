@@ -19,7 +19,7 @@ public class ProfileFrag extends Fragment{
                 "jpg?oh=da0d059723d43991eb7d5484eb978bad&oe=585F246B");
         TextView name = (TextView) profile.findViewById(R.id.nameProfile);
         //TODO Get name from the database
-        name.setText("Arnaud Hennig");
+        name.setText(R.string.name);
         ImageView profilePict = (ImageView) profile.findViewById(R.id.profilePicProfile);
         new DownloadImageTask(profilePict).execute(
                 "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/1509160_10203102805357984_286487804_n."+

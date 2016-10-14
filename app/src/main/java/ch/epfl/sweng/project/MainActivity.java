@@ -32,6 +32,7 @@ public final class MainActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setText("Profile"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        //noinspection ConstantConditions
         mTabLayout.getTabAt(1).select();
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -64,7 +65,10 @@ public final class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mTabLayout.getTabAt(position).select();
+                if (position >= 0 && position < mTabLayout.getTabCount()) {
+                    //noinspection ConstantConditions
+                    mTabLayout.getTabAt(position).select();
+                }
             }
 
             @Override
