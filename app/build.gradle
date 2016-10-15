@@ -32,6 +32,8 @@ android {
 	    // Disable lint warnings about app indexing, and about non-latest tools versions
 		// TODO consider re-enabling app indexing before publishing your application.
 	    disable 'GoogleAppIndexingWarning', 'GradleDependency'
+        // Jackson make a lint error, we avoid it by adding warning instead of error 
+        warning 'InvalidPackage'
 	}
 
     // packages create a conflict with spring
