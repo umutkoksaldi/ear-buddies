@@ -1,8 +1,17 @@
-<resources>
-    <string name="app_name">Project</string>
-    <string name="name">Arnaud Hennig</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">GO Project-2016/2017</string>
+
+    <!-- Facebook configuration -->
+    <string name="facebook_app_id">1055317924581025</string>
+
+
+    <!-- Temporary -->
     <string name="edit">Edit</string>
     <string name="this_is_a_blank_fragment_that_we_need_to_change_for_the_map">This is a blank Fragment that we need to change for the map</string>
     <string name="this_is_a_blank_fragment_that_we_need_to_change">This is a blank Fragment that we need to change</string>
     <string name="launch_facebook_connection">Launch Facebook connection</string>
+
+    <!-- Login connexion -->
+    <string name="error_connexion_facebook">Error occurred while logging in,the server seems does not respond.Please try again. :) </string>
+    <string name="connexion_facebook_pending" tools:ignore="UnusedResources">We are getting back your informations, please wait :) </string>
 </resources>

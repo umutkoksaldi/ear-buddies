@@ -24,15 +24,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
-    <ImageButton
+
+    <com.facebook.login.widget.LoginButton
         android:contentDescription="@string/launch_facebook_connection"
+        android:id="@+id/facebook_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/facebook_placeholder"
-        android:id="@+id/loginButton"
-        android:layout_marginTop="171dp"
-        android:layout_below="@+id/imageView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"/>
 
 </RelativeLayout>
