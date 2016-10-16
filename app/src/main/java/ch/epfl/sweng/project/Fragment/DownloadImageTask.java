@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project;
+package ch.epfl.sweng.project.Fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

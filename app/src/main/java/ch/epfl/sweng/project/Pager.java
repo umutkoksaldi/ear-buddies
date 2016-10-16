@@ -5,6 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import ch.epfl.sweng.project.Fragment.BlankFrag;
+import ch.epfl.sweng.project.Fragment.MapFrag;
+import ch.epfl.sweng.project.Fragment.ProfileFrag;
+
 class Pager extends FragmentStatePagerAdapter{
 
     private final int mTabCount;
