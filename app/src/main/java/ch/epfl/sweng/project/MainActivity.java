@@ -1,9 +1,13 @@
 package ch.epfl.sweng.project;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
+import static android.content.Intent.CATEGORY_APP_MUSIC;
 
 
 public final class MainActivity extends AppCompatActivity {
@@ -77,5 +81,13 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
         mViewPager.setCurrentItem(1);
+    }
+
+    // When the user click on the "play" button, he will be redirected to his music player.
+    public void launchMusicPlayer(View view){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(CATEGORY_APP_MUSIC);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
