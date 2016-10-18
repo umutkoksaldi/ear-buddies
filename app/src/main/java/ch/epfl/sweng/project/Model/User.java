@@ -1,5 +1,7 @@
 package ch.epfl.sweng.project.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 @SuppressWarnings("unused")
@@ -14,6 +16,7 @@ public class User {
     private Date birthdate;
     private String profilePicture;
     private boolean seeBirth;
+    private String email;
     private Location location;
 
     public User(){
@@ -93,6 +96,14 @@ public class User {
         this.location = location;
     }
 
+    public String isEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     @Override
     public String toString() {
@@ -102,6 +113,7 @@ public class User {
                 ", \"descrition\": \"" + descrition + "\"" +
                 ", \"firstname\": \"" + firstname + "\"" +
                 ", \"lastname\" : \"" + lastname + "\"" +
+                ", \"email\" : \"" + email + "\"" +
                 ", \"birthdate\" : " + birthdate +
                 ", \"profilePicture\" : \" " + profilePicture + "\"" +
                 ", \"seeBirth\" : " + seeBirth +

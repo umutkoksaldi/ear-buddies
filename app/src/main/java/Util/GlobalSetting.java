@@ -8,12 +8,10 @@ public class GlobalSetting {
     // this one for reaching the server on heroku
     public static final String URL = "https://sw-eng-go.herokuapp.com";
 
-    /*
-    // if you run the server on local you this configuration.
-    public static final String LOCALHOSTEMUl = "http://10.0.2.2:";
-    public static final String PORT = "3000";
-    public static final String URLSERVEREMUL = LOCALHOSTEMUl+PORT;
-    */
+
+    // for local server
+    //public static final String URL = "http://10.0.2.2:3000";
+
 
 
     // html code
