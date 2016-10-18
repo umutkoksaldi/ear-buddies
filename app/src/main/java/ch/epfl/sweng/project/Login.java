@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity  {
         }*/
 
         callbackManager = CallbackManager.Factory.create();
-        this.loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
         addPermissions();
 
         /*******************************    Callback facebook developer ***********************/
@@ -157,7 +157,7 @@ public class Login extends AppCompatActivity  {
         permissions.add("email");
         permissions.add("user_birthday");
         permissions.add("user_about_me");
-        this.loginButton.setReadPermissions(permissions);
+        loginButton.setReadPermissions(permissions);
     }
 
     /**

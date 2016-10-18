@@ -1,7 +1,5 @@
 package ch.epfl.sweng.project.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.Date;
 
 @SuppressWarnings("unused")
@@ -10,7 +8,7 @@ public class User {
 
     private long idApiConnection;
     private String backgroundPicture;
-    private String descrition;
+    private String description;
     private String firstname;
     private String lastname;
     private Date birthdate;
@@ -48,11 +46,11 @@ public class User {
     }
 
     public String getDescrition() {
-        return descrition;
+        return description;
     }
 
-    public void setDescrition (String descrition) {
-        this.descrition = descrition;
+    public void setDescrition (String description) {
+        this.description = description;
     }
 
 
@@ -110,7 +108,7 @@ public class User {
         return "{" +
                 " \"idApiConnection\" : " + idApiConnection +
                 ", \"backgroundPicture\": \" " + backgroundPicture + "\"" +
-                ", \"descrition\": \"" + descrition + "\"" +
+                ", \"description\": \"" + description + "\"" +
                 ", \"firstname\": \"" + firstname + "\"" +
                 ", \"lastname\" : \"" + lastname + "\"" +
                 ", \"email\" : \"" + email + "\"" +
