@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <!-- _____________________________________________ Facebook activity  _____________________________________________ -->
+        <!-- _____________________________________________ Facebook activity  ___________________________________ -->
         <!-- suppress AndroidElementNotAllowed -->
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -41,9 +41,8 @@
 
         <!-- Service used to get information about the currently playing music -->
         <service
-            android:name=".Music.MusicInfoService"
-            android:enabled="true"
-            android:exported="true"/>
+            android:name=".media.MusicInfoService"
+            android:enabled="true"/>
 
     </application>
 

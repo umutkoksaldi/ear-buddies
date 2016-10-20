@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import ch.epfl.sweng.project.Music.MusicInfoService;
+import ch.epfl.sweng.project.media.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
 
@@ -60,7 +60,7 @@ public final class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void createViewPager(){
+    private void createViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pagerMain);
         Pager adapter = new Pager(getSupportFragmentManager(), mTabLayout.getTabCount());
 
@@ -88,10 +88,12 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     // When the user click on the "play" button, he will be redirected to his music player.
-    public void launchMusicPlayer(View view){
+    public void launchMusicPlayer(View view) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(CATEGORY_APP_MUSIC);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+
 }
