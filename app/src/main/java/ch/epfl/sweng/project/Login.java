@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity  {
         }*/
 
         callbackManager = CallbackManager.Factory.create();
-        this.loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
         addPermissions();
 
         /*******************************    Callback facebook developer ***********************/
@@ -66,7 +66,6 @@ public class Login extends AppCompatActivity  {
                     mProfileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                            Log.i("facebook - profile 1ere", profile2.getFirstName());
                             sendPost(AccessToken.getCurrentAccessToken().getToken(), profile2.getId(), GlobalSetting.USER_API);
                             Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
                         }
@@ -158,7 +157,7 @@ public class Login extends AppCompatActivity  {
         permissions.add("email");
         permissions.add("user_birthday");
         permissions.add("user_about_me");
-        this.loginButton.setReadPermissions(permissions);
+        loginButton.setReadPermissions(permissions);
     }
 
     /**

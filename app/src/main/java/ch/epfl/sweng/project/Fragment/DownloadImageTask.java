@@ -13,7 +13,7 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     private final ImageView mImage;
 
     public DownloadImageTask(ImageView image){
-        this.mImage = image;
+        mImage = image;
     }
 
     @Override
@@ -30,6 +30,7 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         return image;
     }
 
+    @Override
     protected void onPostExecute(Bitmap result) {
         mImage.setImageBitmap(result);
     }
