@@ -1,11 +1,14 @@
 package ch.epfl.sweng.project;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import ch.epfl.sweng.project.Music.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
 
@@ -23,7 +26,10 @@ public final class MainActivity extends AppCompatActivity {
         createTabLayout();
         createViewPager();
 
-
+        // Starts service to be aware if the device is playing music, and gets music information
+        Intent musicInfo =  new Intent();
+        musicInfo.setAction("ch.epfl.sweng.project.Music.MusicInfoService");
+        startService(musicInfo);
 
     }
 
