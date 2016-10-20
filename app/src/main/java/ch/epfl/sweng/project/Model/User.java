@@ -1,5 +1,8 @@
 package ch.epfl.sweng.project.Model;
 
+import android.os.Handler;
+import android.util.Log;
+
 import java.util.Date;
 
 @SuppressWarnings("unused")
@@ -17,7 +20,7 @@ public class User {
     private String email;
     private Location location;
 
-    public User(){
+    public User() {
 
     }
 
@@ -49,7 +52,7 @@ public class User {
         return description;
     }
 
-    public void setDescrition (String description) {
+    public void setDescrition(String description) {
         this.description = description;
     }
 
@@ -100,6 +103,20 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void sendAndGetLocations() {
+        final Handler h = new Handler();
+        final int DELAY = 10000; //millisecond
+
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("Info", "HEllo there");
+                h.postDelayed(this, DELAY);
+            }
+        }, DELAY);
+
     }
 
 
