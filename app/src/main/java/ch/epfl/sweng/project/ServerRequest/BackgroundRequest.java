@@ -31,11 +31,11 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
                              int aRequest_type,
                              OnServerRequestComplete aListener,
                              Class aClass){
-        this.mUrl = url;
-        this.mRequest_type = aRequest_type;
-        this.mListener = aListener;
-        this.mClazz = aClass;
-        this.mParams = aParams;
+        mUrl = url;
+        mRequest_type = aRequest_type;
+        mListener = aListener;
+        mClazz = aClass;
+        mParams = aParams;
     }
 
 

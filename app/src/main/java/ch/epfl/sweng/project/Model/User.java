@@ -8,12 +8,13 @@ public class User {
 
     private long idApiConnection;
     private String backgroundPicture;
-    private String descrition;
+    private String description;
     private String firstname;
     private String lastname;
     private Date birthdate;
     private String profilePicture;
     private boolean seeBirth;
+    private String email;
     private Location location;
 
     public User(){
@@ -45,11 +46,11 @@ public class User {
     }
 
     public String getDescrition() {
-        return descrition;
+        return description;
     }
 
-    public void setDescrition (String descrition) {
-        this.descrition = descrition;
+    public void setDescrition (String description) {
+        this.description = description;
     }
 
 
@@ -93,15 +94,24 @@ public class User {
         this.location = location;
     }
 
+    public String isEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     @Override
     public String toString() {
         return "{" +
                 " \"idApiConnection\" : " + idApiConnection +
                 ", \"backgroundPicture\": \" " + backgroundPicture + "\"" +
-                ", \"descrition\": \"" + descrition + "\"" +
+                ", \"description\": \"" + description + "\"" +
                 ", \"firstname\": \"" + firstname + "\"" +
                 ", \"lastname\" : \"" + lastname + "\"" +
+                ", \"email\" : \"" + email + "\"" +
                 ", \"birthdate\" : " + birthdate +
                 ", \"profilePicture\" : \" " + profilePicture + "\"" +
                 ", \"seeBirth\" : " + seeBirth +
