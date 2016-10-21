@@ -45,10 +45,10 @@ public class Login extends AppCompatActivity  {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        /* THE SERVICE IS NOT IMPLEMENTED YET ON THE SERVER SIDE
-        if (isAlreadyConnected(GlobalSetting.UPDATE_CONNEXION_USER)) {
+        // THE SERVICE IS NOT IMPLEMENTED YET ON THE SERVER SIDE
+        if (isAlreadyConnected(GlobalSetting.USER_API)) {
             Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
-        }*/
+        }
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
@@ -136,20 +136,19 @@ public class Login extends AppCompatActivity  {
         serviceHandler.doPost(params, GlobalSetting.URL + requestApi ,User.class);
     }
 
-// --Commented out by Inspection START (15/10/16 09:16):
-//    /**
-//     * Check if the user is already connected with facebook on our application.
-//     * @return true if
-//     */
-//    private boolean isAlreadyConnected (String requestApi) {
-//        boolean isConnected = false;
-//        if (Profile.getCurrentProfile() != null) {
-//            isConnected = true;
-//            sendPost(AccessToken.getCurrentAccessToken().toString(),Profile.getCurrentProfile().getId(),requestApi+Profile.getCurrentProfile().getId());
-//        }
-//        return isConnected;
-//    }
-// --Commented out by Inspection STOP (15/10/16 09:16)
+    /**
+     * Check if the user is already connected with facebook on our application.
+     * @return true if
+     */
+    private boolean isAlreadyConnected (String requestApi) {
+        boolean isConnected = false;
+        if (Profile.getCurrentProfile() != null) {
+            isConnected = true;
+            sendPost(AccessToken.getCurrentAccessToken().getToken(), Profile.getCurrentProfile().getId(),
+                    GlobalSetting.USER_API);
+        }
+        return isConnected;
+    }
 
     private void addPermissions() {
         List<String> permissions = new ArrayList<>();

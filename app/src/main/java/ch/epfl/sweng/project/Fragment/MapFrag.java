@@ -31,11 +31,11 @@ public class MapFrag extends Fragment{
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         mUser = ModelApplication.getModelApplication().getUser();
         mOthersLocation = new ArrayList<>();
-        sendAndGetLocations();
+        sendLocation();
         return inflater.inflate(R.layout.frag_map, container, false);
     }
 
-    public void sendAndGetLocations() {
+    public void sendLocation() {
         final Handler h = new Handler();
         // To change 1 sec only for trying
         final int DELAY = 1000; //millisecond
@@ -64,8 +64,8 @@ public class MapFrag extends Fragment{
                 });
 
                 /* Need server implementation and have localisation in the user*/
-                /*serviceHandler.doPost(mUser.getLocation(), GlobalSetting.URL + GlobalSetting.USER_API ,
-                        Location.class);*/
+                serviceHandler.doPost(mUser.getLocation(), GlobalSetting.URL + GlobalSetting.USER_API ,
+                        Location.class);
                 h.postDelayed(this, DELAY);
             }
         }, DELAY);
