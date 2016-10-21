@@ -45,11 +45,11 @@ public class User {
         backgroundPicture = abackgroundPicture;
     }
 
-    public String getDescrition() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescrition (String description) {
+    public void setDescription (String description) {
         this.description = description;
     }
 

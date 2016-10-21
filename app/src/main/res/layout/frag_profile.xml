@@ -1,56 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ImageView
-        tools:ignore="ContentDescription"
-        android:id="@+id/coverPicProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
-    <!-- temporary text-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2">
-        <ImageView
-            tools:ignore="ContentDescription"
-            android:id="@+id/profilePicProfile"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/user_profile_photo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-60dp"
+
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+             />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_layout"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:id="@+id/taste_list">
+
+            <Button
+                android:text="@string/no_music_taste_push_to_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/taste_picker"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/nameProfile"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/nameProfile"
-            android:layout_toEndOf="@+id/nameProfile" />
+            android:background="#ebca0707"
+            android:elevation="4dp"
+            android:paddingBottom="24dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-        <Button
-            android:id="@+id/editNameProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit"
-            android:layout_alignBaseline="@+id/nameProfile"
-            android:layout_alignBottom="@+id/nameProfile"
-            android:layout_toLeftOf="@+id/nameProfile"
-            android:layout_toStartOf="@+id/nameProfile" />
 
-        <TextView
-            android:id="@+id/nameProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
+            <TextView
+                android:id="@+id/user_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="76dp"
+                android:text="@string/user_name"
+                android:textColor="#fff"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/user_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_profile_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="@string/user_description"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_add"
+                android:id="@+id/add_taste"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/header_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
     </RelativeLayout>
-
-
-</LinearLayout>
+</ScrollView>

@@ -14,4 +14,16 @@
     <!-- Login connexion -->
     <string name="error_connexion_facebook">Error occurred while logging in,the server seems does not respond.Please try again. :) </string>
     <string name="connexion_facebook_pending" tools:ignore="UnusedResources">We are getting back your informations, please wait :) </string>
+    <!-- Profile Page -->
+    <string name="pick_taste">Choose your music taste:</string>
+    <string name="rock">Rock</string>
+    <string name="metal">Metal</string>
+    <string name="pop">Pop</string>
+    <string name="classic">Classic</string>
+    <string name="jazz">Jazz</string>
+    <string name="edm">EDM</string>
+    <string name="user_name">User Name</string>
+    <string name="no_music_taste_push_to_select">No music taste, push to select</string>
+    <string name="user_description">User Description</string>
+
 </resources>
