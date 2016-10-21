@@ -27,11 +27,29 @@ android {
         }
     }
 
-	lintOptions {
+    //noinspection GroovyMissingReturnStatement
+    lintOptions {
 	    // Disable lint warnings about app indexing, and about non-latest tools versions
 		// TODO consider re-enabling app indexing before publishing your application.
 	    disable 'GoogleAppIndexingWarning', 'GradleDependency'
+        // Jackson make a lint error, we avoid it by adding warning instead of error 
+        warning 'InvalidPackage'
 	}
+
+    // packages create a conflict with spring
+    //noinspection GroovyMissingReturnStatement
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
 
     // Workaround for an Android Studio bug in the "Missing Return Statement" warning
     return void
@@ -44,8 +62,36 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:design:24.2.1'
+
+    // Spring import for restful api
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+
+    // JacksonMapper
+    //noinspection InvalidPackage
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    //noinspection InvalidPackage
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+    //noinspection InvalidPackage
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+
+    // facebook dependencies
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+
+    // dependencies for testing
+    androidTestCompile 'com.android.support:support-annotations:24.2.1'
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+
 }
 
+// Spring import.
+repositories {
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+}
 // Do not change the below code unless you're sure you know what you're doing
 // Also make sure Jenkins config is synced with this one.
 

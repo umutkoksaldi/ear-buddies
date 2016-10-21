@@ -7,6 +7,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_centerInParent="true"
-        android:text="This is a blank Fragment that we need to change"/>
+        android:text="@string/this_is_a_blank_fragment_that_we_need_to_change"/>
 </LinearLayout>

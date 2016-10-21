@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project;
+package ch.epfl.sweng.project.Fragment;
 
 
 import android.os.Bundle;
@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ProfileFrag extends Fragment{
+import ch.epfl.sweng.project.R;
+
+public class BlankFrag extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_profile, container, false);
+        return inflater.inflate(R.layout.frag_blank, container, false);
     }
 }
