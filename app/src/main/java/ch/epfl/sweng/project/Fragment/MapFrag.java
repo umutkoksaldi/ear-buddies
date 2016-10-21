@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.springframework.http.ResponseEntity;
 
@@ -58,11 +59,12 @@ public class MapFrag extends Fragment{
 
                     @Override
                     public void onFailed() {
+                        Toast.makeText(getContext(), "Unable to get Locations", Toast.LENGTH_SHORT);
                     }
                 });
 
-                /* Need server implementation and have localisation in the user
-                serviceHandler.doPost(mUser.location, GlobalSetting.URL + GlobalSetting.USER_API ,
+                /* Need server implementation and have localisation in the user*/
+                /*serviceHandler.doPost(mUser.getLocation(), GlobalSetting.URL + GlobalSetting.USER_API ,
                         Location.class);*/
                 h.postDelayed(this, DELAY);
             }
