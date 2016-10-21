@@ -2,8 +2,19 @@ package ch.epfl.sweng.project.Model;
 
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
+
+import org.springframework.http.ResponseEntity;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import Util.GlobalSetting;
+import ch.epfl.sweng.project.MainActivity;
+import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
+import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 @SuppressWarnings("unused")
 public class User {
@@ -104,21 +115,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public void sendAndGetLocations() {
-        final Handler h = new Handler();
-        final int DELAY = 10000; //millisecond
-
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.i("Info", "HEllo there");
-                h.postDelayed(this, DELAY);
-            }
-        }, DELAY);
-
-    }
-
 
     @Override
     public String toString() {
