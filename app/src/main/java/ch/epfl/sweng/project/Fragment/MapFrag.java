@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Model.Location;
@@ -23,22 +23,30 @@ import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
-public class MapFrag extends Fragment{
-    User mUser;
-    List<Location> mOthersLocation;
+public class MapFrag extends Fragment {
+    private User mUser;
+    private User[] mOtherUser;
+    private final String LOCATION = "location";
+    private final String ID = "idApiConnection";
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mUser = ModelApplication.getModelApplication().getUser();
-        mOthersLocation = new ArrayList<>();
-        sendLocation();
+
+        //***** To change with Etienne's code *****
+        Location currentLoc = new Location();
+        currentLoc.setLattitude(0);
+        currentLoc.setLongitude(0);
+        mUser.setLocation(currentLoc);
+        //*****************************************
+        sendAndGetLocations();
         return inflater.inflate(R.layout.frag_map, container, false);
     }
 
-    public void sendLocation() {
+    public void sendAndGetLocations() {
         final Handler h = new Handler();
-        // To change 1 sec only for trying
-        final int DELAY = 1000; //millisecond
+        final int DELAY = 10000; //millisecond
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -47,11 +55,11 @@ public class MapFrag extends Fragment{
                     @Override
                     public void onSucess(ResponseEntity responseServer) {
 
-                        if(Integer.parseInt(responseServer.getStatusCode().toString()) ==
-                                GlobalSetting.GOOD_AWNSER){
-                            /* Not Implemented yet on the server
-                                mOthersLocation = ((ArrayList<Location>)(responseServer.getBody()));
-                             */
+                        if (Integer.parseInt(responseServer.getStatusCode().toString()) ==
+                                GlobalSetting.GOOD_AWNSER) {
+
+                            mOtherUser =  ((User[]) (responseServer.getBody()));
+
                         } else {
                             onFailed();
                         }
@@ -64,8 +72,11 @@ public class MapFrag extends Fragment{
                 });
 
                 /* Need server implementation and have localisation in the user*/
-                serviceHandler.doPost(mUser.getLocation(), GlobalSetting.URL + GlobalSetting.USER_API ,
-                        Location.class);
+                Map<String, String> params = new HashMap<>();
+                params.put(ID, ""+mUser.getIdApiConnection());
+                params.put(LOCATION, mUser.getLocation().toString());
+                serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + mUser
+                        .getIdApiConnection(), User[].class);
                 h.postDelayed(this, DELAY);
             }
         }, DELAY);
