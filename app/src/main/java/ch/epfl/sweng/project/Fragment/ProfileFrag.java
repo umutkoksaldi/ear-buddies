@@ -23,7 +23,8 @@ public class ProfileFrag extends Fragment{
         new DownloadImageTask(coverPict).execute(modelApplication.getUser().getProfilePicture());
         TextView name = (TextView) profile.findViewById(R.id.nameProfile);
         //TODO Get name from the database
-        name.setText(modelApplication.getUser().getFirstname());
+        name.setText(""+modelApplication.getUser().getLocation().getLattitude()+"  "+modelApplication.getUser()
+                .getLocation().getLongitude() + modelApplication.getUser().getAge() );
         ImageView profilePict = (ImageView) profile.findViewById(R.id.profilePicProfile);
         new DownloadImageTask(profilePict).execute(modelApplication.getUser().getBackgroundPicture());
         return profile;

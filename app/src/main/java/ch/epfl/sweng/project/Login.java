@@ -37,6 +37,10 @@ public class Login extends AppCompatActivity  {
     private LoginButton loginButton;
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
 
+    public static final String ID = "id";
+    public static final String ACESS_TOKEN = "accesToken";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -129,8 +133,8 @@ public class Login extends AppCompatActivity  {
 
         // Building the parameters for the
         Map<String, String> params = new HashMap<>();
-        params.put("id", idFacebook);
-        params.put("accesToken", AccesToken);
+        params.put(ID, idFacebook);
+        params.put(ACESS_TOKEN, AccesToken);
 
         // the interface is already initiate above
         serviceHandler.doPost(params, GlobalSetting.URL + requestApi ,User.class);
