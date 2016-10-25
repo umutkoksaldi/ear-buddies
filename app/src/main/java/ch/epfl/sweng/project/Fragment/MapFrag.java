@@ -34,7 +34,9 @@ import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback{
     private User mUser;
-    private final String LOCATION = "location";
+    private final String LATTITUDE = "lattitude";
+    private final String LONGITUDE = "longitude";
+    private final String USER_AROUND = "/getUsersAround";
     private final String ID = "idApiConnection";
 
     private SupportMapFragment sMapFragment;
@@ -102,12 +104,11 @@ public class MapFrag extends Fragment implements OnMapReadyCallback{
                     }
                 });
 
-                /* Need server implementation and have localisation in the user*/
                 Map<String, String> params = new HashMap<>();
                 params.put(ID, ""+mUser.getIdApiConnection());
-                params.put(LOCATION, mUser.getLocation().toString());
-                serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + mUser
-                        .getIdApiConnection(), User[].class);
+                params.put(LATTITUDE, ""+mUser.getLocation().getLattitude());
+                params.put(LONGITUDE, ""+mUser.getLocation().getLongitude());
+                serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND, User[].class);
                 h.postDelayed(this, DELAY);
             }
         }, DELAY);
