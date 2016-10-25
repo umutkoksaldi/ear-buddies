@@ -3,6 +3,9 @@ package ch.epfl.sweng.project.ServerRequest;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -55,7 +58,11 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
         // initialize the RestTemplate in order
         ResponseEntity<Object> response = null;
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        MappingJackson2HttpMessageConverter converterJackson = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        converterJackson.setObjectMapper(objectMapper);
+        restTemplate.getMessageConverters().add(converterJackson);
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         // do request in background.
@@ -64,8 +71,6 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
             // Do a post Request
             case SettingRequest.POST_REQUEST:
                 try {
-                    //noinspection unchecked
-                    System.out.print(mParams.toString());
                     //noinspection unchecked
                     response = restTemplate.postForEntity(mUrl, mParams, mClazz);
                     Log.i("doInBackground()","the user does a post request");

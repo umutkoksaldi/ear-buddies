@@ -22,8 +22,8 @@ public class ModelApplication {
     // allow to have one instance of the class shared in multiple activity.
     public static synchronized ModelApplication getModelApplication()
     {
-        if (modelApplication == null)
-        { 	modelApplication = new ModelApplication();
+        if (modelApplication == null){
+            modelApplication = new ModelApplication();
         }
         return modelApplication;
     }

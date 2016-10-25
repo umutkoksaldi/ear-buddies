@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
-@SuppressWarnings("unused")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
 
@@ -25,7 +26,7 @@ public class User {
     private String description;
     private String firstname;
     private String lastname;
-    private Date birthdate;
+    private int age;
     private String profilePicture;
     private boolean seeBirth;
     private String email;
@@ -76,12 +77,12 @@ public class User {
         this.firstname = firstname;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public int getAge() {
+        return age;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getProfilePicture() {
@@ -125,7 +126,7 @@ public class User {
                 ", \"firstname\": \"" + firstname + "\"" +
                 ", \"lastname\" : \"" + lastname + "\"" +
                 ", \"email\" : \"" + email + "\"" +
-                ", \"birthdate\" : " + birthdate +
+                ", \"age\" : " + age +
                 ", \"profilePicture\" : \" " + profilePicture + "\"" +
                 ", \"seeBirth\" : " + seeBirth +
                 ", \"location\" : " + location.toString() +

@@ -1,12 +1,11 @@
 package ch.epfl.sweng.project.Fragment;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ import Util.GlobalSetting;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
+
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
@@ -45,8 +45,10 @@ public class MapFrag extends Fragment implements OnMapReadyCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mUser = ModelApplication.getModelApplication().getUser();
-
+        Location baseLocation = new Location(latitude, longitude);
+        mUser.setLocation(baseLocation);
        sMapFragment = SupportMapFragment.newInstance();
+
         FragmentManager fm = getFragmentManager();
 
         sMapFragment.getMapAsync(this);
@@ -59,13 +61,15 @@ public class MapFrag extends Fragment implements OnMapReadyCallback{
 
 
         sendAndGetLocations();
+
         return inflater.inflate(R.layout.frag_map, container, false);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         //googleMap.setMyLocationEnabled(true);
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Marker"));
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(mUser.getLocation().getLattitude(), mUser
+                .getLocation().getLongitude())).title("Marker"));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
 
     }
