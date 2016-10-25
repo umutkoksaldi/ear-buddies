@@ -1,9 +1,11 @@
 package ch.epfl.sweng.project.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,13 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
@@ -23,25 +32,42 @@ import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
-public class MapFrag extends Fragment {
+public class MapFrag extends Fragment implements OnMapReadyCallback{
     private User mUser;
-    private User[] mOtherUser;
     private final String LOCATION = "location";
     private final String ID = "idApiConnection";
 
+    private SupportMapFragment sMapFragment;
+    private double latitude = 46.5186995;
+    private double longitude = 6.5619528;
+    private int zoom = 18;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mUser = ModelApplication.getModelApplication().getUser();
 
-        //***** To change with Etienne's code *****
-        Location currentLoc = new Location();
-        currentLoc.setLattitude(0);
-        currentLoc.setLongitude(0);
-        mUser.setLocation(currentLoc);
-        //*****************************************
+       sMapFragment = SupportMapFragment.newInstance();
+        FragmentManager fm = getFragmentManager();
+
+        sMapFragment.getMapAsync(this);
+        android.support.v4.app.FragmentManager sFm = getFragmentManager();
+
+        if (!sMapFragment.isAdded())
+            sFm.beginTransaction().add(R.id.map, sMapFragment).commit();
+        else
+            sFm.beginTransaction().show(sMapFragment).commit();
+
+
         sendAndGetLocations();
         return inflater.inflate(R.layout.frag_map, container, false);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        //googleMap.setMyLocationEnabled(true);
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Marker"));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
+
     }
 
     public void sendAndGetLocations() {

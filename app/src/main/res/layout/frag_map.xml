@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
@@ -8,4 +9,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:text="@string/this_is_a_blank_fragment_that_we_need_to_change_for_the_map"/>
+
+    <ImageButton
+        android:layout_width="69dp"
+        android:layout_height="71dp"
+        app:srcCompat="@android:drawable/ic_media_play"
+        android:id="@+id/launchMusicPlayer"
+        android:onClick="launchMusicPlayer"/>
 </LinearLayout>
