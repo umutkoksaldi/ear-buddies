@@ -84,6 +84,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:0.3'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
 
+    compile 'com.google.android.gms:play-services-maps:8.1.0'
 }
 
 // Spring import.
