@@ -100,7 +100,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback{
 
                     @Override
                     public void onFailed() {
-                        Toast.makeText(getContext(), "Unable to get Locations", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "Unable to get Locations", Toast.LENGTH_SHORT).show();
                     }
                 });
 
