@@ -49,7 +49,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback{
         mUser = ModelApplication.getModelApplication().getUser();
         Location baseLocation = new Location(latitude, longitude);
         mUser.setLocation(baseLocation);
-       sMapFragment = SupportMapFragment.newInstance();
+        sMapFragment = SupportMapFragment.newInstance();
 
         FragmentManager fm = getFragmentManager();
 
@@ -88,7 +88,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback{
                     public void onSucess(ResponseEntity responseServer) {
 
                         if (Integer.parseInt(responseServer.getStatusCode().toString()) ==
-                                GlobalSetting.GOOD_AWNSER) {
+                                GlobalSetting.GOOD_ANSWER) {
 
                             ModelApplication.getModelApplication().setOtherUsers((User[]) (responseServer
                                     .getBody()));

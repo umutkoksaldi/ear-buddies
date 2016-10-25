@@ -20,8 +20,6 @@ public class MusicInfoService extends Service {
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            String cmd = intent.getStringExtra("command");
 
             String newTrack = intent.getStringExtra("track");
             String newArtist = intent.getStringExtra("artist");

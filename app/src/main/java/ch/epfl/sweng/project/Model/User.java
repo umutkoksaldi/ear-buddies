@@ -1,21 +1,6 @@
 package ch.epfl.sweng.project.Model;
 
-import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
-
-import org.springframework.http.ResponseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import Util.GlobalSetting;
-import ch.epfl.sweng.project.MainActivity;
-import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
-import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
@@ -32,9 +17,7 @@ public class User {
     private String email;
     private Location location;
 
-    public User() {
-
-    }
+    public User(){}
 
     public long getIdApiConnection() {
         return idApiConnection;
