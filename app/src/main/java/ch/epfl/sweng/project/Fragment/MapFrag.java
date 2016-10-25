@@ -36,7 +36,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback{
     private User mUser;
     private final String LATTITUDE = "lattitude";
     private final String LONGITUDE = "longitude";
-    private final String USER_AROUND = "/getUsersAround";
+    private final String USER_AROUND = "getUsersAround/";
     private final String ID = "idApiConnection";
 
     private SupportMapFragment sMapFragment;
