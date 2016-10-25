@@ -58,7 +58,8 @@ public class MapFrag extends Fragment {
                         if (Integer.parseInt(responseServer.getStatusCode().toString()) ==
                                 GlobalSetting.GOOD_AWNSER) {
 
-                            mOtherUser =  ((User[]) (responseServer.getBody()));
+                            ModelApplication.getModelApplication().setOtherUsers((User[]) (responseServer
+                                    .getBody()));
 
                         } else {
                             onFailed();
