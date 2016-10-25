@@ -5,6 +5,7 @@ public class ModelApplication {
 
     private static ModelApplication modelApplication = null;
     private User user = new User();
+    private User[] mOtherUsers;
 
     private ModelApplication() {}
 
@@ -23,5 +24,13 @@ public class ModelApplication {
             modelApplication = new ModelApplication();
         }
         return modelApplication;
+    }
+
+    public User[] getOtherUsers(){
+        return mOtherUsers;
+    }
+
+    public void setOtherUsers(User[] users){
+        mOtherUsers = users;
     }
 }
