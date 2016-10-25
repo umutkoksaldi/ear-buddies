@@ -9,7 +9,8 @@ public class Location {
 
 
     public Location(){
-
+        latitude = 0;
+        longitude = 0;
     }
 
     public double getLattitude() {
