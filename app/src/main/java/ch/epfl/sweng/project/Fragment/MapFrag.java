@@ -74,7 +74,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     //Map
     private GoogleMap mMap;
     private SupportMapFragment sMapFragment;
-    private int zoom = 18;
+    private int ZOOM = 16;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -128,10 +128,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         mMap.getUiSettings().setZoomControlsEnabled(true);
         double latitude = mUser.getLocation().getLattitude();
         double longitude = mUser.getLocation().getLongitude();
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Marker"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
     }
-
 
 
     @Override
@@ -152,7 +150,11 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public void onLocationChanged(android.location.Location location) {
-        mUser.setLocation(new Location(location.getLatitude(), location.getLongitude()));
+        Log.i("Hello", "Hello");
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        mUser.setLocation(new Location(latitude, longitude));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
     }
 
@@ -160,18 +162,27 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     public boolean onMyLocationButtonClick() {
         double latitude = mUser.getLocation().getLattitude();
         double longitude = mUser.getLocation().getLongitude();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoom));
-        Log.i("Click", "HEllo");
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
         return true;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        stopLocationUpdates();
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
     }
 
-    //TODO Onresume
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mGoogleApiClient.isConnected()) {
+            updateLocation();
+        }
+    }
+
+    //TODO Onresume Onresume
 
     private void updateLocation() {
         if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -246,7 +257,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         });
     }
 
-    //TODO ? change with onLocationChange instead of doing loop
     private void sendAndGetLocations() {
         final Handler h = new Handler();
         final int DELAY = 10000; //millisecond
@@ -279,6 +289,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                 params.put(ID, "" + mUser.getIdApiConnection());
                 params.put(LATTITUDE, "" + mUser.getLocation().getLattitude());
                 params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
+                Log.i("Send item", params.toString());
                 serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND, User[].class);
                 h.postDelayed(this, DELAY);
             }
