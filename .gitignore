@@ -8,3 +8,6 @@
 /.idea/gradle.xml
 /.idea/workspace.xml
 /.idea/libraries
+
+# Added by Antoine
+/./idea/misc.xml

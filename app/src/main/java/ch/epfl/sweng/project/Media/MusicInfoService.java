@@ -40,7 +40,7 @@ public class MusicInfoService extends Service {
                     // It happens when you pause and play the same song. We don't want to send several times the
                     // same song info.
                     // Do nothing
-                } else {
+                } else if (newArtist != null && newTrack != null) {
                     // Send the newly played song
                     Log.d("MusicInfoService", newArtist + " - " + newTrack);
                     Toast.makeText(MusicInfoService.this,
