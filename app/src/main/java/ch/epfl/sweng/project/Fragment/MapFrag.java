@@ -37,7 +37,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.springframework.http.ResponseEntity;
 
@@ -76,6 +75,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private SupportMapFragment sMapFragment;
     private int ZOOM = 16;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mActivity = this.getActivity();
@@ -104,7 +104,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         mGoogleApiClient.connect();
         createLocationRequest();
 
-
         sendAndGetLocations();
 
         return inflater.inflate(R.layout.frag_map, container, false);
@@ -126,9 +125,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        double latitude = mUser.getLocation().getLattitude();
-        double longitude = mUser.getLocation().getLongitude();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
+        //set the camera to the user
+        onMyLocationButtonClick();
     }
 
 
@@ -139,14 +137,10 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-
-    }
+    public void onConnectionSuspended(int i) {}
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
     @Override
     public void onLocationChanged(android.location.Location location) {
@@ -181,8 +175,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             updateLocation();
         }
     }
-
-    //TODO Onresume Onresume
 
     private void updateLocation() {
         if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
