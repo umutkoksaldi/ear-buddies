@@ -25,7 +25,6 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             image = BitmapFactory.decodeStream(in);
         } catch (Exception e){
             Log.e("Error", e.getMessage());
-            e.printStackTrace();
         }
         return image;
     }

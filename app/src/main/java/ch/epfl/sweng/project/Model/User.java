@@ -2,8 +2,6 @@ package ch.epfl.sweng.project.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.Date;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
@@ -19,9 +17,7 @@ public class User {
     private String email;
     private Location location;
 
-    public User(){
-
-    }
+    public User(){}
 
     public long getIdApiConnection() {
         return idApiConnection;
@@ -51,7 +47,7 @@ public class User {
         return description;
     }
 
-    public void setDescrition (String description) {
+    public void setDescrition(String description) {
         this.description = description;
     }
 
@@ -103,7 +99,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     @Override
     public String toString() {

@@ -4,11 +4,10 @@ package ch.epfl.sweng.project.Model;
 public class ModelApplication {
 
     private static ModelApplication modelApplication = null;
-    private User user;
-
+    private User user = new User();
+    private User[] mOtherUsers;
 
     private ModelApplication() {}
-
 
     public User getUser() {
         return user;
@@ -25,5 +24,13 @@ public class ModelApplication {
             modelApplication = new ModelApplication();
         }
         return modelApplication;
+    }
+
+    public User[] getOtherUsers(){
+        return mOtherUsers;
+    }
+
+    public void setOtherUsers(User[] users){
+        mOtherUsers = users;
     }
 }

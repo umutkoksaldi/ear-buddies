@@ -13,7 +13,7 @@ public class GlobalSetting {
 
 
     // html code
-    public static final int GOOD_AWNSER = 200;
+    public static final int GOOD_ANSWER = 200;
 
 
     // Api Definition
