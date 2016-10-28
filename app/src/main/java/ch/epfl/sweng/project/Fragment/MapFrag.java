@@ -43,8 +43,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.springframework.http.ResponseEntity;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import Util.GlobalSetting;
@@ -57,18 +59,20 @@ import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMyLocationButtonClickListener {
-    private User mUser;
     private final String LATTITUDE = "lattitude";
     private final String LONGITUDE = "longitude";
     private final String USER_AROUND = "getUsersAround/";
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
-
     private final String ID = "idApiConnection";
+
+    private User mUser;
 
     //Location
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private String mLastUpdateTime;
+    private List<Marker> markers;
+
 
     private Activity mActivity;
 
@@ -292,11 +296,15 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     private void showOtherUsers() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
+        mMap.clear();
+        markers = new ArrayList<>();
         for (int i=0; i<otherUsers.length; ++i){
-            double latitude = otherUsers[i].getLocation().getLattitude()+0.01;
+            double latitude = otherUsers[i].getLocation().getLattitude()+0.001*(i+1);
             double longitude = otherUsers[i].getLocation().getLongitude();
             Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title
                     (otherUsers[i].getFirstname()));
+            markers.add(marker);
+
         }
     }
 
