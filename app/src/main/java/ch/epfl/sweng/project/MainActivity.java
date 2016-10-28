@@ -35,7 +35,7 @@ public final class MainActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tabLayoutMain);
 
         //Adding the tabs
-        mTabLayout.addTab(mTabLayout.newTab().setText("Blank"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Users"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Map"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Profile"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
