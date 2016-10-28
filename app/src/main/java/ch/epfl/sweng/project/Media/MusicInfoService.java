@@ -11,12 +11,28 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.springframework.http.ResponseEntity;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import Util.GlobalSetting;
+import ch.epfl.sweng.project.MainActivity;
+import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.Model.User;
+import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
+import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
+
 // Some code has been taken from this website :
 // http://www.codeproject.com/Articles/992398/Getting-Current-Playing-Song-with-BroadcastReceive
 
 public class MusicInfoService extends Service {
+    public static final String ARTIST_NAME = "artistName";
+    public static final String MUSIC_NAME = "musicName";
     private String artist = null;
     private String track = null;
+    private Music music;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -59,6 +75,8 @@ public class MusicInfoService extends Service {
         }
     };
 
+
+
     @Override
     public void onCreate() {
         Log.i("MusicInfoService", "Service started");
@@ -83,4 +101,36 @@ public class MusicInfoService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    private void sendPost(String AccesToken, String idFacebook, @SuppressWarnings("SameParameterValue") String requestApi) {
+        ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
+
+            @Override
+            public void onSucess(ResponseEntity response) {
+
+                // We associated the user to the new.
+                if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
+                    modelApplication.setUser((User) response.getBody());
+                } else {
+                    // Erreur pas pu communiquer avec le serveur
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailed() {
+// Erreur 404
+                Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Building the parameters for the
+        Map<String, String> params = new HashMap<>();
+        params.put(ARTIST_NAME, idFacebook);
+        params.put(MUSIC_NAME, AccesToken);
+
+        // the interface is already initiate above
+        serviceHandler.doPost(params, GlobalSetting.URL + requestApi, User.class);
+    }
+
 }
