@@ -19,6 +19,7 @@
         android:text="TextView2"
         android:layout_width="wrap_content"
         android:layout_toEndOf="@+id/imageView"
+
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
         android:id="@+id/textView2"
@@ -26,7 +27,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/imageView"
         android:gravity="start|center"
-        android:layout_height="25dp"/>
+        android:layout_height="25dp"
+        android:layout_toRightOf="@+id/imageView"/>
 
     <TextView
         android:text="TextView3"
