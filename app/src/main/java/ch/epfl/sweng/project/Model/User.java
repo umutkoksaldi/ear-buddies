@@ -17,7 +17,8 @@ public class User {
     private String email;
     private Location location;
 
-    public User(){}
+    public User() {
+    }
 
     public long getIdApiConnection() {
         return idApiConnection;
@@ -43,9 +44,10 @@ public class User {
         backgroundPicture = abackgroundPicture;
     }
 
-    public String getDescrition() {
+    public String getDescription() {
         return description;
     }
+
 
     public void setDescrition(String description) {
         this.description = description;
