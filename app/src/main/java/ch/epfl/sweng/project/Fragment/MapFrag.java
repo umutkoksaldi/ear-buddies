@@ -37,6 +37,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.springframework.http.ResponseEntity;
 
@@ -144,7 +146,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public void onLocationChanged(android.location.Location location) {
-        Log.i("Hello", "Hello");
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         mUser.setLocation(new Location(latitude, longitude));
@@ -266,6 +267,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                             ModelApplication.getModelApplication().setOtherUsers((User[]) (responseServer
                                     .getBody()));
 
+                            showOtherUsers();
                         } else {
                             onFailed();
                         }
@@ -286,6 +288,16 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                 h.postDelayed(this, DELAY);
             }
         }, DELAY);
+    }
+
+    private void showOtherUsers() {
+        User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
+        for (int i=0; i<otherUsers.length; ++i){
+            double latitude = otherUsers[i].getLocation().getLattitude()+0.01;
+            double longitude = otherUsers[i].getLocation().getLongitude();
+            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title
+                    (otherUsers[i].getFirstname()));
+        }
     }
 
 
