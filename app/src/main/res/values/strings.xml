@@ -5,6 +5,37 @@
     <string name="facebook_app_id">1055317924581025</string>
 
 
+    <!-- Pictures of Users -->
+    <string-array name="titles">
+        <item>Meme 1</item>
+        <item>Meme 2</item>
+        <item>Meme 3</item>
+        <item>Meme 4</item>
+        <item>Meme 5</item>
+        <item>Meme 6</item>
+        <item>Meme 7</item>
+        <item>Meme 8</item>
+        <item>Meme 9</item>
+        <item>Meme 10</item>
+    </string-array>
+
+    <string-array name="decriptions">
+        <item>This is description 1</item>
+        <item>This is description 2</item>
+        <item>This is description 3</item>
+        <item>This is description 4</item>
+        <item>This is description 5</item>
+        <item>This is description 6</item>
+        <item>This is description 7</item>
+        <item>This is description 8</item>
+        <item>This is description 9</item>
+        <item>This is description 10</item>
+    </string-array>
+
+
+
+
+
     <!-- Temporary -->
     <string name="edit">Edit</string>
     <string name="this_is_a_blank_fragment_that_we_need_to_change">This is a blank Fragment that we need to
