@@ -47,5 +47,6 @@
         try again. :) </string>
     <string name="connexion_facebook_pending" tools:ignore="UnusedResources">We are getting back your information,
         please wait :) </string>
+    <string name="choose_a_person_to_match_with">Choose a person to match with</string>
 
 </resources>

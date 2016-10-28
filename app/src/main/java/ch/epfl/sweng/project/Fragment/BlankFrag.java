@@ -40,18 +40,7 @@ public class BlankFrag extends Fragment{
     private String[] userNames;
     private ArrayList<User> listUsers;
     private String[] userDescription;
-    private int[] images = {R.drawable.alfa_romeo,
-                            R.drawable.bmw,
-            R.drawable.porsche,
-            R.drawable.peugeot,
-            R.drawable.volkswagen,
-            R.drawable.volvo,
-            R.drawable.opel,
-            R.drawable.nissan,
-            R.drawable.hyundai,
-            R.drawable.mercedes,
-
-};
+    private String[] images;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
@@ -63,28 +52,34 @@ public class BlankFrag extends Fragment{
 
         usersAround = ModelApplication.getModelApplication().getOtherUsers();
          if (usersAround == null){
+
             Log.i("No users", "" + 0);
-            usersAround = new User[10];
+            return view;
         }
 
-        int indx;
+       /* int indx;
         for(indx = 0; indx < usersAround.length; indx++){
             usersAround[indx] = new User();
-        }
+        }*/
 
+       /* int indx;
         int userNumber;
         for(indx = 0; indx < usersAround.length; indx++) {
             userNumber = indx + 1;
             usersAround[indx].setFirstname("User number" + userNumber);
             usersAround[indx].setDescrition("Description of the user number: " + userNumber);
-        }
+        }*/
         userNames = new String[usersAround.length];
         userDescription = new String[usersAround.length];
+        images = new String[usersAround.length];
+
+
 
         int userIndex;
         for(userIndex = 0; userIndex < usersAround.length; userIndex++){
+            images[userIndex] = usersAround[userIndex].getProfilePicture();
             userNames[userIndex] = usersAround[userIndex].getFirstname();
-            userDescription[userIndex] = usersAround[userIndex].getDescrition();
+            userDescription[userIndex] = usersAround[userIndex].getLastname();
         }
 
 
@@ -113,10 +108,10 @@ public class BlankFrag extends Fragment{
     class VivzAdapter extends  ArrayAdapter<String>{
 
         Context context;
-        int[] images;
+        String[] images;
         String[] titleArray;
         String[] descriptionArray;
-        VivzAdapter(Context c,String[] titles, int[] imgs, String[] desc){
+        VivzAdapter(Context c,String[] titles, String[] imgs, String[] desc){
 
             super(c, R.layout.single_row_blankfrag,R.id.textView2,titles);
             this.context = c;
@@ -138,7 +133,8 @@ public class BlankFrag extends Fragment{
             TextView myTitle = (TextView) row.findViewById(R.id.textView2);
             TextView myDescription = (TextView) row.findViewById(R.id.textView3);
 
-            myImage.setImageResource(images[position]);
+            new DownloadImageTask(myImage).execute(images[position]);
+
             myTitle.setText(titleArray[position]);
             myDescription.setText(descriptionArray[position]);
 
