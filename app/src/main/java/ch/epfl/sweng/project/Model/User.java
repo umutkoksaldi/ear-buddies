@@ -16,6 +16,7 @@ public class User {
     private boolean seeBirth;
     private String email;
     private Location location;
+    private long currentMusicId;
 
     public User() {
     }
@@ -100,6 +101,15 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public long getCurrentMusicId() {
+        return currentMusicId;
+    }
+
+    public void setCurrentMusicId(long currentMusicId) {
+        this.currentMusicId = currentMusicId;
     }
 
     @Override
