@@ -101,7 +101,7 @@ public class TestConnexionUser {
 
         try {
             latch.await(2, TimeUnit.SECONDS);
-            assertTrue("The test is not executed.", testChecked);
+            assertTrue("The server does not respond to the request.", testChecked);
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
         }

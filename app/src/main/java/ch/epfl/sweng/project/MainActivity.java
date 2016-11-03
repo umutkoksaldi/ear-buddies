@@ -95,5 +95,4 @@ public final class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
 }
