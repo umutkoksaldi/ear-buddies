@@ -59,10 +59,6 @@ public class Login extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        // THE SERVICE IS NOT IMPLEMENTED YET ON THE SERVER SIDE
-        if (isAlreadyConnected(GlobalSetting.USER_API)) {
-            Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
-        }
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
@@ -116,6 +112,12 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    /**
+     * Send post to the server in order to get the profile
+     * @param AccesToken given by facebook
+     * @param idFacebook given by facebook
+     * @param requestApi url to get information
+     */
     private void sendPost(String AccesToken, String idFacebook, @SuppressWarnings("SameParameterValue") String requestApi) {
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
 
@@ -148,19 +150,6 @@ public class Login extends AppCompatActivity {
         serviceHandler.doPost(params, GlobalSetting.URL + requestApi, User.class);
     }
 
-    /**
-     * Check if the user is already connected with facebook on our application.
-     * @return true if
-     */
-    private boolean isAlreadyConnected (String requestApi) {
-        boolean isConnected = false;
-        if (Profile.getCurrentProfile() != null) {
-            isConnected = true;
-            sendPost(AccessToken.getCurrentAccessToken().getToken(), Profile.getCurrentProfile().getId(),
-                    GlobalSetting.USER_API);
-        }
-        return isConnected;
-    }
 
     private void addPermissions() {
         List<String> permissions = new ArrayList<>();
