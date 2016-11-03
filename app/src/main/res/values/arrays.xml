@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array
+        name="music_taste_array">
+        <item>Rock</item>
+        <item>Metal</item>
+        <item>Pop</item>
+        <item>Classic</item>
+        <item>Jazz</item>
+        <item>EDM</item>
+    </array>
+</resources>

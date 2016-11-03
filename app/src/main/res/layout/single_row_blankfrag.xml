@@ -6,7 +6,6 @@
                 android:layout_height="match_parent">
 
     <ImageView
-        app:srcCompat="@drawable/alfa_romeo"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

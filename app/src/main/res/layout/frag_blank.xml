@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="textViewBlankFrag"
+        android:text="@string/choose_a_person_to_match_with"
         tools:text="Choose a person to match with"
         android:fontFamily="sans-serif"
         android:gravity="center"
