@@ -6,11 +6,10 @@ public class GlobalSetting {
 
 
     // this one for reaching the server on heroku
-    //public static final String URL = "https://sw-eng-go.herokuapp.com";
+    public static final String URL = "https://sw-eng-go.herokuapp.com";
 
     // for local server
     //public static final String URL = "http://10.0.2.2:3000";
-    public static final String URL = "http://192.168.1.17:3000";
 
 
     // html code
