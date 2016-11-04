@@ -43,52 +43,39 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
 
     public void testCanClickFromMapToBlank() {
         getActivity();
-        SystemClock.sleep(2000);
         Matcher<View> matcher = allOf(withText("Users"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
-        SystemClock.sleep(500);
         onView(matcher).perform(click());
     }
 
     public void testCanClickFromMapToProfile() {
         getActivity();
-        SystemClock.sleep(2000);
         Matcher<View> matcher = allOf(withText("Profile"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
-        SystemClock.sleep(500);
         onView(matcher).perform(click());
     }
 
     public void testCanClickOnAllFragments() {
         getActivity();
-        SystemClock.sleep(2000);
         Matcher<View> matcher = allOf(withText("Users"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
-        SystemClock.sleep(500);
         onView(matcher).perform(click());
         matcher = allOf(withText("Map"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
-        SystemClock.sleep(500);
         onView(matcher).perform(click());
         matcher = allOf(withText("Profile"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
-        SystemClock.sleep(500);
         onView(matcher).perform(click());
         matcher = allOf(withText("Map"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
-        SystemClock.sleep(500);
         onView(matcher).perform(click());
     }
 
     public void testCanSwipeOnMap() {
         getActivity();
-        SystemClock.sleep(2000);
         onView(withId(R.id.pagerMain)).perform(swipeRight());
-        SystemClock.sleep(500);
         onView(withId(R.id.pagerMain)).perform(swipeLeft());
         onView(withId(R.id.pagerMain)).perform(swipeLeft());
-        SystemClock.sleep(500);
         onView(withId(R.id.pagerMain)).perform(swipeRight());
-        SystemClock.sleep(5000);
     }
 }
