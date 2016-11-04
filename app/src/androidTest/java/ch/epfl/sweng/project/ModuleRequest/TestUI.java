@@ -37,10 +37,6 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
 
     @Override
     public void setUp(){
-        reset();
-    }
-
-    private void reset(){
         User userTest = new User();
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
@@ -62,7 +58,10 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
     }*/
 
     public void testCanClickOnAllFragments() {
-        reset();
+        User userTest = new User();
+        userTest.setLocation(new Location());
+        modelApplication.setUser(userTest);
+        getActivity();
         Matcher<View> matcher = allOf(withText("Users"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
