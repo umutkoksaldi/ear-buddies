@@ -11,10 +11,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import Util.GlobalSetting;
-import ch.epfl.sweng.project.Model.User;
+import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -25,20 +26,19 @@ public class MusicInfoServiceTest {
     //----------------------------------------------------------------
     // Define constant
 
-    public static final String ARTIST_NAME_TEST = "Moby";
-    public static final String MUSIC_NAME_TEST = "Flower";
-
-    //----------------------------------------------------------------
-    // Constant Music
-    private static final String ARTIST_NAME = "artistName";
-    private static final String MUSIC_NAME = "musicName";
-
+    private static final String ARTIST_NAME_REQUEST = "rihanna";
+    private static final String MUSIC_NAME_REQUEST = "umbrella";
+    private static final String ARTIST_NAME_TEST = "Rihanna";
+    private static final String MUSIC_NAME_TEST = "Umbrella";
+    private static final String TAG_TEST = "yolo";
+    private static final String URL_TEST = "https://www.last.fm/music/Rihanna/_/Umbrella";
+    private static final String USER_ID_REQUEST = "121620614972695";
     //----------------------------------------------------------------
     // Test
     private boolean testChecked = false;
 
     @Test
-    public void Should_test_music_info_service() {
+    public void shouldTestMusicInfoService() {
 
         final CountDownLatch latch = new CountDownLatch(1);
 
@@ -50,10 +50,11 @@ public class MusicInfoServiceTest {
 
                 // We associated the user to the new.
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
-                    User userTest = (User) response.getBody();
-                    assertEquals("age should be equals", AGE_USER, userTest.getAge());
-                    assertEquals("first name should be equals", FIRSTNAME_USER, userTest.getFirstname());
-                    assertEquals("last name should be equals", LASTNAME_USER, userTest.getLastname());
+                    Music musicTest = (Music) response.getBody();
+                    assertEquals("artist name should be equal", ARTIST_NAME_TEST, musicTest.getArtist());
+                    assertEquals("song name should be equal", MUSIC_NAME_TEST, musicTest.getName());
+                    assertEquals("tag should be equal", TAG_TEST, musicTest.getTag());
+                    assertEquals("LastFM URL should be equal", URL_TEST, musicTest.getUrl());
                     testChecked = true;
                 } else {
                     assertTrue("The request fail", false);
@@ -62,7 +63,7 @@ public class MusicInfoServiceTest {
 
             @Override
             public void onFailed() {
-                assertTrue("The request fail, error 404", false);
+                assertTrue("The request failed", false);
             }
 
         });
@@ -70,14 +71,14 @@ public class MusicInfoServiceTest {
 
         // Building the parameters for the
         Map<String, String> params = new HashMap<>();
-        params.put(ID, ID_FACEBOOK);
-        params.put(ACESS_TOKEN, ACCESS_TOKEN_FACEBOOK);
+        params.put(MusicInfoService.ARTIST_NAME, ARTIST_NAME_REQUEST);
+        params.put(MusicInfoService.MUSIC_NAME, MUSIC_NAME_REQUEST);
 
         // the interface is already initiate above
-        serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API, User.class);
-
+        serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.MUSIC_API + USER_ID_REQUEST, Music
+                .class);
         try {
-            latch.await(2, TimeUnit.SECONDS);
+            latch.await(5, TimeUnit.SECONDS);
             assertTrue("The test is not executed.", testChecked);
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
