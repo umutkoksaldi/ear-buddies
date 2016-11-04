@@ -39,10 +39,10 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
         User userTest = new User();
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
-        getActivity();
        }
 
     public void testCanClickFromMapToBlank() {
+        getActivity();
         SystemClock.sleep(2000);
         Matcher<View> matcher = allOf(withText("Users"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
@@ -60,6 +60,7 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
     }
 
     public void testCanClickOnAllFragments() {
+        getActivity();
         SystemClock.sleep(2000);
         Matcher<View> matcher = allOf(withText("Users"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
