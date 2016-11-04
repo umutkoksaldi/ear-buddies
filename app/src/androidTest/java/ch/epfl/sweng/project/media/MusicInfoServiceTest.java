@@ -29,13 +29,14 @@ public class MusicInfoServiceTest {
     // This is what we'll ask to the server. The typo mistakes are on purpose.
     private static final String ARTIST_NAME_REQUEST = "rihana";
     private static final String MUSIC_NAME_REQUEST = "umbrella";
+    private static final String USER_ID_REQUEST = "121620614972695";
 
     // This is what the server should answer
     private static final String ARTIST_NAME_TEST = "Rihanna";
     private static final String MUSIC_NAME_TEST = "Umbrella";
     private static final String TAG_TEST = "yolo";
     private static final String URL_TEST = "https://www.last.fm/music/Rihanna/_/Umbrella";
-    private static final String USER_ID_REQUEST = "121620614972695";
+
     //----------------------------------------------------------------
     // Test
     private boolean testChecked = false;
@@ -84,7 +85,7 @@ public class MusicInfoServiceTest {
             latch.await(5, TimeUnit.SECONDS);
             assertTrue("The test is not executed.", testChecked);
         } catch (InterruptedException e) {
-            assertTrue("Error in the time waiting", false);
+            assertTrue("Error in the time waiting : " + e.toString(), false);
         }
 
     }
