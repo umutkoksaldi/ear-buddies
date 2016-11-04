@@ -26,8 +26,11 @@ public class MusicInfoServiceTest {
     //----------------------------------------------------------------
     // Define constant
 
-    private static final String ARTIST_NAME_REQUEST = "rihanna";
+    // This is what we'll ask to the server. The typo mistakes are on purpose.
+    private static final String ARTIST_NAME_REQUEST = "rihana";
     private static final String MUSIC_NAME_REQUEST = "umbrella";
+
+    // This is what the server should answer
     private static final String ARTIST_NAME_TEST = "Rihanna";
     private static final String MUSIC_NAME_TEST = "Umbrella";
     private static final String TAG_TEST = "yolo";

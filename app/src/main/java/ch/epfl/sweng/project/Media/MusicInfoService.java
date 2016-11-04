@@ -11,7 +11,17 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.springframework.http.ResponseEntity;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import Util.GlobalSetting;
+import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
+import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 // Some code has been taken from this website :
 // http://www.codeproject.com/Articles/992398/Getting-Current-Playing-Song-with-BroadcastReceive
@@ -19,6 +29,7 @@ import ch.epfl.sweng.project.Model.Music;
 public class MusicInfoService extends Service {
     public static final String ARTIST_NAME = "artistName";
     public static final String MUSIC_NAME = "musicName";
+    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private String artist = "";
     private String track = "";
     private Music music;
@@ -28,9 +39,7 @@ public class MusicInfoService extends Service {
 
             String newTrack = intent.getStringExtra("track");
             String newArtist = intent.getStringExtra("artist");
-            Log.d("MusicInfoService", "mReceiver.onReceive : " + newArtist + " - " + newTrack);
-            // It's also possible to get the album, if needed in the future
-            // String new_album = intent.getStringExtra("album");
+            //Log.d("MusicInfoService", "mReceiver.onReceive : " + newArtist + " - " + newTrack);
 
             boolean playing = intent.getBooleanExtra("playing", false);
 
@@ -42,19 +51,16 @@ public class MusicInfoService extends Service {
                     // Do nothing
                     Log.d("MusicInfoService", "mReceiver.onReceive : new song is the same as the last one");
                 } else if (newArtist != null && newTrack != null) {
-                    // TODO Send the newly played song instead of just displaying a toast
-                    Log.d("MusicInfoService", newArtist + " - " + newTrack);
-                    Toast.makeText(MusicInfoService.this,
-                            "[Love at 1st song] " + newArtist + " - " + newTrack,
-                            Toast.LENGTH_LONG).show();
+                    // Send the newly played song instead of just displaying a toast
+                    Log.d("MusicInfoService", "mReceiver.onReceive new song playing: " + newArtist + " - " + newTrack);
+                    sendPost(newArtist, newTrack, GlobalSetting.MUSIC_API);
                 }
                 // Keep track of new song
                 artist = newArtist;
                 track = newTrack;
 
             } else {
-                Log.d("MusicInfoService", "No song currently playing");
-                // The first time, the track and artist variables are null
+                Log.d("MusicInfoService", "Music is paused");
             }
 
         }
@@ -87,7 +93,7 @@ public class MusicInfoService extends Service {
         return null;
     }
 
-    /*private void sendPost(String artistName, String trackName, @SuppressWarnings("SameParameterValue") String
+    private void sendPost(String artistName, String trackName, @SuppressWarnings("SameParameterValue") String
             requestApi) {
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
 
@@ -96,17 +102,21 @@ public class MusicInfoService extends Service {
 
                 // We associated the user to the new.
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
-                    modelApplication.setUser((User) response.getBody());
+                    modelApplication.setMusic((Music) response.getBody());
+                    Log.d("MusicInfoService", "new track in modelApplication : " + modelApplication.getMusic()
+                            .getArtist() + " - " + modelApplication.getMusic().getName());
                 } else {
                     // Erreur pas pu communiquer avec le serveur
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.server_error_music_info), Toast
+                            .LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailed() {
 // Erreur 404
-                Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.server_error_music_info), Toast
+                        .LENGTH_SHORT).show();
             }
         });
 
@@ -116,7 +126,7 @@ public class MusicInfoService extends Service {
         params.put(MUSIC_NAME, trackName);
 
         // the interface is already initiate above
-        serviceHandler.doPost(params, GlobalSetting.URL + requestApi, Music.class);
-    }*/
+        serviceHandler.doPost(params, GlobalSetting.URL + requestApi + modelApplication.getUser().getIdApiConnection(), Music.class);
+    }
 
 }
