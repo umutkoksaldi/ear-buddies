@@ -5,37 +5,55 @@ package ch.epfl.sweng.project.Model;
  */
 
 public class Music {
-    private String musicName;
-    private String artistName;
+    private String id;
+    private String artist;
+    private String name;
+    private String url;
+    private String tag;
 
 
     public Music() {
 
     }
 
-    public String getMusicName() {
-        return musicName;
+
+    public String getId() {
+        return id;
     }
 
-    public void setMusicName(String musicName) {
-        this.musicName = musicName;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getArtistName() {
-        return artistName;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        boolean result = false;
-        if (other instanceof Music) {
-            Music that = (Music) other;
-            result = (getArtistName() == that.getArtistName() && getMusicName() == that.getMusicName());
-        }
-        return result;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

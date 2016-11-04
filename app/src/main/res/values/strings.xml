@@ -60,6 +60,10 @@
     <string name="connexion_facebook_pending" tools:ignore="UnusedResources">We are getting back your information,
         please wait :) </string>
 
+    <!-- MusicInfoService -->
+    <string name="server_error_music_info">"Could not retrieve the info about the currently playing
+        music :("</string>
+
     <!--Users Frag -->
     <string name="choose_a_person_to_match_with">Choose a person to match with</string>
 
