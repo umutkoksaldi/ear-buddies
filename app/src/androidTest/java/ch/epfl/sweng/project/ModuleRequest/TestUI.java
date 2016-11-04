@@ -39,24 +39,22 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
         User userTest = new User();
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
+        getActivity();
        }
 
     public void testCanClickFromMapToBlank() {
-        getActivity();
         Matcher<View> matcher = allOf(withText("Users"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
     }
 
     public void testCanClickFromMapToProfile() {
-        getActivity();
         Matcher<View> matcher = allOf(withText("Profile"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
     }
 
     public void testCanClickOnAllFragments() {
-        getActivity();
         Matcher<View> matcher = allOf(withText("Users"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
@@ -72,7 +70,6 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
     }
 
     public void testCanSwipeOnMap() {
-        getActivity();
         onView(withId(R.id.pagerMain)).perform(swipeRight());
         onView(withId(R.id.pagerMain)).perform(swipeLeft());
         onView(withId(R.id.pagerMain)).perform(swipeLeft());
