@@ -34,18 +34,13 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
     }
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
 
-
     @Override
     public void setUp(){
-        try {
-            super.setUp();
-        } catch (java.lang.Exception e){}
         User userTest = new User();
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
         getActivity();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-    }
+       }
 
     public void testCanClickFromMapToBlank() {
         SystemClock.sleep(2000);
@@ -85,7 +80,6 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
     }
 
     public void testCanSwipeOnMap() {
-        //Visual testing
         getActivity();
         SystemClock.sleep(2000);
         onView(withId(R.id.pagerMain)).perform(swipeRight());
