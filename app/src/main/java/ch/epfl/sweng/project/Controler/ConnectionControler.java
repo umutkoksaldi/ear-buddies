@@ -36,7 +36,7 @@ public class ConnectionControler {
 
     private ConnectionControler() {}
 
-    public static synchronized ModelApplication getModelApplication()
+    public static ConnectionControler getConnectionControler()
     {
         if (connectionControler == null){
             connectionControler = new ConnectionControler();
@@ -51,7 +51,7 @@ public class ConnectionControler {
      * @param transitionClass destination Activity. should not be null
      * @param intentExtra     shared data. should not be null
      */
-    private void changeActivity(Activity currentActivity ,Class transitionClass, Map<String, String> intentExtra) {
+    public void changeActivity(Activity currentActivity ,Class transitionClass, Map<String, String> intentExtra) {
         if (transitionClass == null && intentExtra == null) {
             Log.w("changeActivity()", "null value parameters");
             return;
@@ -70,7 +70,7 @@ public class ConnectionControler {
      * @param idFacebook given by facebook
      * @param requestApi url to get information
      */
-    private void sendPost(final Activity currentActivity, String AccesToken, String idFacebook, @SuppressWarnings
+    public void sendPost(final Activity currentActivity, String AccesToken, String idFacebook, @SuppressWarnings
             ("SameParameterValue") String requestApi, final boolean isTest) {
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
 
@@ -80,7 +80,7 @@ public class ConnectionControler {
                 // We associated the user to the new.
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
                     modelApplication.setUser((User) response.getBody());
-                    if (isTest) {
+                    if (!isTest) {
                         changeActivity(currentActivity, MainActivity.class, new HashMap<String, String>());
                     }
 
