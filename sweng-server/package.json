@@ -5,7 +5,7 @@
   "author": "Arnaud",
   "scripts": {
     "start": "set NODE_ENV=dev && node ./bin/www",
-    "test": "jenkins-mocha test/*"
+    "test": "jenkins-mocha --cobertura test/*"
     
   },
   "dependencies": {
