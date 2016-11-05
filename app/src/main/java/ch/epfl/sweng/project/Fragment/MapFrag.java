@@ -279,7 +279,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
                     @Override
                     public void onFailed() {
-                        Toast.makeText(getContext(), "Unable to get Locations", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "Unable to get Locations", Toast.LENGTH_SHORT).show();
                     }
                 });
 
