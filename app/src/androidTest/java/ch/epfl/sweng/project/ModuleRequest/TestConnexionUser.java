@@ -17,6 +17,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import Util.GlobalSetting;
+import ch.epfl.sweng.project.Controler.ConnectionControler;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
@@ -35,6 +36,8 @@ import static junit.framework.Assert.assertTrue;
 @LargeTest
 public class TestConnexionUser {
 
+    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+    private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
     //----------------------------------------------------------------
     // Define constant
 
@@ -58,58 +61,28 @@ public class TestConnexionUser {
     //----------------------------------------------------------------
     // Test
 
-    private boolean testChecked = false;
-
     @Test
     public void Should_test_connexion_user() {
 
         final CountDownLatch latch = new CountDownLatch(1);
 
-        Log.i("","Should_test_connexion_user()");
-        ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
-
-            @Override
-            public void onSucess(ResponseEntity response) {
-
-                // We associated the user to the new.
-                if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
-                    User userTest = (User) response.getBody();
-                    assertEquals("age should be equals", AGE_USER,userTest.getAge());
-                    assertEquals("first name should be equals",FIRSTNAME_USER,userTest.getFirstname());
-                    assertEquals("last name should be equals",LASTNAME_USER,userTest.getLastname());
-                    checkValue();
-                } else {
-                    assertTrue("The request fail", false);
-                }
-            }
-
-            @Override
-            public void onFailed() {
-                assertTrue("The request fail, error 404", false);
-            }
-
-        });
-
-
-        // Building the parameters for the
-        Map<String, String> params = new HashMap<>();
-        params.put(ID, ID_FACEBOOK);
-        params.put(ACESS_TOKEN, ACCESS_TOKEN_FACEBOOK);
-
-        // the interface is already initiate above
-        serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API, User.class);
+        // we call the server to
+        controlerConnection.sendPost(null,ACCESS_TOKEN_FACEBOOK,ID_FACEBOOK, GlobalSetting.USER_API,true);
 
         try {
             latch.await(2, TimeUnit.SECONDS);
-            assertTrue("The server does not respond to the request.", testChecked);
+            // get the user in the model.
+            User userTest = modelApplication.getUser();
+            assertEquals("age should be equals", AGE_USER,userTest.getAge());
+            assertEquals("first name should be equals",FIRSTNAME_USER,userTest.getFirstname());
+            assertEquals("last name should be equals",LASTNAME_USER,userTest.getLastname());
+            // TODO check the all parameters.
+
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
+
         }
 
-    }
-
-    private void checkValue(){
-        testChecked = true;
     }
 
 }
