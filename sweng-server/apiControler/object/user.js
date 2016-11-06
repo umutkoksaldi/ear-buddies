@@ -23,6 +23,13 @@ function UserDto()
         return UserObject;
     }
 
+    this.changeSetting = function(UserObject,SettingObject) {
+        utils.logInfo("changeSetting(), Modify the Json client")
+        delete UserObject['SettingId']
+        UserObject.setting = SettingObject
+        return UserObject;
+    }
+
     this.computeAge = function (birthdate) {
 
         utils.logInfo(birthdate);
