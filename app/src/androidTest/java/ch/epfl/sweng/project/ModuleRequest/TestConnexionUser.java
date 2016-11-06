@@ -28,17 +28,17 @@ public class TestConnexionUser {
     //----------------------------------------------------------------
     // Define constant
 
-    private static final String ID_FACEBOOK = "121620614972695";
-    private static final String ACCESS_TOKEN_FACEBOOK =
+    public static final String ID_FACEBOOK = "121620614972695";
+    public static final String ACCESS_TOKEN_FACEBOOK =
             "EAAOZCzloFDqEBAHGnY8Q6I4d6fJRy9c6FWYZAqNxp2ChFBvpv8ZAycQC7a0oT21ZBp0Ku" +
-                    "ZBzPSDzCKDBBMkGhWA8ZAyrJAcBZA6LCi5XtgZDZD" +
-                    "IbZCIUkLWSH4Ev7pIQrjlzAxvrfznhXZAeb8A3ZCZBDks8WekNs4WgtfteZCMhUPQx5ZBPmbBMfwBgjqqAeaHOjtYFe38VYfXV35ZCnQ0y";
-    private static final int AGE_USER = 0;
-    private static final String FIRSTNAME_USER = "Sweng";
+                    "IbZCIUkLWSH4Ev7pIQrjlzAxvrfznhXZAeb8A3ZCZBDks8WekNs4WgtfteZCMhUPQx5ZBPmbBMfwBgjqqAeaHOjtYFe38VYfXV35ZCnQ0y" +
+                    "ZBzPSDzCKDBBMkGhWA8ZAyrJAcBZA6LCi5XtgZDZD";
+    public static final int AGE_USER = 0;
+    public static final String FIRSTNAME_USER = "Sweng";
 
     //----------------------------------------------------------------
     // Constant User
-    private static final String LASTNAME_USER = "Tests";
+    public static final String LASTNAME_USER = "Tests";
     private static final String ID = "id";
     private static final String ACESS_TOKEN = "accesToken";
     // TODO à completer pour tester tous les parametes.
@@ -48,7 +48,7 @@ public class TestConnexionUser {
     private boolean testChecked = false;
 
     @Test
-    public void shouldTestUserConnection() {
+    public void Should_test_connexion_user() {
 
         final CountDownLatch latch = new CountDownLatch(1);
 
@@ -64,7 +64,7 @@ public class TestConnexionUser {
                     assertEquals("age should be equals", AGE_USER,userTest.getAge());
                     assertEquals("first name should be equals",FIRSTNAME_USER,userTest.getFirstname());
                     assertEquals("last name should be equals",LASTNAME_USER,userTest.getLastname());
-                    testChecked = true;
+                    checkValue();
                 } else {
                     assertTrue("The request fail", false);
                 }
@@ -87,13 +87,16 @@ public class TestConnexionUser {
         serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API, User.class);
 
         try {
-            latch.await(5, TimeUnit.SECONDS);
+            latch.await(10, TimeUnit.SECONDS);
             assertTrue("The test is not executed.", testChecked);
         } catch (InterruptedException e) {
-            assertTrue("Error in the time waiting: " + e.toString(), false);
+            assertTrue("Error in the time waiting", false);
         }
 
     }
 
+    private void checkValue() {
+        testChecked = true;
+    }
 
 }
