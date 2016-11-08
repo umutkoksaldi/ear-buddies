@@ -15,7 +15,13 @@ import ch.epfl.sweng.project.Login;
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.WelcomeActivity;
 
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.isDialog;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.internal.util.Checks.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 
@@ -41,8 +47,8 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
 
     public TestSessionFirstConnection() {
         super(WelcomeActivity.class);
-
     }
+
 
     @Override
     public void setUp() throws Exception {
@@ -56,7 +62,6 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
 
         intent.putExtras(bundle);
         // Set the intent.
-        setActivityIntent(intent);
 
 
         // Set the intent.
@@ -73,6 +78,7 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
         final CountDownLatch latch = new CountDownLatch(1);
 
         getActivity();
+
 
         try {
             latch.await(2, TimeUnit.SECONDS);
