@@ -78,8 +78,6 @@ public class TestSessionUserAlreadyConnected extends ActivityInstrumentationTest
             // check the foreground activity.
             assertCurrentActivityIsInstanceOf(MainActivity.class);
             Thread.sleep(2000);
-            onView(withText("YES")).perform(click());
-            Thread.sleep(2000);
             pressBack();
             Thread.sleep(2000);
             assertCurrentActivityIsInstanceOf(MainActivity.class);
