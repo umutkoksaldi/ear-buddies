@@ -96,14 +96,17 @@ public class WelcomeActivity extends AppCompatActivity{
 
         // -----------------------------------------------------------------
         // Set up for testing
-        else if(intent.getExtras().getString(TESTING_ALREADY_CONNECTED) != null) {
-            mAlreadyConnected = true;
-            mId = intent.getExtras().getString(ID);
-            mAccessToken = intent.getExtras().getString(ACESS_TOKEN);
-        }
+        if(intent.getExtras() != null ){
 
-        else if (intent.getExtras().getString(TESTING_FIRST_CONNECTION) != null){
-            mAlreadyConnected = false;
+            if(intent.getExtras().getString(TESTING_ALREADY_CONNECTED) != null) {
+                mAlreadyConnected = true;
+                mId = intent.getExtras().getString(ID);
+                mAccessToken = intent.getExtras().getString(ACESS_TOKEN);
+            }
+
+            else if (intent.getExtras().getString(TESTING_FIRST_CONNECTION) != null){
+                mAlreadyConnected = false;
+            }
         }
 
     }
