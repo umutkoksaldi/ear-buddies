@@ -62,11 +62,12 @@ public class Login extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        LoginManager.getInstance().logOut();
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
         addPermissions();
-        final Activity currentActivity = this;
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @SuppressWarnings("unused")
             private ProfileTracker mProfileTracker;
@@ -77,7 +78,7 @@ public class Login extends AppCompatActivity {
                     mProfileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                            controlerConnection.sendPost(currentActivity.getParent(),AccessToken
+                            controlerConnection.sendPost(currentActivity.get(),AccessToken
                                     .getCurrentAccessToken()
                                     .getToken(), profile2
                                     .getId(), GlobalSetting.USER_API,false);
@@ -87,7 +88,8 @@ public class Login extends AppCompatActivity {
                 } else {
                     Profile profile = Profile.getCurrentProfile();
                     Log.i("facebook - profile 2eme", profile.getFirstName());
-                    controlerConnection.sendPost(currentActivity.getParent(),AccessToken.getCurrentAccessToken().getToken(), profile.getId(),
+                    controlerConnection.sendPost(currentActivity.get(),AccessToken.getCurrentAccessToken().getToken(),
+                            profile.getId(),
                             GlobalSetting.USER_API,false);
                     Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
                 }

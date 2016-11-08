@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for sweng-server/apiControler/model/musicModel.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">sweng-server/apiControler/model/</a> musicModel.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.91% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>50/55</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.71% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.91% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>50/55</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">// Récupération du Modèle
+var unirest = require('unirest');
+var util = require('util');
+var setting = require('../../setting/error.js');
+var databaseConfig = require('../../setting/database.js');
+var globalConfig = require('../../setting/global.js');
+var musicManipulation = require ('../object/music.js')
+var utils = require('../utils/Utils.js');
+&nbsp;
+&nbsp;
+// database
+var databasePostgres = require('../database/postgres.js');
+var User = require('../database/SequelizeORM.js').User;
+var Music = require('../database/SequelizeORM.js').Music;
+&nbsp;
+//---------------------------------- DEFINE CONSTANT ------------------------------------
+var URL_LASTFM = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo"
+&nbsp;
+//---------------------------------- DEFINE CONSTANT ------------------------------------
+&nbsp;
+// Définition de l'objet controllerUtilisateur
+function controlerMusic(){
+&nbsp;
+  // Implementation of the REST GET service.
+  this.getMusic = function(idMusic,callback){
+&nbsp;
+      utils.logInfo("getUserByIdConnection(), get the user"+ idMusic);
+&nbsp;
+        // select query.
+         Music.sync().then(function () {
+&nbsp;
+             // select query.
+             var getMusic =  Music.findOne({
+                  where: {
+                    id : idMusic
+                  }
+&nbsp;
+                }).then(function(getMusic) {
+&nbsp;
+                    var response = musicManipulation.transformResponseClient(getMusic.dataValues); 
+                    callback(response,setting.htmlCode.succes_request);
+&nbsp;
+                }).catch(function(error) {
+                    utils.logError("error getting user : "+error)
+                    callback(null,setting.htmlCode.unavailable_ressources);
+              });
+          });
+    }
+&nbsp;
+&nbsp;
+    this.updateMusic = function(idApi,MusicObject,callback)    {     
+&nbsp;
+        // GET the user description by doing a post on facebook API.
+        unirest.get(buildRequestLastFm(MusicObject.artistName,MusicObject.musicName)).end(function(res){
+&nbsp;
+          // We can't reach the facebook graph.
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (res.error) {
+<span class="cstat-no" title="statement not covered" >           callback(null,setting.htmlCode.unavailable_ressources);</span>
+          }
+          else {
+                var body = {'artist':null,'track':null}
+&nbsp;
+                // get the value from the response.
+                res.raw_body  = JSON.parse(res.raw_body, (key, value) =&gt; {
+                  // the case where we can't find any informations about the music.
+                  if(key == 'error'){
+                    body = {
+                              'artist': MusicObject.artistName ,
+                              'track':{'url': null , 'name':MusicObject.musicName}
+                            }
+                  }
+&nbsp;
+                  // we get the result.
+                  if(key =='artist'){
+                      body.artist = value
+                  }
+&nbsp;
+                 if(key =='track'){
+                      body.track = value
+                  }
+                  return value;                
+              });
+&nbsp;
+&nbsp;
+               // We synchronize with the databse in order to change the name and the 
+               Music.sync({}).then(function () {
+&nbsp;
+                    // add the music.
+                    var CreateMusic =  Music.create({
+                            artist        : body.artist,
+                            name          : body.track.name,
+                            url           : body.track.url,
+                            tag           : 'yolo'
+&nbsp;
+                  // callback if the user srequest succeed.
+                  }).then(function(CreateMusic) {
+                      utils.logError("Sucess"); 
+&nbsp;
+                      User.sync().then(function () {
+                      // select query.
+                       var getUser =  User.findOne({
+                            where: {
+                              idApiConnection: idApi
+                            }
+&nbsp;
+                          }).then(function(getUser) {
+&nbsp;
+                              // We force the link.
+                              getUser.setCurrentMusic(CreateMusic.id);
+                              getUser.addMusic(CreateMusic.id);
+                              var response = musicManipulation.transformResponseClient(CreateMusic.dataValues); 
+                              callback(response,setting.htmlCode.succes_request);
+&nbsp;
+                          }).catch(<span class="fstat-no" title="function not covered" >function(error) {</span>
+<span class="cstat-no" title="statement not covered" >                              utils.logError("error getting user : "+error)</span>
+<span class="cstat-no" title="statement not covered" >                              callback(null,setting.htmlCode.unavailable_ressources);</span>
+                          });
+                      });
+&nbsp;
+                  // if there is any error in computing value for user.
+                  }).catch(<span class="fstat-no" title="function not covered" >function(error) {</span>
+<span class="cstat-no" title="statement not covered" >                      utils.logInfo("controllerUtilisateur(), the request fail"+error);</span>
+<span class="cstat-no" title="statement not covered" >                      callback(null,setting.htmlCode.unavailable_ressources);</span>
+                  })
+&nbsp;
+              });
+            }
+&nbsp;
+        })
+    };
+&nbsp;
+&nbsp;
+    var buildRequestLastFm = function(nameArtist, nameMusic){
+      artistePart  = nameArtist == undefined ? '' : '&amp;artist='+ nameArtist;
+      musicPart    = nameMusic == undefined  ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: '&amp;track='  + nameMusic;
+      formatPart   = '&amp;format=json'; 
+&nbsp;
+      utils.logInfo(artistePart);
+      utils.logInfo(musicPart);
+      utils.logInfo(formatPart);
+&nbsp;
+      return  URL_LASTFM +"&amp;api_key="+globalConfig.ApiKey.lastFm+ artistePart + musicPart + formatPart;
+    }
+}
+&nbsp;
+module.exports = new controlerMusic();</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Nov 05 2016 07:41:43 GMT+0100 (CET)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

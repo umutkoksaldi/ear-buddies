@@ -37,19 +37,32 @@ public class WelcomeActivity extends AppCompatActivity{
 
     private static final String ID = "id";
     private static final String ACESS_TOKEN = "accesToken";
+    private static final String TESTING_ALREADY_CONNECTED = "Testing_already_conected";
+    private static final String TESTING_FIRST_CONNECTION = "Testing_frist_connection";
+
+
+    private boolean mAlreadyConnected = false;
+    private String mId;
+    private String mAccessToken;
+    private Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         Log.i("onCreate", "the user connect to the application");
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.welcome_activity);
 
+        // test if the user is connected or not
+        // Moreover test if it is for a test or not.
+        mIntent = getIntent();
+        setAlreadyConnected(mIntent);
+
+
+
         // We get the user information back.
-        if (Profile.getCurrentProfile() != null && AccessToken.getCurrentAccessToken() != null) {
-            controlerApplication.sendPost(this,AccessToken.getCurrentAccessToken().getToken(),Profile
-                    .getCurrentProfile().getId(),GlobalSetting.USER_API, false);
+        if (mAlreadyConnected) {
+            controlerApplication.sendPost(this,mAccessToken,mId,GlobalSetting.USER_API, false);
         }
         // We don't have any informations about the user in database.
         else{
@@ -62,14 +75,37 @@ public class WelcomeActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         // We get the user information back.
-        if (Profile.getCurrentProfile() != null && AccessToken.getCurrentAccessToken() != null) {
-            controlerApplication.sendPost(this,AccessToken.getCurrentAccessToken().getToken(),Profile
-                    .getCurrentProfile().getId(),GlobalSetting.USER_API, false);
+        if (mAlreadyConnected) {
+            controlerApplication.sendPost(this,mAccessToken,mId,GlobalSetting.USER_API, false);
         }
         // We don't have any informations about the user in database.
         else{
             controlerApplication.changeActivity(this, Login.class, new HashMap<String, String>());
         }
+    }
+
+
+    private void setAlreadyConnected (Intent intent){
+
+        // Facebook maintain the Profile active from the moment the user connect in the app.
+        if (Profile.getCurrentProfile() != null && AccessToken.getCurrentAccessToken() != null){
+            mAlreadyConnected = true;
+            mId = Profile.getCurrentProfile().getId();
+            mAccessToken = AccessToken.getCurrentAccessToken().getToken();
+        }
+
+        // -----------------------------------------------------------------
+        // Set up for testing
+        else if(intent.getExtras().getString(TESTING_ALREADY_CONNECTED) != null) {
+            mAlreadyConnected = true;
+            mId = intent.getExtras().getString(ID);
+            mAccessToken = intent.getExtras().getString(ACESS_TOKEN);
+        }
+
+        else if (intent.getExtras().getString(TESTING_FIRST_CONNECTION) != null){
+            mAlreadyConnected = false;
+        }
+
     }
 
 }
