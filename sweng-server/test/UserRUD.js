@@ -6,6 +6,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../app');
 var utils = require('../apiControler/utils/Utils.js');
+var Constant = require('../apiControler/utils/Constant.js');
 var should = chai.should();
 var chaiAsPromised = require ("chai-as-promised")
 chai.use(chaiAsPromised);
@@ -65,7 +66,8 @@ describe('Test User API update/delete/get.', () => {
 
                       // callback if the user srequest succeed.
                       }).then(function(createUser) {
-                              resolve(true);
+                          createUser.setSetting(Constant.GeneralModel.idDefaultSetting);
+                          resolve(true);
 
                       // return a 500 code if the request is null.
                       }).catch(function(error) {
