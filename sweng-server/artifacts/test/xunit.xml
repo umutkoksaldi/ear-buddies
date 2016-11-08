@@ -1,0 +1,18 @@
+<testsuite name="Mocha Tests" tests="16" failures="0" errors="0" skipped="0" timestamp="Sat, 05 Nov 2016 06:56:23 GMT" time="10.278">
+<testcase classname="Test Music API create Music 1" name="should create music good parameters --&gt; LastFM connection" time="0.962"/>
+<testcase classname="Test Music API test the get Music" name="should the get a music by his id" time="1.031"/>
+<testcase classname="Test Music API create Music 2" name="should create music bad parameters --&gt; LastFM connection" time="0.857"/>
+<testcase classname="Test setting unitary method change object return " name="modify the object return" time="0"/>
+<testcase classname="Test music uniatry method Compute new Music object" name="should compute the client response" time="0"/>
+<testcase classname="Test music uniatry method test fail get Music" name="should not get a music by his id" time="0.13"/>
+<testcase classname="Test user unitary method compute age" name="should compute the age" time="0"/>
+<testcase classname="Test user unitary method compute age" name="should return 0 because it is undefined " time="0"/>
+<testcase classname="Test user unitary method change object return " name="modify the object return" time="0"/>
+<testcase classname="Test User API create User create user" name="should create a user" time="0.715"/>
+<testcase classname="Test User API create User create user" name="should not create a user because bad information" time="0.105"/>
+<testcase classname="Test User API update/delete/get. get user" name="should get a user" time="0.18"/>
+<testcase classname="Test User API update/delete/get. get user" name="should fail to get a uer" time="0.131"/>
+<testcase classname="Test User API update/delete/get. delete user" name="should delete a user" time="0.46"/>
+<testcase classname="Test User API update/delete/get. delete user" name="should not a user" time="0.26"/>
+<testcase classname="Test User API update/delete/get. update user" name="should update a user" time="0.458"/>
+</testsuite>
