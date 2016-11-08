@@ -87,7 +87,7 @@ describe('Test User API create User', () => {
 
 
  describe('create user', () => {
-        it('should create a user', (done) => {
+        it('should not create a user because bad information', (done) => {
           chai.request(server)
             .post('/api/Users')
             .send({"id":FAKE_ID,
