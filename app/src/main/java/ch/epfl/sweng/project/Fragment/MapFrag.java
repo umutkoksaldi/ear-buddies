@@ -2,7 +2,6 @@ package ch.epfl.sweng.project.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -143,10 +141,12 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     }
 
     @Override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionSuspended(int i) {
+    }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
 
     @Override
     public void onLocationChanged(android.location.Location location) {
@@ -209,7 +209,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         //TODO DELAY
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        //mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         //Check user parameters for location
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -230,8 +230,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                         // initialize location requests here.
                         updateLocation();
                         break;
+                    /*
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-
                         // Location settings are not satisfied, but this can be fixed
                         // by showing the user a dialog.
                         try {
@@ -243,7 +243,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                         } catch (IntentSender.SendIntentException e) {
                             // Ignore the error.
                         }
-                        break;
+                        break;*/
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                         // Location settings are not satisfied. However, we have no way
                         // to fix the settings so we won't show the dialog.
@@ -298,8 +298,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
         mMap.clear();
         markers = new ArrayList<>();
-        for (int i=0; i<otherUsers.length; ++i){
-            double latitude = otherUsers[i].getLocation().getLattitude()+0.001*(i+1);
+        for (int i = 0; i < otherUsers.length; ++i) {
+            double latitude = otherUsers[i].getLocation().getLattitude() + 0.001 * (i + 1);
             double longitude = otherUsers[i].getLocation().getLongitude();
             Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title
                     (otherUsers[i].getFirstname()));
