@@ -6,8 +6,6 @@
     <!-- Permission Application -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION"/>
-    <!--<uses-permission android:name="android.permission.OPSTR_MOCK_LOCATION"/>-->
 
 
     <!-- Use openGL to run the map -->
