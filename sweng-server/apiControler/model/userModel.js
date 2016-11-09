@@ -6,12 +6,13 @@ var databaseConfig = require('../../setting/database.js');
 var globalConfig = require('../../setting/global.js');
 var userManipulation = require ('../object/user.js')
 var utils = require('../utils/Utils.js');
-
+var Constant = require ('../utils/Constant.js')
 
 // database
 var databasePostgres = require('../database/postgres.js');
 var User = require('../database/SequelizeORM.js').User;
 var Music = require('../database/SequelizeORM.js').Music;
+var Setting = require('../database/SequelizeORM.js').Setting;
 
 //---------------------------------- DEFINE CONSTANT ------------------------------------
 
@@ -46,11 +47,25 @@ function controllerUtilisateur(){
 
                 // callback if the user srequest succeed.
                 }).then(function(createUser) {
-                        utils.logInfo("createUser(), the request succeed");
-                        // remove the id in oder to keep only adiApi facebook
-                        delete createUser.dataValues['id']
-                        var response = userManipulation.transformResponseClient(createUser.dataValues);
-                        callback(response,setting.htmlCode.succes_request);
+
+                  utils.logInfo("createUser(), the request succeed");
+
+                  // We associate with the default value.
+                  createUser.setSetting(Constant.GeneralModel.idDefaultSetting);
+
+   
+                  createUser.getSetting().then(function(associatedTasks) {
+                      userManipulation.changeSetting(createUser.dataValues,associatedTasks.dataValues)
+                      
+                      // We kepp only the id of facebook.
+                      delete createUser.dataValues['id']
+                      var response = userManipulation.transformResponseClient(createUser.dataValues);
+                      callback(response,setting.htmlCode.succes_request);
+                  }).catch(function(error) {
+                      utils.logError("This User does not have any SettingValue"+error)
+                      callback(null,setting.htmlCode.unavailable_ressources);
+                  });
+
 
                 // return a 500 code if the request is null.
                 }).catch(function(error) {
@@ -66,7 +81,6 @@ function controllerUtilisateur(){
   var getUserByIdConnection = function(idApi,callback){
 
       var urlPictureFacebook = "https://graph.facebook.com/"+idApi+"/picture?height=500&width=500"; 
-
       utils.logInfo("getUserByIdConnection(), get the user"+ idApi);
       User.sync().then(function () {
         // select query.
@@ -74,13 +88,18 @@ function controllerUtilisateur(){
               where: {
                 idApiConnection: idApi
               }
-
             }).then(function(getUser) {
 
                 utils.logInfo("request succeed"+idApi)
-                delete getUser.dataValues['id']
-                var response = userManipulation.transformResponseClient(getUser.dataValues);
-                callback(response,setting.htmlCode.succes_request);
+                getUser.getSetting().then(function(associatedTasks) {
+                    userManipulation.changeSetting(getUser.dataValues,associatedTasks.dataValues)
+                    delete getUser.dataValues['id']
+                    var response = userManipulation.transformResponseClient(getUser.dataValues);
+                    callback(response,setting.htmlCode.succes_request);
+                }).catch(function(error) {
+                    utils.logError("This User does not have any SettingValue"+error)
+                    callback(null,setting.htmlCode.unavailable_ressources);
+                });
 
             }).catch(function(error) {
                 utils.logError("error getting user : "+error)
