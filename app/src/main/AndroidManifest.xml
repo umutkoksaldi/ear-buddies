@@ -6,7 +6,7 @@
     <!-- Permission Application -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <!-- Use openGL to run the map -->
     <uses-feature
@@ -30,7 +30,7 @@
             tools:replace="android:theme"/>
 
         <!-- Login Activity -->
-        <activity android:name=".Login">
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -44,6 +44,10 @@
 
         <!-- Second activity -->
         <activity android:name=".MainActivity">
+        </activity>
+
+        <!-- Second activity -->
+        <activity android:name=".Login">
         </activity>
 
         <!-- Google play services -->

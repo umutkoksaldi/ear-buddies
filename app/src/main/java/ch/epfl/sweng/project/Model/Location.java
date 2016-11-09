@@ -35,7 +35,7 @@ public class Location {
     public String toString() {
         return "{" +
                 " \"latitude\" : " + latitude +
-                ", \"longitude\": \" " + longitude + "\"" +
+                ", \"longitude\": \" " + longitude +
                 '}';
     }
 
