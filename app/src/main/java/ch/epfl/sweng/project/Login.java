@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -24,12 +25,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.springframework.http.ResponseEntity;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import Util.GlobalSetting;
+import ch.epfl.sweng.project.Controler.ConnectionControler;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
@@ -41,9 +44,9 @@ public class Login extends AppCompatActivity {
     private static CallbackManager callbackManager;
     private LoginButton loginButton;
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+    private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
+    final WeakReference<Activity> currentActivity = new WeakReference(this);
 
-    private static final String ID = "id";
-    private static final String ACESS_TOKEN = "accesToken";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -59,10 +62,7 @@ public class Login extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        // THE SERVICE IS NOT IMPLEMENTED YET ON THE SERVER SIDE
-        if (isAlreadyConnected(GlobalSetting.USER_API)) {
-            Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
-        }
+        LoginManager.getInstance().logOut();
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
@@ -78,14 +78,19 @@ public class Login extends AppCompatActivity {
                     mProfileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                            sendPost(AccessToken.getCurrentAccessToken().getToken(), profile2.getId(), GlobalSetting.USER_API);
+                            controlerConnection.sendPost(currentActivity.get(),AccessToken
+                                    .getCurrentAccessToken()
+                                    .getToken(), profile2
+                                    .getId(), GlobalSetting.USER_API,false);
                             Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
                         }
                     };
                 } else {
                     Profile profile = Profile.getCurrentProfile();
                     Log.i("facebook - profile 2eme", profile.getFirstName());
-                    sendPost(AccessToken.getCurrentAccessToken().getToken(), profile.getId(), GlobalSetting.USER_API);
+                    controlerConnection.sendPost(currentActivity.get(),AccessToken.getCurrentAccessToken().getToken(),
+                            profile.getId(),
+                            GlobalSetting.USER_API,false);
                     Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -116,52 +121,6 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void sendPost(String AccesToken, String idFacebook, @SuppressWarnings("SameParameterValue") String requestApi) {
-        ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
-
-            @Override
-            public void onSucess(ResponseEntity response) {
-
-                // We associated the user to the new.
-                if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
-                    modelApplication.setUser((User) response.getBody());
-                    changeActivity(MainActivity.class, new HashMap<String, String>());
-                } else {
-                    logOutFace();
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailed() {
-                logOutFace();
-                Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Building the parameters for the
-        Map<String, String> params = new HashMap<>();
-        params.put(ID, idFacebook);
-        params.put(ACESS_TOKEN, AccesToken);
-
-        // the interface is already initiate above
-        serviceHandler.doPost(params, GlobalSetting.URL + requestApi, User.class);
-    }
-
-    /**
-     * Check if the user is already connected with facebook on our application.
-     * @return true if
-     */
-    private boolean isAlreadyConnected (String requestApi) {
-        boolean isConnected = false;
-        if (Profile.getCurrentProfile() != null) {
-            isConnected = true;
-            sendPost(AccessToken.getCurrentAccessToken().getToken(), Profile.getCurrentProfile().getId(),
-                    GlobalSetting.USER_API);
-        }
-        return isConnected;
-    }
-
     private void addPermissions() {
         List<String> permissions = new ArrayList<>();
         permissions.add("public_profile");
@@ -169,33 +128,6 @@ public class Login extends AppCompatActivity {
         permissions.add("user_birthday");
         permissions.add("user_about_me");
         loginButton.setReadPermissions(permissions);
-    }
-
-    /**
-     * Disconnection to facebook
-     */
-    private void logOutFace() {
-        Log.i("logOutFace()", "Disconnection facebook");
-        LoginManager.getInstance().logOut();
-    }
-
-    /**
-     * Allow to change activity.
-     *
-     * @param transitionClass destination Activity. should not be null
-     * @param intentExtra     shared data. should not be null
-     */
-    private void changeActivity(Class transitionClass, Map<String, String> intentExtra) {
-        if (transitionClass == null && intentExtra == null) {
-            Log.w("changeActivity()", "null value parameters");
-            return;
-        }
-
-        Intent intent = new Intent(Login.this, transitionClass);
-        for (Map.Entry<String, String> map : intentExtra.entrySet()) {
-            intent.putExtra(map.getKey(), map.getValue());
-        }
-        startActivity(intent);
     }
 
     /**

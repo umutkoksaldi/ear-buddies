@@ -17,6 +17,7 @@ public class User {
     private String email;
     private Location location;
     private long currentMusicId;
+    private Setting setting;
 
     public User() {
     }
