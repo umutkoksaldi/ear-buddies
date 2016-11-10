@@ -57,18 +57,6 @@ public class BlankFrag extends Fragment{
             return view;
         }
 
-       /* int indx;
-        for(indx = 0; indx < usersAround.length; indx++){
-            usersAround[indx] = new User();
-        }*/
-
-       /* int indx;
-        int userNumber;
-        for(indx = 0; indx < usersAround.length; indx++) {
-            userNumber = indx + 1;
-            usersAround[indx].setFirstname("User number" + userNumber);
-            usersAround[indx].setDescrition("Description of the user number: " + userNumber);
-        }*/
         userNames = new String[usersAround.length];
         userDescription = new String[usersAround.length];
         images = new String[usersAround.length];
@@ -81,8 +69,6 @@ public class BlankFrag extends Fragment{
             userNames[userIndex] = usersAround[userIndex].getFirstname();
             userDescription[userIndex] = usersAround[userIndex].getLastname();
         }
-
-
 
         ListView list = (ListView) view.findViewById(R.id.listView);
 
