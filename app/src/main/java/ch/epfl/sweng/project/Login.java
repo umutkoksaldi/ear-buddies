@@ -3,8 +3,8 @@ package ch.epfl.sweng.project;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,30 +23,22 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import org.springframework.http.ResponseEntity;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
 import ch.epfl.sweng.project.Model.ModelApplication;
-import ch.epfl.sweng.project.Model.User;
-import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
-import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class Login extends AppCompatActivity {
 
     @SuppressWarnings("WeakerAccess")
     private static CallbackManager callbackManager;
-    private LoginButton loginButton;
+    final WeakReference<Activity> currentActivity = new WeakReference(this);
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
-    final WeakReference<Activity> currentActivity = new WeakReference(this);
-
+    private LoginButton loginButton;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -78,19 +70,19 @@ public class Login extends AppCompatActivity {
                     mProfileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                            controlerConnection.sendPost(currentActivity.get(),AccessToken
+                            controlerConnection.sendPost(currentActivity.get(), AccessToken
                                     .getCurrentAccessToken()
                                     .getToken(), profile2
-                                    .getId(), GlobalSetting.USER_API,false);
+                                    .getId(), GlobalSetting.USER_API, false);
                             Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
                         }
                     };
                 } else {
                     Profile profile = Profile.getCurrentProfile();
                     Log.i("facebook - profile 2eme", profile.getFirstName());
-                    controlerConnection.sendPost(currentActivity.get(),AccessToken.getCurrentAccessToken().getToken(),
+                    controlerConnection.sendPost(currentActivity.get(), AccessToken.getCurrentAccessToken().getToken(),
                             profile.getId(),
-                            GlobalSetting.USER_API,false);
+                            GlobalSetting.USER_API, false);
                     Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
                 }
             }

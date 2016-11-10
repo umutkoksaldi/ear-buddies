@@ -7,9 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-//import ch.epfl.sweng.project.media.MusicInfoService;
+import ch.epfl.sweng.project.media.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
+
+//import ch.epfl.sweng.project.media.MusicInfoService;
 
 
 public final class MainActivity extends AppCompatActivity {
@@ -26,8 +28,8 @@ public final class MainActivity extends AppCompatActivity {
         createViewPager();
 
         // Starts service to be aware if the device is playing music, and gets music information
-        //Intent musicInfo = new Intent(this, MusicInfoService.class);
-        //startService(musicInfo);
+        Intent musicInfo = new Intent(this, MusicInfoService.class);
+        startService(musicInfo);
 
     }
 

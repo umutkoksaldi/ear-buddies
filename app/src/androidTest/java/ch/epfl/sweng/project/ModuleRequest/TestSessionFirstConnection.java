@@ -12,16 +12,9 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.project.Login;
-import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.WelcomeActivity;
 
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.isDialog;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.internal.util.Checks.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 
@@ -31,11 +24,13 @@ import static android.support.test.runner.lifecycle.Stage.RESUMED;
 public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2<WelcomeActivity> {
 
 
-    /****************************** Set Constant *********************************************/
-    public static final String  ID_FACEBOOK = "121620614972695";
+    /******************************
+     * Set Constant
+     *********************************************/
+    public static final String ID_FACEBOOK = "121620614972695";
     public static final String ACCESS_TOKEN_FACEBOOK =
             "EAAOZCzloFDqEBAHGnY8Q6I4d6fJRy9c6FWYZAqNxp2ChFBvpv8ZAycQC7a0oT21ZBp0Ku" +
-                    "IbZCIUkLWSH4Ev7pIQrjlzAxvrfznhXZAeb8A3ZCZBDks8WekNs4WgtfteZCMhUPQx5ZBPmbBMfwBgjqqAeaHOjtYFe38VYfXV35ZCn"+
+                    "IbZCIUkLWSH4Ev7pIQrjlzAxvrfznhXZAeb8A3ZCZBDks8WekNs4WgtfteZCMhUPQx5ZBPmbBMfwBgjqqAeaHOjtYFe38VYfXV35ZCn" +
                     "Q0yZBzPSDzCKDBBMkGhWA8ZAyrJAcBZA6LCi5XtgZDZD";
 
     private static final String ID = "id";
@@ -84,7 +79,7 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
             latch.await(2, TimeUnit.SECONDS);
             // check the foreground activity.
             assertCurrentActivityIsInstanceOf(Login.class);
-            pressBack ();
+            pressBack();
             Thread.sleep(2000);
             assertCurrentActivityIsInstanceOf(Login.class);
         } catch (InterruptedException e) {
@@ -101,12 +96,13 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
         assertTrue(currentActivity.getClass().isAssignableFrom(activityClass));
     }
 
-    public Activity getActivityInstance(){
+    public Activity getActivityInstance() {
 
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
-                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
-                if (resumedActivities.iterator().hasNext()){
+                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage
+                        (RESUMED);
+                if (resumedActivities.iterator().hasNext()) {
                     setCurrentActivity((Activity) resumedActivities.iterator().next());
                 }
             }
@@ -115,7 +111,7 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
         return curActivity;
     }
 
-    private void setCurrentActivity (Activity activity){
+    private void setCurrentActivity(Activity activity) {
         curActivity = activity;
     }
 }
