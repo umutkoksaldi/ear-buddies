@@ -30,16 +30,17 @@ public class MusicInfoService extends Service {
     public static final String ARTIST_NAME = "artistName";
     public static final String MUSIC_NAME = "musicName";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+    private boolean mIsBound = false;
     private String artist = "";
     private String track = "";
     private Music music;
+    // For standard music players
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             String newTrack = intent.getStringExtra("track");
             String newArtist = intent.getStringExtra("artist");
-            //Log.d("MusicInfoService", "mReceiver.onReceive : " + newArtist + " - " + newTrack);
+            Log.v("MusicInfoService", "mReceiver.onReceive : " + newArtist + " - " + newTrack);
 
             boolean playing = intent.getBooleanExtra("playing", false);
 
@@ -66,17 +67,23 @@ public class MusicInfoService extends Service {
         }
     };
 
+    // Spotify specific implementation
 
 
     @Override
     public void onCreate() {
         Log.i("MusicInfoService", "Service started");
-
         IntentFilter iF = new IntentFilter();
         iF.addAction("com.android.music.musicservicecommand");
         iF.addAction("com.android.music.metachanged");
         iF.addAction("com.android.music.playstatechanged");
         iF.addAction("com.android.music.updateprogress");
+
+        // intents specific to Spotify behavior
+        // More doc about Spotify implementation : https://developer.spotify
+        // .com/technologies/spotify-android-sdk/android-media-notifications
+        iF.addAction("com.spotify.music.metadatachanged");
+        iF.addAction("com.spotify.music.playbackstatechanged");
 
         registerReceiver(mReceiver, iF);
 
@@ -87,6 +94,7 @@ public class MusicInfoService extends Service {
 
     }
 
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -95,6 +103,7 @@ public class MusicInfoService extends Service {
 
     private void sendPost(String artistName, String trackName, @SuppressWarnings("SameParameterValue") String
             requestApi) {
+        Log.d("MusicInfoService", "sendPost : " + artistName + ", " + trackName);
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
 
             @Override
@@ -109,6 +118,7 @@ public class MusicInfoService extends Service {
                     // Erreur pas pu communiquer avec le serveur
                     Toast.makeText(getApplicationContext(), getString(R.string.server_error_music_info), Toast
                             .LENGTH_SHORT).show();
+                    Log.e("MusicInfoService", "onSuccess() != Code 200 (good answer)");
                 }
             }
 
@@ -117,6 +127,8 @@ public class MusicInfoService extends Service {
 // Erreur 404
                 Toast.makeText(getApplicationContext(), getString(R.string.server_error_music_info), Toast
                         .LENGTH_SHORT).show();
+                Log.e("MusicInfoService", "onFailed() : could not retreive the info from the server about currently " +
+                        "playing music");
             }
         });
 
@@ -126,7 +138,9 @@ public class MusicInfoService extends Service {
         params.put(MUSIC_NAME, trackName);
 
         // the interface is already initiate above
-        serviceHandler.doPost(params, GlobalSetting.URL + requestApi + modelApplication.getUser().getIdApiConnection(), Music.class);
+        String requestURL = GlobalSetting.URL + requestApi + modelApplication.getUser().getIdApiConnection();
+        Log.d("MusicInfoService", "POST Request : " + requestURL);
+        serviceHandler.doPost(params, requestURL, Music.class);
     }
 
 }
