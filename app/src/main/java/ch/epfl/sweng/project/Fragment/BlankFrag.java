@@ -2,36 +2,25 @@ package ch.epfl.sweng.project.Fragment;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
-
-import static ch.epfl.sweng.project.Model.ModelApplication.getModelApplication;
 
 public class BlankFrag extends Fragment{
 
@@ -114,10 +103,10 @@ public class BlankFrag extends Fragment{
         VivzAdapter(Context c,String[] titles, String[] imgs, String[] desc){
 
             super(c, R.layout.single_row_blankfrag,R.id.textView2,titles);
-            this.context = c;
-            this.images = imgs;
-            this.titleArray = titles;
-            this.descriptionArray = desc;
+            context = c;
+            images = imgs;
+            titleArray = titles;
+            descriptionArray = desc;
         }
 
         //This metod is called each time a row has to be displayed to a user

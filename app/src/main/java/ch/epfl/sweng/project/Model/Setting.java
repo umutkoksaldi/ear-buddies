@@ -15,7 +15,9 @@ public class Setting {
         this.ageMax = ageMax;
         this.radius = radius;
     }
-    public Setting(){}
+
+    public Setting() {
+    }
 
     public int getAgeMax() {
         return ageMax;
@@ -40,7 +42,6 @@ public class Setting {
     public void setRadius(int radius) {
         this.radius = radius;
     }
-
 
 
     // The method should be overridden for jackson.

@@ -17,12 +17,13 @@ public class Location {
     public double getLattitude() {
         return latitude;
     }
-    public double getLongitude() {
-        return longitude;
-    }
 
     public void setLattitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     public void setLongitude(double longitude) {
