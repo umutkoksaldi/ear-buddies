@@ -42,12 +42,16 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
-        <!-- Second activity -->
+        <!-- First activity -->
         <activity android:name=".MainActivity">
         </activity>
 
         <!-- Second activity -->
         <activity android:name=".Login">
+        </activity>
+
+        <!-- Third activity -->
+        <activity android:name=".ActivityForFragmentsTest">
         </activity>
 
         <!-- Google play services -->
