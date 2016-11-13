@@ -8,13 +8,18 @@ import android.support.v4.app.FragmentTransaction;
 
 import ch.epfl.sweng.project.Fragment.UsersFragment;
 
+/*
+* This activity is created in order to be able to
+* test the UsersFragment.
+*
+* */
+
 public  class ActivityForFragmentsTest extends FragmentActivity {
     public UsersFragment usersFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //provari da li treba da bude activity_main
         setContentView(R.layout.activity_main);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
