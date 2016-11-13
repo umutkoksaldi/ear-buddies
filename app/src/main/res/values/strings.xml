@@ -67,5 +67,8 @@
 
     <!--Users Frag -->
     <string name="choose_a_person_to_match_with">Choose a person to match with</string>
+    <string name="profile_picture"/>
+    <string name="textview2"/>
+    <string name="textview3"/>
 
 </resources>

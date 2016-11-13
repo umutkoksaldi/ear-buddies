@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import ch.epfl.sweng.project.Fragment.BlankFrag;
+import ch.epfl.sweng.project.Fragment.UsersFragment;
 import ch.epfl.sweng.project.Fragment.MapFrag;
 import ch.epfl.sweng.project.Fragment.ProfileFrag;
 
@@ -22,7 +22,7 @@ class Pager extends FragmentStatePagerAdapter{
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new BlankFrag();
+                return new UsersFragment();
             case 1:
                 return new MapFrag();
             case 2:
