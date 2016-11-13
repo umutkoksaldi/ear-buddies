@@ -40,7 +40,7 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         getActivity();
         Thread.sleep(15000);
         User[] others = ModelApplication.getModelApplication().getOtherUsers();
-        assertTrue("No other people found",others != null);
+        assertTrue("No other people found", others != null);
     }
 
 

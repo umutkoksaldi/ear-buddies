@@ -1,15 +1,19 @@
 package ch.epfl.sweng.project;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
-//import ch.epfl.sweng.project.media.MusicInfoService;
+import ch.epfl.sweng.project.media.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
+
+//import ch.epfl.sweng.project.media.MusicInfoService;
 
 
 public final class MainActivity extends AppCompatActivity {
@@ -26,8 +30,8 @@ public final class MainActivity extends AppCompatActivity {
         createViewPager();
 
         // Starts service to be aware if the device is playing music, and gets music information
-        //Intent musicInfo = new Intent(this, MusicInfoService.class);
-        //startService(musicInfo);
+        Intent musicInfo = new Intent(this, MusicInfoService.class);
+        startService(musicInfo);
 
     }
 
@@ -92,7 +96,11 @@ public final class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(CATEGORY_APP_MUSIC);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getApplicationContext(), R.string.no_music_player_installed, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

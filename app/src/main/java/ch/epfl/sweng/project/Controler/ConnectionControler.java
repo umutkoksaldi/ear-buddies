@@ -26,19 +26,18 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * Created by adupeyrat on 05/11/2016.
  */
 
-public class ConnectionControler {
-
-    private static ConnectionControler connectionControler = null;
-    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+public final class ConnectionControler {
 
     private static final String ID = "id";
     private static final String ACESS_TOKEN = "accesToken";
+    private static ConnectionControler connectionControler = null;
+    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
 
-    private ConnectionControler() {}
+    private ConnectionControler() {
+    }
 
-    public static ConnectionControler getConnectionControler()
-    {
-        if (connectionControler == null){
+    public static ConnectionControler getConnectionControler() {
+        if (connectionControler == null) {
             connectionControler = new ConnectionControler();
         }
         return connectionControler;
@@ -51,7 +50,7 @@ public class ConnectionControler {
      * @param transitionClass destination Activity. should not be null
      * @param intentExtra     shared data. should not be null
      */
-    public void changeActivity(Activity currentActivity ,Class transitionClass, Map<String, String> intentExtra) {
+    public void changeActivity(Activity currentActivity, Class transitionClass, Map<String, String> intentExtra) {
         if (transitionClass == null && intentExtra == null) {
             Log.w("changeActivity()", "null value parameters");
             return;
@@ -66,6 +65,7 @@ public class ConnectionControler {
 
     /**
      * Send post to the server in order to get the profile
+     *
      * @param AccesToken given by facebook
      * @param idFacebook given by facebook
      * @param requestApi url to get information
@@ -98,7 +98,6 @@ public class ConnectionControler {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
         // Building the parameters for the
