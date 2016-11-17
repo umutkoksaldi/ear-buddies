@@ -88,11 +88,6 @@ function BaseDeDonnee()
       this.User.hasMany(this.Music)
       this.User.belongsTo(this.Music, {as: 'CurrentMusic', constraints: false})
       this.User.belongsTo(this.Setting, {constraints: false})
-
-      // Can generate an Exception if already installed 
-      // TODO catch after.
-      // this.sequelize.query("CREATE EXTENSION cube").spread(function(results, metadata) {});
-      // this.sequelize.query("CREATE EXTENSION earthdistance").spread(function(results, metadata) {});
     }
 
     this.initiateValue = function(){
