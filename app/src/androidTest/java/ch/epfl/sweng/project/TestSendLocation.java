@@ -30,7 +30,7 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         Thread.sleep(15000);
         User[] others = ModelApplication.getModelApplication().getOtherUsers();
         assertTrue("No other people found", others != null);
-        //TODO Verify if people are in the action
+        //TODO Verify if people are in the radius (Actually it may be better server side)
         //TODO Check if information actually match with the server like :
         assertEquals("No other people found", others[0].getFirstname(), "Arnaud");
     }
