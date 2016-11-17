@@ -162,10 +162,16 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public boolean onMyLocationButtonClick() {
-        double latitude = mUser.getLocation().getLattitude();
-        double longitude = mUser.getLocation().getLongitude();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
-        return true;
+        if (mUser.getLocation() != null) {
+            double latitude = mUser.getLocation().getLattitude();
+            double longitude = mUser.getLocation().getLongitude();
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
+            return true;
+        } else {
+            Log.e("Null", "Location is null");
+            updateLocation();
+            return false;
+        }
     }
 
     @Override
@@ -286,13 +292,20 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                     }
                 });
 
-                Map<String, String> params = new HashMap<>();
-                params.put(ID, "" + mUser.getIdApiConnection());
-                params.put(LATTITUDE, "" + mUser.getLocation().getLattitude());
-                params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
-                Log.i("Send item", params.toString());
-                serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND + mTest, User[]
-                        .class);
+                if (mUser.getLocation() != null) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put(ID, "" + mUser.getIdApiConnection());
+
+                    params.put(LATTITUDE, "" + mUser.getLocation().getLattitude());
+                    params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
+                    Log.i("Send item", params.toString());
+                    serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND + mTest, User[]
+
+                            .class);
+                } else {
+                    Log.e("Null", "Location is null");
+                    updateLocation();
+                }
                 h.postDelayed(this, DELAY);
             }
         }, DELAY);
