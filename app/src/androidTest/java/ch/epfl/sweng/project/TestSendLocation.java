@@ -32,7 +32,7 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         assertTrue("No other people found", others != null);
         //TODO Verify if people are in the radius (Actually it may be better server side)
         //TODO Check if information actually match with the server like :
-        if (others != null) {
+        if (others.length != 0) {
             assertEquals("No other people found", others[0].getFirstname(), "Arnaud");
         }
     }
