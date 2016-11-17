@@ -1,24 +1,25 @@
 var utils = require('../utils/Utils.js');
 
-function UserDto()
-{
+
+
+
+function UserDto(){
 
     this.transformResponseClient = function (UserObject) {
 
         utils.logInfo("transformResponseClient(), Modify the Json client")
-        var locationUser = { 
-                     'lattitude' : UserObject.lattitude,
-                     'longitude' : UserObject.longitude
-                   }
-
-
         UserObject.currentMusicId = UserObject.CurrentMusicId
 
-        delete UserObject['lattitude']
+        // Modify the location object.
+        if(UserObject.location != null){
+            
+            UserObject.location.lattitude = UserObject.location.coordinates[0]
+            UserObject.location.longitude = UserObject.location.coordinates[1]
+            delete UserObject.location['type']
+            delete UserObject.location['coordinates']
+        }
+        
         delete UserObject['CurrentMusicId']
-        delete UserObject['longitude']
-
-        UserObject.location = locationUser;
         utils.logInfo("transformResponseClient(), return response")
         return UserObject;
     }

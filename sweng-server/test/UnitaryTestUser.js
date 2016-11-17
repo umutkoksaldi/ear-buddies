@@ -24,8 +24,10 @@ var LATTITUDE = 1;
 var LONGITUDE = 1;
 
 var objectTest  = {
-  'lattitude' : LATTITUDE,
-  'longitude' : LONGITUDE
+    "location": {
+      'type' : 'point',
+      'coordinates' : [1,1]
+    }
 }
 
 // ----------------------------------------------   TEST  -----------------------------------------
