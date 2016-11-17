@@ -18,6 +18,21 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
     public void setUp() throws Exception {
         super.setUp();
         injectInsrumentation(InstrumentationRegistry.getInstrumentation());
+        createFakeUser();
+        ModelApplication.getModelApplication().setTest();
+    }
+
+
+    //This is a base test that we need to modify when we get the other users correctly
+    @Test
+    public void testGPS() throws InterruptedException {
+        getActivity();
+        Thread.sleep(15000);
+        User[] others = ModelApplication.getModelApplication().getOtherUsers();
+        assertTrue("No other people found", others != null);
+    }
+
+    private void createFakeUser(){
         User mUser = new User();
         mUser.setLocation(new ch.epfl.sweng.project.Model.Location(0, 0));
         mUser.setAge(21);
@@ -31,16 +46,6 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         mUser.setIdApiConnection(1331778390197945L);
         mUser.setSeeBirth(true);
         ModelApplication.getModelApplication().setUser(mUser);
-    }
-
-
-    //This is a base test that we need to modify when we get the other users correctly
-    @Test
-    public void testGPS() throws InterruptedException {
-        getActivity();
-        Thread.sleep(15000);
-        User[] others = ModelApplication.getModelApplication().getOtherUsers();
-        assertTrue("No other people found", others != null);
     }
 
 

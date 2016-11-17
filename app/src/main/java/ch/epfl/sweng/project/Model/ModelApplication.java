@@ -7,6 +7,7 @@ public class ModelApplication {
     private Music music = new Music();
     private User user = new User();
     private User[] mOtherUsers;
+    private String mTest = "/";
 
     private ModelApplication() {}
 
@@ -41,5 +42,13 @@ public class ModelApplication {
 
     public void setOtherUsers(User[] users){
         mOtherUsers = users;
+    }
+
+    public void setTest(){
+        mTest = "Test/";
+    }
+
+    public String getTestState(){
+        return mTest;
     }
 }
