@@ -13,7 +13,6 @@ public class User {
     private String lastname;
     private int age;
     private String profilePicture;
-    private boolean seeBirth;
     private String email;
     private Location location;
     private long currentMusicId;
@@ -28,14 +27,6 @@ public class User {
 
     public void setIdApiConnection(long idApiConnection) {
         this.idApiConnection = idApiConnection;
-    }
-
-    public boolean isSeeBirth() {
-        return seeBirth;
-    }
-
-    public void setSeeBirth(boolean seeBirth) {
-        this.seeBirth = seeBirth;
     }
 
     public String getBackgroundPicture() {
@@ -124,7 +115,6 @@ public class User {
                 ", \"email\" : \"" + email + "\"" +
                 ", \"age\" : " + age +
                 ", \"profilePicture\" : \" " + profilePicture + "\"" +
-                ", \"seeBirth\" : " + seeBirth +
                 ", \"location\" : " + location.toString() +
                 '}';
     }

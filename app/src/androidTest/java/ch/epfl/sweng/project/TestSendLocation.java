@@ -3,6 +3,7 @@ package ch.epfl.sweng.project;
 
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import org.junit.Test;
 
@@ -25,11 +26,16 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
 
     //This is a base test that we need to modify when we get the other users correctly
     @Test
-    public void testGPS() throws InterruptedException {
+    public void testOtherUser() throws InterruptedException {
         getActivity();
         Thread.sleep(15000);
         User[] others = ModelApplication.getModelApplication().getOtherUsers();
         assertTrue("No other people found", others != null);
+        //TODO Check if information actually match with the server like :
+        assertEquals("No other people found", others[0].getFirstname(), "Arnaud");
+        for (int i = 0; i < others.length; ++i) {
+            Log.i("Others", others[i].toString());
+        }
     }
 
     private void createFakeUser(){
@@ -44,7 +50,6 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         mUser.setFirstname("Arnaud");
         mUser.setLastname("Hennig");
         mUser.setIdApiConnection(1331778390197945L);
-        mUser.setSeeBirth(true);
         ModelApplication.getModelApplication().setUser(mUser);
     }
 
