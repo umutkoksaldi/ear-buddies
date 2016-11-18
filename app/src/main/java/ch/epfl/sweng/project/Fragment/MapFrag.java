@@ -169,7 +169,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             return true;
         } else {
             Log.e("Null", "Location is null");
-            updateLocation();
             return false;
         }
     }
@@ -202,15 +201,18 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
+
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
 
     }
 
 
     private void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(
-                mGoogleApiClient, this);
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
     }
 
     private void createLocationRequest() {
@@ -316,7 +318,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         mMap.clear();
         markers = new ArrayList<>();
         for (int i = 0; i < otherUsers.length; ++i) {
-            double latitude = otherUsers[i].getLocation().getLattitude() + 0.001 * (i + 1);
+            double latitude = otherUsers[i].getLocation().getLattitude();
             double longitude = otherUsers[i].getLocation().getLongitude();
             Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title
                     (otherUsers[i].getFirstname()));
