@@ -27,7 +27,7 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
     @Test
     public void testOtherUser() throws InterruptedException {
         getActivity();
-        Thread.sleep(15000);
+        Thread.sleep(300);
         User[] others = ModelApplication.getModelApplication().getOtherUsers();
         assertTrue("No other people found", others != null);
         //TODO Verify if people are in the radius (Actually it may be better server side)
@@ -36,6 +36,8 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
             assertEquals("No other people found", others[0].getFirstname(), "Arnaud");
         }
     }
+
+
 
     private void createFakeUser(){
         User mUser = new User();

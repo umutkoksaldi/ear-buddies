@@ -80,7 +80,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
 
     private Activity mActivity;
-    private View mView;
+    public View view;
+
 
     //Map
     private GoogleMap mMap;
@@ -118,11 +119,11 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         createLocationRequest();
 
         mHandler.post(runnable);
-        mView =  inflater.inflate(R.layout.frag_map, container, false);
+        view =  inflater.inflate(R.layout.frag_map, container, false);
 
-        ImageButton im = (ImageButton) mView.findViewById(R.id.updatdeOtherUsers);
+        ImageButton im = (ImageButton) view.findViewById(R.id.updatdeOtherUsers);
         im.setOnClickListener(this);
-        return mView;
+        return view;
     }
 
 
@@ -286,7 +287,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         });
     }
 
-    public void sendAndGetLocations() {
+    private void sendAndGetLocations() {
         Log.i("LocationLoop", "Sending the new location @"+ System.currentTimeMillis());
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
             @Override
