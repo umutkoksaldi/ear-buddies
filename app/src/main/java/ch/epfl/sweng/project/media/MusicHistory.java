@@ -40,5 +40,23 @@ public final class MusicHistory {
         this.length = length;
     }
 
+    public void updateFromServer() {
+        // The server part is currently not implemented so  it's currently faked with example musics
+        musicHistoryList.clear();
+        musicHistoryList.add(new Music("Rihanna", "What's my name"));
+        musicHistoryList.add(new Music("Rihanna", "Rude boy"));
+        musicHistoryList.add(new Music("Rihanna", "Umbrella"));
+        musicHistoryList.add(new Music("Rihanna", "Don't stop the music"));
+        musicHistoryList.add(new Music("Rihanna", "Russian roulette"));
+        musicHistoryList.add(new Music("Rihanna", "We found love"));
+        musicHistoryList.add(new Music("Rihanna", "Live your life"));
+        musicHistoryList.add(new Music("Rihanna", "Love the way you lie"));
+        musicHistoryList.add(new Music("Rihanna", "Take a bow"));
+        musicHistoryList.add(new Music("Rihanna", "Disturbia"));
+    }
+
+    public List<Music> getHistory() {
+        return musicHistoryList;
+    }
 
 }

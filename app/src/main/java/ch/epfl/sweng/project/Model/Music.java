@@ -16,6 +16,11 @@ public class Music {
 
     }
 
+    public Music(String artist, String name) {
+        this.artist = artist;
+        this.name = name;
+    }
+
 
     public String getId() {
         return id;
