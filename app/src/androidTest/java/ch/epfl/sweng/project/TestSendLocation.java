@@ -27,13 +27,13 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
     @Test
     public void testOtherUser() throws InterruptedException {
         getActivity();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         User[] others = ModelApplication.getModelApplication().getOtherUsers();
         assertTrue("No other people found", others != null);
         //TODO Verify if people are in the radius (Actually it may be better server side)
         //TODO Check if information actually match with the server like :
         if (others.length != 0) {
-            assertEquals("No other people found", "Arnaud", others[0].getFirstname());
+            assertEquals("Bad name found", "Arnaud", others[0].getFirstname());
         }
     }
 
