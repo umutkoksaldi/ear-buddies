@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -56,7 +57,7 @@ import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnMyLocationButtonClickListener {
+        LocationListener, GoogleMap.OnMyLocationButtonClickListener, View.OnClickListener{
 
 
     private final String LATTITUDE = "lattitude";
@@ -68,14 +69,18 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private String mTest = "/";
     private User mUser;
 
+
     //Location
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private String mLastUpdateTime;
+    private Handler mHandler = new Handler();
+
     private List<Marker> markers;
 
 
     private Activity mActivity;
+    private View mView;
 
     //Map
     private GoogleMap mMap;
@@ -85,6 +90,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         mActivity = getActivity();
         mUser = ModelApplication.getModelApplication().getUser();
         mTest = ModelApplication.getModelApplication().getTestState();
@@ -111,9 +117,12 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         mGoogleApiClient.connect();
         createLocationRequest();
 
-        sendAndGetLocations();
+        mHandler.post(runnable);
+        mView =  inflater.inflate(R.layout.frag_map, container, false);
 
-        return inflater.inflate(R.layout.frag_map, container, false);
+        ImageButton im = (ImageButton) mView.findViewById(R.id.updatdeOtherUsers);
+        im.setOnClickListener(this);
+        return mView;
     }
 
 
@@ -179,6 +188,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         if (mGoogleApiClient.isConnected()) {
             stopLocationUpdates();
         }
+        mHandler.removeCallbacks(runnable);
     }
 
     @Override
@@ -186,6 +196,17 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         super.onResume();
         if (mGoogleApiClient.isConnected()) {
             updateLocation();
+        }
+        mHandler.post(runnable);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.updatdeOtherUsers:
+                sendAndGetLocations();
+                break;
         }
     }
 
@@ -265,52 +286,44 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         });
     }
 
-    private void sendAndGetLocations() {
-        final Handler h = new Handler();
-        final int DELAY = 10000; //millisecond
-        h.postDelayed(new Runnable() {
+    public void sendAndGetLocations() {
+        Log.i("LocationLoop", "Sending the new location @"+ System.currentTimeMillis());
+        ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
             @Override
-            public void run() {
-                Log.i("LocationLoop", "Sending the new location");
-                ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
-                    @Override
-                    public void onSucess(ResponseEntity responseServer) {
+            public void onSucess(ResponseEntity responseServer) {
 
-                        if (Integer.parseInt(responseServer.getStatusCode().toString()) ==
-                                GlobalSetting.GOOD_ANSWER) {
+                if (Integer.parseInt(responseServer.getStatusCode().toString()) ==
+                        GlobalSetting.GOOD_ANSWER) {
 
-                            ModelApplication.getModelApplication().setOtherUsers((User[]) (responseServer
-                                    .getBody()));
+                    ModelApplication.getModelApplication().setOtherUsers((User[]) (responseServer
+                            .getBody()));
 
-                            showOtherUsers();
-                        } else {
-                            onFailed();
-                        }
-                    }
-
-                    @Override
-                    public void onFailed() {
-                        //Toast.makeText(getContext(), "Unable to get Locations", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                if (mUser.getLocation() != null) {
-                    Map<String, String> params = new HashMap<>();
-                    params.put(ID, "" + mUser.getIdApiConnection());
-
-                    params.put(LATTITUDE, "" + mUser.getLocation().getLattitude());
-                    params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
-                    Log.i("Send item", params.toString());
-                    serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND + mTest, User[]
-
-                            .class);
+                    showOtherUsers();
                 } else {
-                    Log.e("Null", "Location is null");
-                    updateLocation();
+                    onFailed();
                 }
-                h.postDelayed(this, DELAY);
             }
-        }, DELAY);
+
+            @Override
+            public void onFailed() {
+                //Toast.makeText(getContext(), "Unable to get Locations", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        if (mUser.getLocation() != null) {
+            Map<String, String> params = new HashMap<>();
+            params.put(ID, "" + mUser.getIdApiConnection());
+
+            params.put(LATTITUDE, "" + mUser.getLocation().getLattitude());
+            params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
+            Log.i("Send item", params.toString());
+            serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND + mTest, User[]
+
+                    .class);
+        } else {
+            Log.e("Null", "Location is null");
+            updateLocation();
+        }
     }
 
     private void showOtherUsers() {
@@ -327,5 +340,12 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
     }
 
-
+    private final Runnable runnable = new Runnable() {
+        final int DELAY = 10000;
+        @Override
+        public void run() {
+            sendAndGetLocations();
+            mHandler.postDelayed(this, DELAY);
+        }
+    };
 }
