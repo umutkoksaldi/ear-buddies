@@ -8,6 +8,12 @@
     <ImageButton
         android:layout_width="69dp"
         android:layout_height="71dp"
+        app:srcCompat="@drawable/ic_cached_black_24dp"
+        android:id="@+id/updatdeOtherUsers"
+        android:layout_alignParentBottom="true"/>
+    <ImageButton
+        android:layout_width="69dp"
+        android:layout_height="71dp"
         app:srcCompat="@android:drawable/ic_media_play"
         android:id="@+id/launchMusicPlayer"
         android:onClick="launchMusicPlayer"
