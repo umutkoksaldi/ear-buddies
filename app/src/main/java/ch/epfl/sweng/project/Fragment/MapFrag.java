@@ -57,12 +57,15 @@ import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMyLocationButtonClickListener {
+
+
     private final String LATTITUDE = "lattitude";
     private final String LONGITUDE = "longitude";
-    private final String USER_AROUND = "getUsersAround/";
+    private final String USER_AROUND = "getUsersAround";
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     private final String ID = "idApiConnection";
 
+    private String mTest = "/";
     private User mUser;
 
     //Location
@@ -84,7 +87,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mActivity = getActivity();
         mUser = ModelApplication.getModelApplication().getUser();
-
+        mTest = ModelApplication.getModelApplication().getTestState();
         // Map from Google
         sMapFragment = SupportMapFragment.newInstance();
         FragmentManager fm = getFragmentManager();
@@ -159,10 +162,16 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public boolean onMyLocationButtonClick() {
-        double latitude = mUser.getLocation().getLattitude();
-        double longitude = mUser.getLocation().getLongitude();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
-        return true;
+        if (mUser.getLocation() != null) {
+            double latitude = mUser.getLocation().getLattitude();
+            double longitude = mUser.getLocation().getLongitude();
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
+            return true;
+        } else {
+            Log.e("Null", "Location is null");
+            updateLocation();
+            return false;
+        }
     }
 
     @Override
@@ -283,12 +292,20 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                     }
                 });
 
-                Map<String, String> params = new HashMap<>();
-                params.put(ID, "" + mUser.getIdApiConnection());
-                params.put(LATTITUDE, "" + mUser.getLocation().getLattitude());
-                params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
-                Log.i("Send item", params.toString());
-                serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND, User[].class);
+                if (mUser.getLocation() != null) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put(ID, "" + mUser.getIdApiConnection());
+
+                    params.put(LATTITUDE, "" + mUser.getLocation().getLattitude());
+                    params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
+                    Log.i("Send item", params.toString());
+                    serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND + mTest, User[]
+
+                            .class);
+                } else {
+                    Log.e("Null", "Location is null");
+                    updateLocation();
+                }
                 h.postDelayed(this, DELAY);
             }
         }, DELAY);
