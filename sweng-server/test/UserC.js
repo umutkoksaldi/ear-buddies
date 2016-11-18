@@ -70,7 +70,7 @@ describe('Test User API create User', () => {
                         }, 200);
                   });
 
-            testPromise.then(function(result){
+                testPromise.then(function(result){
                 try {
                       expect(result.idApiConnection).to.equal(userTest.id);
                       expect(result.firstname).to.equal(userTest.firstname);

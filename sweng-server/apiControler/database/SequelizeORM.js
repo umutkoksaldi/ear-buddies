@@ -4,6 +4,10 @@ var utils = require('../utils/Utils.js');
 var Sequelize = require('sequelize');
 var Constant = require('../utils/Constant.js');
 
+var AGE_MIN_DEFAULT = 0;
+var AGE_MAX_DEFAULT = 100;
+var RADIUS_DEFAULT = 20;
+
 function BaseDeDonnee()
 {
           // first we select on wich database we are going to work.
@@ -47,8 +51,7 @@ function BaseDeDonnee()
           profilePicture      : Sequelize.STRING,
           description         : Sequelize.STRING,
           lastname            : Sequelize.STRING,
-          lattitude           : Sequelize.REAL,
-          longitude           : Sequelize.REAL,
+          location            : Sequelize.GEOMETRY('POINT')
 
       },{
           timestamps: false
@@ -66,11 +69,14 @@ function BaseDeDonnee()
           timestamps: true
     })
 
+
     // create the schema of the user.
     this.Setting = this.sequelize.define('Setting', {
-          ageMin        : {type: Sequelize.INTEGER,defaultValue: 0},
-          ageMax        : {type: Sequelize.INTEGER,defaultValue: 100},
-          radius        : {type: Sequelize.INTEGER,defaultValue: 20},
+
+          ageMin        : {type: Sequelize.INTEGER,defaultValue: AGE_MIN_DEFAULT},
+          ageMax        : {type: Sequelize.INTEGER,defaultValue: AGE_MAX_DEFAULT},
+          radius        : {type: Sequelize.INTEGER,defaultValue: RADIUS_DEFAULT},
+
 
       },{
           timestamps: false
@@ -101,6 +107,8 @@ function BaseDeDonnee()
     }
 
 }
+
+
 
 var BaseDeDonnee = new BaseDeDonnee();
 BaseDeDonnee.makeLinkBetweenTable();

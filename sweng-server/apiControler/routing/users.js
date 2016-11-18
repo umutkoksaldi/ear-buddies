@@ -2,6 +2,7 @@ var express 		 = require('express');
 var router 		     = express.Router();
 var path             = require('path');
 var userControler    = require('../model/userModel.js');
+var userControlerTest= require('../model/userModelTest.js')
 var error            = require('../../setting/error.js');
 var utils            = require('../utils/Utils.js');
 
@@ -71,22 +72,23 @@ router.route("/:id")
            var response = null
            res.status(error.bad_request).json(response);
         }
-    })
+    });
 
 
 // get a user by his id
 router.route("/Setting/:id")
 
     // Create Users.
-    .post(function(req,res)
+    .put(function(req,res)
     {
-        utils.logInfo(" routing.user(), create a user ");
+        utils.logInfo(" routing.user(), yolo");
         utils.logDebug(" routing.user()" + JSON.stringify(req.body));
 
         // if the body of the request is defined we can rtry to add user
-        if(req.body != undefined){
+        if(typeof(req.params.id) != 'undefined' && req.body != undefined){
             // We call user Control with the callback method json to send a Json
-            userControler.getUsersAround(req.body,function(reponse, htmlCode){
+            utils.logInfo(" routing.user(), updateSetting");
+            userControler.updateSetting(req.params.id,req.body,function(reponse, htmlCode){
                 res.status(htmlCode).json(reponse);
             });
         }
@@ -107,6 +109,26 @@ router.route("/getUsersAround")
         if(req.body != undefined){
             // We call user Control with the callback method json to send a Json
             userControler.getUsersAround(req.body,function(reponse, htmlCode){
+                res.status(htmlCode).json(reponse);
+            });
+        }
+        else {
+           res.status(error.bad_request).json(null);
+        }
+    });
+
+    // get a user by his id
+router.route("/getUsersAroundTest")
+    // Create Users.
+    .post(function(req,res)
+    {
+        utils.logInfo(" routing.user(), create a user ");
+        utils.logDebug(" routing.user()" + JSON.stringify(req.body));
+
+        // if the body of the request is defined we can rtry to add user
+        if(req.body != undefined){
+            // We call user Control with the callback method json to send a Json
+            userControlerTest.getUsersAround(req.body,function(reponse, htmlCode){
                 res.status(htmlCode).json(reponse);
             });
         }

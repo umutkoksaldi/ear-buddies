@@ -24,7 +24,7 @@ function controlerMusic(){
   // Implementation of the REST GET service.
   this.getMusic = function(idMusic,callback){
 
-      utils.logInfo("getMusic(), get the music "+ idMusic);
+      utils.logInfo("getUserByIdConnection(), get the user"+ idMusic);
 
         // select query.
          Music.sync().then(function () {
