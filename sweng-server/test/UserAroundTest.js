@@ -64,11 +64,12 @@ var user3 = {
   "point" : point
 }
 
+var ID_NO_SETTING = "421620614972695"
 //inside the radius too old
-point = { type: 'Point', coordinates: [46.518474, 6.601183]}
+point = { type: 'Point', coordinates: [LATTITUDE, LONGITUDE]}
 var user4 = {
   "email": "testU4@test.test",
-  "id" : "321620614972695",
+  "id" : ID_NO_SETTING,
   "age": 102,
   "firstname": "Florian",
   "lastname": "DeLaRue",
@@ -78,8 +79,20 @@ var user4 = {
   "point" : point
 }
 
-var PARAM_USER = {
+var PARAM_USER_1 = {
   'idApiConnection' : ID,
+  'lattitude'       : LATTITUDE,
+  'longitude'       : LONGITUDE,
+}
+
+var PARAM_USER_BAD_ID = {
+  'idApiConnection' : 123456789012345,
+  'lattitude'       : LATTITUDE,
+  'longitude'       : LONGITUDE,
+}
+
+var PARAM_USER_NO_SETTINGS = {
+  'idApiConnection' : ID_NO_SETTING,
   'lattitude'       : LATTITUDE,
   'longitude'       : LONGITUDE,
 }
@@ -151,7 +164,7 @@ describe('Test User API getUsersAround.', () => {
 
                   // callback if the user srequest succeed.
                 }).then(function(createUser4) {
-                  createUser4.setSetting(Constant.GeneralModel.idDefaultSetting);
+                  //createUser4.setSetting(Constant.GeneralModel.idDefaultSetting);
                   resolve(true);
                   // return a 500 code if the request is null.
                 }).catch(function(error) {
@@ -192,7 +205,7 @@ describe('Test User API getUsersAround.', () => {
     it ('should get only one other user', (done) =>{
       chai.request(server)
       .post('/api/Users/getUsersAround/')
-      .send(PARAM_USER)
+      .send(PARAM_USER_1)
       .end((err, res) => {
         console.log("Get UserAround");
         //test server response
@@ -200,6 +213,35 @@ describe('Test User API getUsersAround.', () => {
         var body = res.body;
         chai.assert.equal(body.length, 1, 'There should be one user');
         chai.assert.equal(body[0].firstname, user3.firstname);
+        done();
+      });
+    });
+  });
+
+
+  describe('get user around', () => {
+    it('should fail when the ID is unknown', (done) => {
+      chai.request(server)
+      .post('/api/Users/getUsersAround/')
+      .send(PARAM_USER_BAD_ID)
+      .end((err, res) => {
+        console.log("Get UserAround");
+        //Server should fail
+        res.should.have.status(setting.htmlCode.unavailable_ressources);
+        done();
+      });
+    });
+  });
+
+  describe('get user around', () => {
+    it('should fail when the user have no setting value', (done) => {
+      chai.request(server)
+      .post('/api/Users/getUsersAround/')
+      .send(PARAM_USER_NO_SETTINGS)
+      .end((err, res) => {
+        console.log("Get UserAround");
+        //Server should fail
+        res.should.have.status(setting.htmlCode.unavailable_ressources);
         done();
       });
     });
