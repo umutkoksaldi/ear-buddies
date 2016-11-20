@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
     TextView description;
     LinearLayout tasteList;
     Button tastePicker;
+    ImageButton musicHistoryButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +47,22 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
         tasteList = (LinearLayout) profile.findViewById(R.id.taste_list);
 
         tastePicker.setOnClickListener(this);
+
+        // Music history button
+        musicHistoryButton = (ImageButton) profile.findViewById(R.id.musicHistoryButton);
+        musicHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View row) {
+                //int profileNumber = position + 1;
+                Fragment musicHistoryFragment = new MusicHistoryFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.music_history_fragment_container, musicHistoryFragment)
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+            }
+        });
 
         return profile;
     }
