@@ -70,11 +70,14 @@ public class Login extends AppCompatActivity {
                     mProfileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                            controlerConnection.sendPost(currentActivity.get(), AccessToken
-                                    .getCurrentAccessToken()
-                                    .getToken(), profile2
-                                    .getId(), GlobalSetting.USER_API, false);
-                            Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
+                            if (AccessToken.getCurrentAccessToken() != null) {
+                                controlerConnection.sendPost(currentActivity.get(), AccessToken
+                                        .getCurrentAccessToken()
+                                        .getToken(), profile2
+                                        .getId(), GlobalSetting.USER_API, false);
+                                Toast.makeText(getApplicationContext(), getString(R.string.connexion_facebook_pending), Toast.LENGTH_SHORT).show();
+
+                            }
                         }
                     };
                 } else {

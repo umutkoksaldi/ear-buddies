@@ -9,4 +9,20 @@
         <item>Jazz</item>
         <item>EDM</item>
     </array>
+
+    <array
+        name="range_array">
+        <item>100 Meters</item>
+        <item>250 Meters</item>
+        <item>500 Meters</item>
+        <item>1 Kilometer</item>
+
+    </array>
+
+    <array
+        name="user_opt_array">
+        <item>Change Name</item>
+        <item>Add / Change Description</item>
+
+    </array>
 </resources>
