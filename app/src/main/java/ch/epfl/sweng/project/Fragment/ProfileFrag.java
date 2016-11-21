@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,8 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
 import org.springframework.http.ResponseEntity;
@@ -30,9 +29,7 @@ import java.util.Map;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Login;
-import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
-import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
@@ -113,9 +110,10 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
                 Fragment musicHistoryFragment = new MusicHistoryFragment();
                 getFragmentManager()
                         .beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_up)
                         .replace(R.id.music_history_fragment_container, musicHistoryFragment)
                         .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
         });

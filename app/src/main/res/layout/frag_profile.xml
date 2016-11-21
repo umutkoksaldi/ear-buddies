@@ -4,12 +4,12 @@
     android:id="@+id/music_history_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-    >
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+        >
 
 
     <RelativeLayout
@@ -31,35 +31,35 @@
 
 
         <LinearLayout
+            android:id="@+id/taste_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_layout"
             android:layout_marginTop="5dp"
-            android:orientation="vertical"
-            android:id="@+id/taste_list">
+            android:orientation="vertical">
 
             <Button
-                android:text="@string/no_music_taste_push_to_select"
+                android:id="@+id/taste_picker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/taste_picker"/>
+                android:text="@string/no_music_taste_push_to_select"/>
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/range_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/find_user_text"/>
 
             <Button
+                android:id="@+id/log_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/log_out"
                 android:text="@string/log_out_facebook"/>
 
             <Button
+                android:id="@+id/delete_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/delete_button"
                 android:text="@string/delete_account"/>
 
         </LinearLayout>
@@ -68,12 +68,12 @@
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/header_cover_image"
             android:background="#ebca0707"
             android:elevation="4dp"
-            android:paddingBottom="24dp"
-            android:layout_below="@+id/header_cover_image"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:paddingBottom="24dp">
 
 
             <TextView
@@ -99,13 +99,11 @@
                 android:textSize="14sp" />
 
             <ImageButton
+                android:id="@+id/options_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_menu_add"
-                android:id="@+id/options_button"
                 android:layout_alignParentTop="true"
                 app:srcCompat="@android:drawable/ic_menu_add"/>
-
             <ImageButton
                 android:id="@+id/musicHistoryButton"
                 android:layout_width="wrap_content"
@@ -121,10 +119,10 @@
             android:id="@+id/header_cover_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"/>
     </RelativeLayout>
 </ScrollView>
 </RelativeLayout>
