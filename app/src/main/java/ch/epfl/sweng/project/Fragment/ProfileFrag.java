@@ -45,7 +45,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
     TextView description;
     LinearLayout tasteList;
     Button tastePicker;
-    ImageButton musicHistoryButton;
+    Button musicHistoryButton;
     Button rangeButton;
     Button deleteButton;
     Button logOut;
@@ -102,7 +102,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
 
 
         // Music history button
-        musicHistoryButton = (ImageButton) profile.findViewById(R.id.musicHistoryButton);
+        musicHistoryButton = (Button) profile.findViewById(R.id.musicHistoryButton);
         musicHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View row) {

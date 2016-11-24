@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <ImageButton
             android:id="@+id/user_profile_photo"
             android:layout_width="120dp"
@@ -38,30 +39,48 @@
             android:layout_marginTop="5dp"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/taste_picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/no_music_taste_push_to_select"/>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/range_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/find_user_text"/>
+                <Button
+                    android:id="@+id/musicHistoryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recently_played_songs"/>
 
-            <Button
-                android:id="@+id/log_out"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/log_out_facebook"/>
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/delete_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_account"/>
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/taste_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_music_taste_push_to_select"/>
+
+                <Button
+                    android:id="@+id/range_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/find_user_text"/>
+
+                <Button
+                    android:id="@+id/log_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/log_out_facebook"/>
+
+                <Button
+                    android:id="@+id/delete_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete_account"/>
+            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -102,23 +121,16 @@
                 android:id="@+id/options_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/ic_menu_add"/>
-            <ImageButton
-                android:id="@+id/musicHistoryButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                app:srcCompat="@android:drawable/ic_menu_recent_history"/>
-
+                android:layout_alignParentTop="true"
+                app:srcCompat="@android:drawable/ic_menu_add"/>
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/header_cover_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
