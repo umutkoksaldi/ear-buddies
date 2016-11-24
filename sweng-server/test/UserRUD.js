@@ -45,8 +45,9 @@ var FAKE_ID = 1
  // ----------------------------------------------   TEST  -----------------------------------------
 
 //Our parent block
-describe('Test User API update/delete/get.', () => {
-
+describe('Test User API update/delete/get.', function() {
+    
+    this.timeout(4000);
     // Before each test we insert a user. 
     beforeEach((done) => { 
 
