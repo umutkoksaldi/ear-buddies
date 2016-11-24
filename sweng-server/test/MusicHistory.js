@@ -69,6 +69,7 @@ describe('Test Music API', function() {
                       }).then(function(createUser) {
 
                           Music.sync({force: true}).then(function () {
+                            "use strict";
                             // We should use let becase the loop with asynchronous call does not work:
                             // http://stackoverflow.com/questions/11488014/asynchronous-process-inside-a-javascript-for-loop
                             for (let i =0; i <= LIMIT_LOOP_MUSIC; i++){
