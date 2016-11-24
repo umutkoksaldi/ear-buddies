@@ -16,6 +16,11 @@ var Music = require('../database/SequelizeORM.js').Music;
 //---------------------------------- DEFINE CONSTANT ------------------------------------
 var URL_LASTFM = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo"
 
+
+var TAG_MUSIC = ['pop','rock','rap','metal','hiphop'];
+var TAG_MUSIC_UNKNOWN = 'unknown';
+var LIMIT_HISTORY = 10; 
+
 //---------------------------------- DEFINE CONSTANT ------------------------------------
 
 // Définition de l'objet controllerUtilisateur
@@ -47,6 +52,41 @@ function controlerMusic(){
           });
     }
 
+    this.getHistory = function(idUser,callback){
+
+        User.sync().then(function () {
+          // select query.
+           var getUser =  User.findOne({
+                where: {
+                  idApiConnection: idUser
+                }
+              }).then(function(getUser) {
+
+                  utils.logInfo("request succeed"+idUser)
+
+                  // We get the most recent, we limit to ten.
+                  getUser.getMusic({
+                    order:'"createdAt" DESC',
+                    limit : LIMIT_HISTORY
+                  }).then(function(MusicsofUsers) {
+
+                      MusicsofUsers.forEach(function(value){
+                            musicManipulation.transformResponseClient(value.dataValues)
+                      });   
+                      callback(MusicsofUsers,setting.htmlCode.succes_request);
+                  }).catch(function(error) {
+                    utils.logError("Cannot get the Musics of the user "+ error)
+                    callback(null,setting.htmlCode.unavailable_ressources);
+                });
+
+            }).catch(function(error) {
+                utils.logError("error getting user : "+error)
+                callback(null,setting.htmlCode.unavailable_ressources);
+            });
+        });
+         
+    }
+
 
     this.updateMusic = function(idApi,MusicObject,callback)    {     
 
@@ -58,27 +98,49 @@ function controlerMusic(){
            callback(null,setting.htmlCode.unavailable_ressources);
           }
           else {
-                var body = {'artist':null,'track':null}
+                var resultFMRequest = {'artist':null,'track':null,'tag' : TAG_MUSIC_UNKNOWN}
 
                 // get the value from the response.
                 res.raw_body  = JSON.parse(res.raw_body, (key, value) => {
-                  // the case where we can't find any informations about the music.
-                  if(key == 'error'){
-                    body = {
-                              'artist': MusicObject.artistName ,
-                              'track':{'url': null , 'name':MusicObject.musicName}
+                    // the case where we can't find any informations about the music.
+                    if(key == 'error'){
+                      resultFMRequest = {
+                                'artist': MusicObject.artistName ,
+                                'track':{'url': null , 'name':MusicObject.musicName},
+                                'tag' : TAG_MUSIC_UNKNOWN
+                              }
+                    }
+
+                    // we get the result.
+                    if(key == 'artist'){
+                      
+                        if (value.name != null){
+                          resultFMRequest.artist = value.name
+                        }
+                    }
+
+                   // get the name of the music.
+                   if(key =='track'){
+                        resultFMRequest.track = value
+                    }
+
+                    // get the tags of the music
+                    if(key == 'toptags'){
+                      value.tag.forEach(function(tag) {
+
+                         for (indexTagPossible in TAG_MUSIC){  
+                            // if the tag contain one possible/defined tags we add it as a tag
+                            if(TAG_MUSIC[indexTagPossible].indexOf(tag.name) > -1) { 
+                              resultFMRequest.tag = TAG_MUSIC[indexTagPossible];
+                              break;
                             }
+                         }
+
+                      });
                   }
 
-                  // we get the result.
-                  if(key =='artist'){
-                      body.artist = value
-                  }
-
-                 if(key =='track'){
-                      body.track = value
-                  }
-                  return value;                
+                  return value;  
+                            
               });
 
 
@@ -87,10 +149,10 @@ function controlerMusic(){
 
                     // add the music.
                     var CreateMusic =  Music.create({
-                            artist        : body.artist,
-                            name          : body.track.name,
-                            url           : body.track.url,
-                            tag           : 'yolo'
+                            artist        : resultFMRequest.artist,
+                            name          : resultFMRequest.track.name,
+                            url           : resultFMRequest.track.url,
+                            tag           : resultFMRequest.tag
 
                   // callback if the user srequest succeed.
                   }).then(function(CreateMusic) {

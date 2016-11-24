@@ -31,8 +31,9 @@ var FAKE_ID = 1;
  // ----------------------------------------------   TEST  -----------------------------------------
 
 //Our parent block
-describe('Test User API create User', () => {
+describe('Test User API create User', function(){
 
+    this.timeout(4000);
     // Before each test we insert a user. 
     before((done) => { 
           // We rfroce to recreate the table User.

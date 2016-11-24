@@ -45,8 +45,9 @@ var userTest = {
 //****************************************************************************
 
 //Our parent block
-describe('Test Setting API create/update.', () => {
-
+describe('Test Setting API create/update.', function() {
+    
+    this.timeout(4000);
     // Before each test we insert a user. 
     beforeEach((done) => { 
 
