@@ -19,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
 import org.springframework.http.ResponseEntity;
@@ -30,9 +28,7 @@ import java.util.Map;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Login;
-import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
-import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
@@ -99,6 +95,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
             public void onFailed() {
                 // Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
                 //       .LENGTH_SHORT).show();
+                Log.e("Profile", "Cannot connect to server");
             }
         });
 

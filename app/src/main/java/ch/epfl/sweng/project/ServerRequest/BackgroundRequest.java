@@ -6,6 +6,7 @@ import android.util.Log;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -100,6 +101,7 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
             case SettingRequest.PUT_REQUEST:
                 try {
                     restTemplate.put(mUrl, mParams);
+                    response = new ResponseEntity<Object>(HttpStatus.OK);
                     Log.i("doInBackground()","call put service");
                     break;
                 }
@@ -113,6 +115,7 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
             case SettingRequest.DELETE_REQUEST:
                 try {
                     restTemplate.delete(mUrl);
+                    response = new ResponseEntity<Object>(HttpStatus.OK);
                     Log.i("doInBackground()","call delete service");
                 }
                 catch(Exception e) {
