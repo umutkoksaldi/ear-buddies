@@ -6,17 +6,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,8 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
     Button logOut;
     ImageButton optionsButton;
     ServiceHandler serviceHandler;
+    // Use the correct animation (expand or contract) for the music history when the user clicks on the history button
+    boolean expandedMusicHistory = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
         new DownloadImageTask(profilePict).execute(modelApplication.getUser().getBackgroundPicture());
         description = (TextView) profile.findViewById(R.id.user_description);
         description.setText(modelApplication.getUser().getDescription());
+        musicHistoryButton = (Button) profile.findViewById(R.id.musicHistoryButton);
         tastePicker = (Button) profile.findViewById(R.id.taste_picker);
         tasteList = (LinearLayout) profile.findViewById(R.id.taste_list);
         rangeButton = (Button) profile.findViewById(R.id.range_button);
@@ -77,6 +82,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
         tastePicker.setOnClickListener(this);
         deleteButton.setOnClickListener(this);
         optionsButton.setOnClickListener(this);
+        musicHistoryButton.setOnClickListener(this);
 
         serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
 
@@ -101,29 +107,43 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
         });
 
 
-        // Music history button
-        musicHistoryButton = (Button) profile.findViewById(R.id.musicHistoryButton);
-        musicHistoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View row) {
-                //int profileNumber = position + 1;
-                Fragment musicHistoryFragment = new MusicHistoryFragment();
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_up)
-                        .replace(R.id.music_history_fragment_container, musicHistoryFragment)
-                        .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit();
-            }
-        });
-
         return profile;
     }
 
     @Override
     public void onClick(View v) {
-        if (v == tastePicker) {
+        if (v.equals(musicHistoryButton)) {
+            //int profileNumber = position + 1;
+            //Log.d("ProfilFrag", "User clicked on \"Recently played songs\" button");
+
+            // Move the buttons other than the music history button
+            LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
+                    .buttons_under_history);
+            Animation buttonsAnimation = AnimationUtils.loadAnimation(getActivity(),
+                    expandedMusicHistory ? R.anim.music_history_contract_buttons : R.anim.music_history_expand_buttons);
+            buttonsUnderHistory.startAnimation(buttonsAnimation);
+            expandedMusicHistory = !expandedMusicHistory;
+
+            // Move the top part of the fragment
+            RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
+            ImageView headCover = (ImageView) getActivity().findViewById(R.id.header_cover_image);
+            ImageButton userProfilePhoto = (ImageButton) getActivity().findViewById(R.id.user_profile_photo);
+            Animation topAnimation = AnimationUtils.loadAnimation(getActivity(),
+                    expandedMusicHistory ? R.anim.music_history_contract_top : R.anim.music_history_expand_top);
+            profileLayout.startAnimation(topAnimation);
+            headCover.startAnimation(topAnimation);
+            userProfilePhoto.startAnimation(topAnimation);
+
+            // display music history fragment, to be deleted
+            /*Fragment musicHistoryFragment = new MusicHistoryFragment();
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_up)
+                    .replace(R.id.music_history_fragment_container, musicHistoryFragment)
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();*/
+        } else if (v.equals(tastePicker)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.pick_taste)
                     .setItems(R.array.music_taste_array, new DialogInterface.OnClickListener() {
@@ -159,8 +179,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
 
             AlertDialog dialog = builder.create();
             dialog.show();
-        }
-        else if (v == rangeButton) {
+        } else if (v.equals(rangeButton)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.set_range)
                     .setItems(R.array.range_array, new DialogInterface.OnClickListener() {
@@ -188,8 +207,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
 
             AlertDialog dialog = builder.create();
             dialog.show();
-        }
-        else if (v == deleteButton){
+        } else if (v.equals(deleteButton)) {
             new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.delete_user_alert)
                     .setMessage(getString(R.string.delete_warning) +
@@ -206,8 +224,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-        }
-        else if (v == logOut) {
+        } else if (v.equals(logOut)) {
             new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.log_out_message)
                     .setMessage(R.string.log_out_warning)
@@ -225,8 +242,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-        }
-        else if (v == optionsButton) {
+        } else if (v.equals(optionsButton)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.user_options)
                     .setItems(R.array.user_opt_array, new DialogInterface.OnClickListener() {

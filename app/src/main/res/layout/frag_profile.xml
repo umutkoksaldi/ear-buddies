@@ -17,18 +17,6 @@
         android:layout_height="wrap_content">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        </LinearLayout>
-
         <ImageButton
             android:id="@+id/user_profile_photo"
             android:layout_width="120dp"
@@ -65,8 +53,9 @@
 
 
             <LinearLayout
+                android:id="@+id/buttons_under_history"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <Button
@@ -94,6 +83,15 @@
                     android:text="@string/delete_account"/>
             </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/header_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"/>
 
         <RelativeLayout
             android:id="@+id/profile_layout"
@@ -138,15 +136,6 @@
                 android:layout_alignParentTop="true"
                 app:srcCompat="@android:drawable/ic_menu_add"/>
         </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/header_cover_image"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"/>
     </RelativeLayout>
 </ScrollView>
 </RelativeLayout>
