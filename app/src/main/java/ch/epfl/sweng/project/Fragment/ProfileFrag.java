@@ -113,26 +113,13 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v.equals(musicHistoryButton)) {
-            //int profileNumber = position + 1;
-            //Log.d("ProfilFrag", "User clicked on \"Recently played songs\" button");
 
-            // Move the buttons other than the music history button
-            LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
-                    .buttons_under_history);
-            Animation buttonsAnimation = AnimationUtils.loadAnimation(getActivity(),
-                    expandedMusicHistory ? R.anim.music_history_contract_buttons : R.anim.music_history_expand_buttons);
-            buttonsUnderHistory.startAnimation(buttonsAnimation);
-            expandedMusicHistory = !expandedMusicHistory;
+            if (expandedMusicHistory) {
+                contractMusicHistory();
+            } else {
+                expandMusicHistory();
+            }
 
-            // Move the top part of the fragment
-            RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
-            ImageView headCover = (ImageView) getActivity().findViewById(R.id.header_cover_image);
-            ImageButton userProfilePhoto = (ImageButton) getActivity().findViewById(R.id.user_profile_photo);
-            Animation topAnimation = AnimationUtils.loadAnimation(getActivity(),
-                    expandedMusicHistory ? R.anim.music_history_contract_top : R.anim.music_history_expand_top);
-            profileLayout.startAnimation(topAnimation);
-            headCover.startAnimation(topAnimation);
-            userProfilePhoto.startAnimation(topAnimation);
 
             // display music history fragment, to be deleted
             /*Fragment musicHistoryFragment = new MusicHistoryFragment();
@@ -143,6 +130,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();*/
+
         } else if (v.equals(tastePicker)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.pick_taste)
@@ -334,5 +322,51 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
         startActivity(new Intent(getActivity(), Login.class));
         getActivity().finish();
         logOutFace();
+    }
+
+    private void expandMusicHistory() {
+
+        // Move the buttons other than the music history button
+        LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
+                .buttons_under_history);
+        Animation buttonsAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_expand_buttons);
+        buttonsUnderHistory.startAnimation(buttonsAnimation);
+
+
+        // Move the top part of the fragment
+        RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
+        ImageView headCover = (ImageView) getActivity().findViewById(R.id.header_cover_image);
+        ImageButton userProfilePhoto = (ImageButton) getActivity().findViewById(R.id.user_profile_photo);
+        Animation topAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_expand_top);
+        profileLayout.startAnimation(topAnimation);
+        headCover.startAnimation(topAnimation);
+        userProfilePhoto.startAnimation(topAnimation);
+
+        expandedMusicHistory = true;
+    }
+
+    public void contractMusicHistory() {
+
+        // Move back the buttons other than the music history button
+        LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
+                .buttons_under_history);
+        Animation buttonsAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_contract_buttons);
+        buttonsUnderHistory.startAnimation(buttonsAnimation);
+
+        // Move back the top part of the fragment
+        RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
+        ImageView headCover = (ImageView) getActivity().findViewById(R.id.header_cover_image);
+        ImageButton userProfilePhoto = (ImageButton) getActivity().findViewById(R.id.user_profile_photo);
+        Animation topAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_contract_top);
+        profileLayout.startAnimation(topAnimation);
+        headCover.startAnimation(topAnimation);
+        userProfilePhoto.startAnimation(topAnimation);
+
+        expandedMusicHistory = false;
+
+    }
+
+    public boolean expandedMusicHistory() {
+        return expandedMusicHistory;
     }
 }
