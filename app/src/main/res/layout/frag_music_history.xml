@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/cardview_light_background"
+              android:clickable="true"
               android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:background="@color/cardview_light_background"
-        android:theme="?attr/dialogTheme">
 
-        <TextView
-            android:id="@+id/textView"
+        <ListView
+            android:id="@+id/music_history_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Music History Fragment"/>
+            android:layout_height="match_parent"/>
 
-    </RelativeLayout>
 </LinearLayout>

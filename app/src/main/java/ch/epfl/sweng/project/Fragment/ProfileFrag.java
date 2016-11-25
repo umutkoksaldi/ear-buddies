@@ -2,6 +2,7 @@ package ch.epfl.sweng.project.Fragment;
 
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +29,7 @@ import java.util.Map;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Login;
+import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
@@ -114,22 +113,14 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         if (v.equals(musicHistoryButton)) {
 
-            if (expandedMusicHistory) {
+            /*if (expandedMusicHistory) {
                 contractMusicHistory();
             } else {
                 expandMusicHistory();
-            }
+            }*/
+            expandMusicHistory();
+            ((MainActivity) getActivity()).setExpendedMusicHistory();
 
-
-            // display music history fragment, to be deleted
-            /*Fragment musicHistoryFragment = new MusicHistoryFragment();
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_up)
-                    .replace(R.id.music_history_fragment_container, musicHistoryFragment)
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit();*/
 
         } else if (v.equals(tastePicker)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -327,40 +318,51 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
     private void expandMusicHistory() {
 
         // Move the buttons other than the music history button
-        LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
+        /*LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
                 .buttons_under_history);
         Animation buttonsAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_expand_buttons);
-        buttonsUnderHistory.startAnimation(buttonsAnimation);
+        buttonsUnderHistory.startAnimation(buttonsAnimation);*/
 
 
         // Move the top part of the fragment
-        RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
+        /*RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
         ImageView headCover = (ImageView) getActivity().findViewById(R.id.header_cover_image);
         ImageButton userProfilePhoto = (ImageButton) getActivity().findViewById(R.id.user_profile_photo);
         Animation topAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_expand_top);
         profileLayout.startAnimation(topAnimation);
         headCover.startAnimation(topAnimation);
-        userProfilePhoto.startAnimation(topAnimation);
+        userProfilePhoto.startAnimation(topAnimation);*/
 
-        expandedMusicHistory = true;
+        // Call the music history fragment
+        Fragment musicHistoryFragment = new MusicHistoryFragment();
+        getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_up, R.anim.slide_in_up,
+                        R.anim.slide_bot_out, R.anim.slide_bot_out)
+                .replace(R.id.music_history_fragment_container, musicHistoryFragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
+
+        //expandedMusicHistory = true;
     }
 
     public void contractMusicHistory() {
 
         // Move back the buttons other than the music history button
-        LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
+        /*LinearLayout buttonsUnderHistory = (LinearLayout) getActivity().findViewById(R.id
                 .buttons_under_history);
         Animation buttonsAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_contract_buttons);
-        buttonsUnderHistory.startAnimation(buttonsAnimation);
+        buttonsUnderHistory.startAnimation(buttonsAnimation);*/
 
         // Move back the top part of the fragment
-        RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
+        /*RelativeLayout profileLayout = (RelativeLayout) getActivity().findViewById(R.id.profile_layout);
         ImageView headCover = (ImageView) getActivity().findViewById(R.id.header_cover_image);
         ImageButton userProfilePhoto = (ImageButton) getActivity().findViewById(R.id.user_profile_photo);
         Animation topAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.music_history_contract_top);
         profileLayout.startAnimation(topAnimation);
         headCover.startAnimation(topAnimation);
-        userProfilePhoto.startAnimation(topAnimation);
+        userProfilePhoto.startAnimation(topAnimation);*/
 
         expandedMusicHistory = false;
 

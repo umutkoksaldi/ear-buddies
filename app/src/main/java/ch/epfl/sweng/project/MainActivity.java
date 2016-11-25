@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +23,7 @@ public final class MainActivity extends AppCompatActivity {
     private static final int PROFILE_FRAGMENT = 2;
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
+    private boolean expandedMusicHistory = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +114,14 @@ public final class MainActivity extends AppCompatActivity {
         }
         // TODO implement back stack animation for user music history
         else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
-            Log.e("MainActivity", "onBackPressed() while in user profile fragment");
-            mViewPager.setCurrentItem(MAP_FRAGMENT);
+            if (expandedMusicHistory) {
+                super.onBackPressed();
+                expandedMusicHistory = false;
+            } else {
+                mViewPager.setCurrentItem(MAP_FRAGMENT);
+            }
+
+
         } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
             // Leave the app properly without going back to the welcome activity
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
@@ -125,6 +131,10 @@ public final class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void setExpendedMusicHistory() {
+        expandedMusicHistory = true;
     }
 
 }

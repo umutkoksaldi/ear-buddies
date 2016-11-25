@@ -1,7 +1,6 @@
 package ch.epfl.sweng.project.media;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Model.Music;
@@ -14,7 +13,7 @@ public final class MusicHistory {
 
     private static MusicHistory musicHistory = null;
     private int length = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH;
-    private List<Music> musicHistoryList = new ArrayList<>();
+    private ArrayList<Music> musicHistoryList = new ArrayList<>();
 
     private MusicHistory() {
     }
@@ -55,7 +54,7 @@ public final class MusicHistory {
         musicHistoryList.add(new Music("Rihanna", "Disturbia"));
     }
 
-    public List<Music> getHistory() {
+    public ArrayList<Music> getHistory() {
         return musicHistoryList;
     }
 
