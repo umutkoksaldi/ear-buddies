@@ -42,7 +42,8 @@ var GoodMusicName = {
 var responseGood = {
       'artist' : 'Rihanna',
       'name' : 'Umbrella',
-      'url' : 'https://www.last.fm/music/Rihanna/_/Umbrella'
+      'url' : 'https://www.last.fm/music/Rihanna/_/Umbrella',
+      'tag' : 'pop'
 }
 
 var BadMusicName = {
@@ -54,9 +55,10 @@ var BadMusicName = {
 // ----------------------------------------------   TEST  -----------------------------------------
 
 //We create the user.
-describe('Test Music API', () => {
+describe('Test Music API', function(){
 
-      // Before each test we insert a user. 
+    this.timeout(4000);
+    // Before each test we insert a user. 
     beforeEach((done) => {
         // the promise allow to test some asynchronous method.
         var testPromise = new Promise(function(resolve, reject) {
@@ -177,6 +179,7 @@ describe('Test Music API', () => {
                               expect(result.artist).to.equal(responseGood.artist);
                               expect(result.name).to.equal(responseGood.name);
                               expect(result.url).to.equal(responseGood.url);
+                              expect(result.tag).to.equal(responseGood.tag);
                               expect(result.UserId).to.equal(ID_USER);
                               expect(result.id).to.equal(MUSIC_ID);
                               done();

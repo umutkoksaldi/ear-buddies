@@ -40,5 +40,20 @@ router.route("/:id")
     });
 
 
+// Mach on the route
+router.route("/history/:id")
+    // Get the user.
+    .get(function(req,res)
+    {
+        utils.logInfo("routing.user(), get user");
+        if(typeof(req.params.id) != 'undefined'){
+            musicControler.getHistory(req.params.id,function(reponse, htmlCode){
+                res.status(htmlCode).json(reponse);
+            });
+        }
+        else{
+           res.status(error.bad_request).json(null);
+        }
+    })
 
 module.exports = router;
