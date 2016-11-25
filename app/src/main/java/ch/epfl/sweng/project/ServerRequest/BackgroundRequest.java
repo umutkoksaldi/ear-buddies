@@ -6,7 +6,8 @@ import android.util.Log;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -100,8 +101,7 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
             // Do a put request
             case SettingRequest.PUT_REQUEST:
                 try {
-                    restTemplate.put(mUrl, mParams);
-                    response = new ResponseEntity<Object>(HttpStatus.OK);
+                    response = restTemplate.exchange(mUrl, HttpMethod.PUT, new HttpEntity<Object>(mParams), mClazz, mParams);
                     Log.i("doInBackground()","call put service");
                     break;
                 }
@@ -114,8 +114,9 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
             // Do a delete response
             case SettingRequest.DELETE_REQUEST:
                 try {
-                    restTemplate.delete(mUrl);
-                    response = new ResponseEntity<Object>(HttpStatus.OK);
+                    response = restTemplate.exchange(mUrl, HttpMethod.DELETE, HttpEntity.EMPTY, mClazz);
+                    //restTemplate.delete(mUrl);
+                    //response = new ResponseEntity<Object>(HttpStatus.OK);
                     Log.i("doInBackground()","call delete service");
                 }
                 catch(Exception e) {
