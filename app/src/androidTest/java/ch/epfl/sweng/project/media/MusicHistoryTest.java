@@ -133,7 +133,7 @@ public class MusicHistoryTest {
         MusicHistoryFragment.MusicListAdapter adapter = new MusicHistoryFragment.MusicListAdapter(context, musicList);
         musicHistory.updateFromServer(adapter);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             Log.e("MusicHistoryTest", e.toString());
         }

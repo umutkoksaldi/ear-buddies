@@ -10,6 +10,7 @@ public class Music {
     private String name;
     private String url;
     private String tag;
+    private String urlPicture;
 
 
     public Music() {
@@ -60,5 +61,13 @@ public class Music {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getUrlPicture() {
+        return urlPicture;
+    }
+
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 }
