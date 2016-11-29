@@ -29,7 +29,8 @@ public class MusicHistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         musicHistory = MusicHistory.getMusicHistory();
-        musicHistory.updateFromServer();
+
+
         ArrayList<Music> musicList = musicHistory.getHistory();
 
 
@@ -41,6 +42,8 @@ public class MusicHistoryFragment extends Fragment {
         // Attach the adapter to a ListView
         ListView musicHistoryListview = (ListView) view.findViewById(R.id.music_history_listview);
         musicHistoryListview.setAdapter(adapter);
+        // Update the history from server and notify the adapter if new musics exist
+        musicHistory.updateFromServer(adapter);
 
 
         return view;
@@ -77,6 +80,10 @@ public class MusicHistoryFragment extends Fragment {
             // Return the completed view to render on screen
             return convertView;
 
+        }
+
+        public Music getSongByPosition(int pos) {
+            return getItem(pos);
         }
     }
 

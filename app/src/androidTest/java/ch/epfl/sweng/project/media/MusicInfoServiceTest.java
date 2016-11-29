@@ -58,7 +58,8 @@ public class MusicInfoServiceTest {
     public void init() {
         context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 "MusicInfoServiceTest");
-        controlerConnection.sendPost(null, GlobalTestSettings.ACCESS_TOKEN_FACEBOOK, GlobalTestSettings.ID_FACEBOOK,
+        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+                .MOCK_ID_FACEBOOK,
                 GlobalSetting.USER_API, true);
     }
 
