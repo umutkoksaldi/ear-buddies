@@ -29,7 +29,6 @@ import java.util.Map;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Login;
-import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
@@ -102,6 +101,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
             public void onFailed() {
                 // Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
                 //       .LENGTH_SHORT).show();
+                Log.e("Profile", "Cannot connect to server");
             }
         });
 
