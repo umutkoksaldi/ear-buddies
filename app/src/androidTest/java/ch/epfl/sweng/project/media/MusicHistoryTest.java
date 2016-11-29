@@ -11,10 +11,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
+import ch.epfl.sweng.project.Fragment.MusicHistoryFragment;
 import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
@@ -50,6 +52,7 @@ public class MusicHistoryTest {
         controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
                 .MOCK_ID_FACEBOOK,
                 GlobalSetting.USER_API, true);
+        musicHistory = MusicHistory.getMusicHistory();
     }
 
     @Test
@@ -124,19 +127,20 @@ public class MusicHistoryTest {
         assertThat(behavesAsExpected, is(true));
     }
 
-    /*@Test
-    public void testHistory(){
-        MusicHistoryFragment musicHistoryFragment = new MusicHistoryFragment();
-        musicHistoryFragment.MusicListAdapter adapter = new MusicHistoryFragment.MusicListAdapter(context, musicList);
+    @Test
+    public void testHistory() {
+        ArrayList<Music> musicList = new ArrayList<>();
+        MusicHistoryFragment.MusicListAdapter adapter = new MusicHistoryFragment.MusicListAdapter(context, musicList);
         musicHistory.updateFromServer(adapter);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             Log.e("MusicHistoryTest", e.toString());
         }
-        ArrayList<Music>  musicList = musicHistory.getHistory();
+        musicList = musicHistory.getHistory();
         assertEquals(musicList.get(0).getArtist(),ARTIST_NAME_TEST);
         assertEquals(musicList.get(0).getName(),MUSIC_NAME_TEST);
-    }*/
+    }
+
 
 }
