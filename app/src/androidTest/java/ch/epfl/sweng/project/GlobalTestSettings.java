@@ -19,8 +19,8 @@ public class GlobalTestSettings {
     public static final String MOCK_USER_COVER_PICTURE = "";
     public static final String MOCK_USER_EMAIL = "please_send_spam@gmail.com";
     public static final int MOCK_USER_AGE = 22;
-    public static final String MOCK_USER_FIRST_NAME = "Alex";
-    public static final String MOCK_USER_LAST_NAME = "Terrieur";
+    public static final String MOCK_USER_FIRST_NAME = "Sweng";
+    public static final String MOCK_USER_LAST_NAME = "Rocks";
 
 
     public static void createFakeUser() {

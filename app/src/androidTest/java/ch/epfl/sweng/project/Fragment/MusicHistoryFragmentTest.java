@@ -36,7 +36,7 @@ public class MusicHistoryFragmentTest extends ActivityInstrumentationTestCase2<A
         musics.add(new Music("Artist 1", "Track 1"));
         musics.add(new Music("Artist 2", "Track 2"));
 
-        testAdapter = new MusicHistoryFragment.MusicListAdapter(getContext(), musics);
+        testAdapter = new MusicHistoryFragment.MusicListAdapter(musics, getContext());
     }
 
     @Test

@@ -139,7 +139,8 @@ public class MusicHistoryTest {
     @Test
     public void testHistory() {
         ArrayList<Music> musicList = new ArrayList<>();
-        MusicHistoryFragment.MusicListAdapter adapter = new MusicHistoryFragment.MusicListAdapter(context, musicList);
+        MusicHistoryFragment.MusicListAdapter adapter = new MusicHistoryFragment.MusicListAdapter(musicList,
+                context);
         musicHistory.updateFromServer(adapter);
         try {
             Thread.sleep(3000);

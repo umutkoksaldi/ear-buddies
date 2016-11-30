@@ -1,7 +1,7 @@
 package ch.epfl.sweng.project.media;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.BaseAdapter;
 
 import org.springframework.http.ResponseEntity;
 
@@ -22,7 +22,7 @@ public final class MusicHistory {
 
     private static MusicHistory musicHistory = null;
     // Adapter used by MusicHistoryFragment to update the listview
-    BaseAdapter adapter = null;
+    RecyclerView.Adapter adapter = null;
     MusicHistoryFragment musicHistoryFragment = null;
     private int length = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH;
     private ArrayList<Music> musicHistoryList = new ArrayList<>();
@@ -55,7 +55,7 @@ public final class MusicHistory {
         this.length = length;
     }
 
-    public void updateFromServer(BaseAdapter adapter) {
+    public void updateFromServer(RecyclerView.Adapter adapter) {
         this.adapter = adapter;
         musicHistoryList.clear();
         sendGet(GlobalSetting.MUSIC_HISTORY_API);
