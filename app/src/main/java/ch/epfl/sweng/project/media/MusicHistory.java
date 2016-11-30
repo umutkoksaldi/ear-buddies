@@ -27,7 +27,6 @@ public final class MusicHistory {
     private int length = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH;
     private ArrayList<Music> musicHistoryList = new ArrayList<>();
     private ModelApplication modelApplication = ModelApplication.getModelApplication();
-
     private MusicHistory() {
     }
 
@@ -37,6 +36,10 @@ public final class MusicHistory {
             musicHistory = new MusicHistory();
         }
         return musicHistory;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public void setLength(int length) {

@@ -128,6 +128,15 @@ public class MusicHistoryTest {
     }
 
     @Test
+    public void testHistorySetLength() {
+        int expectedLength = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH - 1;
+        boolean behavesAsExpected = false;
+        musicHistory.setLength(expectedLength);
+        assertEquals(musicHistory.getLength(), expectedLength);
+    }
+
+
+    @Test
     public void testHistory() {
         ArrayList<Music> musicList = new ArrayList<>();
         MusicHistoryFragment.MusicListAdapter adapter = new MusicHistoryFragment.MusicListAdapter(context, musicList);
