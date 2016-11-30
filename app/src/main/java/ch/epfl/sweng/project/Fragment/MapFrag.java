@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -57,7 +58,8 @@ import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnMyLocationButtonClickListener, View.OnClickListener{
+        LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View
+                .OnClickListener{
 
 
     private final String LATTITUDE = "lattitude";
@@ -142,6 +144,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setOnInfoWindowClickListener(this);
         //set the camera to the user
         onMyLocationButtonClick();
     }
@@ -182,6 +185,14 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             return false;
         }
     }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        //TODO Use detail framgent
+        Toast.makeText(getContext(), "Hello my friend", Toast.LENGTH_SHORT).show();
+    }
+
+
 
     @Override
     public void onPause() {
@@ -298,7 +309,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
                     ModelApplication.getModelApplication().setOtherUsers((User[]) (responseServer
                             .getBody()));
-
                     showOtherUsers();
                 } else {
                     onFailed();
@@ -334,8 +344,13 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         for (int i = 0; i < otherUsers.length; ++i) {
             double latitude = otherUsers[i].getLocation().getLattitude();
             double longitude = otherUsers[i].getLocation().getLongitude();
-            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title
-                    (otherUsers[i].getFirstname()));
+            //String url = otherUsers[i].getProfilePicture();
+            //Bitmap image = new DownloadImageTask(null).doInBackground(url);
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(latitude, longitude))
+                    .title(otherUsers[i].getFirstname())
+                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.facebook_placeholder))
+                    .snippet(otherUsers[i].getLastname()));
             markers.add(marker);
 
         }
@@ -349,4 +364,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             mHandler.postDelayed(this, DELAY);
         }
     };
+
+
 }
