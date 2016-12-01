@@ -5,6 +5,7 @@ import android.view.View;
 
 import org.hamcrest.Matcher;
 
+import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
@@ -33,7 +34,9 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
 
     @Override
     public void setUp(){
-        User userTest = new User();
+        //User userTest = new User();
+        GlobalTestSettings.createFakeUser();
+        User userTest = modelApplication.getUser();
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
         getActivity();

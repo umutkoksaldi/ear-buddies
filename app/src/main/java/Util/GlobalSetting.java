@@ -19,6 +19,7 @@ public class GlobalSetting {
     // Api Definition
     public static final String MUSIC_API = "/api/Musics/";
     public static final String USER_API = "/api/Users/";
+    public static final String MUSIC_HISTORY_API = "/api/Musics/history/";
     //public static final String UPDATE_CONNEXION_USER = "/api/Users/update/";
 
     // Related to music history

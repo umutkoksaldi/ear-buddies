@@ -111,6 +111,7 @@ public class MusicInfoService extends Service {
 
                 // We associated the user to the new.
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
+                    Log.d("MusicInfoService", "Response body : " + response.getBody());
                     modelApplication.setMusic((Music) response.getBody());
                     Log.d("MusicInfoService", "new track in modelApplication : " + modelApplication.getMusic()
                             .getArtist() + " - " + modelApplication.getMusic().getName());

@@ -89,5 +89,6 @@
     <string name="no_music_player_installed">"You don't have any compatible music player installed. Sorry :("</string>
     <string name="server_error_music_info">"Could not retrieve the info about the currently playing
         music :("</string>
+    <string name="recently_played_songs">RECENTLY PLAYED SONGS</string>
 
 </resources>

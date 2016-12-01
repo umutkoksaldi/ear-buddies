@@ -45,7 +45,8 @@ public class TestConnectionUser {
         final CountDownLatch latch = new CountDownLatch(1);
 
         // we call the server to
-        controlerConnection.sendPost(null, GlobalTestSettings.ACCESS_TOKEN_FACEBOOK, GlobalTestSettings.ID_FACEBOOK,
+        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+                .MOCK_ID_FACEBOOK,
                 GlobalSetting
                         .USER_API, true);
 
