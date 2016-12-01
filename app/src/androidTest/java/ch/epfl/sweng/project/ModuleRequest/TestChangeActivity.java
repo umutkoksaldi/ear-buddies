@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
+import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.Login;
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
@@ -24,12 +25,6 @@ import static android.support.test.runner.lifecycle.Stage.RESUMED;
 public class TestChangeActivity extends ActivityInstrumentationTestCase2<MainActivity> {
 
 
-    public static final String FIRSTNAME_USER = "Sweng";
-    public static final String ID_FACEBOOK = "121620614972695";
-    public static final String ACCESS_TOKEN_FACEBOOK =
-            "EAAOZCzloFDqEBAHGnY8Q6I4d6fJRy9c6FWYZAqNxp2ChFBvpv8ZAycQC7a0oT21ZBp0Ku" +
-                    "IbZCIUkLWSH4Ev7pIQrjlzAxvrfznhXZAeb8A3ZCZBDks8WekNs4WgtfteZCMhUPQx5ZBPmbBMfwBgjqqAeaHOjtYFe38VYfXV35ZCnQ0y" +
-                    "ZBzPSDzCKDBBMkGhWA8ZAyrJAcBZA6LCi5XtgZDZD";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
     private Activity curActivity;
@@ -47,13 +42,15 @@ public class TestChangeActivity extends ActivityInstrumentationTestCase2<MainAct
         final CountDownLatch latch = new CountDownLatch(1);
 
         // we call the server to
-        controlerConnection.sendPost(null, ACCESS_TOKEN_FACEBOOK, ID_FACEBOOK, GlobalSetting.USER_API, true);
+        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+                .MOCK_ID_FACEBOOK,
+                GlobalSetting.USER_API, true);
 
         try {
             latch.await(2, TimeUnit.SECONDS);
             // Check the request is okay.
             User userTest = modelApplication.getUser();
-            assertEquals("first name should be equals", FIRSTNAME_USER, userTest.getFirstname());
+            assertEquals("first name should be equals", GlobalTestSettings.MOCK_USER_FIRST_NAME, userTest.getFirstname());
 
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);

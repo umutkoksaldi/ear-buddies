@@ -18,8 +18,12 @@ import static android.content.Intent.CATEGORY_APP_MUSIC;
 
 public final class MainActivity extends AppCompatActivity {
 
+    private static final int USERS_AROUND_FRAGMENT = 0;
+    private static final int MAP_FRAGMENT = 1;
+    private static final int PROFILE_FRAGMENT = 2;
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
+    private boolean expandedMusicHistory = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +105,36 @@ public final class MainActivity extends AppCompatActivity {
         } catch (ActivityNotFoundException e) {
             Toast.makeText(getApplicationContext(), R.string.no_music_player_installed, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mViewPager.getCurrentItem() == USERS_AROUND_FRAGMENT) {
+            mViewPager.setCurrentItem(MAP_FRAGMENT);
+        }
+        // TODO implement back stack animation for user music history
+        else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
+            if (expandedMusicHistory) {
+                super.onBackPressed();
+                expandedMusicHistory = false;
+            } else {
+                mViewPager.setCurrentItem(MAP_FRAGMENT);
+            }
+
+
+        } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
+            // Leave the app properly without going back to the welcome activity
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void setExpendedMusicHistory() {
+        expandedMusicHistory = true;
     }
 
 }

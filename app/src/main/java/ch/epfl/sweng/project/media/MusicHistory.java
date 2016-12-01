@@ -1,10 +1,18 @@
 package ch.epfl.sweng.project.media;
 
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
+import org.springframework.http.ResponseEntity;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import Util.GlobalSetting;
+import ch.epfl.sweng.project.Fragment.MusicHistoryFragment;
+import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
+import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 /**
  * Created by Antoine Merino on 18/11/2016.
@@ -13,9 +21,12 @@ import ch.epfl.sweng.project.Model.Music;
 public final class MusicHistory {
 
     private static MusicHistory musicHistory = null;
+    // Adapter used by MusicHistoryFragment to update the listview
+    RecyclerView.Adapter adapter = null;
+    MusicHistoryFragment musicHistoryFragment = null;
     private int length = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH;
-    private List<Music> musicHistoryList = new ArrayList<>();
-
+    private ArrayList<Music> musicHistoryList = new ArrayList<>();
+    private ModelApplication modelApplication = ModelApplication.getModelApplication();
     private MusicHistory() {
     }
 
@@ -25,6 +36,10 @@ public final class MusicHistory {
             musicHistory = new MusicHistory();
         }
         return musicHistory;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public void setLength(int length) {
@@ -40,23 +55,49 @@ public final class MusicHistory {
         this.length = length;
     }
 
-    public void updateFromServer() {
-        // The server part is currently not implemented so  it's currently faked with example musics
+    public void updateFromServer(RecyclerView.Adapter adapter) {
+        this.adapter = adapter;
         musicHistoryList.clear();
-        musicHistoryList.add(new Music("Rihanna", "What's my name"));
-        musicHistoryList.add(new Music("Rihanna", "Rude boy"));
-        musicHistoryList.add(new Music("Rihanna", "Umbrella"));
-        musicHistoryList.add(new Music("Rihanna", "Don't stop the music"));
-        musicHistoryList.add(new Music("Rihanna", "Russian roulette"));
-        musicHistoryList.add(new Music("Rihanna", "We found love"));
-        musicHistoryList.add(new Music("Rihanna", "Live your life"));
-        musicHistoryList.add(new Music("Rihanna", "Love the way you lie"));
-        musicHistoryList.add(new Music("Rihanna", "Take a bow"));
-        musicHistoryList.add(new Music("Rihanna", "Disturbia"));
+        sendGet(GlobalSetting.MUSIC_HISTORY_API);
     }
 
-    public List<Music> getHistory() {
+    public ArrayList<Music> getHistory() {
         return musicHistoryList;
+    }
+
+    private void sendGet(@SuppressWarnings("SameParameterValue") String
+                                 requestApi) {
+        Log.d("MusicHistory", "sendGet");
+        ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
+
+            @Override
+            public void onSucess(ResponseEntity response) {
+
+                // We associated the user to the new.
+                if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
+                    Log.d("MusicHistory", response.getBody().toString());
+                    //modelApplication.setMusic((Music) response.getBody());
+                    for (Music music : (Music[]) response.getBody()) {
+                        musicHistoryList.add(music);
+                    }
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // Erreur pas pu communiquer avec le serveur
+                    Log.e("MusicHistory", "onSuccess() != Code 200 (good answer)");
+                }
+            }
+
+            @Override
+            public void onFailed() {
+                Log.e("MusicHistory", "onFailed() : could not retreive the info from the server about music history");
+            }
+        });
+
+
+        // the interface is already initiate above
+        String requestURL = GlobalSetting.URL + requestApi + modelApplication.getUser().getIdApiConnection();
+        Log.d("MusicInfoService", "GET Request : " + requestURL);
+        serviceHandler.doGet(requestURL, Music[].class);
     }
 
 }
