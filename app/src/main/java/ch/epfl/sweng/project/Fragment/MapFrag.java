@@ -349,7 +349,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(latitude, longitude))
                     .title(otherUsers[i].getFirstname())
-                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.facebook_placeholder))
+                    //.icon(BitmapDescriptorFactory.fromBitmap(image))
                     .snippet(otherUsers[i].getLastname()));
             markers.add(marker);
 
