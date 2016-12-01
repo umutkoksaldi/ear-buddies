@@ -29,6 +29,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             tools:replace="android:theme"/>
 
+        <!-- _____________________________________________ other activities   ___________________________________ -->
         <!-- Login Activity -->
         <activity android:name=".WelcomeActivity">
             <intent-filter>
@@ -43,15 +44,25 @@
             android:value="@string/facebook_app_id"/>
 
         <!-- First activity -->
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+
         </activity>
 
         <!-- Second activity -->
         <activity android:name=".Login">
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
 
         <!-- Third activity -->
         <activity android:name=".ActivityForFragmentsTest">
+        </activity>
+
+        <!-- Webview activity-->
+        <activity android:name=".WebviewActivity">
         </activity>
 
         <!-- Google play services -->

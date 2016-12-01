@@ -57,6 +57,8 @@ android {
 }
 
 dependencies {
+    // Chrome custom tabs, used to access lastfm website when the user click on covers
+    compile 'com.android.support:customtabs:24.0.0'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.0.0'
     // Unit testing dependencies

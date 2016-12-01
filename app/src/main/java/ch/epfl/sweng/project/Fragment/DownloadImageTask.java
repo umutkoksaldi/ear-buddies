@@ -24,7 +24,7 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             InputStream in = new java.net.URL(url).openStream();
             image = BitmapFactory.decodeStream(in);
         } catch (Exception e){
-            Log.e("Error", e.getMessage());
+            Log.e("DownloadImageTask", e.toString());
         }
         return image;
     }
