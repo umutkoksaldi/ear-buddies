@@ -96,6 +96,9 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     private LayoutInflater mInflater;
 
+    private Map<Marker, User> allMarkersMap = new HashMap<Marker, User>();
+
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         mInflater = inflater;
@@ -128,7 +131,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
         mHandler.post(runnable);
         view = inflater.inflate(R.layout.frag_map, container, false);
-
         ImageButton im = (ImageButton) view.findViewById(R.id.updatdeOtherUsers);
         im.setOnClickListener(this);
         return view;
@@ -196,7 +198,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     @Override
     public void onInfoWindowClick(Marker marker) {
         //TODO Use detail framgent
-        Toast.makeText(getContext(), "Hello my friend", Toast.LENGTH_SHORT).show();
+        User showUser = allMarkersMap.get(marker);
+        Toast.makeText(getContext(), "You click on "+showUser.getFirstname(), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -345,7 +348,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     private void showOtherUsers() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
-        List<MarkerOptions> mo = new ArrayList<>();
+        List<MarkerOptions> markersOption = new ArrayList<>();
         for (int i = 0; i < otherUsers.length; ++i) {
             User aUser = otherUsers[i];
             double latitude = aUser.getLocation().getLattitude();
@@ -366,14 +369,15 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
                 marker.icon(defProfile);
             }
-            mo.add(marker);
+            markersOption.add(marker);
         }
 
         mMap.clear();
-        for (MarkerOptions m : mo) {
-            mMap.addMarker(m);
-        }
+        allMarkersMap = new HashMap<>();
+        for (int i = 0; i< markersOption.size(); ++i) {
+            allMarkersMap.put(mMap.addMarker(markersOption.get(i)), otherUsers[i]);
 
+        }
     }
 
     private final Runnable runnable = new Runnable() {
