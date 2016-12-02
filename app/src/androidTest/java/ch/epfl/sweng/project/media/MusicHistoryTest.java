@@ -8,7 +8,7 @@ import android.test.RenamingDelegatingContext;
 import android.util.Log;
 
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.ClassRule;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,31 +32,14 @@ import static org.junit.Assert.assertThat;
 
 public class MusicHistoryTest {
 
-    private static final String ARTIST_NAME_REQUEST = "rihana";
-    private static final String MUSIC_NAME_REQUEST = "rude boy";
-    // This is what the server should answer
-    private static final String ARTIST_NAME_TEST = "Rihanna";
-    private static final String MUSIC_NAME_TEST = "Rude Boy";
-    @Rule
-    public final ServiceTestRule mServiceRule = new ServiceTestRule();
+    @ClassRule
+    public static final ServiceTestRule mServiceRule = new ServiceTestRule();
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
     MusicHistory musicHistory = null;
     private Context context;
 
-    @Before
-    public void init() {
-        GlobalTestSettings.createFakeUser();
-        context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
-                "MusicHistoryTest");
-        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
-                .MOCK_ID_FACEBOOK,
-                GlobalSetting.USER_API, true);
-        musicHistory = MusicHistory.getMusicHistory();
-    }
-
-    @Test
-    public void testWithStartedService() {
+    public static void playSongIntent(Context context, String artist, String song) {
         try {
             mServiceRule.startService(
                     new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
@@ -66,8 +49,8 @@ public class MusicHistoryTest {
 
         // Inform the service that a new song will be played
         Intent trackIntent = new Intent("com.android.music.metachanged");
-        trackIntent.putExtra("artist", ARTIST_NAME_REQUEST);
-        trackIntent.putExtra("track", MUSIC_NAME_REQUEST);
+        trackIntent.putExtra("artist", artist);
+        trackIntent.putExtra("track", song);
         trackIntent.putExtra("playing", true);
         context.sendBroadcast(trackIntent);
         try {
@@ -76,10 +59,18 @@ public class MusicHistoryTest {
             Log.e("MusicHistoryTest", e.toString());
         }
 
-        Music newMusic = ModelApplication.getModelApplication().getMusic();
-        assertEquals("Artist names should be equals", ARTIST_NAME_TEST, newMusic.getArtist());
-        assertEquals("Song names should be equals", MUSIC_NAME_TEST, newMusic.getName());
 
+    }
+
+    @Before
+    public void init() {
+        GlobalTestSettings.createFakeUser();
+        context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
+                "MusicHistoryTest");
+        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+                        .MOCK_ID_FACEBOOK,
+                GlobalSetting.USER_API, true);
+        musicHistory = MusicHistory.getMusicHistory();
     }
 
     @Test
@@ -89,6 +80,15 @@ public class MusicHistoryTest {
             initialized = true;
         }
         assertThat(initialized, is(true));
+    }
+
+    @Test
+    public void testWithStartedService() {
+        playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
+        Music newMusic = ModelApplication.getModelApplication().getMusic();
+        assertEquals("Artist names should be equals", GlobalTestSettings.ARTIST_NAME_RESPONSE, newMusic.getArtist());
+        assertEquals("Song names should be equals", GlobalTestSettings.MUSIC_NAME_RESPONSE, newMusic.getName());
+
     }
 
     @Test
@@ -135,7 +135,6 @@ public class MusicHistoryTest {
         assertEquals(musicHistory.getLength(), expectedLength);
     }
 
-
     @Test
     public void testHistory() {
         ArrayList<Music> musicList = new ArrayList<>();
@@ -148,9 +147,8 @@ public class MusicHistoryTest {
             Log.e("MusicHistoryTest", e.toString());
         }
         musicList = musicHistory.getHistory();
-        assertEquals(musicList.get(0).getArtist(),ARTIST_NAME_TEST);
-        assertEquals(musicList.get(0).getName(),MUSIC_NAME_TEST);
+        assertEquals(musicList.get(0).getArtist(), GlobalTestSettings.ARTIST_NAME_RESPONSE);
+        assertEquals(musicList.get(0).getName(), GlobalTestSettings.MUSIC_NAME_RESPONSE);
     }
-
 
 }

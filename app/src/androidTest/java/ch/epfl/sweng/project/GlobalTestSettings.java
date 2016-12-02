@@ -22,6 +22,13 @@ public class GlobalTestSettings {
     public static final String MOCK_USER_FIRST_NAME = "Sweng";
     public static final String MOCK_USER_LAST_NAME = "Rocks";
 
+    // Sample song to test
+    public static final String ARTIST_NAME_REQUEST = "rihana";
+    public static final String MUSIC_NAME_REQUEST = "rude boy";
+    // This is what the server should answer
+    public static final String ARTIST_NAME_RESPONSE = "Rihanna";
+    public static final String MUSIC_NAME_RESPONSE = "Rude Boy";
+
 
     public static void createFakeUser() {
         User mUser = new User();
