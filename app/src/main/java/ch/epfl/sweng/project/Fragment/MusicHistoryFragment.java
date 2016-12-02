@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -142,17 +143,23 @@ public class MusicHistoryFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
-            // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
-            // and launch the desired Url with CustomTabsIntent.launchUrl()
-            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-            Activity activity = (Activity) v.getContext();
-            CustomTabActivityHelper.openCustomTab(
-                    activity,
-                    customTabsIntent,
-                    Uri.parse(url),
-                    new WebviewFallback()
-            );
+            if (url == null) {
+                // No lastfm page associated with the current song
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string
+                        .no_lastfm_page_found), Toast.LENGTH_SHORT).show();
+            } else {
+                // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
+                // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+                // and launch the desired Url with CustomTabsIntent.launchUrl()
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                Activity activity = (Activity) v.getContext();
+                CustomTabActivityHelper.openCustomTab(
+                        activity,
+                        customTabsIntent,
+                        Uri.parse(url),
+                        new WebviewFallback()
+                );
+            }
         }
 
     }

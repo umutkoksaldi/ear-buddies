@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project.ModuleRequest;
 
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 
@@ -80,15 +81,19 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
     }
 
     public void testHistoryFragment() {
+        // Play a song that we know it's on Lastfm
         MusicHistoryTest.playSongIntent(getActivity().getApplicationContext(), GlobalTestSettings
                 .ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
+
         Matcher<View> matcher = allOf(withText("Profile"),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
-        // Open history fragment
+        // Open history fragment and click on the first music, which should display its lastfm page
         onView(withId(R.id.musicHistoryButton)).perform(click());
-        //onView(withId(R.id.music_history_recyclerview)).perform(
-        //        RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id. bt_deliver)));
+        onView(withId(R.id.music_history_recyclerview)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id
+                        .single_row_music_history)));
+
     }
 
 
