@@ -43,7 +43,8 @@ var responseGood = {
       'artist' : 'Rihanna',
       'name' : 'Umbrella',
       'url' : 'https://www.last.fm/music/Rihanna/_/Umbrella',
-      'tag' : 'pop'
+      'tag' : 'pop',
+      "urlPicture": "https://lastfm-img2.akamaized.net/i/u/174s/a60d9d9ae55226699420b52ab28d3ad0.png"
 }
 
 var BadMusicName = {
@@ -131,9 +132,12 @@ describe('Test Music API', function(){
                               expect(result.artist).to.equal(responseGood.artist);
                               expect(result.name).to.equal(responseGood.name);
                               expect(result.url).to.equal(responseGood.url);
+                              expect(result.tag).to.equal(responseGood.tag);
+                              expect(result.urlPicture).to.equal(responseGood.urlPicture);
                               // We check in the after if the user has the ID_USER.
                               expect(result.UserId).to.equal(ID_USER);
                               expect(result.id).to.equal(MUSIC_ID);
+                              
                               done();
                         } catch(err) {
                             done(err);
@@ -182,6 +186,7 @@ describe('Test Music API', function(){
                               expect(result.tag).to.equal(responseGood.tag);
                               expect(result.UserId).to.equal(ID_USER);
                               expect(result.id).to.equal(MUSIC_ID);
+                              expect(result.urlPicture).to.equal(responseGood.urlPicture);
                               done();
 
                         });

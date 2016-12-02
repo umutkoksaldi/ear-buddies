@@ -20,6 +20,7 @@ var URL_LASTFM = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo"
 var TAG_MUSIC = ['pop','rock','rap','metal','hiphop'];
 var TAG_MUSIC_UNKNOWN = 'unknown';
 var LIMIT_HISTORY = 10; 
+var SIZE_PHOTO = 'large'
 
 //---------------------------------- DEFINE CONSTANT ------------------------------------
 
@@ -98,7 +99,7 @@ function controlerMusic(){
            callback(null,setting.htmlCode.unavailable_ressources);
           }
           else {
-                var resultFMRequest = {'artist':null,'track':null,'tag' : TAG_MUSIC_UNKNOWN}
+                var resultFMRequest = {'artist':null,'track':null,'tag' : TAG_MUSIC_UNKNOWN, 'urlPicture' :null }
 
                 // get the value from the response.
                 res.raw_body  = JSON.parse(res.raw_body, (key, value) => {
@@ -107,7 +108,8 @@ function controlerMusic(){
                       resultFMRequest = {
                                 'artist': MusicObject.artistName ,
                                 'track':{'url': null , 'name':MusicObject.musicName},
-                                'tag' : TAG_MUSIC_UNKNOWN
+                                'tag' : TAG_MUSIC_UNKNOWN,
+                                'urlPicture' :null 
                               }
                     }
 
@@ -139,8 +141,17 @@ function controlerMusic(){
                       });
                   }
 
-                  return value;  
-                            
+                  if(key == 'image'){
+                      var attribute = '#text'
+                      value.forEach(function(picture) {
+                           
+                        // we keep only the small pictures. 
+                        if(picture.size  == SIZE_PHOTO){
+                          resultFMRequest.urlPicture = picture[attribute]
+                        }
+                     });
+                  }
+                  return value;                   
               });
 
 
@@ -152,7 +163,8 @@ function controlerMusic(){
                             artist        : resultFMRequest.artist,
                             name          : resultFMRequest.track.name,
                             url           : resultFMRequest.track.url,
-                            tag           : resultFMRequest.tag
+                            tag           : resultFMRequest.tag,
+                            urlPicture    : resultFMRequest.urlPicture
 
                   // callback if the user srequest succeed.
                   }).then(function(CreateMusic) {
