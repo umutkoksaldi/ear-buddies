@@ -3,6 +3,8 @@ package ch.epfl.sweng.project.Fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,6 +38,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -57,7 +62,8 @@ import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnMyLocationButtonClickListener, View.OnClickListener{
+        LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View
+                .OnClickListener {
 
 
     private final String LATTITUDE = "lattitude";
@@ -76,8 +82,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private String mLastUpdateTime;
     private Handler mHandler = new Handler();
 
-    private List<Marker> markers;
-
 
     private Activity mActivity;
     public View view;
@@ -88,10 +92,18 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private SupportMapFragment sMapFragment;
     private int ZOOM = 16;
 
+    private Map<Long, Bitmap> mImages;
+
+    private LayoutInflater mInflater;
+
+    private Map<Marker, User> allMarkersMap = new HashMap<Marker, User>();
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+       // ModelApplication.getModelApplication().setTest();
+        mInflater = inflater;
+        mImages = new HashMap<>();
         mActivity = getActivity();
         mUser = ModelApplication.getModelApplication().getUser();
         mTest = ModelApplication.getModelApplication().getTestState();
@@ -119,8 +131,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         createLocationRequest();
 
         mHandler.post(runnable);
-        view =  inflater.inflate(R.layout.frag_map, container, false);
-
+        view = inflater.inflate(R.layout.frag_map, container, false);
         ImageButton im = (ImageButton) view.findViewById(R.id.updatdeOtherUsers);
         im.setOnClickListener(this);
         return view;
@@ -142,6 +153,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setInfoWindowAdapter(new InfoMarkerAdapter(mInflater));
+        mMap.setOnInfoWindowClickListener(this);
         //set the camera to the user
         onMyLocationButtonClick();
     }
@@ -184,6 +197,14 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     }
 
     @Override
+    public void onInfoWindowClick(Marker marker) {
+        //TODO Use detail framgent
+        User showUser = allMarkersMap.get(marker);
+        Toast.makeText(getContext(), "You click on "+showUser.getFirstname(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
     public void onPause() {
         super.onPause();
         if (mGoogleApiClient.isConnected()) {
@@ -204,7 +225,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.updatdeOtherUsers:
                 sendAndGetLocations();
                 break;
@@ -288,7 +309,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     }
 
     private void sendAndGetLocations() {
-        Log.i("LocationLoop", "Sending the new location @"+ System.currentTimeMillis());
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
             @Override
             public void onSucess(ResponseEntity responseServer) {
@@ -298,7 +318,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
                     ModelApplication.getModelApplication().setOtherUsers((User[]) (responseServer
                             .getBody()));
-
+                    mMap.clear();
                     showOtherUsers();
                 } else {
                     onFailed();
@@ -319,7 +339,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             params.put(LONGITUDE, "" + mUser.getLocation().getLongitude());
             Log.i("Send item", params.toString());
             serviceHandler.doPost(params, GlobalSetting.URL + GlobalSetting.USER_API + USER_AROUND + mTest, User[]
-
                     .class);
         } else {
             Log.e("Null", "Location is null");
@@ -329,24 +348,48 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     private void showOtherUsers() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
-        mMap.clear();
-        markers = new ArrayList<>();
+        List<MarkerOptions> markersOption = new ArrayList<>();
         for (int i = 0; i < otherUsers.length; ++i) {
-            double latitude = otherUsers[i].getLocation().getLattitude();
-            double longitude = otherUsers[i].getLocation().getLongitude();
-            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title
-                    (otherUsers[i].getFirstname()));
-            markers.add(marker);
+            User aUser = otherUsers[i];
+            double latitude = aUser.getLocation().getLattitude();
+            double longitude = aUser.getLocation().getLongitude();
+            MarkerOptions marker = (new MarkerOptions()
+                    .position(new LatLng(latitude, longitude))
+                    .title(aUser.getFirstname())
+                    .snippet(aUser.getLastname()));
+            // We already have the image => do not need to download
+            if (mImages.containsKey(otherUsers[i].getIdApiConnection())) {
+                marker.icon(BitmapDescriptorFactory.fromBitmap(mImages.get(aUser.getIdApiConnection())));
+            } else {
+                String url = aUser.getProfilePicture();
+                new DownloadImageMarker(marker, mImages, aUser.getIdApiConnection()).execute(url);
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
+                bm = DownloadImageMarker.scaleDown(bm, 100, true);
+                BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(bm);
 
+                marker.icon(defProfile);
+            }
+            markersOption.add(marker);
         }
+
+        mMap.clear();
+        allMarkersMap = new HashMap<>();
+        for (int i = 0; i< markersOption.size(); ++i) {
+            allMarkersMap.put(mMap.addMarker(markersOption.get(i)), otherUsers[i]);
+        }
+        ModelApplication.getModelApplication().setMarkerOpt(markersOption);
     }
 
     private final Runnable runnable = new Runnable() {
         final int DELAY = 10000;
+
         @Override
         public void run() {
             sendAndGetLocations();
             mHandler.postDelayed(this, DELAY);
         }
     };
+
+
+
 }
