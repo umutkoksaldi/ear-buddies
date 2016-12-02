@@ -4,7 +4,11 @@ package ch.epfl.sweng.project;
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.junit.Test;
+
+import java.util.List;
 
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
@@ -37,8 +41,8 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         }
     }
 
-    /*@Test
-    public void testMarker() throws InterruptedException, UiObjectNotFoundException {
+    @Test
+    public void testMarker() throws InterruptedException {
         getActivity();
         Thread.sleep(5000);
         User[] others = ModelApplication.getModelApplication().getOtherUsers();
@@ -46,10 +50,6 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         assertEquals("Shoud have the same number of marker as user", others.length, markerOpt.size());
         MarkerOptions m = markerOpt.get(0);
 
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
-        UiObject marker = device.findObject(new UiSelector().descriptionContains(GlobalTestSettings.MOCK_USER_FIRST_NAME));
-        marker.click();
         assertNotNull("Marker should not be null", m);
-        assertEquals("should show info wind", true, m.isVisible());
-    }*/
+    }
 }
