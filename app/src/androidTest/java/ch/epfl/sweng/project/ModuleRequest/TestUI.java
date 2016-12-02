@@ -87,7 +87,6 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
         onView(matcher).perform(click());
         // Open history fragment
         onView(withId(R.id.musicHistoryButton)).perform(click());
-        //onView(withId(R.id.))
         //onView(withId(R.id.music_history_recyclerview)).perform(
         //        RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id. bt_deliver)));
     }
