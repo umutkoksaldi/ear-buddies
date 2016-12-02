@@ -60,22 +60,4 @@ public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActiv
         assertNotNull("Marker should not be null", m);
         assertEquals("should show info wind", true, m.isVisible());
     }
-
-
-   /* private void createFakeUser() {
-        User mUser = new User();
-        mUser.setLocation(new ch.epfl.sweng.project.Model.Location(0, 0));
-        mUser.setAge(21);
-        mUser.setBackgroundPicture("https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/419921_334072353301892_257076548_n" +
-                ".jpg?oh=1da08f8d32b10b20958a3df2f18096fa&oe=5886B16B");
-        mUser.setProfilePicture("https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/419921_334072353301892_257076548_n" +
-                ".jpg?oh=1da08f8d32b10b20958a3df2f18096fa&oe=5886B16B");
-        mUser.setEmail("arnill-electro@hotmail.com");
-        mUser.setFirstname("Arnaud");
-        mUser.setLastname("Hennig");
-        mUser.setIdApiConnection(1331778390197945L);
-        ModelApplication.getModelApplication().setUser(mUser);
-    }*/
-
-
 }
