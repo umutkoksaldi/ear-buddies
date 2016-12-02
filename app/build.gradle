@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "ch.epfl.sweng.project"
-        minSdkVersion 18
-        targetSdkVersion 24
+        minSdkVersion 15
+        targetSdkVersion 25
 
         versionCode 1
         versionName "1.0"
@@ -29,13 +29,13 @@ android {
 
     //noinspection GroovyMissingReturnStatement
     lintOptions {
-	    // Disable lint warnings about app indexing, and about non-latest tools versions
-		// TODO consider re-enabling app indexing before publishing your application.
-	    disable 'GoogleAppIndexingWarning', 'GradleDependency'
-        // Jackson make a lint error, we avoid it by adding warning instead of error 
+        // Disable lint warnings about app indexing, and about non-latest tools versions
+        // TODO consider re-enabling app indexing before publishing your application.
+        disable 'GoogleAppIndexingWarning', 'GradleDependency'
+        // Jackson make a lint error, we avoid it by adding warning instead of error
         warning 'InvalidPackage'
         abortOnError false
-	}
+    }
 
     // packages create a conflict with spring
     //noinspection GroovyMissingReturnStatement
@@ -57,42 +57,50 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.0.0'
+    // Chrome custom tabs, used to access lastfm website when the user click on covers
+    compile 'com.android.support:customtabs:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
     // Unit testing dependencies
     testCompile 'junit:junit:4.12'
     // Mockito framework
     testCompile 'org.mockito:mockito-core:1.10.19'
     // Instrumented tests
-    androidTestCompile 'com.android.support:support-annotations:25.0.0'
+    androidTestCompile 'com.android.support:support-annotations:25.0.1'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
-
-// Optional -- Hamcrest library
+    // Optional -- Hamcrest library
     androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
     // Optional -- UI testing with Espresso
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    // Support for RecyclerView actions testing with Espresso
+    // Currently having problems with SDK higher than 23.0.1 ??
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
 
     // Spring import for restful api
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
 
     // JacksonMapper
     //noinspection InvalidPackage
-    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.5'
     //noinspection InvalidPackage
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.5'
     //noinspection InvalidPackage
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
 
     // facebook dependencies
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
 
 
     //Map and localisation
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
-    compile 'com.google.android.gms:play-services-location:8.4.0'
+    compile 'com.google.android.gms:play-services-maps:9.8.0'
+    compile 'com.google.android.gms:play-services-location:9.8.0'
 }
 
 // Spring import.
@@ -114,12 +122,12 @@ task jacocoReport(type: JacocoReport, dependsOn: "connectedAndroidTest") {
     classDirectories = fileTree(
             dir: '**/classes',
             excludes: [
-                '**/R.class',
-                '**/R$*.class',
-                '**/BuildConfig.*',
-                '**/Manifest*.*',
-                '**/*Test*.*',
-                '**/android/**/*.*'
+                    '**/R.class',
+                    '**/R$*.class',
+                    '**/BuildConfig.*',
+                    '**/Manifest*.*',
+                    '**/*Test*.*',
+                    '**/android/**/*.*'
             ]
     )
 

@@ -85,10 +85,14 @@
     <string name="textview2"/>
     <string name="textview3"/>
 
+    <!-- Music history fragment -->
+    <string name="separator"> ● </string>
+    <string name="no_lastfm_page_found">Seems like this song is not on Lastfm !</string>
+
     <!-- MusicInfoService -->
-    <string name="no_music_player_installed">"You don't have any compatible music player installed. Sorry :("</string>
-    <string name="server_error_music_info">"Could not retrieve the info about the currently playing
-        music :("</string>
+    <string name="no_music_player_installed">You don’t have any compatible music player installed. Sorry :(</string>
+    <string name="server_error_music_info">Could not retrieve the info about the currently playing
+        music :(</string>
     <string name="recently_played_songs">RECENTLY PLAYED SONGS</string>
 
 </resources>

@@ -1,19 +1,28 @@
 package ch.epfl.sweng.project.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.Webview.CustomTabActivityHelper;
+import ch.epfl.sweng.project.Webview.WebviewFallback;
 import ch.epfl.sweng.project.media.MusicHistory;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -80,9 +89,21 @@ public class MusicHistoryFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MusicListAdapter.MusicViewHolder holder, int position) {
-            holder.artist.setText(musicList.get(position).getArtist());
-            holder.song.setText(musicList.get(position).getName());
+            Music music = musicList.get(position);
+            holder.artist.setText(music.getArtist());
+            holder.song.setText(music.getName());
+            holder.tag.setText(music.getTag());
+            String coverUrl = music.getUrlPicture();
+            //String url = "https://pbs.twimg.com/profile_images/634829866504859648/GuMPPRJ6.png";
+            Log.d("MusicHistoryFragment", "music: " + music.getArtist() + " - " + music.getName() +
+                    " - " + music.getId() + " - " + music.getTag() + " - " + music.getUrl() + " - " + music
+                    .getUrlPicture());
+            if (coverUrl != null && !coverUrl.isEmpty()) {
+                new DownloadImageTask(holder.cover).execute(coverUrl);
+            }
+            holder.container.setOnClickListener(new CoverOnClickListener(music.getUrl()));
         }
+
 
         public Music getSongByPosition(int pos) {
             return musicList.get(pos);
@@ -93,15 +114,51 @@ public class MusicHistoryFragment extends Fragment {
             return musicList.size();
         }
 
-        public static class MusicViewHolder extends RecyclerView.ViewHolder {
+        public class MusicViewHolder extends RecyclerView.ViewHolder {
 
             protected TextView artist;
             protected TextView song;
+            protected TextView tag;
+            protected ImageView cover;
+            protected RelativeLayout container;
 
             public MusicViewHolder(View itemView) {
                 super(itemView);
                 artist = (TextView) itemView.findViewById(R.id.tvArtistName);
                 song = (TextView) itemView.findViewById(R.id.tvSongName);
+                tag = (TextView) itemView.findViewById(R.id.tvSongTag);
+                cover = (ImageView) itemView.findViewById(R.id.ivCover);
+                container = (RelativeLayout) itemView.findViewById(R.id.single_row_music_history);
+            }
+        }
+
+    }
+
+    private static class CoverOnClickListener implements View.OnClickListener {
+        String url;
+
+        public CoverOnClickListener(String url) {
+            this.url = url;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (url == null) {
+                // No lastfm page associated with the current song
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string
+                        .no_lastfm_page_found), Toast.LENGTH_SHORT).show();
+            } else {
+                // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
+                // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+                // and launch the desired Url with CustomTabsIntent.launchUrl()
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                Activity activity = (Activity) v.getContext();
+                CustomTabActivityHelper.openCustomTab(
+                        activity,
+                        customTabsIntent,
+                        Uri.parse(url),
+                        new WebviewFallback()
+                );
             }
         }
 
