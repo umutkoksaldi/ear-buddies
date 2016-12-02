@@ -1,6 +1,14 @@
 package ch.epfl.sweng.project.Model;
 
 
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ModelApplication {
 
     private static ModelApplication modelApplication = null;
@@ -8,6 +16,7 @@ public class ModelApplication {
     private User user = new User();
     private User[] mOtherUsers;
     private String mTest = "/";
+    private List<MarkerOptions> markerOpt;
 
     private ModelApplication() {}
 
@@ -50,5 +59,13 @@ public class ModelApplication {
 
     public String getTestState(){
         return mTest;
+    }
+
+    public List<MarkerOptions> getMarkerOpt() {
+        return new ArrayList<>(markerOpt);
+    }
+
+    public void setMarkerOpt(List<MarkerOptions> aMarkerOption) {
+        markerOpt = new ArrayList<>(aMarkerOption);
     }
 }
