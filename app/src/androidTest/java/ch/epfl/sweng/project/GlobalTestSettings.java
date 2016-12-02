@@ -1,9 +1,5 @@
 package ch.epfl.sweng.project;
 
-import com.google.android.gms.maps.model.Marker;
-
-import java.util.HashMap;
-
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 
@@ -25,8 +21,6 @@ public class GlobalTestSettings {
     public static final int MOCK_USER_AGE = 22;
     public static final String MOCK_USER_FIRST_NAME = "Sweng";
     public static final String MOCK_USER_LAST_NAME = "Rocks";
-
-    public static HashMap<Marker, User> allMarkers;
 
 
     public static void createFakeUser() {
