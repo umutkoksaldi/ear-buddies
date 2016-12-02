@@ -92,7 +92,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private SupportMapFragment sMapFragment;
     private int ZOOM = 16;
 
-    private Map<Long, Bitmap> images;
+    private Map<Long, Bitmap> mImages;
 
     private LayoutInflater mInflater;
 
@@ -101,8 +101,9 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+       // ModelApplication.getModelApplication().setTest();
         mInflater = inflater;
-        images = new HashMap<>();
+        mImages = new HashMap<>();
         mActivity = getActivity();
         mUser = ModelApplication.getModelApplication().getUser();
         mTest = ModelApplication.getModelApplication().getTestState();
@@ -308,7 +309,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     }
 
     private void sendAndGetLocations() {
-        Log.i("LocationLoop", "Sending the new location @" + System.currentTimeMillis());
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
             @Override
             public void onSucess(ResponseEntity responseServer) {
@@ -358,11 +358,11 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                     .title(aUser.getFirstname())
                     .snippet(aUser.getLastname()));
             // We already have the image => do not need to download
-            if (images.containsKey(otherUsers[i].getIdApiConnection())) {
-                marker.icon(BitmapDescriptorFactory.fromBitmap(images.get(aUser.getIdApiConnection())));
+            if (mImages.containsKey(otherUsers[i].getIdApiConnection())) {
+                marker.icon(BitmapDescriptorFactory.fromBitmap(mImages.get(aUser.getIdApiConnection())));
             } else {
                 String url = aUser.getProfilePicture();
-                new DownloadImageMarker(marker, images, aUser.getIdApiConnection()).execute(url);
+                new DownloadImageMarker(marker, mImages, aUser.getIdApiConnection()).execute(url);
                 Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
                 bm = DownloadImageMarker.scaleDown(bm, 100, true);
                 BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(bm);
@@ -376,8 +376,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         allMarkersMap = new HashMap<>();
         for (int i = 0; i< markersOption.size(); ++i) {
             allMarkersMap.put(mMap.addMarker(markersOption.get(i)), otherUsers[i]);
-
         }
+        ModelApplication.getModelApplication().setMarkerOpt(markersOption);
     }
 
     private final Runnable runnable = new Runnable() {
@@ -389,6 +389,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             mHandler.postDelayed(this, DELAY);
         }
     };
+
 
 
 }
