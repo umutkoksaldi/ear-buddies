@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1">
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="20dp"
+        android:id="@+id/description_app_text"/>
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="25dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:gravity="center"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/description_app_picture"
+        android:layout_weight="0.20"/>
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="25dp"/>
+
+    <!--  add three dot to see where the user is in the presentation -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:src = "@drawable/dot"
+            android:id="@+id/dotRight"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:src = "@drawable/dot"
+            android:id="@+id/dotCenter"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:src = "@drawable/dot"
+            android:id="@+id/dotLeft"/>
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
