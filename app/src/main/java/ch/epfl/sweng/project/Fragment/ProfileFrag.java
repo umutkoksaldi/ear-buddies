@@ -210,8 +210,10 @@ public class ProfileFrag extends Fragment implements View.OnClickListener{
                     .setMessage(R.string.log_out_warning)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(getActivity(), Login.class));
-                            getActivity().finish();
+                            Intent intent = new Intent(getActivity(), Login.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                             logOutFace();
                         }
                     })

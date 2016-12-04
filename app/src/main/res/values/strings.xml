@@ -76,9 +76,8 @@
 
     <string name="presentation_music" tools:ignore="UnusedResources"> Use your favorite music player as usual \n
     </string>
-    <string name="presentation_people" tools:ignore="UnusedResources"> Match people around you, selected by
-        music taste and distance </string>
-    <string name="presentation_interaction" tools:ignore="UnusedResources"> Have fun with other people ! :) \n
+    <string name="presentation_people" tools:ignore="UnusedResources"> Find people around by music taste \n</string>
+    <string name="presentation_interaction" tools:ignore="UnusedResources"> Have fun with your new mates ! :) \n
     </string>
     <string name="facebook_warning">We do not post anything of facebook.</string>
 
