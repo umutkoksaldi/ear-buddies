@@ -1,9 +1,5 @@
 package ch.epfl.sweng.project.Webview;
 
-/**
- * Created by Antoine Merino on 30/11/2016.
- */
-
 // Copyright 2015 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
