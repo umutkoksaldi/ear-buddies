@@ -1,10 +1,10 @@
-package ch.epfl.sweng.project.ModuleRequest;
+package ch.epfl.sweng.project.Fragment;
 
 
 import android.test.ActivityInstrumentationTestCase2;
 import ch.epfl.sweng.project.ActivityForFragmentsTest;
 import org.junit.Test;
-import ch.epfl.sweng.project.Fragment.UsersFragment;
+
 import static android.support.test.InstrumentationRegistry.getContext;
 /**
  * Created by Dusan Viktor on 2016-11-04.

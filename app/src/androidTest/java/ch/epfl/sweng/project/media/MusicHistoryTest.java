@@ -36,13 +36,13 @@ public class MusicHistoryTest {
     public static final ServiceTestRule mServiceRule = new ServiceTestRule();
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
-    MusicHistory musicHistory = null;
+    ch.epfl.sweng.project.media.MusicHistory musicHistory = null;
     private Context context;
 
     public static void playSongIntent(Context context, String artist, String song) {
         try {
             mServiceRule.startService(
-                    new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
+                    new Intent(InstrumentationRegistry.getTargetContext(), ch.epfl.sweng.project.media.MusicInfoService.class));
         } catch (TimeoutException e) {
             Log.e("MusicHistoryTest", e.toString());
         }
@@ -70,7 +70,7 @@ public class MusicHistoryTest {
         controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
                         .MOCK_ID_FACEBOOK,
                 GlobalSetting.USER_API, true);
-        musicHistory = MusicHistory.getMusicHistory();
+        musicHistory = ch.epfl.sweng.project.media.MusicHistory.getMusicHistory();
     }
 
     @Test

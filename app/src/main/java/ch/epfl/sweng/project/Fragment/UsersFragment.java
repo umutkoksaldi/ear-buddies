@@ -42,7 +42,7 @@ import ch.epfl.sweng.project.R;
 
 
 public class UsersFragment extends Fragment{
-    public android.os.Handler mHandler = new android.os.Handler();
+//    public android.os.Handler mHandler = new android.os.Handler();
     private User[] usersAround;
     private User[] oldUsers;
     private String[] userNames;
@@ -53,7 +53,6 @@ public class UsersFragment extends Fragment{
     private Context context;
 
 
-//    public android.os.Handler mHandler = new android.os.Handler();
 
 
     @Override
