@@ -93,6 +93,7 @@
     <string name="profile_picture"/>
     <string name="textview2"/>
     <string name="textview3"/>
+    <string name="no_user_facebook_page_found">Could not find this user on Facebook!</string>
 
     <!-- Music history fragment -->
     <string name="separator"> ● </string>

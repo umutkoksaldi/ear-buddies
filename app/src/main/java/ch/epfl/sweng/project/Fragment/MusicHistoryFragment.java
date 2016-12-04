@@ -71,7 +71,6 @@ public class MusicHistoryFragment extends Fragment {
 
     }
 
-    //public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetViewHolder>
     public static class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicViewHolder> {
 
         private ArrayList<Music> musicList;
@@ -105,7 +104,7 @@ public class MusicHistoryFragment extends Fragment {
             if (coverUrl != null && !coverUrl.isEmpty()) {
                 new DownloadImageTask(holder.cover).execute(coverUrl);
             }
-            holder.container.setOnClickListener(new CoverOnClickListener(music.getUrl()));
+            holder.container.setOnClickListener(new SongOnClickListener(music.getUrl()));
         }
 
 
@@ -138,10 +137,10 @@ public class MusicHistoryFragment extends Fragment {
 
     }
 
-    private static class CoverOnClickListener implements View.OnClickListener {
+    private static class SongOnClickListener implements View.OnClickListener {
         String url;
 
-        public CoverOnClickListener(String url) {
+        public SongOnClickListener(String url) {
             this.url = url;
         }
 
