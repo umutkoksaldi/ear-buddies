@@ -71,22 +71,15 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private final String USER_AROUND = "getUsersAround";
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     private final String ID = "idApiConnection";
-
+    public View view;
     private String mTest = "/";
     private User mUser;
-
-
     //Location
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private String mLastUpdateTime;
     private Handler mHandler = new Handler();
-
-
     private Activity mActivity;
-    public View view;
-
-
     //Map
     private GoogleMap mMap;
     private SupportMapFragment sMapFragment;
@@ -97,7 +90,15 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private LayoutInflater mInflater;
 
     private Map<Marker, User> allMarkersMap = new HashMap<Marker, User>();
+    private final Runnable runnable = new Runnable() {
+        final int DELAY = 10000;
 
+        @Override
+        public void run() {
+            sendAndGetLocations();
+            mHandler.postDelayed(this, DELAY);
+        }
+    };
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -137,7 +138,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         return view;
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -158,7 +158,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         //set the camera to the user
         onMyLocationButtonClick();
     }
-
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -203,7 +202,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         Toast.makeText(getContext(), "You click on "+showUser.getFirstname(), Toast.LENGTH_SHORT).show();
     }
 
-
     @Override
     public void onPause() {
         super.onPause();
@@ -221,7 +219,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
         mHandler.post(runnable);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -250,7 +247,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
 
     }
-
 
     private void stopLocationUpdates() {
         if (mGoogleApiClient.isConnected()) {
@@ -363,11 +359,15 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             } else {
                 String url = aUser.getProfilePicture();
                 new DownloadImageMarker(marker, mImages, aUser.getIdApiConnection()).execute(url);
-                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
-                bm = DownloadImageMarker.scaleDown(bm, 100, true);
-                BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(bm);
+                Activity activity = getActivity();
+                if (activity != null) {
+                    Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
+                    bm = DownloadImageMarker.scaleDown(bm, 100, true);
+                    BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(bm);
+                    marker.icon(defProfile);
+                }
 
-                marker.icon(defProfile);
+
             }
             markersOption.add(marker);
         }
@@ -379,16 +379,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
         ModelApplication.getModelApplication().setMarkerOpt(markersOption);
     }
-
-    private final Runnable runnable = new Runnable() {
-        final int DELAY = 10000;
-
-        @Override
-        public void run() {
-            sendAndGetLocations();
-            mHandler.postDelayed(this, DELAY);
-        }
-    };
 
 
 
