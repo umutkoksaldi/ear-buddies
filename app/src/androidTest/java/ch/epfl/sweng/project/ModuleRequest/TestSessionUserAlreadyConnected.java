@@ -70,7 +70,7 @@ public class TestSessionUserAlreadyConnected extends ActivityInstrumentationTest
         getActivity();
 
         try {
-            latch.await(5, TimeUnit.SECONDS);
+            latch.await(10, TimeUnit.SECONDS);
             // check the foreground activity.
             assertCurrentActivityIsInstanceOf(MainActivity.class);
 
