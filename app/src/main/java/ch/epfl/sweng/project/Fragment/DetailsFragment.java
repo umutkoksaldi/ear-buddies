@@ -52,7 +52,6 @@ public class DetailsFragment extends Fragment {
         final Button backButton = (Button) view.findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Log.i("ON CLICKEEED", "");
                 getFragmentManager().popBackStack();
             }
         });
