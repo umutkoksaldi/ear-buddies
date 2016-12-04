@@ -99,9 +99,18 @@
     <string name="no_lastfm_page_found">Seems like this song is not on Lastfm !</string>
 
     <!-- MusicInfoService -->
+
+    <string name="textviewdetails"/>
+    <string name="more_info"/>
+    <string name="details_textview2"/>
+    <string name="is_listening_to"/>
+    <string name="details_textview"/>
+    <string name="back"/>
+    <string name="textview"/>
     <string name="no_music_player_installed">You don’t have any compatible music player installed. Sorry :(</string>
     <string name="server_error_music_info">Could not retrieve the info about the currently playing
         music :(</string>
     <string name="recently_played_songs">RECENTLY PLAYED SONGS</string>
+    <string name="backbutton">back</string>
 
 </resources>

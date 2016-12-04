@@ -4,26 +4,32 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import ch.epfl.sweng.project.Fragment.DetailsFragment;
+import ch.epfl.sweng.project.Fragment.UsersFragment;
+import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.media.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
-
 //import ch.epfl.sweng.project.media.MusicInfoService;
 
 
 public final class MainActivity extends AppCompatActivity {
-
     private static final int USERS_AROUND_FRAGMENT = 0;
     private static final int MAP_FRAGMENT = 1;
     private static final int PROFILE_FRAGMENT = 2;
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
     private boolean expandedMusicHistory = false;
+    DetailsFragment detailsFragment;
+    FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public final class MainActivity extends AppCompatActivity {
         // Starts service to be aware if the device is playing music, and gets music information
         Intent musicInfo = new Intent(this, MusicInfoService.class);
         startService(musicInfo);
+
 
     }
 
@@ -106,7 +113,6 @@ public final class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.no_music_player_installed, Toast.LENGTH_SHORT).show();
         }
     }
-
     @Override
     public void onBackPressed() {
         if (mViewPager.getCurrentItem() == USERS_AROUND_FRAGMENT) {

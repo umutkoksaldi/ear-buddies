@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -198,9 +199,16 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        //TODO Use detail framgent
+        //TODO addToBackStack can cause problems when poping
         User showUser = allMarkersMap.get(marker);
-        Toast.makeText(getContext(), "You click on "+showUser.getFirstname(), Toast.LENGTH_SHORT).show();
+        DetailsFragment detailsFragment = new DetailsFragment();
+        detailsFragment.setUser(showUser);
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.map_frag, detailsFragment)
+                .addToBackStack("mapFrag")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                .commit();
     }
 
 

@@ -6,7 +6,6 @@ import ch.epfl.sweng.project.ActivityForFragmentsTest;
 import org.junit.Test;
 import ch.epfl.sweng.project.Fragment.UsersFragment;
 import static android.support.test.InstrumentationRegistry.getContext;
-
 /**
  * Created by Dusan Viktor on 2016-11-04.
  * Using AcivityForFragments to be the activity that is testing the Blank Fragment
@@ -16,7 +15,7 @@ import static android.support.test.InstrumentationRegistry.getContext;
 public class UsersFragmentTest extends ActivityInstrumentationTestCase2<ActivityForFragmentsTest> {
     private ActivityForFragmentsTest myFragmentActivity;
     private UsersFragment myFragment;
-    private UsersFragment.VivzAdapter testAdapter;
+    UsersFragment.VivzAdapter testAdapter;
     private String[] names;
     private String[] desc;
     private String[] imgs;
@@ -42,8 +41,7 @@ public class UsersFragmentTest extends ActivityInstrumentationTestCase2<Activity
         names[1] = "Namew";
         desc[1] = "Song2";
         imgs[1] = "URL-Picture2";
-
-        testAdapter = new UsersFragment.VivzAdapter(getContext(),names, imgs, desc);
+        testAdapter = new UsersFragment.VivzAdapter(getContext(), names, imgs, desc);
     }
 
     @Test

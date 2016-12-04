@@ -1,14 +1,24 @@
 package ch.epfl.sweng.project.Fragment;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,63 +28,98 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.facebook.internal.LockOnGetVariable;
+
+import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
 
 
-public class UsersFragment extends Fragment {
 
+
+public class UsersFragment extends Fragment{
+    public android.os.Handler mHandler = new android.os.Handler();
     private User[] usersAround;
+    private User[] oldUsers;
     private String[] userNames;
     private String[] userDescription;
     private String[] images;
     public VivzAdapter adapter;
+    public View viewUsers;
+    private Context context;
+
+
+//    public android.os.Handler mHandler = new android.os.Handler();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.frag_userslist, container, false);
-
-        Resources res = getResources();
-
-
+        viewUsers = inflater.inflate(R.layout.frag_userslist, container, false);
         usersAround = ModelApplication.getModelApplication().getOtherUsers();
+        context = getContext();
+
         if (usersAround == null) {
-            Log.i("No users", "" + 0);
-            return view;
+            return viewUsers;
         }
 
-        userNames = new String[usersAround.length];
-        userDescription = new String[usersAround.length];
-        images = new String[usersAround.length];
+//         Runnable r = new Runnable() {
+//            public void run() {
+                //mHandler.postDelayed(this, 10000);
 
-        int userIndex;
-        for (userIndex = 0; userIndex < usersAround.length; userIndex++) {
-            images[userIndex] = usersAround[userIndex].getProfilePicture();
-            userNames[userIndex] = usersAround[userIndex].getFirstname();
-            userDescription[userIndex] = usersAround[userIndex].getLastname();
-        }
+                userNames = new String[usersAround.length];
+                userDescription = new String[usersAround.length];
+                images = new String[usersAround.length];
 
-        ListView list = (ListView) view.findViewById(R.id.listView);
+                int userIndex;
+                for (userIndex = 0; userIndex < usersAround.length; userIndex++) {
+                    images[userIndex] = usersAround[userIndex].getProfilePicture();
+                    userNames[userIndex] = usersAround[userIndex].getFirstname();
+                    userDescription[userIndex] = usersAround[userIndex].getLastname();
+                }
 
-        adapter = new VivzAdapter(getContext(), userNames, images, userDescription);
-        list.setAdapter(adapter);
+                ListView list = (ListView) viewUsers.findViewById(R.id.listView);
+
+                adapter = new VivzAdapter(context, userNames, images, userDescription);
+                list.setAdapter(adapter);
 
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long
-                                                id) {
-                                            int profileNumber = position + 1;
-                                            Toast.makeText(getActivity(), "You clicked on profile number: " +
-                                                    profileNumber, Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-        );
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    //@RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-        return view;
+                        DetailsFragment detailsFragment = new DetailsFragment();
+                        detailsFragment.setUser(usersAround[position]);
+                        getFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.frag_userlistid, detailsFragment)
+                                .addToBackStack("usersList")
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                                .commit();
+                    //    Runnable r = new Runnable() {
+                  //      public void run() {
+
+           // }
+        //};
+        //mHandler.postDelayed(r, 1000);
+
+
+
+                    }
+                });
+//                mHandler.postDelayed(this, 10000);}
+//        };
+//        mHandler.postDelayed(r, 1000);
+        return viewUsers;
+
     }
+
+
 
 
 //ListView calls the Adapter
@@ -136,6 +181,8 @@ public class UsersFragment extends Fragment {
 
 
         //This metod is called each time a row has to be displayed to a user
+        //position is final because we are accessing it from the inside class
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @NonNull
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -163,8 +210,9 @@ public class UsersFragment extends Fragment {
             holder.userName.setText(titleArray[position]);
             holder.userSong.setText(descriptionArray[position]);
 
+            Log.i("", "entered Adapter");
             return row;
-
         }
     }
+
 }
