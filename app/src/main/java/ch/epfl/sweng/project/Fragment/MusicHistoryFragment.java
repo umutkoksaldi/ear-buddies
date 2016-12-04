@@ -92,7 +92,11 @@ public class MusicHistoryFragment extends Fragment {
             Music music = musicList.get(position);
             holder.artist.setText(music.getArtist());
             holder.song.setText(music.getName());
-            holder.tag.setText(music.getTag());
+            String tag = music.getTag();
+            if (!tag.equals("unknown")) {
+                holder.tag.setText(tag);
+            }
+
             String coverUrl = music.getUrlPicture();
             //String url = "https://pbs.twimg.com/profile_images/634829866504859648/GuMPPRJ6.png";
             Log.d("MusicHistoryFragment", "music: " + music.getArtist() + " - " + music.getName() +
