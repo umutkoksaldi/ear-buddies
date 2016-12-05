@@ -13,49 +13,45 @@
         android:layout_height="80dp"
         android:src="@drawable/ic_image_audiotrack"
         />
-    <TextView
-        android:id="@+id/tvArtistName"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_toEndOf="@id/ivCover"
-        android:layout_toRightOf="@id/ivCover"
-        android:paddingEnd="15dp"
-        android:paddingLeft="15dp"
-        android:paddingStart="15dp"
-        android:text=""/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_toEndOf="@id/ivCover"
         android:layout_toRightOf="@id/ivCover"
-        android:orientation="horizontal"
-        android:paddingTop="20dp">
+        android:orientation="vertical"
+        android:paddingEnd="15dp"
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        >
 
+        <TextView
+            android:id="@+id/tvArtistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text=""
+            />
 
         <TextView
             android:id="@+id/tvSongName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:paddingEnd="15dp"
-            android:paddingLeft="15dp"
-            android:paddingStart="15dp"
-            android:text=""/>
-
-        <TextView
-            android:id="@+id/tvSeparator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/separator"/>
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text=""
+            />
 
         <TextView
             android:id="@+id/tvSongTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="10dp"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"/>
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textStyle="italic"
+            />
 
 
     </LinearLayout>

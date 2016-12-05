@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -23,9 +24,11 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
 import ch.epfl.sweng.project.Fragment.PresentationAppFragment;
@@ -205,5 +208,14 @@ public class Login extends AppCompatActivity {
         permissions.add("user_birthday");
         permissions.add("user_about_me");
         loginButton.setReadPermissions(permissions);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Leave the app properly without going back to the welcome activity
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
     }
 }

@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 import ch.epfl.sweng.project.Login;
 import ch.epfl.sweng.project.WelcomeActivity;
 
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.internal.util.Checks.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 
@@ -78,9 +77,6 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
         try {
             latch.await(2, TimeUnit.SECONDS);
             // check the foreground activity.
-            assertCurrentActivityIsInstanceOf(Login.class);
-            pressBack();
-            Thread.sleep(2000);
             assertCurrentActivityIsInstanceOf(Login.class);
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">GO Project-2016/2017</string>
+    <string name="app_name">Sheepzik</string>
 
     <!-- Facebook configuration -->
     <string name="facebook_app_id">1055317924581025</string>
@@ -76,9 +76,8 @@
 
     <string name="presentation_music" tools:ignore="UnusedResources"> Use your favorite music player as usual \n
     </string>
-    <string name="presentation_people" tools:ignore="UnusedResources"> Match people around you, selected by
-        music taste and distance </string>
-    <string name="presentation_interaction" tools:ignore="UnusedResources"> Have fun with other people ! :) \n
+    <string name="presentation_people" tools:ignore="UnusedResources"> Find people around by music taste \n</string>
+    <string name="presentation_interaction" tools:ignore="UnusedResources"> Have fun with your new mates ! :) \n
     </string>
     <string name="facebook_warning">We do not post anything of facebook.</string>
 
@@ -93,6 +92,7 @@
     <string name="profile_picture"/>
     <string name="textview2"/>
     <string name="textview3"/>
+    <string name="no_user_facebook_page_found">Could not find this user on Facebook!</string>
 
     <!-- Music history fragment -->
     <string name="separator"> ● </string>
