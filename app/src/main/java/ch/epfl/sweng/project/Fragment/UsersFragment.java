@@ -1,15 +1,11 @@
 package ch.epfl.sweng.project.Fragment;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,19 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.Webview.CustomTabActivityHelper;
-import ch.epfl.sweng.project.Webview.WebviewFallback;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class UsersFragment extends Fragment {
@@ -87,7 +76,9 @@ public class UsersFragment extends Fragment {
     }
 
 
-    public static class UserListAdapter extends RecyclerView.Adapter<UsersFragment.UserListAdapter
+    // DO NOT DELETE the following code as it will be used soon to change listview in recyclerview
+
+    /*public static class UserListAdapter extends RecyclerView.Adapter<UsersFragment.UserListAdapter
             .UserViewHolder> {
 
         private ArrayList<User> userList;
@@ -179,7 +170,7 @@ public class UsersFragment extends Fragment {
             }
         }
 
-    }
+    }*/
 
 //ListView calls the Adapter
 

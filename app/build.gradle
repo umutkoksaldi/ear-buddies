@@ -131,7 +131,13 @@ task jacocoReport(type: JacocoReport, dependsOn: "connectedAndroidTest") {
                     '**/BuildConfig.*',
                     '**/Manifest*.*',
                     '**/*Test*.*',
-                    '**/android/**/*.*'
+                    '**/android/**/*.*',
+                    '**/CustomTabActivityHelper.class',
+                    '**/CustomTabsHelper.class',
+                    '**/KeepAliveService.class',
+                    '**/ServiceConnection.class',
+                    '**/ServiceConnectionCallback.class',
+                    '**/WebviewFallBack.class',
 
             ]
     )
