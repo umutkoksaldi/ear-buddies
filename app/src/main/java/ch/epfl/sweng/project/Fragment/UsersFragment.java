@@ -75,7 +75,7 @@ public class UsersFragment extends Fragment {
         return view;
     }
 
-
+ 
     // DO NOT DELETE the following code as it will be used soon to change listview in recyclerview
 
     /*public static class UserListAdapter extends RecyclerView.Adapter<UsersFragment.UserListAdapter
