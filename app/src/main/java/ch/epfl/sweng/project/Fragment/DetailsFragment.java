@@ -63,11 +63,13 @@ public class DetailsFragment extends Fragment {
         music = new Music();
         //musicId = user.getCurrentMusicId();
         musicArtist = (TextView)view.findViewById(R.id.details_song_artist);
+        //if no artist, set "Song" string-just in order to have better appearance
         musicArtist.setText("Song:");
         if(musicId != 0 ) {
             String s = String.valueOf(musicId);
             musicArtist.setText(s);
         }
+
         musicName = (TextView) view.findViewById(R.id.details_song_name);
         musicName.setText("Ride 'em all down");
         musicImage = (ImageView) view.findViewById(R.id.details_song_picture);
@@ -79,14 +81,7 @@ public class DetailsFragment extends Fragment {
         picture = (ImageView) view.findViewById(R.id.details_fragment_picture);
         new DownloadImageTask(picture).execute(user.getProfilePicture());
         description = (TextView) view.findViewById(R.id.details_description);
-        //description.setText("Description: " + user.getDescription());
-        description.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad" +
-                "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" +
-                "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" +
-                "dddddddddddddddddddddddddddddddddddddddddddddddddddddAAAAAA" +
-                "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        description.setText("Description: " + user.getDescription());
         Log.i("Music Artist","" + music.getArtist());
 
         facebookClicked(view);
