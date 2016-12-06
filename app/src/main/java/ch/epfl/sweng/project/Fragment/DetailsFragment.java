@@ -39,7 +39,6 @@ public class DetailsFragment extends Fragment {
     private User user;
     private static ImageView facebookPicture;
     private Music music;
-    private static ModelApplication modelApplication = ModelApplication.getModelApplication();
     private FragmentManager manager;
 
     public void setUser(User user) {
