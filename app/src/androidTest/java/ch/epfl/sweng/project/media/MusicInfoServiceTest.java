@@ -67,7 +67,7 @@ public class MusicInfoServiceTest {
     public void testWithStartedService() {
         try {
             mServiceRule.startService(
-                    new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
+                    new Intent(InstrumentationRegistry.getTargetContext(), ch.epfl.sweng.project.media.MusicInfoService.class));
         } catch (TimeoutException e) {
             Log.e("MusicInfoServiceTest", e.toString());
         }

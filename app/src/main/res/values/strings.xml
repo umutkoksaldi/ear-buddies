@@ -112,5 +112,9 @@
         music :(</string>
     <string name="recently_played_songs">RECENTLY PLAYED SONGS</string>
     <string name="backbutton">back</string>
+    <string name="song_artist">song artist</string>
+    <string name="is_listening_to_the_song">Is listening to</string>
+    <string name="details_facebook_button">TextView</string>
+    <string name="song_name">song name</string>
 
 </resources>

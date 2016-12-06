@@ -2,20 +2,21 @@ package ch.epfl.sweng.project.Fragment;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import ch.epfl.sweng.project.Model.ModelApplication;
+import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.Webview.CustomTabActivityHelper;
@@ -32,9 +33,13 @@ public class DetailsFragment extends Fragment {
     private ImageView picture;
     private TextView description;
     private TextView nameDetails;
+    private TextView musicName;
+    private ImageView musicImage;
+    private TextView musicArtist;
     private User user;
     private static ImageView facebookPicture;
-
+    private Music music;
+    private static ModelApplication modelApplication = ModelApplication.getModelApplication();
     private FragmentManager manager;
 
     public void setUser(User user) {
@@ -46,29 +51,51 @@ public class DetailsFragment extends Fragment {
  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.details_fragment, container, false);
+        long musicId = 0;
 
-        final Button backButton = (Button) view.findViewById(R.id.back_button);
+        final Button backButton = (Button) view.findViewById(R.id.details_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 getFragmentManager().popBackStack();
             }
         });
 
-
+        music = new Music();
+        //musicId = user.getCurrentMusicId();
+        musicArtist = (TextView)view.findViewById(R.id.details_song_artist);
+        musicArtist.setText("Song:");
+        if(musicId != 0 ) {
+            String s = String.valueOf(musicId);
+            musicArtist.setText(s);
+        }
+        musicName = (TextView) view.findViewById(R.id.details_song_name);
+        musicName.setText("Ride 'em all down");
+        musicImage = (ImageView) view.findViewById(R.id.details_song_picture);
+        if(user.getProfilePicture() != null) {
+            new DownloadImageTask(musicImage).execute(user.getProfilePicture());
+        }
         nameDetails = (TextView) view.findViewById(R.id.details_name);
         nameDetails.setText(user.getFirstname());
         picture = (ImageView) view.findViewById(R.id.details_fragment_picture);
         new DownloadImageTask(picture).execute(user.getProfilePicture());
         description = (TextView) view.findViewById(R.id.details_description);
-        description.setText(user.getDescription());
+        //description.setText("Description: " + user.getDescription());
+        description.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad" +
+                "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" +
+                "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" +
+                "dddddddddddddddddddddddddddddddddddddddddddddddddddddAAAAAA" +
+                "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        Log.i("Music Artist","" + music.getArtist());
 
-
-        //onUserClick();
         facebookClicked(view);
 
         return view;
     }
-
+    public User detailsGetUser (){
+        return user;
+    }
 
     public void facebookClicked(View view) {
         facebookPicture = (ImageView)view.findViewById(R.id.details_fragment_facebook);
@@ -76,8 +103,7 @@ public class DetailsFragment extends Fragment {
         facebookPicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String fullUrl = "http://".concat(url.concat("/").concat(String.valueOf(user.getIdApiConnection())));
-                Toast.makeText(getActivity(), "IdApiConnection is:" + fullUrl, Toast
-                        .LENGTH_SHORT).show();
+
                 CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
 
                 Activity activity = (Activity) v.getContext();
