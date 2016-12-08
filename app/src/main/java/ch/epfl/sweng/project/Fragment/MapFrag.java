@@ -204,7 +204,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         detailsFragment.setUser(showUser);
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.map_frag, detailsFragment)
+                .replace(R.id.map, detailsFragment)
                 .addToBackStack("mapFrag")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .commit();

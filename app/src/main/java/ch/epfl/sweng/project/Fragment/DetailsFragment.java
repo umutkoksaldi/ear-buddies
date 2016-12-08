@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
