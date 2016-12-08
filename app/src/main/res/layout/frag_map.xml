@@ -1,32 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/map_frag"
-              android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
-    <ImageButton
-        android:layout_width="69dp"
-        android:layout_height="71dp"
-        app:srcCompat="@drawable/ic_cached_black_24dp"
-        android:id="@+id/updatdeOtherUsers"
-        android:layout_alignParentBottom="true"/>
-    <ImageButton
-        android:layout_width="69dp"
-        android:layout_height="71dp"
-        app:srcCompat="@android:drawable/ic_media_play"
-        android:id="@+id/launchMusicPlayer"
-        android:onClick="launchMusicPlayer"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="445dp"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/launchMusicPlayer"></FrameLayout>
+        android:layout_alignParentStart="true"></FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:descendantFocusability="blocksDescendants">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/cardview_light_background"
+            android:alpha="0.9"
+            app:srcCompat="@drawable/ic_cached_black_24dp"
+            android:layout_gravity="top|start"
+            android:id="@+id/updatdeOtherUsers"/>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="launchMusicPlayer"
+            android:layout_gravity="bottom|center"
+            app:srcCompat="@android:drawable/ic_media_play"
+            android:id="@+id/launchMusicPlayer"/>
+    </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
 </RelativeLayout>
