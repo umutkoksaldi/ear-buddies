@@ -1,5 +1,7 @@
+
 package ch.epfl.sweng.project.media;
 
+import org.junit.runner.RunWith;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
@@ -38,7 +40,8 @@ public class MusicInfoServiceTest {
     private static final String ARTIST_NAME_TEST = "Rihanna";
     private static final String MUSIC_NAME_TEST = "Umbrella";
     //private static final String TAG_TEST = "yolo";
-    private static final String URL_TEST = "https://www.last.fm/music/Rihanna/_/Umbrella";
+    private static final String URL_TEST = "" +
+            "https://www.last.fm/music/Rihanna/_/Umbrella";
     private static final String SPOTIFY_ARTIST_NAME_TEST = "Eminem";
     private static final String SPOTIFY_MUSIC_NAME_TEST = "Berzerk";
     //private static final String SPOTIFY_TAG_TEST = "yolo";
