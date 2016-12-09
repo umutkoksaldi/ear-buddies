@@ -1,14 +1,25 @@
 package ch.epfl.sweng.project;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+
+import ch.epfl.sweng.project.Model.ModelApplication;
+import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.media.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
@@ -21,6 +32,8 @@ public final class MainActivity extends AppCompatActivity {
     private static final int USERS_AROUND_FRAGMENT = 0;
     private static final int MAP_FRAGMENT = 1;
     private static final int PROFILE_FRAGMENT = 2;
+    final int DELAY_MATCH_CALL = 10000;
+    final int NOTIFICATION_ID = 0;
     ModelApplication modelApplication = ModelApplication.getModelApplication();
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
@@ -28,8 +41,13 @@ public final class MainActivity extends AppCompatActivity {
     private Handler mHandler = new Handler();
     private boolean matchDisplayed = false;
     private long lastIDMatched = 0;
-    final int DELAY_MATCH_CALL = 10000;
-    final int NOTIFICATION_ID = 0;
+    private final Runnable matchRequest = new Runnable() {
+        @Override
+        public void run() {
+            matchSearch();
+            mHandler.postDelayed(this, DELAY_MATCH_CALL);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,14 +155,6 @@ public final class MainActivity extends AppCompatActivity {
     public void setExpendedMusicHistory() {
         expandedMusicHistory = true;
     }
-
-    private final Runnable matchRequest = new Runnable() {
-        @Override
-        public void run() {
-            matchSearch();
-            mHandler.postDelayed(this, DELAY_MATCH_CALL);
-        }
-    };
 
     private void matchSearch() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
