@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ch.epfl.sweng.project.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="ch.epfl.sweng.project.MainActivity">
 
     <!-- TabLayout to see the current page-->
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayoutMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/primary_dark"
+        app:tabIndicatorColor="@color/color_accent"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/primary_light"/>
 
 
     <android.support.v4.view.ViewPager
