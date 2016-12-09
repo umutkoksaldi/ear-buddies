@@ -1,9 +1,15 @@
 package ch.epfl.sweng.project.ModuleRequest;
 
 import android.app.Activity;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.v7.app.AppCompatActivity;
 import android.test.ActivityInstrumentationTestCase2;
+
+import com.facebook.FacebookSdk;
+
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,8 +33,10 @@ public class TestChangeActivity extends ActivityInstrumentationTestCase2<MainAct
 
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
+            MainActivity.class);
     private Activity curActivity;
-
 
     public TestChangeActivity() {
         super(MainActivity.class);
@@ -38,7 +46,7 @@ public class TestChangeActivity extends ActivityInstrumentationTestCase2<MainAct
     @Override
     public void setUp() throws Exception {
         super.setUp();
-
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         final CountDownLatch latch = new CountDownLatch(1);
 
         // we call the server to
@@ -63,7 +71,7 @@ public class TestChangeActivity extends ActivityInstrumentationTestCase2<MainAct
     /**
      * Testing actions linked to the button login.
      */
-
+    @Test
     public void test_new_user() {
 
         final CountDownLatch latch = new CountDownLatch(1);

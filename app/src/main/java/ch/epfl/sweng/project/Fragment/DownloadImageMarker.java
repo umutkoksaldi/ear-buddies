@@ -25,6 +25,19 @@ class DownloadImageMarker extends AsyncTask<String, Void, Bitmap> {
         mId = id;
     }
 
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+                                   boolean filter) {
+        float ratio = Math.min(
+                maxImageSize / realImage.getWidth(),
+                maxImageSize / realImage.getHeight());
+        int width = Math.round(ratio * realImage.getWidth());
+        int height = Math.round(ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        return newBitmap;
+    }
+
     @Override
     protected Bitmap doInBackground(String... params) {
         String url = params[0];
@@ -46,18 +59,5 @@ class DownloadImageMarker extends AsyncTask<String, Void, Bitmap> {
     protected void onPostExecute(Bitmap result) {
         bitmap = result;
         mMarker.icon(BitmapDescriptorFactory.fromBitmap(result));
-    }
-
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-                                   boolean filter) {
-        float ratio = Math.min(
-                (float) maxImageSize / realImage.getWidth(),
-                (float) maxImageSize / realImage.getHeight());
-        int width = Math.round((float) ratio * realImage.getWidth());
-        int height = Math.round((float) ratio * realImage.getHeight());
-
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
-        return newBitmap;
     }
 }

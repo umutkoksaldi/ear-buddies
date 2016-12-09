@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project.media;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 
 import Util.GlobalSetting;
-import ch.epfl.sweng.project.Fragment.MusicHistoryFragment;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
@@ -22,8 +22,8 @@ public final class MusicHistory {
 
     private static MusicHistory musicHistory = null;
     // Adapter used by MusicHistoryFragment to update the listview
-    RecyclerView.Adapter adapter = null;
-    MusicHistoryFragment musicHistoryFragment = null;
+    private RecyclerView.Adapter adapter = null;
+    private SwipeRefreshLayout swipeContainer = null;
     private int length = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH;
     private ArrayList<Music> musicHistoryList = new ArrayList<>();
     private ModelApplication modelApplication = ModelApplication.getModelApplication();
@@ -55,8 +55,9 @@ public final class MusicHistory {
         this.length = length;
     }
 
-    public void updateFromServer(RecyclerView.Adapter adapter) {
+    public void updateFromServer(RecyclerView.Adapter adapter, SwipeRefreshLayout swipeContainer) {
         this.adapter = adapter;
+        this.swipeContainer = swipeContainer;
         musicHistoryList.clear();
         sendGet(GlobalSetting.MUSIC_HISTORY_API);
     }
@@ -81,6 +82,9 @@ public final class MusicHistory {
                         musicHistoryList.add(music);
                     }
                     adapter.notifyDataSetChanged();
+                    if (swipeContainer != null) {
+                        swipeContainer.setRefreshing(false);
+                    }
                 } else {
                     // Erreur pas pu communiquer avec le serveur
                     Log.e("MusicHistory", "onSuccess() != Code 200 (good answer)");
@@ -99,5 +103,6 @@ public final class MusicHistory {
         Log.d("MusicInfoService", "GET Request : " + requestURL);
         serviceHandler.doGet(requestURL, Music[].class);
     }
+
 
 }

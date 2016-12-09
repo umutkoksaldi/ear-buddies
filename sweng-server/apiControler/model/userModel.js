@@ -1,4 +1,4 @@
-// Récupération du Modèle
+// Retrieving the model
 var unirest = require('unirest');
 var util = require('util');
 var setting = require('../../setting/error.js');
@@ -7,7 +7,7 @@ var globalConfig = require('../../setting/global.js');
 var userManipulation = require ('../object/user.js')
 var utils = require('../utils/Utils.js');
 var Constant = require ('../utils/Constant.js')
-var utilTest = require ('util') 
+var utilTest = require ('util')
 
 // database
 var databasePostgres = require('../database/postgres.js');
@@ -25,14 +25,14 @@ var LONGITUDE = 6.601919
 
 //---------------------------------- DEFINE CONSTANT ------------------------------------
 
-// Définition de l'objet controllerUtilisateur
-function controllerUtilisateur(){
+// Definition of the object controllerUser
+function controllerUser(){
 
   // private method, allow to create a specific user by the object given by facebook.
   var createUser = function(res,backgroundPict,callback){
 
           // build the url to get the picture
-          var urlPictureFacebook = "https://graph.facebook.com/"+res.body.id+"/picture?height=500&width=500"; 
+          var urlPictureFacebook = "https://graph.facebook.com/"+res.body.id+"/picture?height=500&width=500";
           utils.logInfo("createUser(), insertion or geetin a user");
           var UserAge = userManipulation.computeAge(res.body.birthday);
 
@@ -43,7 +43,7 @@ function controllerUtilisateur(){
           User.sync({force: false}).then(function () {
 
                 var createUser =  User.create({
-                        idApiConnection : res.body.id, 
+                        idApiConnection : res.body.id,
                         lastname : res.body.last_name,
                         firstname: res.body.first_name,
                         email : res.body.email,
@@ -60,10 +60,10 @@ function controllerUtilisateur(){
                   // We associate with the default value.
                   createUser.setSetting(Constant.GeneralModel.idDefaultSetting);
 
-   
+
                   createUser.getSetting().then(function(associatedTasks) {
                       userManipulation.changeSetting(createUser.dataValues,associatedTasks.dataValues)
-                      
+
                       // We kepp only the id of facebook.
                       delete createUser.dataValues['id']
                       var response = userManipulation.transformResponseClient(createUser.dataValues);
@@ -83,11 +83,11 @@ function controllerUtilisateur(){
            });
     }
 
- 
+
   // private method, allow to get a specific user designed by api connection.
   var getUserByIdConnection = function(idApi,callback){
 
-      var urlPictureFacebook = "https://graph.facebook.com/"+idApi+"/picture?height=500&width=500"; 
+      var urlPictureFacebook = "https://graph.facebook.com/"+idApi+"/picture?height=500&width=500";
       utils.logInfo("getUserByIdConnection(), get the user"+ idApi);
       User.sync().then(function () {
         // select query.
@@ -118,7 +118,7 @@ function controllerUtilisateur(){
 
    var getUserAroundBySetting = function(idApi,callback){
 
-      utils.logInfo("controllerUtilisateur(), insertion or geetin a user, adduser()");
+      utils.logInfo("controllerUser(), insertion or getting a user, adduser()");
 
       // I wanted to use the ORM but it does not work properly with geospatial request.
       var queryRequest = 'SELECT *, ST_Distance_Sphere(ST_MakePoint(:lattitude,:longitude), "location") AS user_distance '+
@@ -142,21 +142,21 @@ function controllerUtilisateur(){
 
                     // execute the query by replacing values in query.
                     sequelize.query(queryRequest,
-                    { 
-                        replacements: 
-                                      { 
+                    {
+                        replacements:
+                                      {
                                         lattitude: getUser.location.coordinates[0],
                                         longitude: getUser.location.coordinates[1],
                                         radius: settingUser.radius,
                                         ageMin: settingUser.ageMin,
                                         ageMax: settingUser.ageMax,
                                         idUser : getUser.id
-                                      }, type: sequelize.QueryTypes.SELECT 
+                                      }, type: sequelize.QueryTypes.SELECT
 
                       }).then(function(usersAround) {
                             usersAround.forEach(function(value){
                               userManipulation.transformResponseClient(value);
-                            });   
+                            });
 
                             callback(usersAround,setting.htmlCode.succes_request);
 
@@ -180,7 +180,7 @@ function controllerUtilisateur(){
 
 
     this.updateGetInformationUser = function (body,callback)
-    {     
+    {
         utils.logDebug("adduser()"+JSON.stringify(buildRequestFacebook(body.id,body.accesToken)));
         console.log("token"+body.accesToken)
         console.log("id   "+body.id)
@@ -194,9 +194,9 @@ function controllerUtilisateur(){
           }
           else {
                 // make an JsonObject.
-                res.body  = JSON.parse(res.body); 
+                res.body  = JSON.parse(res.body);
                 // build the url to get the picture
-                var urlPictureFacebook = "https://graph.facebook.com/"+res.body.id+"/picture?height=500&width=500"; 
+                var urlPictureFacebook = "https://graph.facebook.com/"+res.body.id+"/picture?height=500&width=500";
 
                 utils.logInfo("updateGetInformationUser(), insertion or geetin a user, adduser()");
 
@@ -208,14 +208,14 @@ function controllerUtilisateur(){
                   backgroundPict =  res.body.cover.source
                 }
 
-               // We synchronize with the databse in order to change the name and the 
+               // We synchronize with the databse in order to change the name and the
                User.sync({}).then(function () {
 
                      var CreateUser =  User.update({
                           email : res.body.email,
                           profilePicture : urlPictureFacebook,
                           backgroundPicture : backgroundPict
-                      }, 
+                      },
                       {
                       where: {
                                 idApiConnection: res.body.id
@@ -230,7 +230,7 @@ function controllerUtilisateur(){
                         utils.logInfo("creation d'un nouveau utilisateur");
                         createUser(res,backgroundPict,callback);
                       }
-                      // We get the user in the database and send to the client. 
+                      // We get the user in the database and send to the client.
                       else{
                           utils.logInfo("get the user freshly updated");
                           getUserByIdConnection(res.body.id,callback);
@@ -252,14 +252,14 @@ function controllerUtilisateur(){
       utils.logInfo("getUsersAround()");
       utils.logInfo(UserObject);
 
-      
-      // We synchronize with the databse in order to change the name and the 
+
+      // We synchronize with the databse in order to change the name and the
        User.sync({force: false}).then(function () {
 
             var point = { type: 'Point', coordinates: [UserObject.lattitude,UserObject.longitude]};
             var updateUser =  User.update({
                 location : point
-              }, 
+              },
               {
               where: {
                         idApiConnection: UserObject.idApiConnection
@@ -271,25 +271,25 @@ function controllerUtilisateur(){
                 utils.logInfo("The User does not exist !");
                 callback(null,setting.htmlCode.unavailable_ressources);
               }
-              // We get the user in the database and send to the client. 
+              // We get the user in the database and send to the client.
               else{
                   utils.logInfo("I'am update the user");
                   getUserAroundBySetting(UserObject.idApiConnection,callback);
               }
           }).catch(function(error) {
-               utils.logInfo("controllerUtilisateur(), the request fail"+error);
+               utils.logInfo("controllerUser(), the request fail"+error);
                callback(null,setting.htmlCode.unavailable_ressources);
           })
 
       });
 
 
-    }  
+    }
 
     this.getUser = function(idApi,callback){
-      utils.logInfo("controllerUtilisateur(), get user "+idApi+", getUser()");
+      utils.logInfo("controllerUser(), get user "+idApi+", getUser()");
       getUserByIdConnection(idApi,callback)
-    }  
+    }
 
     this.removeUser = function(idApi,callback){
 
@@ -303,52 +303,52 @@ function controllerUtilisateur(){
 
           // callback if the user srequest succeed.
           }).then(function(deleteUser) {
-                  utils.logInfo("controllerUtilisateur(), the request succeed");
+                  utils.logInfo("controllerUser(), the request succeed");
                   callback(null,setting.htmlCode.succes_request);
 
           // return a 500 code if the request is null.
           }).catch(function(error) {
-               utils.logInfo("controllerUtilisateur(), the request fail"+error);
+               utils.logInfo("controllerUser(), the request fail"+error);
               callback(null,setting.htmlCode.unavailable_ressources);
           })
 
       });
-    }    
+    }
 
-    
+
     this.updateUser = function (idApi,UserObject,callback){
 
-      // We synchronize with the databse in order to change the name and the 
+      // We synchronize with the databse in order to change the name and the
        User.sync({force: false}).then(function () {
 
             var updateUser =  User.update({
                 lastname: UserObject.lastname,
                 firstname : UserObject.firstname,
                 description: UserObject.description,
-              }, 
+              },
               {
               where: {
                         idApiConnection: idApi
                      }
           // callback if the user srequest succeed.
           }).then(function(updateUser) {
-                  utils.logInfo("controllerUtilisateur(), the request succeed");
+                  utils.logInfo("controllerUser(), the request succeed");
                   callback(null,setting.htmlCode.succes_request);
 
           // return a 500 code if the request is null.
           }).catch(function(error) {
-               utils.logInfo("controllerUtilisateur(), the request fail"+error);
+               utils.logInfo("controllerUser(), the request fail"+error);
               callback(null,setting.htmlCode.unavailable_ressources);
           })
 
       });
-    } 
+    }
 
 
     this.updateSetting = function (idApi,SettingObject,callback){
 
       utils.logInfo("updateSetting()");
-         
+
          User.sync().then(function () {
            // select query.
            var getUser =  User.findOne({
@@ -374,7 +374,7 @@ function controllerUtilisateur(){
                                         // create new settign
                                         utils.logInfo("initiateValue(), Added Setting default");
                                         // update the current value of the setting.
-                                        getUser.setSetting(createSetting.id);                        
+                                        getUser.setSetting(createSetting.id);
                                         callback(createSetting.id,setting.htmlCode.succes_request);
 
                                 }).catch(function(error) {
@@ -384,9 +384,9 @@ function controllerUtilisateur(){
                           });
                     }
 
-                    // We update the current Setting of the User, already differents 
+                    // We update the current Setting of the User, already differents
                     // from the default one.
-                    else { 
+                    else {
                          // Insert the default setting for everyone in the database.
                          Setting.sync({force: false}).then(function () {
 
@@ -399,7 +399,7 @@ function controllerUtilisateur(){
                              {
                                 where: {
                                           id: associatedTasks.dataValues.id
-                                       }  
+                                       }
                                 }).then(function(createSetting) {
 
                                         utils.logInfo("initiateValue(), Added Setting default");
@@ -411,7 +411,7 @@ function controllerUtilisateur(){
                                 })
                           });
                     }
-                    
+
                 }).catch(function(error) {
                     utils.logError("This User does not have any SettingValue"+error)
                     callback(null,setting.htmlCode.unavailable_ressources);
@@ -426,8 +426,8 @@ function controllerUtilisateur(){
 
 
     var buildRequestFacebook = function(id , accessToken){
-        return URL_FACEBOOK + id +"?fields="+ FIELDS_FACEBOOK +"&access_token="+ accessToken +"&height=500&width=500"; 
+        return URL_FACEBOOK + id +"?fields="+ FIELDS_FACEBOOK +"&access_token="+ accessToken +"&height=500&width=500";
     }
 }
 
-module.exports = new controllerUtilisateur();
+module.exports = new controllerUser();

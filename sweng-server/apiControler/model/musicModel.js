@@ -1,4 +1,4 @@
-// Récupération du Modèle
+// Retrieving the model
 var unirest = require('unirest');
 var util = require('util');
 var setting = require('../../setting/error.js');
@@ -19,13 +19,13 @@ var URL_LASTFM = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo"
 
 var TAG_MUSIC = ['pop','rock','rap','metal','hiphop'];
 var TAG_MUSIC_UNKNOWN = 'unknown';
-var LIMIT_HISTORY = 10; 
+var LIMIT_HISTORY = 10;
 var SIZE_PHOTO = 'large'
 
 //---------------------------------- DEFINE CONSTANT ------------------------------------
 
-// Définition de l'objet controllerUtilisateur
-function controlerMusic(){
+// Definition of the object controllerMusic
+function controllerMusic(){
 
   // Implementation of the REST GET service.
   this.getMusic = function(idMusic,callback){
@@ -43,7 +43,7 @@ function controlerMusic(){
 
                 }).then(function(getMusic) {
 
-                    var response = musicManipulation.transformResponseClient(getMusic.dataValues); 
+                    var response = musicManipulation.transformResponseClient(getMusic.dataValues);
                     callback(response,setting.htmlCode.succes_request);
 
                 }).catch(function(error) {
@@ -73,7 +73,7 @@ function controlerMusic(){
 
                       MusicsofUsers.forEach(function(value){
                             musicManipulation.transformResponseClient(value.dataValues)
-                      });   
+                      });
                       callback(MusicsofUsers,setting.htmlCode.succes_request);
                   }).catch(function(error) {
                     utils.logError("Cannot get the Musics of the user "+ error)
@@ -85,11 +85,11 @@ function controlerMusic(){
                 callback(null,setting.htmlCode.unavailable_ressources);
             });
         });
-         
+
     }
 
 
-    this.updateMusic = function(idApi,MusicObject,callback)    {     
+    this.updateMusic = function(idApi,MusicObject,callback)    {
 
         // GET the user description by doing a post on facebook API.
         unirest.get(buildRequestLastFm(MusicObject.artistName,MusicObject.musicName)).end(function(res){
@@ -109,13 +109,13 @@ function controlerMusic(){
                                 'artist': MusicObject.artistName ,
                                 'track':{'url': null , 'name':MusicObject.musicName},
                                 'tag' : TAG_MUSIC_UNKNOWN,
-                                'urlPicture' :null 
+                                'urlPicture' :null
                               }
                     }
 
                     // we get the result.
                     if(key == 'artist'){
-                      
+
                         if (value.name != null){
                           resultFMRequest.artist = value.name
                         }
@@ -130,9 +130,9 @@ function controlerMusic(){
                     if(key == 'toptags'){
                       value.tag.forEach(function(tag) {
 
-                         for (indexTagPossible in TAG_MUSIC){  
+                         for (indexTagPossible in TAG_MUSIC){
                             // if the tag contain one possible/defined tags we add it as a tag
-                            if(TAG_MUSIC[indexTagPossible].indexOf(tag.name) > -1) { 
+                            if(TAG_MUSIC[indexTagPossible].indexOf(tag.name) > -1) {
                               resultFMRequest.tag = TAG_MUSIC[indexTagPossible];
                               break;
                             }
@@ -144,18 +144,18 @@ function controlerMusic(){
                   if(key == 'image'){
                       var attribute = '#text'
                       value.forEach(function(picture) {
-                           
-                        // we keep only the small pictures. 
+
+                        // we keep only the small pictures.
                         if(picture.size  == SIZE_PHOTO){
                           resultFMRequest.urlPicture = picture[attribute]
                         }
                      });
                   }
-                  return value;                   
+                  return value;
               });
 
 
-               // We synchronize with the databse in order to change the name and the 
+               // We synchronize with the databse in order to change the name and the
                Music.sync({}).then(function () {
 
                     // add the music.
@@ -168,7 +168,7 @@ function controlerMusic(){
 
                   // callback if the user srequest succeed.
                   }).then(function(CreateMusic) {
-                      utils.logError("Sucess"); 
+                      utils.logError("Sucess");
 
                       User.sync().then(function () {
                       // select query.
@@ -182,7 +182,7 @@ function controlerMusic(){
                               // We force the link.
                               getUser.setCurrentMusic(CreateMusic.id);
                               getUser.addMusic(CreateMusic.id);
-                              var response = musicManipulation.transformResponseClient(CreateMusic.dataValues); 
+                              var response = musicManipulation.transformResponseClient(CreateMusic.dataValues);
                               callback(response,setting.htmlCode.succes_request);
 
                           }).catch(function(error) {
@@ -193,7 +193,7 @@ function controlerMusic(){
 
                   // if there is any error in computing value for user.
                   }).catch(function(error) {
-                      utils.logInfo("controllerUtilisateur(), the request fail"+error);
+                      utils.logInfo("controllerMusic(), the request fail"+error);
                       callback(null,setting.htmlCode.unavailable_ressources);
                   })
 
@@ -207,7 +207,7 @@ function controlerMusic(){
     var buildRequestLastFm = function(nameArtist, nameMusic){
       artistePart  = nameArtist == undefined ? '' : '&artist='+ nameArtist;
       musicPart    = nameMusic == undefined  ? '' : '&track='  + nameMusic;
-      formatPart   = '&format=json'; 
+      formatPart   = '&format=json';
 
       utils.logInfo(artistePart);
       utils.logInfo(musicPart);
@@ -217,4 +217,4 @@ function controlerMusic(){
     }
 }
 
-module.exports = new controlerMusic();
+module.exports = new controllerMusic();

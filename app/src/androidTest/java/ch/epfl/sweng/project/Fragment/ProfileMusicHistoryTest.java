@@ -1,6 +1,9 @@
 package ch.epfl.sweng.project.Fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.test.ActivityInstrumentationTestCase2;
+
+import com.facebook.FacebookSdk;
 
 import org.junit.Test;
 
@@ -15,34 +18,37 @@ import static android.support.test.InstrumentationRegistry.getContext;
  * Created by Antoine Merino on 29/11/2016.
  */
 
-public class MusicHistoryFragmentTest extends ActivityInstrumentationTestCase2<ActivityForFragmentsTest> {
+public class ProfileMusicHistoryTest extends ActivityInstrumentationTestCase2<ActivityForFragmentsTest> {
 
     private ActivityForFragmentsTest myFragmentActivity;
-    private MusicHistoryFragment myFragment;
-    private MusicHistoryFragment.MusicListAdapter testAdapter;
+    private MusicListAdapter testAdapter;
     private ArrayList<Music> musics;
+    private ProfileFrag profileFragment;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    public MusicHistoryFragmentTest() {
+    public ProfileMusicHistoryTest() {
         super(ActivityForFragmentsTest.class);
     }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+
         myFragmentActivity = getActivity();
-        myFragment = new MusicHistoryFragment();
+        FacebookSdk.sdkInitialize(myFragmentActivity.getApplicationContext());
+        profileFragment = new ProfileFrag();
 
         musics = new ArrayList<>();
         musics.add(new Music("Artist 1", "Track 1"));
         musics.add(new Music("Artist 2", "Track 2"));
 
-        testAdapter = new MusicHistoryFragment.MusicListAdapter(musics, getContext());
+        testAdapter = new MusicListAdapter(musics, getContext());
     }
 
     @Test
     public void testPreConditions() {
         assertNotNull(myFragmentActivity);
-        assertNotNull(myFragment);
+        assertNotNull(profileFragment);
         assertNotNull(testAdapter);
     }
 

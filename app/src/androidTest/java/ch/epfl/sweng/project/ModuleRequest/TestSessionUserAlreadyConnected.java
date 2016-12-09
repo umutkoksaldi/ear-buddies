@@ -3,15 +3,15 @@ package ch.epfl.sweng.project.ModuleRequest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.v7.app.AppCompatActivity;
 import android.test.ActivityInstrumentationTestCase2;
 
-import java.util.Collection;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import org.junit.Rule;
 
-import ch.epfl.sweng.project.MainActivity;
+import java.util.Collection;
+
 import ch.epfl.sweng.project.WelcomeActivity;
 
 import static android.support.test.internal.util.Checks.checkNotNull;
@@ -36,6 +36,9 @@ public class TestSessionUserAlreadyConnected extends ActivityInstrumentationTest
     private static final String ID = "id";
     private static final String ACESS_TOKEN = "accesToken";
     private static final String TESTING_ALREADY_CONNECTED = "Testing_already_conected";
+    @Rule
+    public ActivityTestRule<WelcomeActivity> mActivityRule = new ActivityTestRule<>(
+            WelcomeActivity.class);
     private Activity curActivity;
 
 
@@ -56,7 +59,7 @@ public class TestSessionUserAlreadyConnected extends ActivityInstrumentationTest
         intent.putExtras(bundle);
         // Set the intent.
         setActivityIntent(intent);
-
+        getActivity();
     }
 
     /**

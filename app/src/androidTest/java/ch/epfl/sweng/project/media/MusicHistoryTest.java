@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
-import ch.epfl.sweng.project.Fragment.MusicHistoryFragment;
+import ch.epfl.sweng.project.Fragment.MusicListAdapter;
 import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
@@ -138,9 +138,9 @@ public class MusicHistoryTest {
     @Test
     public void testHistory() {
         ArrayList<Music> musicList = new ArrayList<>();
-        MusicHistoryFragment.MusicListAdapter adapter = new MusicHistoryFragment.MusicListAdapter(musicList,
+        MusicListAdapter adapter = new MusicListAdapter(musicList,
                 context);
-        musicHistory.updateFromServer(adapter);
+        musicHistory.updateFromServer(adapter, null);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
