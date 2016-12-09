@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:weightSum="1"
-              >
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/frag_userlistid"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:weightSum="1">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/choose_a_person_to_match_with"
         tools:text="Choose a person to match with"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:id="@+id/text"/>
+        android:id="@+id/text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="wrap_content"/>
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
         android:id="@+id/listView"
-        android:layout_marginTop="1dp"
-        android:dividerHeight="10dp"/>
-</LinearLayout>
+        android:dividerHeight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+</RelativeLayout>

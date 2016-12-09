@@ -24,4 +24,14 @@
         android:id="@+id/pagerMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_frag_users"
+        android:name="ch.epfl.sweng.project.Fragment.UsersFragment"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_frag_details"/>
+
 </LinearLayout>
