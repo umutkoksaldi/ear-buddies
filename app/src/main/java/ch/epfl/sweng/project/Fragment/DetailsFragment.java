@@ -78,7 +78,9 @@ public class DetailsFragment extends Fragment {
         picture = (ImageView) view.findViewById(R.id.details_fragment_picture);
         new DownloadImageTask(picture).execute(user.getProfilePicture());
         description = (TextView) view.findViewById(R.id.details_description);
-        description.setText("Description: " + user.getDescription());
+        if(user.getDescription() != null) {
+            description.setText("Description: " + user.getDescription());
+        }
         Log.i("Music Artist","" + music.getArtist());
 
         facebookClicked(view);
