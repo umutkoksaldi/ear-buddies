@@ -65,6 +65,8 @@ dependencies {
     compile 'com.android.support:customtabs:25.0.1'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
+    //Circular Image View used for showing the profile picture of the user
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     // Unit testing dependencies
     testCompile 'junit:junit:4.12'
     // Mockito framework
