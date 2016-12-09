@@ -1,14 +1,24 @@
 package ch.epfl.sweng.project;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import ch.epfl.sweng.project.Model.ModelApplication;
+import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.media.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
@@ -24,6 +34,11 @@ public final class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
     private boolean expandedMusicHistory = false;
+    private Handler mHandler = new Handler();
+    private boolean matchDisplayed = false;
+    private long lastIDMatched = 0;
+    final int DELAY_MATCH_CALL = 10000;
+    final int NOTIFICATION_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +52,7 @@ public final class MainActivity extends AppCompatActivity {
         Intent musicInfo = new Intent(this, MusicInfoService.class);
         startService(musicInfo);
 
+        mHandler.postDelayed(matchRequest, DELAY_MATCH_CALL);
     }
 
     private void createTabLayout() {
@@ -137,4 +153,69 @@ public final class MainActivity extends AppCompatActivity {
         expandedMusicHistory = true;
     }
 
+    private final Runnable matchRequest = new Runnable() {
+        @Override
+        public void run() {
+            matchSearch();
+            mHandler.postDelayed(this, DELAY_MATCH_CALL);
+        }
+    };
+
+    private void matchSearch() {
+        User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
+
+        if (otherUsers != null) {
+            for (int i = 0; i < otherUsers.length; i++) {
+                long musicID = otherUsers[i].getCurrentMusicId();
+                long ourID = 0;
+                Music music = ModelApplication.getModelApplication().getMusic();
+                if (music != null && music.getId() != null) Long.parseLong(music.getId());
+
+                if (musicID == ourID) {
+
+                    if (musicID != lastIDMatched) {
+                        matchDisplayed = false;
+                    }
+
+                    if (!matchDisplayed) {
+                        lastIDMatched = musicID;
+                        displayMatch(i);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void displayMatch(int userIndex) {
+        User match = ModelApplication.getModelApplication().getOtherUsers()[userIndex];
+        matchDisplayed = true;
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.logo)
+                        .setContentTitle("Someone is listening to the same music!")
+                        .setContentText("Tap to learn more.")
+                        .setAutoCancel(true);
+        Intent resultIntent = new Intent(this, MainActivity.class); // TODO change to user frag
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+
+        stackBuilder.addParentStack(MainActivity.class);  // TODO change to user frag
+
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
+
+    public boolean gotMatch() {
+        return matchDisplayed;
+    }
 }
