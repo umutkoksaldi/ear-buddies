@@ -8,7 +8,7 @@ var AGE_MIN_DEFAULT = 0;
 var AGE_MAX_DEFAULT = 100;
 var RADIUS_DEFAULT = 20;
 
-function BaseDeDonnee()
+function Database()
 {
           // first we select on wich database we are going to work.
       var urlDatabase = null;
@@ -18,19 +18,19 @@ function BaseDeDonnee()
           utils.logInfo("Postgres.Database(), run in normal configuration");
           urlDatabase = databaseConfig.PostGre.url
           this.sequelize = new Sequelize(urlDatabase,{
-            dialect: 'postgres', 
+            dialect: 'postgres',
              dialectOptions: {
                 ssl: true
               }
           });
-          
+
       }
       else {
           utils.logInfo("Postgres.Database(), run for test configuration");
           urlDatabase = databaseConfig.PostGreTest.url
           this.sequelize = new Sequelize(urlDatabase,{
             logging : false,
-            dialect: 'postgres', 
+            dialect: 'postgres',
               dialectOptions: {
                 ssl: true
               }
@@ -57,7 +57,7 @@ function BaseDeDonnee()
           timestamps: false
     })
 
-    
+
     // create the schema of the user.
     this.Music = this.sequelize.define('Music', {
           artist        : Sequelize.STRING,
@@ -90,7 +90,7 @@ function BaseDeDonnee()
       this.User.belongsTo(this.Music, {as: 'CurrentMusic', constraints: false})
       this.User.belongsTo(this.Setting, {constraints: false})
 
-      // Can generate an Exception if already installed 
+      // Can generate an Exception if already installed
       // TODO catch after.
       // this.sequelize.query("CREATE EXTENSION cube").spread(function(results, metadata) {});
       // this.sequelize.query("CREATE EXTENSION earthdistance").spread(function(results, metadata) {});
@@ -116,9 +116,9 @@ function BaseDeDonnee()
 
 
 
-var BaseDeDonnee = new BaseDeDonnee();
-BaseDeDonnee.makeLinkBetweenTable();
-BaseDeDonnee.initiateValue();
+var Database = new Database();
+Database.makeLinkBetweenTable();
+Database.initiateValue();
 
 // export object
-module.exports = BaseDeDonnee;
+module.exports = Database;
