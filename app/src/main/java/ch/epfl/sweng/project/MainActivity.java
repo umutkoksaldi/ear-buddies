@@ -42,6 +42,7 @@ public final class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ModelApplication.getModelApplication().setTest();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -169,7 +170,9 @@ public final class MainActivity extends AppCompatActivity {
                 long musicID = otherUsers[i].getCurrentMusicId();
                 long ourID = 0;
                 Music music = ModelApplication.getModelApplication().getMusic();
-                if (music != null && music.getId() != null) Long.parseLong(music.getId());
+                if (music != null && music.getId() != null) {
+                    ourID = Long.parseLong(music.getId());
+                }
 
                 if (musicID == ourID) {
 
@@ -188,19 +191,20 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void displayMatch(int userIndex) {
+        Log.i("Match", "It's a match");
         User match = ModelApplication.getModelApplication().getOtherUsers()[userIndex];
         matchDisplayed = true;
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.logo)
-                        .setContentTitle("Someone is listening to the same music!")
+                        .setContentTitle(match.getFirstname()+" is listening to the same music!")
                         .setContentText("Tap to learn more.")
                         .setAutoCancel(true);
-        Intent resultIntent = new Intent(this, MainActivity.class); // TODO change to user frag
+        Intent resultIntent = new Intent(this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
-        stackBuilder.addParentStack(MainActivity.class);  // TODO change to user frag
+        stackBuilder.addParentStack(MainActivity.class);
 
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
