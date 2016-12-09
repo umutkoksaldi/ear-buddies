@@ -43,13 +43,11 @@ public class DetailsFragment extends Fragment {
         this.user = user;
     }
 
-
     @Override
  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.details_fragment, container, false);
         long musicId = 0;
-
         final Button backButton = (Button) view.findViewById(R.id.details_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
