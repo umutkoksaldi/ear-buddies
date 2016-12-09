@@ -68,6 +68,8 @@ public class DetailsFragment extends Fragment {
         musicName = (TextView) view.findViewById(R.id.details_song_name);
         musicName.setText("Ride 'em all down");
         musicImage = (ImageView) view.findViewById(R.id.details_song_picture);
+        //do the post request to the server in order to get the music info
+        //inside of a method change the musicDetails
         if(user.getProfilePicture() != null) {
             new DownloadImageTask(musicImage).execute(user.getProfilePicture());
         }
