@@ -55,27 +55,27 @@ public class TestConnexionFragment extends ActivityInstrumentationTestCase2<Logi
 //    }
 
 
-    public void testperformClicks() {
-        try {
-            onView(withId(R.id.containFragmentPresentation)).perform(click());
-            onView(withId(R.id.containFragmentPresentation)).perform(click());
-            onView(withId(R.id.containFragmentPresentation)).perform(click());
-            onView(withId(R.id.containFragmentPresentation)).perform(click());
-            onView(withId(R.id.containFragmentPresentation)).perform(click());
-
-            Thread.sleep(1000);
-            PresentationAppFragment presentationFragmentById = (PresentationAppFragment) fragmentManager.findFragmentById
-                    (R.id.containFragmentPresentation);
-            assertEquals("drawableId should be equals",presentationFragmentById.getDrawableId(), R.mipmap.interaction_image);
-            assertEquals("drawableId should be equals", presentationFragmentById.getPresentationTextId(),
-                    R.string.presentation_interaction);
-            assertEquals("drawableId should be equals", presentationFragmentById.getStateLocation(),3);
-        }
-        catch (Exception e){
-            Log.e("testPerformClick()",e.getMessage());
-            assertFalse(true);
-        }
-    }
+//    public void testperformClicks() {
+//        try {
+//            onView(withId(R.id.containFragmentPresentation)).perform(click());
+//            onView(withId(R.id.containFragmentPresentation)).perform(click());
+//            onView(withId(R.id.containFragmentPresentation)).perform(click());
+//            onView(withId(R.id.containFragmentPresentation)).perform(click());
+//            onView(withId(R.id.containFragmentPresentation)).perform(click());
+//
+//            Thread.sleep(1000);
+//            PresentationAppFragment presentationFragmentById = (PresentationAppFragment) fragmentManager.findFragmentById
+//                    (R.id.containFragmentPresentation);
+//            assertEquals("drawableId should be equals",presentationFragmentById.getDrawableId(), R.mipmap.interaction_image);
+//            assertEquals("drawableId should be equals", presentationFragmentById.getPresentationTextId(),
+//                    R.string.presentation_interaction);
+//            assertEquals("drawableId should be equals", presentationFragmentById.getStateLocation(),3);
+//        }
+//        catch (Exception e){
+//            Log.e("testPerformClick()",e.getMessage());
+//            assertFalse(true);
+//        }
+//    }
 
 
 }
