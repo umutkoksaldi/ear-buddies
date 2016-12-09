@@ -2,10 +2,12 @@ package ch.epfl.sweng.project;
 
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.List;
@@ -14,6 +16,11 @@ import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 
 public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActivity> {
+
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
+            MainActivity.class);
+
     public TestSendLocation() {
         super(MainActivity.class);
     }
