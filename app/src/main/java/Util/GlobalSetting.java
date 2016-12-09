@@ -4,7 +4,8 @@ package Util;
 @SuppressWarnings("WeakerAccess")
 public class GlobalSetting {
 
-
+    // Size of the cache containing the requests result, in bytes (used for downloading images)
+    public static final int HTTP_SIZE_CACHE = 10 * 1024 * 1024; // 10 MB
     // this one for reaching the server on heroku
     public static final String URL = "https://sw-eng-go.herokuapp.com";
 

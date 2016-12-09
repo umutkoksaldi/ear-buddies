@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.media.MusicInfoService;
 
 import static android.content.Intent.CATEGORY_APP_MUSIC;
@@ -21,6 +22,7 @@ public final class MainActivity extends AppCompatActivity {
     private static final int USERS_AROUND_FRAGMENT = 0;
     private static final int MAP_FRAGMENT = 1;
     private static final int PROFILE_FRAGMENT = 2;
+    ModelApplication modelApplication = ModelApplication.getModelApplication();
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
     private boolean expandedMusicHistory = false;
@@ -32,6 +34,7 @@ public final class MainActivity extends AppCompatActivity {
 
         createTabLayout();
         createViewPager();
+        
 
         // Starts service to be aware if the device is playing music, and gets music information
         Intent musicInfo = new Intent(this, MusicInfoService.class);
@@ -112,16 +115,10 @@ public final class MainActivity extends AppCompatActivity {
         if (mViewPager.getCurrentItem() == USERS_AROUND_FRAGMENT) {
             mViewPager.setCurrentItem(MAP_FRAGMENT);
         }
+
         // TODO implement back stack animation for user music history
         else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
-            if (expandedMusicHistory) {
-                super.onBackPressed();
-                expandedMusicHistory = false;
-            } else {
-                mViewPager.setCurrentItem(MAP_FRAGMENT);
-            }
-
-
+            mViewPager.setCurrentItem(MAP_FRAGMENT);
         } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
             // Leave the app properly without going back to the welcome activity
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
@@ -133,8 +130,5 @@ public final class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setExpendedMusicHistory() {
-        expandedMusicHistory = true;
-    }
 
 }
