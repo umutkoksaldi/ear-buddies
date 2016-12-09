@@ -11,10 +11,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import org.junit.Rule;
 
 import java.util.Collection;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.WelcomeActivity;
 
 import static android.support.test.internal.util.Checks.checkNotNull;
@@ -62,7 +59,7 @@ public class TestSessionUserAlreadyConnected extends ActivityInstrumentationTest
         intent.putExtras(bundle);
         // Set the intent.
         setActivityIntent(intent);
-
+        getActivity();
     }
 
     /**
