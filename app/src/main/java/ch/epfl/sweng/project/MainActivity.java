@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -162,11 +163,12 @@ public final class MainActivity extends AppCompatActivity {
         if (otherUsers != null) {
             for (int i = 0; i < otherUsers.length; i++) {
                 long musicID = otherUsers[i].getCurrentMusicId();
-                long ourID = 0;
+                long ourID = -1;
                 Music music = ModelApplication.getModelApplication().getMusic();
                 if (music != null && music.getId() != null) {
                     ourID = Long.parseLong(music.getId());
                 }
+                Log.i("ID", ourID + "///"+ musicID);
 
                 if (musicID == ourID) {
 
@@ -185,8 +187,8 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void displayMatch(int userIndex) {
-        Log.i("Match", "It's a match");
         User match = ModelApplication.getModelApplication().getOtherUsers()[userIndex];
+        Log.i("Match", "It's a match with " + match.getFirstname());
         matchDisplayed = true;
 
         NotificationCompat.Builder mBuilder =
