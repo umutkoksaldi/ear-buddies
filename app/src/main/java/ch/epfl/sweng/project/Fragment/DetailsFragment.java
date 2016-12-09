@@ -70,9 +70,9 @@ public class DetailsFragment extends Fragment {
         musicImage = (ImageView) view.findViewById(R.id.details_song_picture);
         //do the post request to the server in order to get the music info
         //inside of a method change the musicDetails
-        if(user.getProfilePicture() != null) {
-            new DownloadImageTask(musicImage).execute(user.getProfilePicture());
-        }
+//        if(user.getProfilePicture() != null) {
+//            new DownloadImageTask(musicImage).execute(user.getProfilePicture());
+//        }
         nameDetails = (TextView) view.findViewById(R.id.details_name);
         nameDetails.setText(user.getFirstname());
         picture = (ImageView) view.findViewById(R.id.details_fragment_picture);
