@@ -89,7 +89,6 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
         // Open history fragment and click on the first music, which should display its lastfm page
-        onView(withId(R.id.musicHistoryButton)).perform(click());
         onView(withId(R.id.music_history_recyclerview)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id
                         .single_row_music_history)));

@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.media.MusicInfoService;
 
@@ -30,11 +32,12 @@ public final class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         createTabLayout();
         createViewPager();
-        
+
 
         // Starts service to be aware if the device is playing music, and gets music information
         Intent musicInfo = new Intent(this, MusicInfoService.class);

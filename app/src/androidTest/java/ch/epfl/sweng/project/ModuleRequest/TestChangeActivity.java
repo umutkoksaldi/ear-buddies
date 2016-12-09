@@ -5,6 +5,8 @@ import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.v7.app.AppCompatActivity;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.facebook.FacebookSdk;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
@@ -38,7 +40,7 @@ public class TestChangeActivity extends ActivityInstrumentationTestCase2<MainAct
     @Override
     public void setUp() throws Exception {
         super.setUp();
-
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         final CountDownLatch latch = new CountDownLatch(1);
 
         // we call the server to

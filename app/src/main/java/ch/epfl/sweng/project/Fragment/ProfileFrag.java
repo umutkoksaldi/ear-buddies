@@ -130,10 +130,10 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
 
         swipeContainer = (SwipeRefreshLayout) profile.findViewById(R.id.profile_swipe_container);
         swipeContainer.setOnRefreshListener(this);
-        swipeContainer.setColorSchemeColors(getResources().getColor(android.R.color.holo_green_dark),
-                getResources().getColor(android.R.color.holo_red_dark),
-                getResources().getColor(android.R.color.holo_blue_dark),
-                getResources().getColor(android.R.color.holo_orange_dark));
+        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.primary),
+                getResources().getColor(R.color.color_accent),
+                getResources().getColor(R.color.primary_dark),
+                getResources().getColor(R.color.color_accent));
 
         return profile;
     }
