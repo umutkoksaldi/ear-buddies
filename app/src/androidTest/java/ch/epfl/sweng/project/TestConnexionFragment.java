@@ -1,19 +1,24 @@
 package ch.epfl.sweng.project;
 
+import android.app.FragmentManager;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
+import org.junit.Rule;
 
 import ch.epfl.sweng.project.Fragment.PresentationAppFragment;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import android.app.FragmentManager;
-import android.util.Log;
 
 public class TestConnexionFragment extends ActivityInstrumentationTestCase2<Login> {
 
+    @Rule
+    public ActivityTestRule<Login> mActivityRule = new ActivityTestRule<>(
+            Login.class);
     private FragmentManager fragmentManager;
 
     public TestConnexionFragment() {

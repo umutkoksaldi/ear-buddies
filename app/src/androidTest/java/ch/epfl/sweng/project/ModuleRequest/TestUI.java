@@ -1,12 +1,14 @@
 package ch.epfl.sweng.project.ModuleRequest;
 
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.rule.ActivityTestRule;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 
 import com.facebook.FacebookSdk;
 
 import org.hamcrest.Matcher;
+import org.junit.Rule;
 
 import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.MainActivity;
@@ -32,6 +34,11 @@ import static org.hamcrest.Matchers.allOf;
 public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
+            MainActivity.class);
+
     public TestUI() {
         super(MainActivity.class);
     }
@@ -89,7 +96,6 @@ public class TestUI extends ActivityInstrumentationTestCase2<MainActivity> {
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
         // Open history fragment and click on the first music, which should display its lastfm page
-        onView(withId(R.id.musicHistoryButton)).perform(click());
         onView(withId(R.id.music_history_recyclerview)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id
                         .single_row_music_history)));

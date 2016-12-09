@@ -1,11 +1,18 @@
-package ch.epfl.sweng.project.Fragment;
+package ch.epfl.sweng.project.ModuleRequest;
 
 
+import android.support.test.rule.ActivityTestRule;
 import android.test.ActivityInstrumentationTestCase2;
-import ch.epfl.sweng.project.ActivityForFragmentsTest;
+
+import org.junit.Rule;
 import org.junit.Test;
 
+import ch.epfl.sweng.project.ActivityForFragmentsTest;
+import ch.epfl.sweng.project.Fragment.UsersFragment;
+import ch.epfl.sweng.project.MainActivity;
+
 import static android.support.test.InstrumentationRegistry.getContext;
+
 /**
  * Created by Dusan Viktor on 2016-11-04.
  * Using AcivityForFragments to be the activity that is testing the Blank Fragment
@@ -13,12 +20,16 @@ import static android.support.test.InstrumentationRegistry.getContext;
  */
 
 public class UsersFragmentTest extends ActivityInstrumentationTestCase2<ActivityForFragmentsTest> {
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
+            MainActivity.class);
     private ActivityForFragmentsTest myFragmentActivity;
     private UsersFragment myFragment;
-    UsersFragment.VivzAdapter testAdapter;
+    private UsersFragment.VivzAdapter testAdapter;
     private String[] names;
     private String[] desc;
     private String[] imgs;
+
     public UsersFragmentTest() {
         super(ActivityForFragmentsTest.class);
     }
@@ -41,7 +52,8 @@ public class UsersFragmentTest extends ActivityInstrumentationTestCase2<Activity
         names[1] = "Namew";
         desc[1] = "Song2";
         imgs[1] = "URL-Picture2";
-        testAdapter = new UsersFragment.VivzAdapter(getContext(), names, imgs, desc);
+
+        testAdapter = new UsersFragment.VivzAdapter(getContext(),names, imgs, desc);
     }
 
     @Test
@@ -51,6 +63,7 @@ public class UsersFragmentTest extends ActivityInstrumentationTestCase2<Activity
         assertNotNull(testAdapter);
     }
 
+    @Test
     public void testAdapterNameandSongDesc(){
         /*assertEquals("Names should match", names[0],testAdapter.getNameByPosition(0));
         assertEquals("Song names should match", desc[0],testAdapter.getSongByPosition(0));
@@ -61,6 +74,7 @@ public class UsersFragmentTest extends ActivityInstrumentationTestCase2<Activity
         assertEquals("Pictures should match", imgs[1],testAdapter.getImageByPosition(1));
     */}
 
+    @Test
     public void testForEmptyProfile(){
         assertEquals("Should be empty String", "",testAdapter.getImageByPosition(2));
         assertEquals("Should be empty String", "",testAdapter.getNameByPosition(2));

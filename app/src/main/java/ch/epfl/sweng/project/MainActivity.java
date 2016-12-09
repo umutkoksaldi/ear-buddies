@@ -8,16 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import ch.epfl.sweng.project.Fragment.DetailsFragment;
+import com.facebook.FacebookSdk;
+
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
@@ -33,20 +32,28 @@ public final class MainActivity extends AppCompatActivity {
     private static final int USERS_AROUND_FRAGMENT = 0;
     private static final int MAP_FRAGMENT = 1;
     private static final int PROFILE_FRAGMENT = 2;
+    final int DELAY_MATCH_CALL = 10000;
+    final int NOTIFICATION_ID = 0;
+    ModelApplication modelApplication = ModelApplication.getModelApplication();
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
     private boolean expandedMusicHistory = false;
     private Handler mHandler = new Handler();
     private boolean matchDisplayed = false;
     private long lastIDMatched = 0;
-    final int DELAY_MATCH_CALL = 10000;
-    final int NOTIFICATION_ID = 0;
+    private final Runnable matchRequest = new Runnable() {
+        @Override
+        public void run() {
+            matchSearch();
+            mHandler.postDelayed(this, DELAY_MATCH_CALL);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
-        ModelApplication.getModelApplication().setTest();
 
         createTabLayout();
         createViewPager();
@@ -133,14 +140,7 @@ public final class MainActivity extends AppCompatActivity {
         }
         // TODO implement back stack animation for user music history
         else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
-            if (expandedMusicHistory) {
-                super.onBackPressed();
-                expandedMusicHistory = false;
-            } else {
-                mViewPager.setCurrentItem(MAP_FRAGMENT);
-            }
-
-
+            mViewPager.setCurrentItem(MAP_FRAGMENT);
         } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
             // Leave the app properly without going back to the welcome activity
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
@@ -155,14 +155,6 @@ public final class MainActivity extends AppCompatActivity {
     public void setExpendedMusicHistory() {
         expandedMusicHistory = true;
     }
-
-    private final Runnable matchRequest = new Runnable() {
-        @Override
-        public void run() {
-            matchSearch();
-            mHandler.postDelayed(this, DELAY_MATCH_CALL);
-        }
-    };
 
     private void matchSearch() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
@@ -200,11 +192,10 @@ public final class MainActivity extends AppCompatActivity {
                         .setContentTitle("Someone is listening to the same music!")
                         .setContentText("Tap to learn more.")
                         .setAutoCancel(true);
-
-        Intent resultIntent = new Intent(this, MainActivity.class); // TODO change to details frag
+        Intent resultIntent = new Intent(this, MainActivity.class); // TODO change to user frag
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
-        stackBuilder.addParentStack(MainActivity.class);  // TODO change to details frag
+        stackBuilder.addParentStack(MainActivity.class);  // TODO change to user frag
 
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =

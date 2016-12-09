@@ -55,17 +55,24 @@
     <string name="no_music_taste_push_to_select">No music taste, push to select</string>
     <string name="user_description">User Description</string>
     <string name="set_range">Set your range</string>
-    <string name="hundred_meters">Find users within: 100 Meters</string>
-    <string name="twofifty_meters">Find users within: 250 meters</string>
+    <string name="hundred_meters">100 m</string>
+    <string name="twofifty_meters">250 m</string>
     <string name="delete_account">Delete Account</string>
-    <string name="fivehundred_meters">Find users within: 500 meters</string>
-    <string name="one_kilometer">Find users within: 1 Kilometer</string>
+    <string name="fivehundred_meters">500 m</string>
+    <string name="one_kilometer">1 km</string>
     <string name="delete_user_alert">Delete User</string>
     <string name="delete_message">from our database!</string>
     <string name="user_options">Options</string>
     <string name="enter_name">"Enter your name: "</string>
     <string name="log_out_facebook">"Log out of facebook"</string>
     <string name="emtpy_string"/>
+    <string name="more">more</string>
+
+    <!-- Menu - Music taste picker -->
+    <string name="menu_edit_name">Edit name</string>
+    <string name="menu_edit_description">Edit description</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_delete_account">Delete account</string>
 
 
     <!-- Login connexion -->
