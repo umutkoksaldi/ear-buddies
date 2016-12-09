@@ -91,6 +91,11 @@ public class DetailsFragment extends Fragment {
         return user;
     }
 
+//    public Music getMusic(){
+//
+//    }
+
+
     public void facebookClicked(View view) {
         facebookPicture = (ImageView)view.findViewById(R.id.details_fragment_facebook);
         final String url = "www.facebook.com";

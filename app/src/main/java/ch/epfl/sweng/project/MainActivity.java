@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import ch.epfl.sweng.project.Fragment.DetailsFragment;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
@@ -44,6 +46,7 @@ public final class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ModelApplication.getModelApplication().setTest();
 
         createTabLayout();
         createViewPager();
@@ -197,10 +200,11 @@ public final class MainActivity extends AppCompatActivity {
                         .setContentTitle("Someone is listening to the same music!")
                         .setContentText("Tap to learn more.")
                         .setAutoCancel(true);
-        Intent resultIntent = new Intent(this, MainActivity.class); // TODO change to user frag
+
+        Intent resultIntent = new Intent(this, MainActivity.class); // TODO change to details frag
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
-        stackBuilder.addParentStack(MainActivity.class);  // TODO change to user frag
+        stackBuilder.addParentStack(MainActivity.class);  // TODO change to details frag
 
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
