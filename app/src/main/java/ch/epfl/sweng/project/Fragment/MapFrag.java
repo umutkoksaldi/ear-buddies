@@ -199,25 +199,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     public void onInfoWindowClick(Marker marker) {
         //TODO Use detail framgent
         User showUser = allMarkersMap.get(marker);
-        Toast.makeText(getContext(), "You click on "+showUser.getFirstname(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mGoogleApiClient.isConnected()) {
-            stopLocationUpdates();
-        }
-        mHandler.removeCallbacks(runnable);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mGoogleApiClient.isConnected()) {
-            updateLocation();
-        }
-        mHandler.post(runnable);
+        Toast.makeText(getContext(), "You click on " + showUser.getFirstname(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -229,16 +211,18 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
+        mHandler.removeCallbacks(runnable);
+    }
+
     private void updateLocation() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
 
@@ -259,7 +243,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         //TODO DELAY
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
-        //mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         //Check user parameters for location
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -280,20 +263,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                         // initialize location requests here.
                         updateLocation();
                         break;
-                    /*
-                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        // Location settings are not satisfied, but this can be fixed
-                        // by showing the user a dialog.
-                        try {
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            status.startResolutionForResult(
-                                    mActivity,
-                                    MY_PERMISSIONS_REQUEST_LOCATION);
-                        } catch (IntentSender.SendIntentException e) {
-                            // Ignore the error.
-                        }
-                        break;*/
+
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                         // Location settings are not satisfied. However, we have no way
                         // to fix the settings so we won't show the dialog.
