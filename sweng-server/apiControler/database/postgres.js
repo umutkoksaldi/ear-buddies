@@ -2,7 +2,7 @@ var pg = require('pg');
 var databaseConfig = require('../../setting/database.js');
 var utils = require('../utils/Utils.js');
 
-function BaseDeDonnee()
+function Database()
 {
 
     // first we select on wich database we are going to work.
@@ -22,10 +22,10 @@ function BaseDeDonnee()
     {
         // Get a Postgres client from the connection pool
         this.postgres.defaults.ssl = true;
-        this.postgres.connect(urlDatabase, function(err, client, done) 
+        this.postgres.connect(urlDatabase, function(err, client, done)
         {
             // Handle connection errors
-            if(err) 
+            if(err)
             {
               utils.logError("Postgres.Database(), Connect to postgres database fail ");
             }
@@ -35,9 +35,9 @@ function BaseDeDonnee()
               utils.logInfo(urlDatabase);
             }
         });
-    }; 
+    };
 }
 
-var BaseDeDonnee = new BaseDeDonnee();
+var Database = new Database();
 // export object
-module.exports = BaseDeDonnee;
+module.exports = Database;
