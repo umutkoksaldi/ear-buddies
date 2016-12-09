@@ -1,4 +1,4 @@
-// Récupération du Modèle
+// Retrieving the model
 var unirest = require('unirest');
 var util = require('util');
 var setting = require('../../setting/error.js');
@@ -22,15 +22,15 @@ var FIELDS_FACEBOOK = 'email,cover,birthday,first_name,last_name,name,picture';
 
 //---------------------------------- DEFINE CONSTANT ------------------------------------
 
-// Définition de l'objet controllerUtilisateur
-function controllerUtilisateurTest(){
+// Definition of the object controllerUser
+function controllerUserTest(){
 
 
 
   // private method, allow to get a specific user designed by api connection.
   var getUserAroundTest = function(idApi,callback){
 
-      utils.logInfo("controllerUtilisateur(), insertion or geetin a user, adduser()");
+      utils.logInfo("controllerUser(), insertion or getting a user, adduser()");
 
       User.sync().then(function () {
 
@@ -44,10 +44,10 @@ function controllerUtilisateurTest(){
                 utils.logError("request succeed"+idApi)
                 delete getUser.dataValues['id']
                 var user1 = userManipulation.transformResponseClient(getUser.dataValues);
-                
+
                 // in oder to test the application, we return 3 same users.
                 testUser = [user1,user1,user1]
-                
+
 
                 callback(testUser,setting.htmlCode.succes_request);
 
@@ -65,13 +65,13 @@ function controllerUtilisateurTest(){
       utils.logInfo("getUsersAround()");
       utils.logInfo(UserObject);
 
-      // We synchronize with the databse in order to change the name and the 
+      // We synchronize with the databse in order to change the name and the
        User.sync({force: false}).then(function () {
 
             var updateUser =  User.update({
                 lattitude : UserObject.lattitude,
                 longitude : UserObject.longitude,
-              }, 
+              },
               {
               where: {
                         idApiConnection: UserObject.idApiConnection
@@ -83,19 +83,19 @@ function controllerUtilisateurTest(){
                 utils.logInfo("The User does not exist !");
                 callback(null,setting.htmlCode.unavailable_ressources);
               }
-              // We get the user in the database and send to the client. 
+              // We get the user in the database and send to the client.
               else{
                   utils.logInfo("I'am update the user");
                   getUserAroundTest(UserObject.idApiConnection,callback);
               }
           }).catch(function(error) {
-               utils.logInfo("controllerUtilisateur(), the request fail"+error);
+               utils.logInfo("controllerUser(), the request fail"+error);
                callback(null,setting.htmlCode.unavailable_ressources);
           })
 
       });
 
-    }  
+    }
 }
 
-module.exports = new controllerUtilisateurTest();
+module.exports = new controllerUserTest();
