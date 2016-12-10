@@ -34,9 +34,7 @@ public class MusicHistoryTest {
 
     @ClassRule
     public static final ServiceTestRule mServiceRule = new ServiceTestRule();
-    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
-    private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
-    ch.epfl.sweng.project.media.MusicHistory musicHistory = null;
+    MusicHistory musicHistory = null;
     private Context context;
 
     public static void playSongIntent(Context context, String artist, String song) {
@@ -64,10 +62,10 @@ public class MusicHistoryTest {
 
     @Before
     public void init() {
-        GlobalTestSettings.createFakeUser();
         context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 "MusicHistoryTest");
-        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+        ConnectionControler.getConnectionControler().sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK,
+                GlobalTestSettings
                         .MOCK_ID_FACEBOOK,
                 GlobalSetting.USER_API, true);
         musicHistory = ch.epfl.sweng.project.media.MusicHistory.getMusicHistory();
