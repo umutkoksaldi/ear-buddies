@@ -69,11 +69,6 @@ public final class MainActivity extends AppCompatActivity {
     private void createTabLayout() {
         mTabLayout = (TabLayout) findViewById(R.id.tabLayoutMain);
 
-        //Adding the tabs
-        mTabLayout.addTab(mTabLayout.newTab().setText("Users"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Map"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Profile"));
-        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //noinspection ConstantConditions
         mTabLayout.getTabAt(1).select();
@@ -193,7 +188,7 @@ public final class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.logo)
+                        .setSmallIcon(R.drawable.ic_star_black_24dp)
                         .setContentTitle(match.getFirstname()+" is listening to the same music!")
                         .setContentText("Tap to learn more.")
                         .setAutoCancel(true);

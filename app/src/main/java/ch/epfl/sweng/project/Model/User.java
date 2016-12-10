@@ -104,19 +104,5 @@ public class User {
         this.currentMusicId = currentMusicId;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " \"idApiConnection\" : " + idApiConnection +
-                ", \"backgroundPicture\": \" " + backgroundPicture + "\"" +
-                ", \"description\": \"" + description + "\"" +
-                ", \"firstname\": \"" + firstname + "\"" +
-                ", \"lastname\" : \"" + lastname + "\"" +
-                ", \"email\" : \"" + email + "\"" +
-                ", \"age\" : " + age +
-                ", \"profilePicture\" : \" " + profilePicture + "\"" +
-                ", \"location\" : " + location.toString() +
-                '}';
-    }
 
 }

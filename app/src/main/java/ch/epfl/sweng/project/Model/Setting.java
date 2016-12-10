@@ -43,14 +43,4 @@ public class Setting {
         this.radius = radius;
     }
 
-
-    // The method should be overridden for jackson.
-    @Override
-    public String toString() {
-        return "{" +
-                " \"ageMin\" : " + ageMin +
-                ", \"ageMax\": " + ageMax +
-                ", \"radius\": " + radius +
-                '}';
-    }
 }
