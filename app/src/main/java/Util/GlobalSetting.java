@@ -21,7 +21,10 @@ public class GlobalSetting {
     public static final String MUSIC_API = "/api/Musics/";
     public static final String USER_API = "/api/Users/";
     public static final String MUSIC_HISTORY_API = "/api/Musics/history/";
-    //public static final String UPDATE_CONNEXION_USER = "/api/Users/update/";
+
+    // Api parameters
+    public static final String ACCESS_TOKEN = "accesToken";
+    public static final String ID = "id";
 
     // Related to music history
     public static final int MUSIC_HISTORY_MAX_LENGTH = 10;

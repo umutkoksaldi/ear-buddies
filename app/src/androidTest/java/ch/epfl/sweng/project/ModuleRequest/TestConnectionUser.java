@@ -27,11 +27,9 @@ public class TestConnectionUser {
     public static final int AGE_USER = 0;
     public static final String FIRSTNAME_USER = "Sweng";
     public static final String LASTNAME_USER = "Tests";
-    private static final String ID = "id";
 
     //----------------------------------------------------------------
     // Constant User
-    private static final String ACESS_TOKEN = "accesToken";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
     // TODO à completer pour tester tous les parametes.
