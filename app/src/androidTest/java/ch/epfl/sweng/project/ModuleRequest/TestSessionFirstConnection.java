@@ -15,7 +15,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import Util.GlobalSetting;
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Login;
 import ch.epfl.sweng.project.WelcomeActivity;
 

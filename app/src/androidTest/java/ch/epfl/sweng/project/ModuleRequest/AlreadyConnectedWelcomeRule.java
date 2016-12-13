@@ -6,7 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
 import Util.GlobalSetting;
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.WelcomeActivity;
 
 /**

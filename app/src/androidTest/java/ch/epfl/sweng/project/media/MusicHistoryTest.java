@@ -18,13 +18,16 @@ import java.util.concurrent.TimeoutException;
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
 import ch.epfl.sweng.project.Fragment.MusicListAdapter;
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.media.MusicHistory;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
 
 
 /**
@@ -90,14 +93,15 @@ public class MusicHistoryTest {
 
     @Test
     public void testWithStartedService() {
-        playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
-        //IntentFilter iF = new IntentFilter();
-        //iF.addAction(GlobalSetting.INTENT_NEW_MUSIC);
-        //context.registerReceiver(mReceiver, iF);
         try {
+            playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
+            //IntentFilter iF = new IntentFilter();
+            //iF.addAction(GlobalSetting.INTENT_NEW_MUSIC);
+            //context.registerReceiver(mReceiver, iF);
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.e("testWithStartedService",e.getMessage());
+            fail("Exception during the execution");
         }
         Music newMusic = ModelApplication.getModelApplication().getMusic();
         assertEquals("Artist names should be equals", GlobalTestSettings.ARTIST_NAME_RESPONSE, newMusic.getArtist());
@@ -158,7 +162,8 @@ public class MusicHistoryTest {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            Log.e("MusicHistoryTest", e.toString());
+            Log.e("testHistory",e.getMessage());
+            fail("Exception during the execution");
         }
         musicList = musicHistory.getHistory();
         assertEquals(musicList.get(0).getArtist(), GlobalTestSettings.ARTIST_NAME_RESPONSE);

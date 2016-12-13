@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project;
+package ch.epfl.sweng.project.ModuleRequest;
 
 
 import android.support.test.InstrumentationRegistry;
@@ -8,6 +8,8 @@ import android.test.ActivityInstrumentationTestCase2;
 import org.junit.Rule;
 import org.junit.Test;
 
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
+import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
 
 public class TestSendLocation extends ActivityInstrumentationTestCase2<MainActivity> {

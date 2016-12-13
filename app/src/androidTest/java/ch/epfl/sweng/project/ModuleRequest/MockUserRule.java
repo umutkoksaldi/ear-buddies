@@ -7,10 +7,13 @@ import android.util.Log;
 
 import com.facebook.FacebookSdk;
 
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.MainActivity;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Antoine Merino on 10/12/2016.
@@ -41,6 +44,7 @@ public class MockUserRule<A extends Activity> extends ActivityTestRule<A> {
     protected Intent getActivityIntent() {
         Log.d("MockUserRule", "getActivityIntent()");
         Intent customIntent = new Intent();
+        customIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         // add some custom extras and stuff
         return customIntent;
     }
