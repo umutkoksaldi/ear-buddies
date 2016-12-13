@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project.ModuleRequest;
 
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import ch.epfl.sweng.project.media.MusicHistoryTest;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
@@ -85,7 +87,6 @@ public class TestUI {
 
 
         // Problem with webview testing, can't resume MainActivity ?
-        /*
         // Open history fragment and click on the first music, which should display its lastfm page
         onView(withId(R.id.music_history_recyclerview)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id
@@ -97,8 +98,11 @@ public class TestUI {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        pressBack();
-        */
+        for (int i = 0; i < 10; ++i) {
+            pressBack();
+        }
+
+
 
     }
 
