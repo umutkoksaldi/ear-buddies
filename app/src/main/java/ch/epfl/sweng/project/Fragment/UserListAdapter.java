@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.Webview.CustomTabActivityHelper;
@@ -30,9 +32,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
         .UserViewHolder> {
 
     private ArrayList<User> userList;
+    private HashMap<User, Music> songMap;
 
-    public UserListAdapter(ArrayList<User> userList, Context context) {
+    public UserListAdapter(ArrayList<User> userList, HashMap<User, Music> songMap, Context context) {
         this.userList = userList;
+        this.songMap = songMap;
     }
 
     @Override
@@ -47,9 +51,25 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
     public void onBindViewHolder(UserListAdapter.UserViewHolder holder, int position) {
         User user = userList.get(position);
         holder.name.setText(user.getFirstname());
-        String song;
-        // TODO Make the request to the server
-        holder.song.setText("Listening: <coming soon...>");
+        String userDescription = user.getDescription();
+        Music song = songMap.get(user);
+        String songName = null;
+        if (song != null) {
+            songName = song.getArtist() + " - " + song.getName();
+        }
+
+        // Fill lines 2 and 3 depending of the content available for this user
+        if (userDescription != null && !userDescription.isEmpty()) {
+            holder.line2.setText(userDescription);
+            if (songName != null && !songName.isEmpty()) {
+                holder.line3.setText("♫ " + songName);
+            }
+        } else {
+            if (songName != null && !songName.isEmpty()) {
+                holder.line2.setText("♫ " + songName);
+            }
+        }
+
 
         String profilePictureUrl = user.getProfilePicture();
         if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
@@ -100,18 +120,21 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
     public class UserViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView name;
-        protected TextView song;
+        protected TextView line2;
+        protected TextView line3;
         protected ImageView profilePicture;
         protected RelativeLayout container;
 
         public UserViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.tvUserName);
-            song = (TextView) itemView.findViewById(R.id.tvUserSong);
+            line2 = (TextView) itemView.findViewById(R.id.tvUserLine2);
+            line3 = (TextView) itemView.findViewById(R.id.tvUserLine3);
             profilePicture = (ImageView) itemView.findViewById(R.id.ivUserPicture);
             container = (RelativeLayout) itemView.findViewById(R.id.single_row_user);
         }
     }
+
 
 }
 

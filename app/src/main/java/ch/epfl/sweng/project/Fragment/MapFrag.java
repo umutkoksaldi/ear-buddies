@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -330,7 +333,8 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             MarkerOptions marker = (new MarkerOptions()
                     .position(new LatLng(latitude, longitude))
                     .title(aUser.getFirstname())
-                    .snippet(aUser.getLastname()));
+                    .snippet(aUser.getSnippetDescription())
+            );
             // We already have the image => do not need to download
             if (mImages.containsKey(otherUsers[i].getIdApiConnection())) {
                 marker.icon(BitmapDescriptorFactory.fromBitmap(mImages.get(aUser.getIdApiConnection())));
@@ -341,7 +345,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                 if (activity != null) {
                     Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
                     bm = DownloadImageMarker.scaleDown(bm, 100, true);
-                    BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(bm);
+                    BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(getCircleBitmap(bm));
                     marker.icon(defProfile);
                 }
 
@@ -356,6 +360,22 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
             allMarkersMap.put(mMap.addMarker(markersOption.get(i)), otherUsers[i]);
         }
         ModelApplication.getModelApplication().setMarkerOpt(markersOption);
+    }
+
+    private Bitmap getCircleBitmap(Bitmap bitmap) {
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+
+        BitmapShader shader = new BitmapShader(output, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        Paint paint = new Paint();
+        paint.setShader(shader);
+        paint.setAntiAlias(true);
+        Canvas c = new Canvas(output);
+        c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+
+        return output;
     }
 
 

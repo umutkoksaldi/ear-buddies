@@ -38,7 +38,6 @@ public final class MainActivity extends AppCompatActivity {
     ModelApplication modelApplication = ModelApplication.getModelApplication();
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
-    private boolean expandedMusicHistory = false;
     private Handler mHandler = new Handler();
     private boolean matchDisplayed = false;
     private long lastIDMatched = 0;
@@ -153,9 +152,6 @@ public final class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setExpendedMusicHistory() {
-        expandedMusicHistory = true;
-    }
 
     private void matchSearch() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();

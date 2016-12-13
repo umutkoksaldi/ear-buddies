@@ -1,127 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:id="@+id/details_frag"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:clickable="true"
-              android:background="@color/cardview_light_background"
-              android:weightSum="1">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/details_frag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/cardview_light_background"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:weightSum="1">
 
     <TextView
-        android:text="@string/song_artist"
-        android:layout_width="match_parent"
         android:id="@+id/details_song_artist"
-        android:layout_weight="0.16"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_alignLeft="@+id/details_fragment_picture"
         android:layout_alignStart="@+id/details_fragment_picture"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="11dp"
+        android:layout_weight="0.16"
         android:gravity="bottom"
-        android:layout_height="45dp"/>
+        android:text="@string/song_artist"/>
 
     <TextView
-        android:text="@string/is_listening_to_the_song"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:gravity="center"
-        android:layout_below="@+id/details_fragment_picture"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/details_fragment_picture"
         android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/is_listening_to_the_song"
         android:textSize="18sp"/>
 
     <TextView
-        android:layout_width="match_parent"
         android:id="@+id/details_description"
-        android:layout_alignParentRight="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/details_song_name"
-        android:layout_height="wrap_content"/>
+        android:gravity="center_vertical"/>
 
     <TextView
-        android:text="@string/song_name"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/details_song_artist"
         android:id="@+id/details_song_name"
-        android:layout_toRightOf="@+id/details_song_picture"
-        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentEnd="true"
-        android:textSize="14sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/details_song_artist"
+        android:layout_toRightOf="@+id/details_song_picture"
         android:gravity="center_vertical"
-        android:layout_height="45dp"/>
+        android:text="@string/song_name"
+        android:textSize="14sp"/>
 
     <ImageView
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_image_audiotrack"
         android:id="@+id/details_song_picture"
-        android:layout_alignTop="@+id/details_song_artist"
-        android:background="?attr/colorBackgroundFloating"
-        android:padding="10dp"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/details_song_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_width="60dp"
+        android:layout_alignTop="@+id/details_song_artist"
         android:layout_toLeftOf="@+id/details_song_artist"
-        android:layout_toStartOf="@+id/details_song_artist"/>
+        android:layout_toStartOf="@+id/details_song_artist"
+        android:background="?attr/colorBackgroundFloating"
+        android:padding="10dp"
+        app:srcCompat="@drawable/ic_image_audiotrack"/>
 
     <ImageView
         android:id="@+id/details_cover"
         android:layout_width="match_parent"
-        android:background="@color/primary"
-        android:scaleType="centerCrop"
-        android:layout_alignParentTop="true"
+        android:layout_height="210dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_height="210dp"/>
+        android:layout_alignParentTop="true"
+        android:background="@color/primary_dark"
+        android:scaleType="centerCrop"/>
 
     <Button
         android:id="@+id/details_back_button"
-        android:background="@drawable/com_facebook_close"
         android:layout_width="45dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
+        android:layout_height="46dp"
         android:layout_alignParentEnd="true"
-        android:layout_height="46dp"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/com_facebook_close"/>
 
     <TextView
+        android:id="@+id/details_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/details_name"
-        android:layout_weight="0.09"
-        android:gravity="center_horizontal"
-        android:fontFamily="sans-serif"
-        android:textSize="24dp"
-        android:layout_below="@+id/details_back_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/details_back_button"
+        android:layout_weight="0.09"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:textSize="24dp"
         />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/details_fragment_picture"
-        android:src ="@drawable/com_facebook_profile_picture_blank_square"
-        app:civ_border_width="4dp"
-        app:civ_border_color="#FFFFFFFF"
-        android:layout_marginTop="22dp"
         android:layout_width="225dp"
         android:layout_height="225dp"
         android:layout_below="@+id/details_name"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/com_facebook_profile_picture_blank_square"
+        app:civ_border_color="#FFFFFFFF"
+        app:civ_border_width="4dp"/>
 
     <Button
         android:id="@+id/details_fragment_facebook"
-        android:elevation="1dp"
-        android:background="@drawable/com_facebook_button_icon_blue"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="86dp"
         android:layout_alignTop="@+id/details_fragment_picture"
-        android:layout_toRightOf="@+id/details_fragment_picture"
-        android:layout_toEndOf="@+id/details_fragment_picture"
         android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"/>
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="86dp"
+        android:layout_toEndOf="@+id/details_fragment_picture"
+        android:layout_toRightOf="@+id/details_fragment_picture"
+        android:background="@drawable/com_facebook_button_icon_blue"
+        android:elevation="1dp"/>
 </RelativeLayout>

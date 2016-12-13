@@ -34,18 +34,7 @@
             android:layout_height="160dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:background="@color/primary"
-            android:scaleType="centerCrop"/>
-
-        <ImageButton
-            android:id="@+id/user_profile_photo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="94dp"
-            android:background="?android:attr/colorBackground"
-            android:padding="4dp"
+            android:background="@color/primary_dark"
             android:scaleType="centerCrop"/>
 
         <TextView
@@ -116,21 +105,6 @@
             app:srcCompat="@drawable/ic_star_black_24dp"/>
 
         <TextView
-            android:id="@+id/tv_profile_music_tag"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_profile_radar"
-            android:layout_alignBottom="@+id/tv_profile_radar"
-            android:layout_alignLeft="@+id/user_profile_name"
-            android:layout_alignStart="@+id/user_profile_name"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text=""
-            android:textColor="@color/secondary_text"
-            android:textSize="13sp"/>
-
-        <TextView
             android:id="@+id/tv_profile_menu"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
@@ -168,6 +142,33 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_profile_music_tag"
             android:layout_marginTop="24dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_profile_photo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:padding="3dp"
+            android:scaleType="centerCrop"
+            app:civ_border_color="#FFFFFFFF"
+            app:civ_border_width="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_profile_music_tag"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_profile_radar"
+            android:layout_alignBottom="@+id/tv_profile_radar"
+            android:layout_toLeftOf="@+id/user_profile_photo"
+            android:layout_toStartOf="@+id/user_profile_photo"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/secondary_text"
+            android:textSize="13sp"/>
 
     </RelativeLayout>
 </ScrollView>
