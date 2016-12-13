@@ -123,5 +123,6 @@
     <string name="is_listening_to_the_song">Is listening to</string>
     <string name="details_facebook_button">TextView</string>
     <string name="song_name">song name</string>
+    <string name="button">Button</string>
 
 </resources>

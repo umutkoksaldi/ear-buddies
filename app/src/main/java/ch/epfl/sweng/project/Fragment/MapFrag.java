@@ -198,7 +198,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        //TODO addToBackStack can cause problems when poping
         User showUser = allMarkersMap.get(marker);
         DetailsFragment detailsFragment = new DetailsFragment();
         detailsFragment.setUser(showUser);
