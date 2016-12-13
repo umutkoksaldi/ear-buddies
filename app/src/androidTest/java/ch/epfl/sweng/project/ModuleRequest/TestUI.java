@@ -34,7 +34,7 @@ import static org.hamcrest.Matchers.allOf;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public class TestUI {
-
+ 
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
 
     @Rule
