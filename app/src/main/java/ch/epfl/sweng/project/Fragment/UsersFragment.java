@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,9 +66,17 @@ public class UsersFragment extends Fragment {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long
                                                 id) {
-                                            int profileNumber = position + 1;
-                                            Toast.makeText(getActivity(), "You clicked on profile number: " +
-                                                    profileNumber, Toast.LENGTH_SHORT).show();
+//                                            int profileNumber = position + 1;
+//                                            Toast.makeText(getActivity(), "You clicked on profile number: " +
+//                                                    profileNumber, Toast.LENGTH_SHORT).show();
+                                            DetailsFragment detailsFragment = new DetailsFragment();
+                                            detailsFragment.setUser(usersAround[position]);
+                                            getFragmentManager()
+                                                    .beginTransaction()
+                                                    .replace(R.id.frag_userlistid, detailsFragment)
+                                                    .addToBackStack("usersFragment")
+                                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                                                    .commit();
                                         }
                                     }
         );
