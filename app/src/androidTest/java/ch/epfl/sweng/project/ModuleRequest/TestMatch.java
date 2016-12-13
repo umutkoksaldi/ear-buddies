@@ -7,7 +7,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
 

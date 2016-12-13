@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project;
+package ch.epfl.sweng.project.testUi;
 
 import android.app.FragmentManager;
 import android.support.test.runner.AndroidJUnit4;
@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.project.Fragment.PresentationAppFragment;
+import ch.epfl.sweng.project.Login;
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ModuleRequest.MockUserRule;
 
 import static android.support.test.espresso.Espresso.onView;

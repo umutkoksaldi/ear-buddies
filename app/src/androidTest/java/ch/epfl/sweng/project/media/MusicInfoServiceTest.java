@@ -17,7 +17,7 @@ import java.util.concurrent.TimeoutException;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 
@@ -62,7 +62,7 @@ public class MusicInfoServiceTest {
     public void testWithStartedService() {
         try {
             mServiceRule.startService(
-                    new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
+                    new Intent(InstrumentationRegistry.getTargetContext(), ch.epfl.sweng.project.media.MusicInfoService.class));
         } catch (TimeoutException e) {
             Log.e("MusicInfoServiceTest", e.toString());
         }

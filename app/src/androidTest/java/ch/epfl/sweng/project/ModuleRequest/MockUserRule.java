@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.facebook.FacebookSdk;
 
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
