@@ -5,9 +5,11 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
 import org.hamcrest.Matcher;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.MainActivity;
@@ -29,6 +31,7 @@ import static org.hamcrest.Matchers.allOf;
  * Created by Etienne on 28.10.2016.
  */
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public class TestUI {
 
