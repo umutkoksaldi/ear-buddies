@@ -65,14 +65,14 @@ public class UsersFragmentTest extends ActivityInstrumentationTestCase2<Activity
 
     @Test
     public void testAdapterNameandSongDesc(){
-        /*assertEquals("Names should match", names[0],testAdapter.getNameByPosition(0));
+        assertEquals("Names should match", names[0], testAdapter.getNameByPosition(0));
         assertEquals("Song names should match", desc[0],testAdapter.getSongByPosition(0));
         assertEquals("Pictures should match", imgs[0],testAdapter.getImageByPosition(0));
 
         assertEquals("Names should match", names[1],testAdapter.getNameByPosition(1));
         assertEquals("Song names should match", desc[1],testAdapter.getSongByPosition(1));
         assertEquals("Pictures should match", imgs[1],testAdapter.getImageByPosition(1));
-    */}
+    }
 
     @Test
     public void testForEmptyProfile(){
