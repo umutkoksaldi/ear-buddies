@@ -76,7 +76,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
             new DownloadImageTask(holder.profilePicture).execute(profilePictureUrl);
         }
         // Should open a website, replace the null argument with the desired url
-        holder.container.setOnClickListener(new UserOnClickListener(null));
+        // Not implemented for the moment !
+        //holder.container.setOnClickListener(new UserOnClickListener(null));
     }
 
 
