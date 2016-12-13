@@ -30,7 +30,7 @@ public class GlobalTestSettings {
     public static final String MUSIC_NAME_RESPONSE = "Rude Boy";
 
 
-    public static void createFakeUser() {
+    public static void createMockUser() {
         User mUser = new User();
         mUser.setLocation(new ch.epfl.sweng.project.Model.Location(0, 0));
         mUser.setAge(MOCK_USER_AGE);

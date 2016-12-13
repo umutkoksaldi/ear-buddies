@@ -1,42 +1,37 @@
 package ch.epfl.sweng.project;
 
 import android.app.FragmentManager;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
-import android.test.ActivityInstrumentationTestCase2;
+import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.project.Fragment.PresentationAppFragment;
+import ch.epfl.sweng.project.ModuleRequest.MockUserRule;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 
-public class TestConnexionFragment extends ActivityInstrumentationTestCase2<Login> {
+@RunWith(AndroidJUnit4.class)
+public class TestConnexionFragment {
 
     @Rule
-    public ActivityTestRule<Login> mActivityRule = new ActivityTestRule<>(
-            Login.class);
+    public MockUserRule<Login> mActivityRule = new MockUserRule<>(Login.class);
     private FragmentManager fragmentManager;
 
-    public TestConnexionFragment() {
-        super(Login.class);
-    }
-
-    @Override
-    public void setUp(){
-        getActivity();
-        injectInsrumentation(InstrumentationRegistry.getInstrumentation());
-        fragmentManager = getActivity().getFragmentManager();
-    }
-
+    @Test
     public void testPerformClick() {
 
         try {
             Thread.sleep(1000);
-            PresentationAppFragment presentationFragmentById = (PresentationAppFragment) fragmentManager.findFragmentById
+            fragmentManager = mActivityRule.getActivity().getFragmentManager();
+            PresentationAppFragment presentationFragmentById = (PresentationAppFragment) fragmentManager
+                    .findFragmentById
                     (R.id.containFragmentPresentation);
             assertEquals("drawableId should be equals", presentationFragmentById.getDrawableId(), R.mipmap.music_image);
             assertEquals("drawableId should be equals", presentationFragmentById.getPresentationTextId(),
@@ -59,8 +54,9 @@ public class TestConnexionFragment extends ActivityInstrumentationTestCase2<Logi
         }
     }
 
-
-    public void testperformClicks() {
+    @Test
+    public void testPerformClicks() {
+        fragmentManager = mActivityRule.getActivity().getFragmentManager();
         try {
             onView(withId(R.id.containFragmentPresentation)).perform(click());
             onView(withId(R.id.containFragmentPresentation)).perform(click());

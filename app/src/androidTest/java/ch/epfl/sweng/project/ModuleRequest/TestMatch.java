@@ -6,6 +6,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
@@ -28,7 +29,7 @@ public class TestMatch extends ActivityInstrumentationTestCase2<MainActivity> {
     public void setUp() throws Exception {
         super.setUp();
         mainActivity = getActivity();  //TODO avoid null
-        GlobalTestSettings.createFakeUser();
+        GlobalTestSettings.createMockUser();
         ModelApplication.getModelApplication().setTest();
     }
 

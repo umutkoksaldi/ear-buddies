@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project.media;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
@@ -37,6 +38,13 @@ public class MusicHistoryTest {
     MusicHistory musicHistory = null;
     private Context context;
 
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("MusicHistoryTest", "New music registered by modelApplication");
+        }
+    };
+
     public static void playSongIntent(Context context, String artist, String song) {
         try {
             mServiceRule.startService(
@@ -68,7 +76,7 @@ public class MusicHistoryTest {
                 GlobalTestSettings
                         .MOCK_ID_FACEBOOK,
                 GlobalSetting.USER_API, true);
-        musicHistory = ch.epfl.sweng.project.media.MusicHistory.getMusicHistory();
+        musicHistory = MusicHistory.getMusicHistory();
     }
 
     @Test
@@ -83,6 +91,14 @@ public class MusicHistoryTest {
     @Test
     public void testWithStartedService() {
         playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
+        //IntentFilter iF = new IntentFilter();
+        //iF.addAction(GlobalSetting.INTENT_NEW_MUSIC);
+        //context.registerReceiver(mReceiver, iF);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Music newMusic = ModelApplication.getModelApplication().getMusic();
         assertEquals("Artist names should be equals", GlobalTestSettings.ARTIST_NAME_RESPONSE, newMusic.getArtist());
         assertEquals("Song names should be equals", GlobalTestSettings.MUSIC_NAME_RESPONSE, newMusic.getName());
