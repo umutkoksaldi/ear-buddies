@@ -56,9 +56,9 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
     private SwipeRefreshLayout swipeContainer;
 
 
-    private ImageView coverPict;
+    private ImageView profilePicture;
     private TextView name;
-    private ImageView profilePict;
+    private ImageView coverPicture;
     private TextView description;
     private LinearLayout tasteList;
     private ImageButton tastePicker;
@@ -74,13 +74,13 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
         Log.d("ProfileFrag", "onCreateView()");
 
         View profile = inflater.inflate(R.layout.frag_profile, container, false);
-        coverPict = (ImageView) profile.findViewById(R.id.user_profile_photo);
-        new DownloadImageTask(coverPict).execute(modelApplication.getUser().getProfilePicture());
+        profilePicture = (ImageView) profile.findViewById(R.id.user_profile_photo);
+        new DownloadImageTask(profilePicture).execute(modelApplication.getUser().getProfilePicture());
         name = (TextView) profile.findViewById(R.id.user_profile_name);
         //TODO Get name from the database
         name.setText(modelApplication.getUser().getFirstname());
-        profilePict = (ImageView) profile.findViewById(R.id.header_cover_image);
-        new DownloadImageTask(profilePict).execute(modelApplication.getUser().getBackgroundPicture());
+        coverPicture = (ImageView) profile.findViewById(R.id.header_cover_image);
+        new DownloadImageTask(coverPicture).execute(modelApplication.getUser().getBackgroundPicture());
         description = (TextView) profile.findViewById(R.id.user_description);
         description.setText(modelApplication.getUser().getDescription());
         tastePicker = (ImageButton) profile.findViewById(R.id.button_profile_music_tag);

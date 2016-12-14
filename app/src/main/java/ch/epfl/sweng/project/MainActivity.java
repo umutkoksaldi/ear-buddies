@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project;
 
+import android.app.FragmentManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
@@ -37,6 +38,7 @@ public final class MainActivity extends AppCompatActivity {
     private static final int USERS_AROUND_FRAGMENT = 0;
     private static final int MAP_FRAGMENT = 1;
     private static final int PROFILE_FRAGMENT = 2;
+    private static FragmentManager fragmentManager;
     final int DELAY_MATCH_CALL = 10000;
     final int NOTIFICATION_ID = 0;
     ModelApplication modelApplication = ModelApplication.getModelApplication();
@@ -53,6 +55,10 @@ public final class MainActivity extends AppCompatActivity {
         }
     };
 
+    public static FragmentManager getMainActivityFragmentManager() {
+        return fragmentManager;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +73,7 @@ public final class MainActivity extends AppCompatActivity {
         startService(musicInfo);
 
         mHandler.postDelayed(matchRequest, DELAY_MATCH_CALL);
+        fragmentManager = getFragmentManager();
     }
 
     private void createTabLayout() {
@@ -159,16 +166,27 @@ public final class MainActivity extends AppCompatActivity {
         else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
             mViewPager.setCurrentItem(MAP_FRAGMENT);
         } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
+            // Check if we are on a user details fragment
+            //Fragment fragment = (Fragment)getFragmentManager().findFragmentByTag("MY_FRAGMENT");
+            /*Fragment fragment = fragmentManager.findFragmentByTag("detailFragment");
+            Log.d("MainActivity", "FragmentManager: " + getFragmentManager().toString());
+            Log.d("MainActivity", "fragment: " + fragment.toString());*/
+
             // Leave the app properly without going back to the welcome activity
-            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-            homeIntent.addCategory(Intent.CATEGORY_HOME);
-            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(homeIntent);
+            MapControler mapControler = MapControler.getConnectionControler();
+            if (mapControler.isDetailFragmentOpened()) {
+                super.onBackPressed();
+                mapControler.setDetailFragmentOpened(false);
+            } else {
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory(Intent.CATEGORY_HOME);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+            }
         } else {
             super.onBackPressed();
         }
     }
-
 
     private void matchSearch() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();

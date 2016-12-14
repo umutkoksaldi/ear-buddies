@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
@@ -84,7 +85,6 @@ public class DetailsFragment extends Fragment {
         Log.i("Music Artist","" + music.getArtist());
 
         facebookClicked(view);
-
         return view;
     }
     public User detailsGetUser (){
