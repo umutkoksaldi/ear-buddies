@@ -1,9 +1,6 @@
 package ch.epfl.sweng.project.Fragment;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,10 +15,7 @@ import java.util.HashMap;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.Webview.CustomTabActivityHelper;
-import ch.epfl.sweng.project.Webview.WebviewFallback;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
+import ch.epfl.sweng.project.UserDetailsControler;
 
 /**
  * Created by Antoine Merino on 13/12/2016.
@@ -33,10 +26,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
 
     private ArrayList<User> userList;
     private HashMap<User, Music> songMap;
+    private UsersFragment usersFragment;
 
-    public UserListAdapter(ArrayList<User> userList, HashMap<User, Music> songMap, Context context) {
+    public UserListAdapter(ArrayList<User> userList, HashMap<User, Music> songMap, UsersFragment usersFragment, Context
+            context) {
         this.userList = userList;
         this.songMap = songMap;
+        this.usersFragment = usersFragment;
     }
 
     @Override
@@ -75,9 +71,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
         if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
             new DownloadImageTask(holder.profilePicture).execute(profilePictureUrl);
         }
-        // Should open a website, replace the null argument with the desired url
-        // Not implemented for the moment !
-        //holder.container.setOnClickListener(new UserOnClickListener(null));
+        // Go to the details of the user
+        holder.container.setOnClickListener(new UserOnClickListener(user, usersFragment));
     }
 
 
@@ -87,34 +82,20 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
     }
 
     private static class UserOnClickListener implements View.OnClickListener {
-        // Currently, this listener redirects to a browser page contained the parsed URL
-        // You can change this, let say, to redirect the user to another fragment !
-        // Ask Antoine
-        String url;
 
-        public UserOnClickListener(String url) {
-            this.url = url;
+        private User user;
+        private UsersFragment usersFragment;
+
+
+        public UserOnClickListener(User user, UsersFragment usersFragment) {
+            this.user = user;
+            this.usersFragment = usersFragment;
         }
 
         @Override
         public void onClick(View v) {
-            if (url == null) {
-                // No lastfm page associated with the current song
-                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string
-                        .no_user_facebook_page_found), Toast.LENGTH_SHORT).show();
-            } else {
-                // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
-                // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
-                // and launch the desired Url with CustomTabsIntent.launchUrl()
-                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-                Activity activity = (Activity) v.getContext();
-                CustomTabActivityHelper.openCustomTab(
-                        activity,
-                        customTabsIntent,
-                        Uri.parse(url),
-                        new WebviewFallback()
-                );
-            }
+            UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
+            userDetailsControler.openDetailsFragment(usersFragment, user);
         }
     }
 

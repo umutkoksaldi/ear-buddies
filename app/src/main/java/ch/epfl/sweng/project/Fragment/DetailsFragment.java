@@ -49,12 +49,6 @@ public class DetailsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.details_fragment, container, false);
         long musicId = 0;
-        final Button backButton = (Button) view.findViewById(R.id.details_back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
 
         music = new Music();
         //musicId = user.getCurrentMusicId();

@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/map"
+        android:id="@+id/framelayout_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -24,16 +24,6 @@
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
         android:padding="10dp">
-
-        <ImageButton
-            android:id="@+id/updatdeOtherUsers"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="top|start"
-            android:adjustViewBounds="false"
-            android:alpha="0.9"
-            android:background="@color/cardview_light_background"
-            app:srcCompat="@drawable/ic_cached_black_24dp"/>
 
 
         <android.support.design.widget.FloatingActionButton

@@ -73,7 +73,7 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         recyclerView.setLayoutManager(layoutManager);
 
         // Connect the recycler view with the actual user list through an adapter so it will be updated automatically
-        adapter = new UserListAdapter(userList, songMap, getApplicationContext());
+        adapter = new UserListAdapter(userList, songMap, this, getApplicationContext());
         recyclerView.setAdapter(adapter);
 
         // Fill the user list with what the application model contains

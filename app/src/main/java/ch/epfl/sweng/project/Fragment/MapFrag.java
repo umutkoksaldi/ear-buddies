@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -58,17 +57,16 @@ import java.util.List;
 import java.util.Map;
 
 import Util.GlobalSetting;
-import ch.epfl.sweng.project.MapControler;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
+import ch.epfl.sweng.project.UserDetailsControler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View
-                .OnClickListener {
+        LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener {
 
 
     private final String LATTITUDE = "lattitude";
@@ -77,7 +75,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     private final String ID = "idApiConnection";
     public View view;
-    ImageButton refreshButton;
     private String mTest = "/";
     private User mUser;
     // Location
@@ -92,7 +89,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private SupportMapFragment sMapFragment;
     private int ZOOM = 16;
     //Detail fragment
-    private MapControler mapControler;
+    private UserDetailsControler userDetailsControler;
 
     private Map<Long, Bitmap> mImages;
 
@@ -111,7 +108,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        mapControler = MapControler.getConnectionControler();
+        userDetailsControler = UserDetailsControler.getConnectionControler();
        // ModelApplication.getModelApplication().setTest();
         mInflater = inflater;
         mImages = new HashMap<>();
@@ -124,7 +121,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         sMapFragment.getMapAsync(this);
         android.support.v4.app.FragmentManager sFm = getFragmentManager();
         if (!sMapFragment.isAdded())
-            sFm.beginTransaction().add(R.id.map, sMapFragment).commit();
+            sFm.beginTransaction().add(R.id.framelayout_map, sMapFragment).commit();
         else
             sFm.beginTransaction().show(sMapFragment).commit();
 
@@ -143,8 +140,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
         mHandler.post(runnable);
         view = inflater.inflate(R.layout.frag_map, container, false);
-        refreshButton = (ImageButton) view.findViewById(R.id.updatdeOtherUsers);
-        refreshButton.setOnClickListener(this);
         return view;
     }
 
@@ -208,18 +203,9 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     @Override
     public void onInfoWindowClick(Marker marker) {
         User selectedUser = allMarkersMap.get(marker);
-        mapControler.openDetailsFragment(this, selectedUser);
+        userDetailsControler.openDetailsFragment(this, selectedUser);
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.updatdeOtherUsers:
-                sendAndGetLocations();
-                break;
-        }
-    }
 
     @Override
     public void onStop() {

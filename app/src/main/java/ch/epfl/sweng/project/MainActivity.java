@@ -159,25 +159,29 @@ public final class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
         if (mViewPager.getCurrentItem() == USERS_AROUND_FRAGMENT) {
-            mViewPager.setCurrentItem(MAP_FRAGMENT);
+            if (userDetailsControler.isOpenFromUserList()) {
+                // Check if we are on a user details fragment
+                super.onBackPressed();
+                userDetailsControler.setOpenFromUserList(false);
+            } else {
+                // Go from the people fragment to the map fragment
+                mViewPager.setCurrentItem(MAP_FRAGMENT);
+            }
+
         }
-        // TODO implement back stack animation for user music history
         else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
             mViewPager.setCurrentItem(MAP_FRAGMENT);
         } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
-            // Check if we are on a user details fragment
-            //Fragment fragment = (Fragment)getFragmentManager().findFragmentByTag("MY_FRAGMENT");
-            /*Fragment fragment = fragmentManager.findFragmentByTag("detailFragment");
-            Log.d("MainActivity", "FragmentManager: " + getFragmentManager().toString());
-            Log.d("MainActivity", "fragment: " + fragment.toString());*/
 
-            // Leave the app properly without going back to the welcome activity
-            MapControler mapControler = MapControler.getConnectionControler();
-            if (mapControler.isDetailFragmentOpened()) {
+
+            if (userDetailsControler.isOpenFromMap()) {
+                // Check if we are on a user details fragment
                 super.onBackPressed();
-                mapControler.setDetailFragmentOpened(false);
+                userDetailsControler.setOpenFromMap(false);
             } else {
+                // Leave the app properly without going back to the welcome activity
                 Intent homeIntent = new Intent(Intent.ACTION_MAIN);
                 homeIntent.addCategory(Intent.CATEGORY_HOME);
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

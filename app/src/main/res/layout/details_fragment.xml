@@ -78,15 +78,6 @@
         android:background="@color/primary_dark"
         android:scaleType="centerCrop"/>
 
-    <Button
-        android:id="@+id/details_back_button"
-        android:layout_width="45dp"
-        android:layout_height="46dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/com_facebook_close"/>
-
     <TextView
         android:id="@+id/details_name"
         android:layout_width="match_parent"
