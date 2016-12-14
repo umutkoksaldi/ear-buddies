@@ -85,6 +85,8 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
         description.setText(modelApplication.getUser().getDescription());
         tastePicker = (ImageButton) profile.findViewById(R.id.button_profile_music_tag);
         taste = (TextView) profile.findViewById(R.id.tv_profile_music_tag);
+        //String musicTaste = modelApplication.getUser().getSetting().getMusicTaste();
+        //taste.setText();
         rangeButton = (ImageButton) profile.findViewById(R.id.button_profile_radar);
         range = (TextView) profile.findViewById(R.id.tv_profile_radar);
         menuButton = (ImageButton) profile.findViewById(R.id.button_profile_menu);
@@ -333,7 +335,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
                         // do nothing
                     }
                 })
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_warning_primary_24dp)
                 .show();
     }
 
@@ -352,7 +354,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
                         // do nothing
                     }
                 })
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_warning_primary_24dp)
                 .show();
     }
 

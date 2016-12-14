@@ -21,6 +21,10 @@ public class User {
     public User() {
     }
 
+    public Setting getSetting() {
+        return setting;
+    }
+
     public long getIdApiConnection() {
         return idApiConnection;
     }
