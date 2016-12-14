@@ -116,14 +116,14 @@
         android:textColor="@color/secondary_text"
         android:textSize="13sp"/>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/details_music_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_details_facebook"
-                    android:layout_margin="10dp"
-                    android:clickable="true"
-                    android:visibility="invisible">
+    <RelativeLayout
+        android:id="@+id/details_music_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_details_facebook"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:visibility="invisible">
 
 
         <ImageView
