@@ -168,5 +168,5 @@ public class MusicHistoryTest {
         assertEquals(musicList.get(0).getArtist(), GlobalTestSettings.ARTIST_NAME_RESPONSE);
         assertEquals(musicList.get(0).getName(), GlobalTestSettings.MUSIC_NAME_RESPONSE);
     }
-
+ 
 }
