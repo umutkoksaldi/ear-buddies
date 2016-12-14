@@ -1,19 +1,9 @@
 package ch.epfl.sweng.project.testUi;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.core.deps.guava.collect.Iterables;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import android.support.test.runner.lifecycle.Stage;
 import android.util.Log;
 import android.view.View;
 
@@ -23,25 +13,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
-import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.media.MusicHistoryTest;
 import ch.epfl.sweng.project.ModuleRequest.MockUserMainActivityRule;
 import ch.epfl.sweng.project.ModuleRequest.MyViewAction;
+import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.media.MusicHistoryTest;
 import ch.epfl.sweng.project.utils.GlobalTestSettings;
 
-import static android.content.Context.ACTIVITY_SERVICE;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.project.utils.GlobalTestSettings.PROFILE_TAB;
@@ -55,10 +42,9 @@ import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class TestHistoryMusic {
-
-    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+ 
     public static String ARTIST = "Rihanna";
-
+    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     @Rule
     public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
 
