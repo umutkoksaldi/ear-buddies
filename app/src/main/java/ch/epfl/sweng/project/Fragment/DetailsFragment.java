@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +35,7 @@ public class DetailsFragment extends Fragment {
     private ImageView musicImage;
     private TextView musicArtist;
     private User user;
-    private Button facebookButton;
+    private ImageButton facebookButton;
     private Music music;
     private FragmentManager manager;
 
@@ -52,17 +51,17 @@ public class DetailsFragment extends Fragment {
 
         music = new Music();
         //musicId = user.getCurrentMusicId();
-        musicArtist = (TextView)view.findViewById(R.id.details_song_artist);
+        //musicArtist = (TextView)view.findViewById(R.id.details_song_artist);
         //if no artist, set "Song" string-just in order to have better appearance
-        musicArtist.setText("Song:");
+        /*musicArtist.setText("Song:");
         if(musicId != 0 ) {
             String s = String.valueOf(musicId);
             musicArtist.setText(s);
-        }
+        }*/
 
-        musicName = (TextView) view.findViewById(R.id.details_song_name);
+        /*musicName = (TextView) view.findViewById(R.id.details_song_name);
         musicName.setText("Ride 'em all down");
-        musicImage = (ImageView) view.findViewById(R.id.details_song_picture);
+        musicImage = (ImageView) view.findViewById(R.id.details_song_picture);*/
         //do the post request to the server in order to get the music info
         //inside of a method change the musicDetails
 //        if(user.getProfilePicture() != null) {
@@ -76,7 +75,6 @@ public class DetailsFragment extends Fragment {
         if(user.getDescription() != null) {
             description.setText("Description: " + user.getDescription());
         }
-        Log.i("Music Artist","" + music.getArtist());
 
         facebookClicked(view);
         return view;
@@ -91,7 +89,7 @@ public class DetailsFragment extends Fragment {
 
 
     public void facebookClicked(View view) {
-        facebookButton = (Button)view.findViewById(R.id.details_fragment_facebook);
+        facebookButton = (ImageButton) view.findViewById(R.id.button_details_facebook);
         final String url = "www.facebook.com";
         facebookButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
