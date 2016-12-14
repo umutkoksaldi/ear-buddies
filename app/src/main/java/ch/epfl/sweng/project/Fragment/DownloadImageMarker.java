@@ -2,6 +2,10 @@ package ch.epfl.sweng.project.Fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -51,7 +55,7 @@ class DownloadImageMarker extends AsyncTask<String, Void, Bitmap> {
         if (image != null){
             image = scaleDown(image, 100, true);
         }
-        mImages.put(mId, image);
+        mImages.put(mId, getCircleBitmap(image));
         return image;
     }
 
@@ -59,5 +63,39 @@ class DownloadImageMarker extends AsyncTask<String, Void, Bitmap> {
     protected void onPostExecute(Bitmap result) {
         bitmap = result;
         mMarker.icon(BitmapDescriptorFactory.fromBitmap(result));
+        //mMarker.icon(BitmapDescriptorFactory.fromBitmap(getCircleBitmap(result)));
+    }
+
+    private Bitmap getCircleBitmap(Bitmap bitmap) {
+
+/*
+        Bitmap bitmap = getthebitmapyouwanttoshowinacirclefromsomewhere;
+        Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+        BitmapShader shader = new BitmapShader (bitmap,  TileMode.CLAMP, TileMode.CLAMP);
+        Paint paint = new Paint();
+        paint.setShader(shader);
+        paint.setAntiAlias(true);
+        Canvas c = new Canvas(circleBitmap);
+        c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+
+        myImageView.setImageBitmap(circleBitmap);
+*/
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+
+        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        Paint paint = new Paint();
+        paint.setShader(shader);
+        paint.setAntiAlias(true);
+        Canvas c = new Canvas(output);
+        c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+
+
+        return output;
     }
 }
+
+

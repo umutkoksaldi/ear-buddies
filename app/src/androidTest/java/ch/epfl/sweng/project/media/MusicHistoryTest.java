@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project.media;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
@@ -17,13 +18,15 @@ import java.util.concurrent.TimeoutException;
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
 import ch.epfl.sweng.project.Fragment.MusicListAdapter;
-import ch.epfl.sweng.project.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
 
 
 /**
@@ -34,10 +37,15 @@ public class MusicHistoryTest {
 
     @ClassRule
     public static final ServiceTestRule mServiceRule = new ServiceTestRule();
-    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
-    private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
-    ch.epfl.sweng.project.media.MusicHistory musicHistory = null;
+    MusicHistory musicHistory = null;
     private Context context;
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("MusicHistoryTest", "New music registered by modelApplication");
+        }
+    };
 
     public static void playSongIntent(Context context, String artist, String song) {
         try {
@@ -64,13 +72,13 @@ public class MusicHistoryTest {
 
     @Before
     public void init() {
-        GlobalTestSettings.createFakeUser();
         context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 "MusicHistoryTest");
-        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+        ConnectionControler.getConnectionControler().sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK,
+                GlobalTestSettings
                         .MOCK_ID_FACEBOOK,
                 GlobalSetting.USER_API, true);
-        musicHistory = ch.epfl.sweng.project.media.MusicHistory.getMusicHistory();
+        musicHistory = MusicHistory.getMusicHistory();
     }
 
     @Test
@@ -84,7 +92,16 @@ public class MusicHistoryTest {
 
     @Test
     public void testWithStartedService() {
-        playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
+        try {
+            playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
+            //IntentFilter iF = new IntentFilter();
+            //iF.addAction(GlobalSetting.INTENT_NEW_MUSIC);
+            //context.registerReceiver(mReceiver, iF);
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Log.e("testWithStartedService",e.getMessage());
+            fail("Exception during the execution");
+        }
         Music newMusic = ModelApplication.getModelApplication().getMusic();
         assertEquals("Artist names should be equals", GlobalTestSettings.ARTIST_NAME_RESPONSE, newMusic.getArtist());
         assertEquals("Song names should be equals", GlobalTestSettings.MUSIC_NAME_RESPONSE, newMusic.getName());
@@ -142,13 +159,14 @@ public class MusicHistoryTest {
                 context);
         musicHistory.updateFromServer(adapter, null);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
-            Log.e("MusicHistoryTest", e.toString());
+            Log.e("testHistory",e.getMessage());
+            fail("Exception during the execution");
         }
         musicList = musicHistory.getHistory();
         assertEquals(musicList.get(0).getArtist(), GlobalTestSettings.ARTIST_NAME_RESPONSE);
         assertEquals(musicList.get(0).getName(), GlobalTestSettings.MUSIC_NAME_RESPONSE);
     }
-
+ 
 }

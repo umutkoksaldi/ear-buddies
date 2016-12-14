@@ -28,8 +28,6 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public final class ConnectionControler {
 
-    private static final String ID = "id";
-    private static final String ACESS_TOKEN = "accesToken";
     private static ConnectionControler connectionControler = null;
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
 
@@ -102,8 +100,8 @@ public final class ConnectionControler {
 
         // Building the parameters for the
         Map<String, String> params = new HashMap<>();
-        params.put(ID, idFacebook);
-        params.put(ACESS_TOKEN, AccesToken);
+        params.put(GlobalSetting.ID, idFacebook);
+        params.put(GlobalSetting.ACCESS_TOKEN, AccesToken);
 
         // the interface is already initiate above
         serviceHandler.doPost(params, GlobalSetting.URL + requestApi, User.class);

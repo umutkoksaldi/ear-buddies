@@ -38,7 +38,6 @@ public final class MainActivity extends AppCompatActivity {
     ModelApplication modelApplication = ModelApplication.getModelApplication();
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
-    private boolean expandedMusicHistory = false;
     private Handler mHandler = new Handler();
     private boolean matchDisplayed = false;
     private long lastIDMatched = 0;
@@ -93,7 +92,8 @@ public final class MainActivity extends AppCompatActivity {
     private void createViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pagerMain);
         Pager adapter = new Pager(getSupportFragmentManager(), mTabLayout.getTabCount());
-
+        // Cause an issue with users fragment refreshing
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -148,9 +148,6 @@ public final class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setExpendedMusicHistory() {
-        expandedMusicHistory = true;
-    }
 
     private void matchSearch() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();

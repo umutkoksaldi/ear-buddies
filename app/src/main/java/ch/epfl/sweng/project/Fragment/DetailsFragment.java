@@ -35,7 +35,7 @@ public class DetailsFragment extends Fragment {
     private ImageView musicImage;
     private TextView musicArtist;
     private User user;
-    private static ImageView facebookPicture;
+    private Button facebookButton;
     private Music music;
     private FragmentManager manager;
 
@@ -51,7 +51,7 @@ public class DetailsFragment extends Fragment {
         final Button backButton = (Button) view.findViewById(R.id.details_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                getFragmentManager().popBackStack();
+                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
@@ -97,9 +97,9 @@ public class DetailsFragment extends Fragment {
 
 
     public void facebookClicked(View view) {
-        facebookPicture = (ImageView)view.findViewById(R.id.details_fragment_facebook);
+        facebookButton = (Button)view.findViewById(R.id.details_fragment_facebook);
         final String url = "www.facebook.com";
-        facebookPicture.setOnClickListener(new View.OnClickListener() {
+        facebookButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String fullUrl = "http://".concat(url.concat("/").concat(String.valueOf(user.getIdApiConnection())));
 

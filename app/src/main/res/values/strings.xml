@@ -100,6 +100,7 @@
     <string name="textview2"/>
     <string name="textview3"/>
     <string name="no_user_facebook_page_found">Could not find this user on Facebook!</string>
+    <string name="no_listening">Not listening any song yet...</string>
 
     <!-- Music history fragment -->
     <string name="separator"> ● </string>
@@ -122,12 +123,13 @@
     <string name="song_artist">song artist</string>
     <string name="is_listening_to_the_song">Is listening to</string>
     <string name="details_facebook_button">TextView</string>
-    <string name="song_name">song name</string>`
 
 
     <!-- TabLayout -->
     <string name="tabMap">Map</string>
     <string name="tabProfile">Profile</string>
     <string name="tabUsers">Users</string>`
+    <string name="song_name">song name</string>
+    <string name="button">Button</string>
 
 </resources>

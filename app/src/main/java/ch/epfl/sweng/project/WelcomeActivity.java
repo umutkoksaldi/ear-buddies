@@ -22,8 +22,6 @@ import ch.epfl.sweng.project.Model.ModelApplication;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private static final String ID = "id";
-    private static final String ACESS_TOKEN = "accesToken";
     private static final String TESTING_ALREADY_CONNECTED = "Testing_already_conected";
     private static final String TESTING_FIRST_CONNECTION = "Testing_frist_connection";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
@@ -86,8 +84,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
             if (intent.getExtras().getString(TESTING_ALREADY_CONNECTED) != null) {
                 mAlreadyConnected = true;
-                mId = intent.getExtras().getString(ID);
-                mAccessToken = intent.getExtras().getString(ACESS_TOKEN);
+                mId = intent.getExtras().getString(GlobalSetting.ID);
+                mAccessToken = intent.getExtras().getString(GlobalSetting.ACCESS_TOKEN);
             } else if (intent.getExtras().getString(TESTING_FIRST_CONNECTION) != null) {
                 mAlreadyConnected = false;
             }
