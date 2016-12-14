@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import ch.epfl.sweng.project.Controler.UserSongControler;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
@@ -28,16 +31,21 @@ import ch.epfl.sweng.project.Webview.WebviewFallback;
 
 public class DetailsFragment extends Fragment {
 
+    RelativeLayout musicContainer;
     private ImageView picture;
     private TextView description;
     private TextView nameDetails;
     private TextView musicName;
     private ImageView musicImage;
+    private TextView musicTag;
     private TextView musicArtist;
     private User user;
     private ImageButton facebookButton;
     private Music music;
     private FragmentManager manager;
+    private ImageView coverPicture;
+    private ImageView songCover;
+    private UserSongControler userSongControler;
 
     public void setUser(User user) {
         this.user = user;
@@ -45,35 +53,50 @@ public class DetailsFragment extends Fragment {
 
     @Override
  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("DetailsFragment", "onCreateView");
 
         View view = inflater.inflate(R.layout.details_fragment, container, false);
-        long musicId = 0;
+        userSongControler = UserSongControler.getUserSongControler();
+
+        coverPicture = (ImageView) view.findViewById(R.id.details_cover);
+        new DownloadImageTask(coverPicture).execute(user.getBackgroundPicture());
+
 
         music = new Music();
-        //musicId = user.getCurrentMusicId();
-        //musicArtist = (TextView)view.findViewById(R.id.details_song_artist);
-        //if no artist, set "Song" string-just in order to have better appearance
-        /*musicArtist.setText("Song:");
+        //musicId =
+        musicArtist = (TextView) view.findViewById(R.id.tvArtistName);
+        musicName = (TextView) view.findViewById(R.id.tvSongName);
+        musicTag = (TextView) view.findViewById(R.id.tvSongTag);
+        musicContainer = (RelativeLayout) view.findViewById(R.id.details_music_container);
+        long musicId = user.getCurrentMusicId();
+        Log.d("DetailsFragment", "musicId = " + musicId);
         if(musicId != 0 ) {
-            String s = String.valueOf(musicId);
-            musicArtist.setText(s);
-        }*/
+            songCover = (ImageView) view.findViewById(R.id.ivCover);
+            Music music = userSongControler.getSongMap().get(user.getIdApiConnection());
+            if (music != null) {
+                musicArtist.setText(music.getArtist());
+                musicName.setText(music.getName());
+                String tag = music.getTag();
+                if (!tag.isEmpty() && tag != "unknown") ;
+                musicTag.setText(tag);
+                String coverUrl = music.getUrlPicture();
+                if (coverUrl != null && !coverUrl.isEmpty()) {
+                    new DownloadImageTask(songCover).execute(coverUrl);
+                }
+                musicContainer.setVisibility(View.VISIBLE);
+            } else {
+                Log.d("DetailsFragment", "musicId not null but no music associated with this user in the " +
+                        "userSongControler.");
+            }
+        }
 
-        /*musicName = (TextView) view.findViewById(R.id.details_song_name);
-        musicName.setText("Ride 'em all down");
-        musicImage = (ImageView) view.findViewById(R.id.details_song_picture);*/
-        //do the post request to the server in order to get the music info
-        //inside of a method change the musicDetails
-//        if(user.getProfilePicture() != null) {
-//            new DownloadImageTask(musicImage).execute(user.getProfilePicture());
-//        }
         nameDetails = (TextView) view.findViewById(R.id.details_name);
         nameDetails.setText(user.getFirstname());
         picture = (ImageView) view.findViewById(R.id.details_fragment_picture);
         new DownloadImageTask(picture).execute(user.getProfilePicture());
         description = (TextView) view.findViewById(R.id.details_description);
         if(user.getDescription() != null) {
-            description.setText("Description: " + user.getDescription());
+            description.setText(user.getDescription());
         }
 
         facebookClicked(view);

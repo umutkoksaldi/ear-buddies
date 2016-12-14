@@ -17,10 +17,8 @@ import android.view.ViewGroup;
 
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import Util.GlobalSetting;
+import ch.epfl.sweng.project.Controler.UserSongControler;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
@@ -34,12 +32,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public UserListAdapter adapter;
-    private ArrayList<User> userList = new ArrayList<>();
-    private HashMap<User, Music> songMap = new HashMap<>();
+    private UserSongControler userSongControler;
     private User[] usersAround;
-    private String[] userNames;
-    private String[] userDescription;
-    private String[] images;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeContainer;
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -73,7 +67,9 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         recyclerView.setLayoutManager(layoutManager);
 
         // Connect the recycler view with the actual user list through an adapter so it will be updated automatically
-        adapter = new UserListAdapter(userList, songMap, this, getApplicationContext());
+        userSongControler = UserSongControler.getUserSongControler();
+        adapter = new UserListAdapter(userSongControler.getUserList(), userSongControler.getSongMap(), this,
+                getApplicationContext());
         recyclerView.setAdapter(adapter);
 
         // Fill the user list with what the application model contains
@@ -94,15 +90,15 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         usersAround = ModelApplication.getModelApplication().getOtherUsers();
         if (usersAround != null) {
             // Repopulate the list with new users
-            userList.clear();
+            userSongControler.getUserList().clear();
             for (User user : usersAround) {
-                userList.add(user);
+                userSongControler.getUserList().add(user);
             }
             // We can already fill the recycler view
             adapter.notifyDataSetChanged();
             // Ask to the server the song of each user
             boolean noRequestMade = true;
-            for (User user : userList) {
+            for (User user : userSongControler.getUserList()) {
                 if (user.getCurrentMusicId() != 0) {
                     noRequestMade = false;
                     sendGet(GlobalSetting.MUSIC_API, user);
@@ -134,7 +130,7 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
                     //modelApplication.setMusic((Music) response.getBody());
                     Music music = (Music) response.getBody();
-                    songMap.put(user, music);
+                    userSongControler.getSongMap().put(user.getIdApiConnection(), music);
                     adapter.notifyDataSetChanged();
                     if (swipeContainer != null) {
                         swipeContainer.setRefreshing(false);

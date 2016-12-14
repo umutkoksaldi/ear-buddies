@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
+import ch.epfl.sweng.project.Controler.UserDetailsControler;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;

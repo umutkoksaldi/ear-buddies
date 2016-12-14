@@ -12,10 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ch.epfl.sweng.project.Controler.UserDetailsControler;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.UserDetailsControler;
 
 /**
  * Created by Antoine Merino on 13/12/2016.
@@ -25,10 +25,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
         .UserViewHolder> {
 
     private ArrayList<User> userList;
-    private HashMap<User, Music> songMap;
+    private HashMap<Long, Music> songMap;
     private UsersFragment usersFragment;
 
-    public UserListAdapter(ArrayList<User> userList, HashMap<User, Music> songMap, UsersFragment usersFragment, Context
+    public UserListAdapter(ArrayList<User> userList, HashMap<Long, Music> songMap, UsersFragment usersFragment, Context
             context) {
         this.userList = userList;
         this.songMap = songMap;
@@ -48,7 +48,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
         User user = userList.get(position);
         holder.name.setText(user.getFirstname());
         String userDescription = user.getDescription();
-        Music song = songMap.get(user);
+        Music song = songMap.get(user.getIdApiConnection());
         String songName = null;
         if (song != null) {
             songName = song.getArtist() + " - " + song.getName();

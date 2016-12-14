@@ -57,13 +57,13 @@ import java.util.List;
 import java.util.Map;
 
 import Util.GlobalSetting;
+import ch.epfl.sweng.project.Controler.UserDetailsControler;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
-import ch.epfl.sweng.project.UserDetailsControler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener {

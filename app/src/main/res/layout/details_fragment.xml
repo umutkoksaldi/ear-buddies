@@ -4,7 +4,7 @@
                 android:id="@+id/details_frag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_light_background"
+                android:background="@color/background"
                 android:clickable="true"
                 android:orientation="vertical"
                 android:weightSum="1">
@@ -115,5 +115,68 @@
         android:text="@string/rock"
         android:textColor="@color/secondary_text"
         android:textSize="13sp"/>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/details_music_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_details_facebook"
+                    android:layout_margin="10dp"
+                    android:clickable="true"
+                    android:visibility="invisible">
+
+
+        <ImageView
+            android:id="@+id/ivCover"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_image_audiotrack"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_toEndOf="@id/ivCover"
+            android:layout_toRightOf="@id/ivCover"
+            android:orientation="vertical"
+            android:paddingEnd="15dp"
+            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
+            >
+
+            <TextView
+                android:id="@+id/tvArtistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingTop="8dp"
+                android:text=""
+                />
+
+            <TextView
+                android:id="@+id/tvSongName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text=""
+                />
+
+            <TextView
+                android:id="@+id/tvSongTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="italic"
+                />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
 </RelativeLayout>
