@@ -10,11 +10,12 @@ import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.Model.ModelApplication;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.ModuleRequest.MockUserMainActivityRule;
+import ch.epfl.sweng.project.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
@@ -75,4 +76,21 @@ public class TestUI {
         onView(withId(R.id.pagerMain)).perform(swipeRight());
     }
 
+    @Test
+    public void profileSwipeToRefresh() {
+        Matcher<View> matcher = allOf(withText(PROFILE_TAB),
+                isDescendantOfA(withId(R.id.tabLayoutMain)));
+        onView(matcher).perform(click());
+        onView(withId(R.id.pagerMain)).perform(swipeDown());
+
+
+    }
+
+    /*@Test
+    public void usersSwipeToRefresh(){
+        Matcher<View> matcher = allOf(withText(USERS_TAB),
+                isDescendantOfA(withId(R.id.tabLayoutMain)));
+        onView(matcher).perform(click());
+        nView(withId(R.id.pagerMain)).perform(swipeDown());
+    }*/
 }

@@ -64,17 +64,6 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         Log.d("UsersFragment", "Broadcast receiver for action: " + GlobalSetting.MAP_REFRESHED);
         getContext().registerReceiver(mReceiver, iF);
 
-        /*userNames = new String[usersAround.length];
-        userDescription = new String[usersAround.length];
-        images = new String[usersAround.length];*/
-
-        // Get each user's name, description and profile picture
-        /*for (int i = 0; i < usersAround.length; i++) {
-            images[i] = usersAround[i].getProfilePicture();
-            userNames[i] = usersAround[i].getFirstname();
-            userDescription[i] = usersAround[i].getLastname();
-        }*/
-
         // Find the recycler view to fill it with users
         recyclerView = (RecyclerView) view.findViewById(R.id.user_recyclerview);
         // Disable nested scrolling, otherwise scrolling experience is messed up (you can try removing this line to
@@ -112,18 +101,29 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             // We can already fill the recycler view
             adapter.notifyDataSetChanged();
             // Ask to the server the song of each user
+            boolean noRequestMade = true;
             for (User user : userList) {
-                sendGet(GlobalSetting.MUSIC_API, user);
+                if (user.getCurrentMusicId() != 0) {
+                    noRequestMade = false;
+                    sendGet(GlobalSetting.MUSIC_API, user);
+                }
+                if (noRequestMade && swipeContainer != null) {
+                    swipeContainer.setRefreshing(false);
+                }
             }
+
         } else {
-            Log.i("UsersFragments", "No users around");
+            if (swipeContainer != null) {
+                swipeContainer.setRefreshing(false);
+            }
+            Log.i("UsersFragment", "No users around");
         }
     }
 
 
     private void sendGet(@SuppressWarnings("SameParameterValue") String
                                  requestApi, final User user) {
-        Log.d("UserListAdapter", "sendGet");
+        Log.d("UsersFragment", "sendGet");
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
 
             @Override
@@ -141,25 +141,26 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     }
                 } else {
                     // Erreur pas pu communiquer avec le serveur
-                    Log.e("UserFragment", "onSuccess() != Code 200 (good answer)");
+                    Log.e("UsersFragment", "onSuccess() != Code 200 (good answer)");
                 }
             }
 
             @Override
             public void onFailed() {
-                Log.e("UserFragment", "onFailed() : could not retreive the info from the server about the song");
+                Log.e("UsersFragment", "onFailed() : could not retreive the info from the server about the song");
             }
         });
 
 
         // the interface is already initiate above
         String requestURL = GlobalSetting.URL + requestApi + user.getCurrentMusicId();
-        Log.d("UserFragment", "GET Request : " + requestURL);
+        Log.d("UsersFragment", "GET Request : " + requestURL);
         serviceHandler.doGet(requestURL, Music.class);
     }
 
     @Override
     public void onRefresh() {
+        Log.d("UsersFragment", "Swipe to refresh");
         refreshUserList();
     }
 }

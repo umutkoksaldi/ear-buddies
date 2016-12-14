@@ -84,7 +84,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text=""
+            android:text="@string/one_kilometer"
             android:textColor="@color/secondary_text"
             android:textSize="13sp"/>
 
@@ -166,7 +166,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text=""
+            android:text="@string/rock"
             android:textColor="@color/secondary_text"
             android:textSize="13sp"/>
 
