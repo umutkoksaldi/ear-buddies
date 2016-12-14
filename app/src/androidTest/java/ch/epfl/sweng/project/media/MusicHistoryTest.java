@@ -18,10 +18,9 @@ import java.util.concurrent.TimeoutException;
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
 import ch.epfl.sweng.project.Fragment.MusicListAdapter;
-import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
-import ch.epfl.sweng.project.media.MusicHistory;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
@@ -98,7 +97,7 @@ public class MusicHistoryTest {
             //IntentFilter iF = new IntentFilter();
             //iF.addAction(GlobalSetting.INTENT_NEW_MUSIC);
             //context.registerReceiver(mReceiver, iF);
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             Log.e("testWithStartedService",e.getMessage());
             fail("Exception during the execution");
@@ -160,7 +159,7 @@ public class MusicHistoryTest {
                 context);
         musicHistory.updateFromServer(adapter, null);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             Log.e("testHistory",e.getMessage());
             fail("Exception during the execution");
