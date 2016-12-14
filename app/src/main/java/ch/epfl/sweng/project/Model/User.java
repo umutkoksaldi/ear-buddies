@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-
-
+    // Length of the user description on the map
+    private static int snippedDescriptionLength = 17;
     private long idApiConnection;
     private String backgroundPicture;
     private String description;
@@ -38,6 +38,15 @@ public class User {
     }
 
     public String getDescription() {
+        return description;
+    }
+
+    public String getSnippetDescription() {
+        if (description != null) {
+            if (description.length() > snippedDescriptionLength) {
+                description = description.substring(0, snippedDescriptionLength) + "...";
+            }
+        }
         return description;
     }
 

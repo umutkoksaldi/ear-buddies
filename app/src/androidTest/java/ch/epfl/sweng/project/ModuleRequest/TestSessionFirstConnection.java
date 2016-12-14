@@ -14,6 +14,8 @@ import java.util.Collection;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import Util.GlobalSetting;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Login;
 import ch.epfl.sweng.project.WelcomeActivity;
 
@@ -29,14 +31,7 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
     /******************************
      * Set Constant
      *********************************************/
-    public static final String ID_FACEBOOK = "121620614972695";
-    public static final String ACCESS_TOKEN_FACEBOOK =
-            "EAAOZCzloFDqEBAHGnY8Q6I4d6fJRy9c6FWYZAqNxp2ChFBvpv8ZAycQC7a0oT21ZBp0Ku" +
-                    "IbZCIUkLWSH4Ev7pIQrjlzAxvrfznhXZAeb8A3ZCZBDks8WekNs4WgtfteZCMhUPQx5ZBPmbBMfwBgjqqAeaHOjtYFe38VYfXV35ZCn" +
-                    "Q0yZBzPSDzCKDBBMkGhWA8ZAyrJAcBZA6LCi5XtgZDZD";
 
-    private static final String ID = "id";
-    private static final String ACESS_TOKEN = "accesToken";
     private static final String TESTING_ALREADY_CONNECTED = "Testing_already_conected";
     private static final String TESTING_FIRST_CONNECTION = "Testing_frist_connection";
     @Rule
@@ -57,8 +52,8 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putString(TESTING_FIRST_CONNECTION, "true");
-        bundle.putString(ID, ID_FACEBOOK);
-        bundle.putString(ACESS_TOKEN, ACCESS_TOKEN_FACEBOOK);
+        bundle.putString(GlobalSetting.ID, GlobalTestSettings.MOCK_ID_FACEBOOK);
+        bundle.putString(GlobalSetting.ACCESS_TOKEN, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK);
 
         intent.putExtras(bundle);
         // Set the intent.

@@ -34,7 +34,7 @@
 
     </LinearLayout>
 
-    <ImageView
+    <!--<ImageView
 
         android:id="@+id/more_info_marker"
 
@@ -44,6 +44,6 @@
 
         android:src="@android:drawable/ic_menu_more">
 
-    </ImageView>
+    </ImageView>-->
 
 </LinearLayout>

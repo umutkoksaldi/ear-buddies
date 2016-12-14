@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
-import ch.epfl.sweng.project.GlobalTestSettings;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 
@@ -27,11 +27,9 @@ public class TestConnectionUser {
     public static final int AGE_USER = 0;
     public static final String FIRSTNAME_USER = "Sweng";
     public static final String LASTNAME_USER = "Tests";
-    private static final String ID = "id";
 
     //----------------------------------------------------------------
     // Constant User
-    private static final String ACESS_TOKEN = "accesToken";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
     // TODO à completer pour tester tous les parametes.
@@ -44,13 +42,13 @@ public class TestConnectionUser {
 
         final CountDownLatch latch = new CountDownLatch(1);
 
-        // we call the server to
-        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
-                .MOCK_ID_FACEBOOK,
-                GlobalSetting
-                        .USER_API, true);
-
         try {
+            // we call the server to
+            controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+                    .MOCK_ID_FACEBOOK,
+                    GlobalSetting
+                            .USER_API, true);
+
             latch.await(2, TimeUnit.SECONDS);
             // get the user in the model.
             User userTest = modelApplication.getUser();

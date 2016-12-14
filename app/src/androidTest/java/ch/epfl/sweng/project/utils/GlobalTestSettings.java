@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project;
+package ch.epfl.sweng.project.utils;
 
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
@@ -8,6 +8,19 @@ import ch.epfl.sweng.project.Model.User;
  */
 
 public class GlobalTestSettings {
+
+
+    // ************************************************************************************************************************************************
+    // Main activity
+
+    public static String USERS_TAB = "Users";
+    public static String PROFILE_TAB = "Profile";
+    public static String MAP_TAB = "Map";
+
+    // ************************************************************************************************************************************************
+
+    // ************************************************************************************************************************************************
+    // Mock Users Data
     public static final String MOCK_ID_FACEBOOK = "121620614972695";
     public static final String MOCK_ACCESS_TOKEN_FACEBOOK =
             "EAAOZCzloFDqEBAHGnY8Q6I4d6fJRy9c6FWYZAqNxp2ChFBvpv8ZAycQC7a0oT21ZBp0Ku" +
@@ -29,8 +42,10 @@ public class GlobalTestSettings {
     public static final String ARTIST_NAME_RESPONSE = "Rihanna";
     public static final String MUSIC_NAME_RESPONSE = "Rude Boy";
 
+    // ************************************************************************************************************************************************
 
-    public static void createFakeUser() {
+
+    public static void createMockUser() {
         User mUser = new User();
         mUser.setLocation(new ch.epfl.sweng.project.Model.Location(0, 0));
         mUser.setAge(MOCK_USER_AGE);
