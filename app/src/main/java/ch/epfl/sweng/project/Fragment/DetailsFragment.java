@@ -77,8 +77,9 @@ public class DetailsFragment extends Fragment {
                 musicArtist.setText(music.getArtist());
                 musicName.setText(music.getName());
                 String tag = music.getTag();
-                if (!tag.isEmpty() && tag != "unknown") ;
-                musicTag.setText(tag);
+                if (!tag.isEmpty() && tag != "unknown") {
+                    musicTag.setText(tag);
+                }
                 String coverUrl = music.getUrlPicture();
                 if (coverUrl != null && !coverUrl.isEmpty()) {
                     new DownloadImageTask(songCover).execute(coverUrl);
