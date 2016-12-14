@@ -31,13 +31,4 @@ public class Location {
     }
 
 
-    // The method should be overridden for jackson.
-    @Override
-    public String toString() {
-        return "{" +
-                " \"latitude\" : " + latitude +
-                ", \"longitude\": \" " + longitude +
-                '}';
-    }
-
 }

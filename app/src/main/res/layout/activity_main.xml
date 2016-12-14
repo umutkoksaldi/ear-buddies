@@ -10,28 +10,60 @@
     tools:context="ch.epfl.sweng.project.MainActivity">
 
     <!-- TabLayout to see the current page-->
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary_dark"
+        app:tabGravity="fill"
         app:tabIndicatorColor="@color/color_accent"
-        app:tabSelectedTextColor="#FFFFFF"
-        app:tabTextColor="@color/primary_light"/>
+        app:tabSelectedTextColor="@color/color_accent"
+        app:tabTextAppearance="@style/AppTabTextAppearance"
+        app:tabTextColor="@color/primary_light"
+        >
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/map_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/map_icon"
+            android:icon="@drawable/ic_whatshot_black_24dp"
+            android:text="@string/tabUsers"/>
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/users_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_map_black_24dp"
+            android:text="@string/tabMap"/>
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/profile_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/map_icon"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:text="@string/tabProfile"/>
+
+    </android.support.design.widget.TabLayout>
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pagerMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
     <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/main_frag_users"
-        android:name="ch.epfl.sweng.project.Fragment.UsersFragment"/>
-    <FrameLayout
+        android:name="ch.epfl.sweng.project.Fragment.UsersFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_frag_details"/>
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/main_frag_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -70,7 +70,7 @@
             android:layout_below="@+id/user_description"
             android:layout_centerHorizontal="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="?attr/colorPrimary"
+            android:tint="?attr/colorPrimaryDark"
             app:srcCompat="@drawable/ic_people_black_24dp"
             />
 
@@ -98,10 +98,10 @@
             android:layout_toLeftOf="@+id/user_profile_photo"
             android:layout_toStartOf="@+id/user_profile_photo"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorPrimaryDark"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
-            android:tint="?attr/colorPrimary"
+            android:tint="?attr/colorPrimaryDark"
             app:srcCompat="@drawable/ic_star_black_24dp"/>
 
         <TextView
@@ -131,7 +131,7 @@
             android:layout_marginLeft="6dp"
             android:layout_marginStart="6dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="?attr/colorPrimary"
+            android:tint="?attr/colorPrimaryDark"
             app:srcCompat="@drawable/ic_more_horiz_black_24dp"/>
 
         <android.support.v7.widget.RecyclerView

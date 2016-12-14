@@ -123,6 +123,12 @@
     <string name="song_artist">song artist</string>
     <string name="is_listening_to_the_song">Is listening to</string>
     <string name="details_facebook_button">TextView</string>
+
+
+    <!-- TabLayout -->
+    <string name="tabMap">Map</string>
+    <string name="tabProfile">Profile</string>
+    <string name="tabUsers">People</string>`
     <string name="song_name">song name</string>
     <string name="button">Button</string>
 
