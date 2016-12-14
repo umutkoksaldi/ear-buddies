@@ -71,6 +71,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("ProfileFrag", "onCreateView()");
 
         View profile = inflater.inflate(R.layout.frag_profile, container, false);
         coverPict = (ImageView) profile.findViewById(R.id.user_profile_photo);

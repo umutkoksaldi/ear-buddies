@@ -1,9 +1,13 @@
 package ch.epfl.sweng.project.Fragment;
 
 
-import android.content.res.Resources;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +18,6 @@ import android.view.ViewGroup;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import Util.GlobalSetting;
@@ -28,46 +31,49 @@ import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
-public class UsersFragment extends Fragment {
+public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public UserListAdapter adapter;
-    private ArrayList<User> userList;
+    private ArrayList<User> userList = new ArrayList<>();
     private HashMap<User, Music> songMap = new HashMap<>();
     private User[] usersAround;
     private String[] userNames;
     private String[] userDescription;
     private String[] images;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeContainer;
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("UsersFragment", "Received intent: " + intent.getAction());
+            refreshUserList();
+        }
+    };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("UsersFragment", "onCreateView()");
 
         View view = inflater.inflate(R.layout.frag_userslist, container, false);
 
-        Resources res = getResources();
 
+        // Register the receiver to update the user list at the same time of the map
+        IntentFilter iF = new IntentFilter();
+        iF.addAction(GlobalSetting.MAP_REFRESHED);
+        Log.d("UsersFragment", "Broadcast receiver for action: " + GlobalSetting.MAP_REFRESHED);
+        getContext().registerReceiver(mReceiver, iF);
 
-        usersAround = ModelApplication.getModelApplication().getOtherUsers();
-        if (usersAround == null) {
-            Log.i("No users", "" + 0);
-            return view;
-        }
-        // Fill the user list with what the application model contains
-        userList = new ArrayList<>(Arrays.asList(usersAround));
-        for (User user : userList) {
-            sendGet(GlobalSetting.MUSIC_API, user);
-        }
-
-        userNames = new String[usersAround.length];
+        /*userNames = new String[usersAround.length];
         userDescription = new String[usersAround.length];
-        images = new String[usersAround.length];
+        images = new String[usersAround.length];*/
 
         // Get each user's name, description and profile picture
-        for (int i = 0; i < usersAround.length; i++) {
+        /*for (int i = 0; i < usersAround.length; i++) {
             images[i] = usersAround[i].getProfilePicture();
             userNames[i] = usersAround[i].getFirstname();
             userDescription[i] = usersAround[i].getLastname();
-        }
+        }*/
 
         // Find the recycler view to fill it with users
         recyclerView = (RecyclerView) view.findViewById(R.id.user_recyclerview);
@@ -81,8 +87,37 @@ public class UsersFragment extends Fragment {
         adapter = new UserListAdapter(userList, songMap, getApplicationContext());
         recyclerView.setAdapter(adapter);
 
+        // Fill the user list with what the application model contains
+        refreshUserList();
+
+        // Set up the swipe-to-refresh
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.users_swipe_container);
+        swipeContainer.setOnRefreshListener(this);
+        swipeContainer.setColorSchemeColors(getResources().getColor(R.color.primary),
+                getResources().getColor(R.color.color_accent),
+                getResources().getColor(R.color.primary_dark),
+                getResources().getColor(R.color.color_accent));
 
         return view;
+    }
+
+    private void refreshUserList() {
+        usersAround = ModelApplication.getModelApplication().getOtherUsers();
+        if (usersAround != null) {
+            // Repopulate the list with new users
+            userList.clear();
+            for (User user : usersAround) {
+                userList.add(user);
+            }
+            // We can already fill the recycler view
+            adapter.notifyDataSetChanged();
+            // Ask to the server the song of each user
+            for (User user : userList) {
+                sendGet(GlobalSetting.MUSIC_API, user);
+            }
+        } else {
+            Log.i("UsersFragments", "No users around");
+        }
     }
 
 
@@ -101,6 +136,9 @@ public class UsersFragment extends Fragment {
                     Music music = (Music) response.getBody();
                     songMap.put(user, music);
                     adapter.notifyDataSetChanged();
+                    if (swipeContainer != null) {
+                        swipeContainer.setRefreshing(false);
+                    }
                 } else {
                     // Erreur pas pu communiquer avec le serveur
                     Log.e("UserFragment", "onSuccess() != Code 200 (good answer)");
@@ -118,5 +156,10 @@ public class UsersFragment extends Fragment {
         String requestURL = GlobalSetting.URL + requestApi + user.getCurrentMusicId();
         Log.d("UserFragment", "GET Request : " + requestURL);
         serviceHandler.doGet(requestURL, Music.class);
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshUserList();
     }
 }

@@ -97,7 +97,8 @@ public final class MainActivity extends AppCompatActivity {
     private void createViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.pagerMain);
         Pager adapter = new Pager(getSupportFragmentManager(), mTabLayout.getTabCount());
-
+        // Cause an issue with users fragment refreshing
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

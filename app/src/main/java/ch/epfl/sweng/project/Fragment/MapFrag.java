@@ -2,6 +2,7 @@ package ch.epfl.sweng.project.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -84,6 +85,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     private String mLastUpdateTime;
     private Handler mHandler = new Handler();
     private Activity mActivity;
+    private boolean neverLocated = true;
     //Map
     private GoogleMap mMap;
     private SupportMapFragment sMapFragment;
@@ -297,6 +299,12 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
                             .getBody()));
                     mMap.clear();
                     showOtherUsers();
+                    // Fill the users fragment if it's the first time we get location of users
+                    if (neverLocated) {
+                        Intent intent = new Intent(GlobalSetting.MAP_REFRESHED);
+                        getContext().sendBroadcast(intent);
+                        neverLocated = false;
+                    }
                 } else {
                     onFailed();
                 }

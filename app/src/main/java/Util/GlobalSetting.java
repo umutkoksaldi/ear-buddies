@@ -1,6 +1,8 @@
 package Util;
 
 
+import ch.epfl.sweng.project.BuildConfig;
+
 @SuppressWarnings("WeakerAccess")
 public class GlobalSetting {
 
@@ -28,4 +30,7 @@ public class GlobalSetting {
 
     // Related to music history
     public static final int MUSIC_HISTORY_MAX_LENGTH = 10;
+
+    // Related to users fragment
+    public static final String MAP_REFRESHED = BuildConfig.APPLICATION_ID + ".maprefreshed";
 }
