@@ -1,5 +1,7 @@
 package ch.epfl.sweng.project.Model;
 
+import java.util.List;
+
 /**
  * Created by arnauddupeyrat on 08/11/16.
  */
@@ -10,10 +12,14 @@ public class Setting {
     private int ageMax;
     private int radius;
 
-    public Setting(int ageMin, int ageMax, int radius) {
+
+    private List<String> musicTaste;
+
+    public Setting(int ageMin, int ageMax, int radius, List<String> musicTaste) {
         this.ageMin = ageMin;
         this.ageMax = ageMax;
         this.radius = radius;
+        this.musicTaste = musicTaste;
     }
 
     public Setting() {
@@ -41,6 +47,14 @@ public class Setting {
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    public List<String> getMusicTaste() {
+        return musicTaste;
+    }
+
+    public void setMusicTaste(List<String> musicTaste) {
+        this.musicTaste = musicTaste;
     }
 
 }

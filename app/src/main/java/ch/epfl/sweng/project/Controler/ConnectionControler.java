@@ -50,7 +50,7 @@ public final class ConnectionControler {
      */
     public void changeActivity(Activity currentActivity, Class transitionClass, Map<String, String> intentExtra) {
         if (transitionClass == null && intentExtra == null) {
-            Log.w("changeActivity()", "null value parameters");
+            Log.w("openDetailsFragment()", "null value parameters");
             return;
         }
 
@@ -79,6 +79,10 @@ public final class ConnectionControler {
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
                     modelApplication.setUser((User) response.getBody());
                     if (!isTest) {
+                        //Intent intent = new Intent(currentActivity, MainActivity.class);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //getApplicationContext().startActivity(intent);
                         changeActivity(currentActivity, MainActivity.class, new HashMap<String, String>());
                     }
 

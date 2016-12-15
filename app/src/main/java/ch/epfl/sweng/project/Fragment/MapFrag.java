@@ -17,13 +17,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,6 +57,7 @@ import java.util.List;
 import java.util.Map;
 
 import Util.GlobalSetting;
+import ch.epfl.sweng.project.Controler.UserDetailsControler;
 import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
@@ -67,8 +66,7 @@ import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
 import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
 
 public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
-        LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener, View
-                .OnClickListener {
+        LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener {
 
 
     private final String LATTITUDE = "lattitude";
@@ -79,17 +77,19 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
     public View view;
     private String mTest = "/";
     private User mUser;
-    //Location
+    // Location
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private String mLastUpdateTime;
     private Handler mHandler = new Handler();
     private Activity mActivity;
     private boolean neverLocated = true;
-    //Map
+    // Map
     private GoogleMap mMap;
     private SupportMapFragment sMapFragment;
     private int ZOOM = 16;
+    //Detail fragment
+    private UserDetailsControler userDetailsControler;
 
     private Map<Long, Bitmap> mImages;
 
@@ -108,6 +108,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+        userDetailsControler = UserDetailsControler.getConnectionControler();
        // ModelApplication.getModelApplication().setTest();
         mInflater = inflater;
         mImages = new HashMap<>();
@@ -120,7 +121,7 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
         sMapFragment.getMapAsync(this);
         android.support.v4.app.FragmentManager sFm = getFragmentManager();
         if (!sMapFragment.isAdded())
-            sFm.beginTransaction().add(R.id.map, sMapFragment).commit();
+            sFm.beginTransaction().add(R.id.framelayout_map, sMapFragment).commit();
         else
             sFm.beginTransaction().show(sMapFragment).commit();
 
@@ -139,8 +140,6 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
         mHandler.post(runnable);
         view = inflater.inflate(R.layout.frag_map, container, false);
-        ImageButton im = (ImageButton) view.findViewById(R.id.updatdeOtherUsers);
-        im.setOnClickListener(this);
         return view;
     }
 
@@ -203,26 +202,10 @@ public class MapFrag extends Fragment implements OnMapReadyCallback, ConnectionC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        User showUser = allMarkersMap.get(marker);
-        DetailsFragment detailsFragment = new DetailsFragment();
-        detailsFragment.setUser(showUser);
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.map, detailsFragment)
-                .addToBackStack("mapFrag")
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .commit();
+        User selectedUser = allMarkersMap.get(marker);
+        userDetailsControler.openDetailsFragment(this, selectedUser);
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.updatdeOtherUsers:
-                sendAndGetLocations();
-                break;
-        }
-    }
 
     @Override
     public void onStop() {

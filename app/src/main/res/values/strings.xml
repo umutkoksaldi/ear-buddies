@@ -102,12 +102,14 @@
     <string name="no_user_facebook_page_found">Could not find this user on Facebook!</string>
     <string name="no_listening">Not listening any song yet...</string>
 
+    <!-- User Details Fragment -->
+    <string name="facebook">Facebook</string>
+
     <!-- Music history fragment -->
     <string name="separator"> ● </string>
     <string name="no_lastfm_page_found">Seems like this song is not on Lastfm !</string>
 
     <!-- MusicInfoService -->
-
     <string name="textviewdetails"/>
     <string name="more_info"/>
     <string name="details_textview2"/>

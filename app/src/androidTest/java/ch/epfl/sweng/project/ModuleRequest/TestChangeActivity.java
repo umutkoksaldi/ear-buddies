@@ -33,9 +33,9 @@ public class TestChangeActivity extends ActivityInstrumentationTestCase2<MainAct
 
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
+
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
     private Activity curActivity;
 
     public TestChangeActivity() {

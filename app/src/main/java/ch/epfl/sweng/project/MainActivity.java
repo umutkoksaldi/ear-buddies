@@ -1,5 +1,6 @@
 package ch.epfl.sweng.project;
 
+import android.app.FragmentManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
+import ch.epfl.sweng.project.Controler.UserDetailsControler;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
@@ -37,6 +39,7 @@ public final class MainActivity extends AppCompatActivity {
     private static final int USERS_AROUND_FRAGMENT = 0;
     private static final int MAP_FRAGMENT = 1;
     private static final int PROFILE_FRAGMENT = 2;
+    private static FragmentManager fragmentManager;
     final int DELAY_MATCH_CALL = 10000;
     final int NOTIFICATION_ID = 0;
     ModelApplication modelApplication = ModelApplication.getModelApplication();
@@ -53,6 +56,10 @@ public final class MainActivity extends AppCompatActivity {
         }
     };
 
+    public static FragmentManager getMainActivityFragmentManager() {
+        return fragmentManager;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,7 @@ public final class MainActivity extends AppCompatActivity {
         startService(musicInfo);
 
         mHandler.postDelayed(matchRequest, DELAY_MATCH_CALL);
+        fragmentManager = getFragmentManager();
     }
 
     private void createTabLayout() {
@@ -152,23 +160,38 @@ public final class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
         if (mViewPager.getCurrentItem() == USERS_AROUND_FRAGMENT) {
-            mViewPager.setCurrentItem(MAP_FRAGMENT);
+            if (userDetailsControler.isOpenFromUserList()) {
+                // Check if we are on a user details fragment
+                super.onBackPressed();
+                userDetailsControler.setOpenFromUserList(false);
+            } else {
+                // Go from the people fragment to the map fragment
+                mViewPager.setCurrentItem(MAP_FRAGMENT);
+            }
+
         }
-        // TODO implement back stack animation for user music history
         else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
             mViewPager.setCurrentItem(MAP_FRAGMENT);
         } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
-            // Leave the app properly without going back to the welcome activity
-            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-            homeIntent.addCategory(Intent.CATEGORY_HOME);
-            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(homeIntent);
+
+
+            if (userDetailsControler.isOpenFromMap()) {
+                // Check if we are on a user details fragment
+                super.onBackPressed();
+                userDetailsControler.setOpenFromMap(false);
+            } else {
+                // Leave the app properly without going back to the welcome activity
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory(Intent.CATEGORY_HOME);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+            }
         } else {
             super.onBackPressed();
         }
     }
-
 
     private void matchSearch() {
         User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();

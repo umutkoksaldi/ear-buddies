@@ -152,6 +152,7 @@
             android:layout_marginTop="60dp"
             android:padding="3dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/com_facebook_profile_picture_blank_square"
             app:civ_border_color="#FFFFFFFF"
             app:civ_border_width="4dp"/>
 

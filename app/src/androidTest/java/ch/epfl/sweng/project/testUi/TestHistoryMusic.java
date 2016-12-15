@@ -90,13 +90,16 @@ public class TestHistoryMusic {
                     RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id
                             .single_row_music_history)));
 
-            Thread.sleep(1000);
+            Thread.sleep(2000);
 
+
+            // If you run the only this test test, please remove the comment in oder to close the CustomTabsIntent.
             // CustomTabsIntent need to be close, because Espresso does not see the activity.
             // FLAG_ACTIVITY_CLEAR_TOP --> https://developer.android.com/reference/android/content/Intent.html
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+/*            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            mActivityRule.getActivity().startActivity(intent);
+            mActivityRule.getActivity().startActivity(intent);*/
 
         } catch (Exception e) {
             Log.e("testHistoryFragment", e.getMessage());
