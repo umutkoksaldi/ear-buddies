@@ -82,8 +82,6 @@ public class TestUI {
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
         onView(withId(R.id.pagerMain)).perform(swipeDown());
-
-
     }
 
     /*@Test
