@@ -59,7 +59,9 @@ public class DetailsFragment extends Fragment {
         userSongControler = UserSongControler.getUserSongControler();
 
         coverPicture = (ImageView) view.findViewById(R.id.details_cover);
-        new DownloadImageTask(coverPicture).execute(user.getBackgroundPicture());
+        if (user != null) {
+            new DownloadImageTask(coverPicture).execute(user.getBackgroundPicture());
+
 
 
         music = new Music();
@@ -101,6 +103,7 @@ public class DetailsFragment extends Fragment {
         }
 
         facebookClicked(view);
+        }
         return view;
     }
     public User detailsGetUser (){
