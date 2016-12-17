@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 import Util.GlobalSetting;
 import ch.epfl.sweng.project.Controler.ConnectionControler;
+import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
-import ch.epfl.sweng.project.utils.GlobalTestSettings;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -54,8 +54,6 @@ public class TestConnectionUser {
             User userTest = modelApplication.getUser();
             assertEquals("age should be equals", AGE_USER, userTest.getAge());
             assertEquals("first name should be equals", FIRSTNAME_USER, userTest.getFirstname());
-            //assertEquals("last name should be equals", LASTNAME_USER, userTest.getLastname());
-            // TODO check the all parameters.
 
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
