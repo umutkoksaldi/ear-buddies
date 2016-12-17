@@ -100,7 +100,7 @@ public final class MusicHistory {
 
         // the interface is already initiate above
         String requestURL = GlobalSetting.URL + requestApi + modelApplication.getUser().getIdApiConnection();
-        Log.d("MusicInfoService", "GET Request : " + requestURL);
+        Log.d("MusicHistory", "GET Request : " + requestURL);
         serviceHandler.doGet(requestURL, Music[].class);
     }
 

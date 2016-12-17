@@ -22,6 +22,7 @@ import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.createMockUser;
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -54,19 +55,21 @@ public class TestMusicInfoService {
     public void init() {
         context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 "TestMusicInfoService");
-        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
-                .MOCK_ID_FACEBOOK,
-                GlobalSetting.USER_API, true);
-    }
-
-    @Test
-    public void testWithStartedService() {
         try {
             mServiceRule.startService(
                     new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
         } catch (TimeoutException e) {
             Log.e("TestMusicInfoService", e.toString());
         }
+       /* controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
+                .MOCK_ID_FACEBOOK,
+                GlobalSetting.USER_API, true);*/
+        createMockUser();
+    }
+
+    @Test
+    public void testWithStartedService() {
+
 
         // Inform the service that a new song will be played
         Intent trackIntent = new Intent("com.android.music.metachanged");
