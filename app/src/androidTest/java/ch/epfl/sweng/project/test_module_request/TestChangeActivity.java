@@ -17,12 +17,12 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.ConnectionControler;
+import ch.epfl.sweng.project.controlers.ConnectionControler;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 import ch.epfl.sweng.project.view.activity.LoginActivity;
 import ch.epfl.sweng.project.view.activity.MainActivity;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.User;
 
 import static android.support.test.internal.util.Checks.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;

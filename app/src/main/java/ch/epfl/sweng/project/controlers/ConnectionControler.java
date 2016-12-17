@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.controler;
+package ch.epfl.sweng.project.controlers;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import java.util.Map;
 
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.view.activity.MainActivity;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;

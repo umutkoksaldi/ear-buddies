@@ -12,9 +12,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ch.epfl.sweng.project.controler.UserDetailsControler;
-import ch.epfl.sweng.project.model.Music;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.controlers.UserDetailsControler;
+import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.view.fragment.UsersFragment;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;

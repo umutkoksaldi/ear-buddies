@@ -17,7 +17,7 @@ import java.util.List;
 
 import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
 import ch.epfl.sweng.project.view.activity.MainActivity;
-import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 

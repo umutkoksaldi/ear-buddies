@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
-import ch.epfl.sweng.project.model.Music;
+import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.view.adapter_view.MusicListAdapter;
 import ch.epfl.sweng.project.view.fragment.ProfileFragment;
 

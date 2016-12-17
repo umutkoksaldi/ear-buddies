@@ -1,10 +1,10 @@
-package ch.epfl.sweng.project.controler;
+package ch.epfl.sweng.project.controlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ch.epfl.sweng.project.model.Music;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.models.User;
 
 /**
  * Created by Antoine Merino on 14/12/2016.

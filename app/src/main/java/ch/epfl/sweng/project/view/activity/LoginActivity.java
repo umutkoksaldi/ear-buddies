@@ -31,9 +31,9 @@ import java.util.List;
 
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.ConnectionControler;
+import ch.epfl.sweng.project.controlers.ConnectionControler;
 import ch.epfl.sweng.project.view.fragment.PresentationAppFragment;
-import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.models.ModelApplication;
 
 public class LoginActivity extends AppCompatActivity {
 

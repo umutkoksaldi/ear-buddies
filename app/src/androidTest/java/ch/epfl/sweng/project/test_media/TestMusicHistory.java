@@ -15,11 +15,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
+import ch.epfl.sweng.project.medias.MusicHistory;
+import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.ConnectionControler;
+import ch.epfl.sweng.project.controlers.ConnectionControler;
 import ch.epfl.sweng.project.view.adapter_view.MusicListAdapter;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.Music;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 
 import static junit.framework.Assert.assertEquals;
@@ -50,7 +52,7 @@ public class TestMusicHistory {
     public static void playSongIntent(Context context, String artist, String song) {
         try {
             mServiceRule.startService(
-                    new Intent(InstrumentationRegistry.getTargetContext(), ch.epfl.sweng.project.test_media.MusicInfoService.class));
+                    new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
         } catch (TimeoutException e) {
             Log.e("TestMusicHistory", e.toString());
         }

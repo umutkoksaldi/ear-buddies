@@ -18,10 +18,10 @@ import android.view.ViewGroup;
 import org.springframework.http.ResponseEntity;
 
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.UserSongControler;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.Music;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.controlers.UserSongControler;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;

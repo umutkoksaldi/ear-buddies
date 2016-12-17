@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.model;
+package ch.epfl.sweng.project.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

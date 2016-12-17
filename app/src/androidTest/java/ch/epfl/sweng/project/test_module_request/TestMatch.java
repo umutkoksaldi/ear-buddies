@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 import ch.epfl.sweng.project.view.activity.MainActivity;
-import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.models.ModelApplication;
 
 /**
  * Created by Etienne on 09.12.2016.

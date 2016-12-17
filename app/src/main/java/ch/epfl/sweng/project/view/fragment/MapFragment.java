@@ -57,10 +57,10 @@ import java.util.List;
 import java.util.Map;
 
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.UserDetailsControler;
-import ch.epfl.sweng.project.model.Location;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.controlers.UserDetailsControler;
+import ch.epfl.sweng.project.models.Location;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;

@@ -10,10 +10,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.ConnectionControler;
+import ch.epfl.sweng.project.controlers.ConnectionControler;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.User;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;

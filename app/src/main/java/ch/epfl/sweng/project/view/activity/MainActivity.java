@@ -25,11 +25,11 @@ import com.facebook.FacebookSdk;
 
 import ch.epfl.sweng.project.view.util_view.Pager;
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.controler.UserDetailsControler;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.Music;
-import ch.epfl.sweng.project.model.User;
-import ch.epfl.sweng.project.test_media.MusicInfoService;
+import ch.epfl.sweng.project.controlers.UserDetailsControler;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.models.User;
+import ch.epfl.sweng.project.medias.MusicInfoService;
 
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_MAP;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;

@@ -34,12 +34,12 @@ import java.util.Map;
 
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.view.activity.LoginActivity;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.Music;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
-import ch.epfl.sweng.project.test_media.MusicHistory;
+import ch.epfl.sweng.project.medias.MusicHistory;
 import ch.epfl.sweng.project.view.adapter_view.MusicListAdapter;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 

@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.controler;
+package ch.epfl.sweng.project.controlers;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import ch.epfl.sweng.project.view.fragment.DetailsFragment;
 import ch.epfl.sweng.project.view.fragment.MapFragment;
 import ch.epfl.sweng.project.view.fragment.UsersFragment;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.R;
 
 /**

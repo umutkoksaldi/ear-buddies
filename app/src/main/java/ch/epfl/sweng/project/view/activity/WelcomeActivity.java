@@ -13,8 +13,8 @@ import java.util.HashMap;
 
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.ConnectionControler;
-import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.controlers.ConnectionControler;
+import ch.epfl.sweng.project.models.ModelApplication;
 
 
 /**

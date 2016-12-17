@@ -3,9 +3,9 @@ package ch.epfl.sweng.project.util_constant;
 import java.util.Arrays;
 import java.util.List;
 
-import ch.epfl.sweng.project.model.Location;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.Location;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.User;
 
 /**
  * Created by Antoine Merino on 10/11/2016.
@@ -55,7 +55,7 @@ public class GlobalTestSettings {
 
     public static void createMockUser() {
         User mUser = new User();
-        mUser.setLocation(new ch.epfl.sweng.project.model.Location(0, 0));
+        mUser.setLocation(new ch.epfl.sweng.project.models.Location(0, 0));
         mUser.setAge(MOCK_USER_AGE);
         mUser.setBackgroundPicture(MOCK_USER_COVER_PICTURE);
         mUser.setProfilePicture(MOCK_USER_PROFILE_PICTURE);

@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import ch.epfl.sweng.project.controler.UserSongControler;
-import ch.epfl.sweng.project.model.Music;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.controlers.UserSongControler;
+import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.view.web_view.CustomTabActivityHelper;
 import ch.epfl.sweng.project.view.web_view.WebviewFallback;

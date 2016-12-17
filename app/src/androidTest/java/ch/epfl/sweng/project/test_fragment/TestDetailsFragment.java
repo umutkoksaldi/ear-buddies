@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.view.fragment.DetailsFragment;
 import ch.epfl.sweng.project.view.fragment.MapFragment;
 

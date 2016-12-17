@@ -15,11 +15,12 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeoutException;
 
+import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.controler.ConnectionControler;
+import ch.epfl.sweng.project.controlers.ConnectionControler;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.Music;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Music;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -61,7 +62,7 @@ public class TestMusicInfoServiceSpotify {
     public void testWithStartedService() {
         try {
             mServiceRule.startService(
-                    new Intent(InstrumentationRegistry.getTargetContext(), ch.epfl.sweng.project.test_media.MusicInfoService.class));
+                    new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
         } catch (TimeoutException e) {
             Log.e("TestMusicInfoService", e.toString());
         }

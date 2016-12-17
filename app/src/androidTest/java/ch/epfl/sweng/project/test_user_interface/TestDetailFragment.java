@@ -19,8 +19,8 @@ import java.util.List;
 
 
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.User;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.util_matcher.RecyclerViewInteraction;
 import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
 import ch.epfl.sweng.project.view.activity.MainActivity;

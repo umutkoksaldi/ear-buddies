@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ch.epfl.sweng.project.view.activity.MainActivity;
-import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
 import ch.epfl.sweng.project.R;
 

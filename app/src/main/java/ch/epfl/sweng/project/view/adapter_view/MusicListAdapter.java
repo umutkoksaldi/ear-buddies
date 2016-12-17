@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ch.epfl.sweng.project.model.Music;
+import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.view.web_view.CustomTabActivityHelper;
 import ch.epfl.sweng.project.view.web_view.WebviewFallback;

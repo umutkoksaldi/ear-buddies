@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.test_media;
+package ch.epfl.sweng.project.medias;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.model.ModelApplication;
-import ch.epfl.sweng.project.model.Music;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;

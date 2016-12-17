@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.model;
+package ch.epfl.sweng.project.models;
 
 
 @SuppressWarnings("unused")
