@@ -9,6 +9,10 @@ import ch.epfl.sweng.project.Fragment.MapFrag;
 import ch.epfl.sweng.project.Fragment.ProfileFrag;
 import ch.epfl.sweng.project.Fragment.UsersFragment;
 
+import static Util.GlobalSetting.FRAGMENT_MAP;
+import static Util.GlobalSetting.FRAGMENT_PROFILE;
+import static Util.GlobalSetting.FRAGMENT_USERS;
+
 class Pager extends FragmentStatePagerAdapter{
 
     private final int mTabCount;
@@ -23,11 +27,11 @@ class Pager extends FragmentStatePagerAdapter{
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
+            case FRAGMENT_USERS:
                 return usersFragment;
-            case 1:
+            case FRAGMENT_MAP:
                 return new MapFrag();
-            case 2:
+            case FRAGMENT_PROFILE:
                 return profileFrag;
             default:
                 return null;

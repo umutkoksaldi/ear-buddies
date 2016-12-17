@@ -6,6 +6,11 @@ import ch.epfl.sweng.project.BuildConfig;
 @SuppressWarnings("WeakerAccess")
 public class GlobalSetting {
 
+    // ID of the fragments used by the Pager
+    public static final int FRAGMENT_USERS = 0;
+    public static final int FRAGMENT_MAP = 1;
+    public static final int FRAGMENT_PROFILE = 2;
+
     // Size of the cache containing the requests result, in bytes (used for downloading images)
     public static final int HTTP_SIZE_CACHE = 10 * 1024 * 1024; // 10 MB
     // this one for reaching the server on heroku
