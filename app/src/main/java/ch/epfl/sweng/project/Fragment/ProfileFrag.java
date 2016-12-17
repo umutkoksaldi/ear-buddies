@@ -148,6 +148,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
         musicHistory.updateFromServer(adapter, swipeContainer);
     }
 
+
     @Override
     public void onClick(View v) {
         if (v.equals(menuButton)) {

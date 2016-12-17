@@ -54,9 +54,5 @@ public class DetailsFragmentTest  {
         assertEquals(user.getProfilePicture(), userDetails.getProfilePicture());
     }
 
-    @Test
-    public void ClickOnButtonFacebook(){
-        // TODO
-    }
 
 }

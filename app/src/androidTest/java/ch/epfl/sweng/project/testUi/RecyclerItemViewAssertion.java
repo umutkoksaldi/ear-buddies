@@ -7,13 +7,13 @@ import android.support.test.espresso.util.HumanReadables;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class RecyclerItemViewAssertion<A> implements ViewAssertion {
+class RecyclerItemViewAssertion<A> implements ViewAssertion {
 
     private int position;
     private A item;
     private RecyclerViewInteraction.ItemViewAssertion<A> itemViewAssertion;
 
-    public RecyclerItemViewAssertion(int position, A item, RecyclerViewInteraction.ItemViewAssertion<A> itemViewAssertion) {
+    RecyclerItemViewAssertion(int position, A item, RecyclerViewInteraction.ItemViewAssertion<A> itemViewAssertion) {
         this.position = position;
         this.item = item;
         this.itemViewAssertion = itemViewAssertion;

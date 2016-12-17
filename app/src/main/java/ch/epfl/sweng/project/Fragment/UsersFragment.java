@@ -154,6 +154,10 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         serviceHandler.doGet(requestURL, Music.class);
     }
 
+    public SwipeRefreshLayout getSwipeContainer(){
+        return swipeContainer;
+    }
+
     @Override
     public void onRefresh() {
         Log.d("UsersFragment", "Swipe to refresh");
