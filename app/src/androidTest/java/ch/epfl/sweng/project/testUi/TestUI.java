@@ -89,6 +89,9 @@ public class TestUI {
         // Then press back to go back to the map
         pressBack();
         assertThat(FRAGMENT_MAP, is(viewPager.getCurrentItem()));
+
+        // Press back again, it should leave the app
+        pressBack();
     }
 
     @Test
