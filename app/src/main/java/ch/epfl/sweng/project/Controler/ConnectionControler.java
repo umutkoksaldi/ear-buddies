@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.Controler;
+package ch.epfl.sweng.project.controler;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,13 +12,13 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-import Util.GlobalSetting;
-import ch.epfl.sweng.project.MainActivity;
-import ch.epfl.sweng.project.Model.ModelApplication;
-import ch.epfl.sweng.project.Model.User;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.view.activity.MainActivity;
+import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.model.User;
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
-import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
+import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
+import ch.epfl.sweng.project.server_request.ServiceHandler;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 

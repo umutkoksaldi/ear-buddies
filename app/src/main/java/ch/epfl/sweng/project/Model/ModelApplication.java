@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.Model;
+package ch.epfl.sweng.project.model;
 
 
 import com.google.android.gms.maps.model.MarkerOptions;

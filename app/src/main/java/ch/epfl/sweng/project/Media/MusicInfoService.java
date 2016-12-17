@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.media;
+package ch.epfl.sweng.project.test_media;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -16,12 +16,12 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-import Util.GlobalSetting;
-import ch.epfl.sweng.project.Model.ModelApplication;
-import ch.epfl.sweng.project.Model.Music;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.model.Music;
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
-import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
+import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
+import ch.epfl.sweng.project.server_request.ServiceHandler;
 
 // Some code has been taken from this website :
 // http://www.codeproject.com/Articles/992398/Getting-Current-Playing-Song-with-BroadcastReceive

@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.Model;
+package ch.epfl.sweng.project.model;
 
 /**
  * Created by Antoine Merino on 28/10/2016.

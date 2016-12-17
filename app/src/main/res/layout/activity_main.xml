@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ch.epfl.sweng.project.MainActivity">
+    tools:context=".view.activity.MainActivity">
 
     <!-- TabLayout to see the current page-->
 

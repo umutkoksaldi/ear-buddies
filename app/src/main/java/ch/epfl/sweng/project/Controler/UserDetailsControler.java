@@ -1,12 +1,12 @@
-package ch.epfl.sweng.project.Controler;
+package ch.epfl.sweng.project.controler;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import ch.epfl.sweng.project.Fragment.DetailsFragment;
-import ch.epfl.sweng.project.Fragment.MapFrag;
-import ch.epfl.sweng.project.Fragment.UsersFragment;
-import ch.epfl.sweng.project.Model.User;
+import ch.epfl.sweng.project.view.fragment.DetailsFragment;
+import ch.epfl.sweng.project.view.fragment.MapFragment;
+import ch.epfl.sweng.project.view.fragment.UsersFragment;
+import ch.epfl.sweng.project.model.User;
 import ch.epfl.sweng.project.R;
 
 /**
@@ -48,7 +48,7 @@ public final class UserDetailsControler {
 
     public void openDetailsFragment(Fragment fragment, User user) {
         int layout_id;
-        if (fragment instanceof MapFrag) {
+        if (fragment instanceof MapFragment) {
             setOpenFromMap(true);
             layout_id = R.id.framelayout_map;
         } else if (fragment instanceof UsersFragment) {

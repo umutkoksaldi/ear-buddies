@@ -1,4 +1,4 @@
-package ch.epfl.sweng.project.media;
+package ch.epfl.sweng.project.test_media;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +8,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 
-import Util.GlobalSetting;
-import ch.epfl.sweng.project.Model.ModelApplication;
-import ch.epfl.sweng.project.Model.Music;
-import ch.epfl.sweng.project.ServerRequest.OnServerRequestComplete;
-import ch.epfl.sweng.project.ServerRequest.ServiceHandler;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.model.ModelApplication;
+import ch.epfl.sweng.project.model.Music;
+import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
+import ch.epfl.sweng.project.server_request.ServiceHandler;
 
 /**
  * Created by Antoine Merino on 18/11/2016.
