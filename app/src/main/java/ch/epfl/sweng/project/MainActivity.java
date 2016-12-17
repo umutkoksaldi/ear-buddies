@@ -29,6 +29,9 @@ import ch.epfl.sweng.project.Model.Music;
 import ch.epfl.sweng.project.Model.User;
 import ch.epfl.sweng.project.media.MusicInfoService;
 
+import static Util.GlobalSetting.FRAGMENT_MAP;
+import static Util.GlobalSetting.FRAGMENT_PROFILE;
+import static Util.GlobalSetting.FRAGMENT_USERS;
 import static android.content.Intent.CATEGORY_APP_MUSIC;
 
 //import ch.epfl.sweng.project.media.MusicInfoService;
@@ -36,9 +39,6 @@ import static android.content.Intent.CATEGORY_APP_MUSIC;
 
 public final class MainActivity extends AppCompatActivity {
 
-    private static final int USERS_AROUND_FRAGMENT = 0;
-    private static final int MAP_FRAGMENT = 1;
-    private static final int PROFILE_FRAGMENT = 2;
     private static FragmentManager fragmentManager;
     final int DELAY_MATCH_CALL = 10000;
     final int NOTIFICATION_ID = 0;
@@ -161,20 +161,19 @@ public final class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
-        if (mViewPager.getCurrentItem() == USERS_AROUND_FRAGMENT) {
+        if (mViewPager.getCurrentItem() == FRAGMENT_USERS) {
             if (userDetailsControler.isOpenFromUserList()) {
                 // Check if we are on a user details fragment
                 super.onBackPressed();
                 userDetailsControler.setOpenFromUserList(false);
             } else {
                 // Go from the people fragment to the map fragment
-                mViewPager.setCurrentItem(MAP_FRAGMENT);
+                mViewPager.setCurrentItem(FRAGMENT_MAP);
             }
 
-        }
-        else if (mViewPager.getCurrentItem() == PROFILE_FRAGMENT) {
-            mViewPager.setCurrentItem(MAP_FRAGMENT);
-        } else if (mViewPager.getCurrentItem() == MAP_FRAGMENT) {
+        } else if (mViewPager.getCurrentItem() == FRAGMENT_PROFILE) {
+            mViewPager.setCurrentItem(FRAGMENT_MAP);
+        } else if (mViewPager.getCurrentItem() == FRAGMENT_MAP) {
 
 
             if (userDetailsControler.isOpenFromMap()) {

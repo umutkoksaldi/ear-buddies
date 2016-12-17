@@ -48,20 +48,22 @@ public class TestUI {
 
     @Test
     public void testCanClickFromMapToBlank() {
+        ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
         Matcher<View> matcher = allOf(withText(USERS_TAB),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
+        assertThat(FRAGMENT_USERS, is(viewPager.getCurrentItem()));
+
     }
 
     @Test
     public void testCanClickFromMapToProfile() {
+        ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
         Matcher<View> matcher = allOf(withText(PROFILE_TAB),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
-        ViewPager viewPager =(ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
         viewPager.getCurrentItem();
         assertThat(FRAGMENT_PROFILE, is(viewPager.getCurrentItem()));
-        assertThat(FRAGMENT_MAP, is(viewPager.getCurrentItem()));
 
     }
 
