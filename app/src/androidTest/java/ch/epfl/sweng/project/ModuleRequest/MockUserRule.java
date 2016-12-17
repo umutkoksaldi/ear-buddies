@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.facebook.FacebookSdk;
 
+import java.util.Arrays;
+import java.util.List;
+
 import ch.epfl.sweng.project.MainActivity;
 import ch.epfl.sweng.project.utils.GlobalTestSettings;
 import ch.epfl.sweng.project.Model.Location;
@@ -22,6 +25,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class MockUserRule<A extends Activity> extends ActivityTestRule<A> {
 
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+    public static List<String> NAME_USER = Arrays.asList("Name Test 1","Name Test 2","Name Test 3",
+            "Name Test 4","Name Test 5");
 
     public MockUserRule(Class<A> activityClass) {
         super(activityClass);
@@ -38,6 +43,7 @@ public class MockUserRule<A extends Activity> extends ActivityTestRule<A> {
         User userTest = modelApplication.getUser();
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
+
     }
 
     @Override

@@ -1,5 +1,9 @@
 package ch.epfl.sweng.project.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
+import ch.epfl.sweng.project.Model.Location;
 import ch.epfl.sweng.project.Model.ModelApplication;
 import ch.epfl.sweng.project.Model.User;
 
@@ -30,15 +34,21 @@ public class GlobalTestSettings {
     public static final int MOCK_USER_AGE = 22;
     public static final String MOCK_USER_FIRST_NAME = "Sweng";
     public static final String MOCK_USER_LAST_NAME = "Rocks";
+
     // Sample song to test
     public static final String ARTIST_NAME_REQUEST = "rihana";
     public static final String MUSIC_NAME_REQUEST = "rude boy";
+    public static final int ID_MUSIC = 1;
+
     // This is what the server should answer
     public static final String ARTIST_NAME_RESPONSE = "Rihanna";
     public static final String MUSIC_NAME_RESPONSE = "Rude Boy";
     public static String USERS_TAB = "People";
     public static String PROFILE_TAB = "Profile";
     public static String MAP_TAB = "Map";
+
+    public static List<String> NAME_USER = Arrays.asList("Name Test 1","Name Test 2","Name Test 3",
+            "Name Test 4","Name Test 5");
 
     // ************************************************************************************************************************************************
 
@@ -53,6 +63,28 @@ public class GlobalTestSettings {
         mUser.setLastname(MOCK_USER_LAST_NAME);
         mUser.setIdApiConnection(Long.parseLong(GlobalTestSettings.MOCK_ID_FACEBOOK));
         ModelApplication.getModelApplication().setUser(mUser);
+    }
+
+    public static void createMockUsers() {
+
+        Location location = new Location(40,32);
+        User[] users = new User[NAME_USER.size()];
+        for (int i = 0; i < NAME_USER.size() ; i++ ){
+            User mUser = new User();
+            mUser.setLocation(location);
+            mUser.setFirstname(NAME_USER.get(i));
+            mUser.setAge(MOCK_USER_AGE);
+            mUser.setCurrentMusicId(ID_MUSIC);
+            mUser.setBackgroundPicture(MOCK_USER_COVER_PICTURE);
+            mUser.setProfilePicture(MOCK_USER_PROFILE_PICTURE);
+            mUser.setEmail(MOCK_USER_EMAIL);
+            mUser.setLastname(MOCK_USER_LAST_NAME);
+            mUser.setIdApiConnection(Long.parseLong(GlobalTestSettings.MOCK_ID_FACEBOOK));
+            users[i] = mUser;
+        }
+
+        ModelApplication.getModelApplication().setOtherUsers(users);
+
     }
 }
 

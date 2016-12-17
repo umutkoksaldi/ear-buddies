@@ -64,7 +64,6 @@ public class TestHistoryMusic {
 
             Thread.sleep(1000);
 
-
             onView(withId(R.id.music_history_recyclerview))
                     .check(matches(hasDescendant(withText(ARTIST))));
 

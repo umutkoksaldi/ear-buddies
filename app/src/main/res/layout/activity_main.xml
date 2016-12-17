@@ -55,15 +55,4 @@
         android:layout_height="match_parent" />
 
 
-    <fragment
-        android:id="@+id/main_frag_users"
-        android:name="ch.epfl.sweng.project.Fragment.UsersFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <FrameLayout
-        android:id="@+id/main_frag_details"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
 </LinearLayout>

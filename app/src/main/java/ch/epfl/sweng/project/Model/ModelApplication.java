@@ -14,6 +14,7 @@ public final class ModelApplication {
     private User[] mOtherUsers;
     private String mTest = "/";
     private List<MarkerOptions> markerOpt;
+    boolean testingApp;
 
     private ModelApplication() {}
 
@@ -47,7 +48,9 @@ public final class ModelApplication {
     }
 
     public void setOtherUsers(User[] users){
-        mOtherUsers = users;
+        if(!testingApp){
+            mOtherUsers = users;
+        }
     }
 
     public void setTest(){
@@ -64,5 +67,9 @@ public final class ModelApplication {
 
     public void setMarkerOpt(List<MarkerOptions> aMarkerOption) {
         markerOpt = new ArrayList<>(aMarkerOption);
+    }
+
+    public void setTestingApp(boolean testing) {
+        this.testingApp = testing;
     }
 }

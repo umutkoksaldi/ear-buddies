@@ -13,7 +13,6 @@ class Pager extends FragmentStatePagerAdapter{
 
     private final int mTabCount;
     private UsersFragment usersFragment = new UsersFragment();
-    private MapFrag mapFrag = new MapFrag();
     private ProfileFrag profileFrag = new ProfileFrag();
 
     public Pager(FragmentManager fm, int tabCount){
@@ -27,7 +26,7 @@ class Pager extends FragmentStatePagerAdapter{
             case 0:
                 return usersFragment;
             case 1:
-                return mapFrag;
+                return new MapFrag();
             case 2:
                 return profileFrag;
             default:
