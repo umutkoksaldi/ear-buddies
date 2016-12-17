@@ -1,10 +1,12 @@
 package ch.epfl.sweng.project.testUi;
 
+import android.support.test.espresso.NoActivityResumedException;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import org.hamcrest.Matcher;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,7 +93,11 @@ public class TestUI {
         assertThat(FRAGMENT_MAP, is(viewPager.getCurrentItem()));
 
         // Press back again, it should leave the app
-        pressBack();
+        try {
+            pressBack();
+        } catch (NoActivityResumedException e) {
+            Assert.assertThat(e.getMessage().startsWith("Pressed back and killed the app"), is(true));
+        }
     }
 
     @Test
