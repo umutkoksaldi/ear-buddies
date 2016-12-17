@@ -26,6 +26,7 @@ import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -35,6 +36,7 @@ import static ch.epfl.sweng.project.utils.GlobalTestSettings.PROFILE_TAB;
 import static ch.epfl.sweng.project.utils.GlobalTestSettings.USERS_TAB;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Created by Etienne on 28.10.2016.
@@ -101,6 +103,36 @@ public class TestUI {
     }
 
     @Test
+    public void testMusicPlayerButton() {
+        ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
+        // Click on "play music" button
+        onView(withId(R.id.launchMusicPlayer)).perform(click());
+        boolean playerInstalled = false;
+        boolean noPlayerInstalled = false;
+        try {
+            // If a music app is not installed on the phone, it should display an error toast that we test below
+            // If the music player is installed, it will throw an exception and we'll test the behavior accordingly.
+            onView(withText(R.string.no_music_player_installed)).inRoot(withDecorView(not(is(mActivityRule
+                    .getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+            noPlayerInstalled = true;
+        } catch (NoActivityResumedException e) {
+            if (e.getMessage().startsWith("No activities in stage RESUMED")) {
+                // Music player is very likely to be in the foreground,
+                // so we can't interact with our app anymore.
+                // Press back to go back to the app
+                // and check if we're still in main activity
+                playerInstalled = true;
+            }
+        }
+        boolean testSuccessful = false;
+        // Either one music player is installed, or it is not. But we must have only one of the conditions
+        if (playerInstalled != noPlayerInstalled) {
+            testSuccessful = true;
+        }
+        assertThat(testSuccessful, is(true));
+    }
+
+    @Test
     public void testCanSwipeOnMap() {
         ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
         onView(withId(R.id.pagerMain)).perform(swipeRight());
@@ -116,7 +148,7 @@ public class TestUI {
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
         onView(withId(R.id.pagerMain)).perform(swipeDown());
-        assertThat(2, is(viewPager.getCurrentItem()));
+        assertThat(FRAGMENT_PROFILE, is(viewPager.getCurrentItem()));
     }
 
     @Test
