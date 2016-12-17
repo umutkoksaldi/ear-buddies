@@ -77,7 +77,6 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
         profilePicture = (ImageView) profile.findViewById(R.id.user_profile_photo);
         new DownloadImageTask(profilePicture).execute(modelApplication.getUser().getProfilePicture());
         name = (TextView) profile.findViewById(R.id.user_profile_name);
-        //TODO Get name from the database
         name.setText(modelApplication.getUser().getFirstname());
         coverPicture = (ImageView) profile.findViewById(R.id.header_cover_image);
         new DownloadImageTask(coverPicture).execute(modelApplication.getUser().getBackgroundPicture());
@@ -255,7 +254,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
         builder.setTitle(R.string.enter_name);
 
         final EditText input = new EditText(getActivity());
-
+        input.setText("Choose your name");
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         builder.setView(input);
 
@@ -290,7 +289,7 @@ public class ProfileFrag extends Fragment implements View.OnClickListener, Popup
         builder.setTitle(R.string.description_message);
 
         final EditText input = new EditText(getActivity());
-
+        input.setText("Choose your description");
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         builder.setView(input);
 

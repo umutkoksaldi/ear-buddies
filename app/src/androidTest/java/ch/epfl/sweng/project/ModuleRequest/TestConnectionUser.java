@@ -54,8 +54,6 @@ public class TestConnectionUser {
             User userTest = modelApplication.getUser();
             assertEquals("age should be equals", AGE_USER, userTest.getAge());
             assertEquals("first name should be equals", FIRSTNAME_USER, userTest.getFirstname());
-            assertEquals("last name should be equals", LASTNAME_USER, userTest.getLastname());
-            // TODO check the all parameters.
 
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
