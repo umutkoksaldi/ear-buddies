@@ -31,11 +31,11 @@ public class MusicInfoService extends Service {
     public static final String ARTIST_NAME = "artistName";
     public static final String MUSIC_NAME = "musicName";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+    // Binder given to clients
+    private final IBinder mBinder = new LocalBinder();
     private String artist = "";
     private String track = "";
     private Music music;
-    // Binder given to clients
-    private final IBinder mBinder = new LocalBinder();
     // For standard music players
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -51,7 +51,7 @@ public class MusicInfoService extends Service {
             boolean playing = intent.getBooleanExtra("playing", false);
 
 
-            if (playing) {
+            if (playing && newArtist != null && newTrack != null) {
                 if (artist.equals(newArtist) && track.equals(newTrack)) {
                     // It happens when you pause and play the same song. We don't want to send several times the
                     // same song info.
@@ -79,19 +79,8 @@ public class MusicInfoService extends Service {
     @Override
     public void onCreate() {
         Log.i("MusicInfoService", "Service started");
-        IntentFilter iF = new IntentFilter();
-        iF.addAction("com.android.music.musicservicecommand");
-        iF.addAction("com.android.music.metachanged");
-        iF.addAction("com.android.music.playstatechanged");
-        iF.addAction("com.android.music.updateprogress");
-
-        // intents specific to Spotify behavior
-        // More doc about Spotify implementation : https://developer.spotify
-        // .com/technologies/spotify-android-sdk/android-media-notifications
-        iF.addAction("com.spotify.music.metadatachanged");
-        iF.addAction("com.spotify.music.playbackstatechanged");
-
-        registerReceiver(mReceiver, iF);
+        getLastMusicListened();
+        registerMusicIntentReceiver();
 
         AudioManager manager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         if (!manager.isMusicActive()) {
@@ -99,6 +88,7 @@ public class MusicInfoService extends Service {
         }
 
     }
+
 
     @Override
     public void onDestroy() {
@@ -132,7 +122,7 @@ public class MusicInfoService extends Service {
                     Log.d("MusicInfoService", "new track in modelApplication : " + modelApplication.getMusic()
                             .getArtist() + " - " + modelApplication.getMusic().getName());
                 } else {
-                    // Erreur pas pu communiquer avec le serveur
+                    // Error, couldn't communicate with the server
                     Toast.makeText(getApplicationContext(), getString(R.string.server_error_music_info), Toast
                             .LENGTH_SHORT).show();
                     Log.e("MusicInfoService", "onSuccess() != Code 200 (good answer)");
@@ -164,6 +154,75 @@ public class MusicInfoService extends Service {
         return "pong";
     }
 
+    private void registerMusicIntentReceiver() {
+        IntentFilter iF = new IntentFilter();
+        // Some filters found on this page:
+        // http://stackoverflow.com/questions/34389404/android-get-current-song-playing-and-song-changed-events-like
+        // -musixmatch
+        // Stock music player, Google play music, VLC...
+        iF.addAction("com.android.music.metachanged");
+        iF.addAction("com.android.music.playstatechanged");
+        iF.addAction("com.android.music.playbackcomplete");
+        iF.addAction("com.android.music.queuechanged");
+
+        // MIUI music player
+        iF.addAction("com.miui.player.metachanged");
+
+        // HTC music player
+        iF.addAction("com.htc.music.metachanged");
+
+        // WinAmp
+        iF.addAction("com.nullsoft.winamp.metachanged");
+
+        // MyTouch4G
+        iF.addAction("com.real.IMP.metachanged");
+
+        // Spotify
+        // More doc about Spotify implementation : https://developer.spotify
+        // .com/technologies/spotify-android-sdk/android-media-notifications
+        iF.addAction("com.spotify.music.metadatachanged");
+
+        registerReceiver(mReceiver, iF);
+    }
+
+    private void getLastMusicListened() {
+        long songId = ModelApplication.getModelApplication()
+                .getUser().getCurrentMusicId();
+        Log.d("MusicInfoService", "asking last music listened by the user (Id: " + songId + ")");
+        ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
+
+            @Override
+            public void onSucess(ResponseEntity response) {
+                // Remember what was the last song played by this user to avoid duplicate
+                if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
+
+                    Music music = (Music) response.getBody();
+                    if (music.getArtist() != null && music.getName() != null) {
+                        artist = music.getArtist();
+                        track = music.getName();
+                        Log.d("MusicInfoService", "fetched last music listened: " + artist + " - " + track);
+                    }
+
+
+                } else {
+                    // Error, couldn't communicate with the serveur
+                    Log.e("UsersFragment", "onSuccess() != Code 200 (good answer)");
+                }
+            }
+
+            @Override
+            public void onFailed() {
+                Log.e("UsersFragment", "onFailed() : could not retreive the info from the server about the song");
+            }
+        });
+
+
+        // the interface is already initiate above
+        String requestURL = GlobalSetting.URL + GlobalSetting.MUSIC_API + songId;
+        Log.d("UsersFragment", "GET Request : " + requestURL);
+        serviceHandler.doGet(requestURL, Music.class);
+    }
+
     public class LocalBinder extends Binder {
 
         public MusicInfoService getService() {
@@ -171,5 +230,4 @@ public class MusicInfoService extends Service {
             return MusicInfoService.this;
         }
     }
-
 }
