@@ -244,7 +244,7 @@ public final class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_star_black_24dp)
+                        .setSmallIcon(R.drawable.ic_whatshot_black_24dp)
                         .setContentTitle(match.getFirstname()+" is listening to the same music!")
                         .setContentText("Tap to learn more.")
                         .setAutoCancel(true);

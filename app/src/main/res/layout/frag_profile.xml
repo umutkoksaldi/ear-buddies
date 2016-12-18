@@ -102,7 +102,7 @@
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:tint="?attr/colorPrimaryDark"
-            app:srcCompat="@drawable/ic_star_black_24dp"/>
+            app:srcCompat="@drawable/ic_music_circle_black_24dp"/>
 
         <TextView
             android:id="@+id/tv_profile_menu"
