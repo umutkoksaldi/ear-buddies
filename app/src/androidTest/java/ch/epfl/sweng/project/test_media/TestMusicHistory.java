@@ -170,7 +170,7 @@ public class TestMusicHistory {
     }
 
     @Test
-    public void playingSong() {
+    public void playingSong() { 
         try {
             playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
             Thread.sleep(10000);

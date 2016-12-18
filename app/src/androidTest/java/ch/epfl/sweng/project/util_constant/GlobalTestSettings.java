@@ -18,6 +18,11 @@ public class GlobalTestSettings {
     // Main activity
 
     // ************************************************************************************************************************************************
+    // Dialog buttons
+    public static final int BUTTON_OK = android.R.id.button1;
+    public static final int BUTTON_CANCEL = android.R.id.button2;
+
+
     // Mock Users Data
     public static final String MOCK_ID_FACEBOOK = "121620614972695";
     public static final String MOCK_ACCESS_TOKEN_FACEBOOK =
@@ -34,6 +39,7 @@ public class GlobalTestSettings {
     public static final int MOCK_USER_AGE = 22;
     public static final String MOCK_USER_FIRST_NAME = "Sweng";
     public static final String MOCK_USER_LAST_NAME = "Rocks";
+    public static final String MOCK_USER_DESCRIPTION = "Swaggy Swaggy SwEng";
 
 
     // Sample song to test

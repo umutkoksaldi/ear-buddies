@@ -3,11 +3,11 @@ package ch.epfl.sweng.project.controlers;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.models.User;
 import ch.epfl.sweng.project.view.fragment.DetailsFragment;
 import ch.epfl.sweng.project.view.fragment.MapFragment;
 import ch.epfl.sweng.project.view.fragment.UsersFragment;
-import ch.epfl.sweng.project.models.User;
-import ch.epfl.sweng.project.R;
 
 /**
  * Created by adupeyrat on 14/12/2016.
@@ -23,30 +23,30 @@ public final class UserDetailsControler {
     private UserDetailsControler() {
     }
 
-    public static UserDetailsControler getConnectionControler() {
+    public static synchronized UserDetailsControler getConnectionControler() {
         if (userDetailsControler == null) {
             userDetailsControler = new UserDetailsControler();
         }
         return userDetailsControler;
     }
 
-    public boolean isOpenFromUserList() {
+    public synchronized boolean isOpenFromUserList() {
         return openFromUserList;
     }
 
-    public void setOpenFromUserList(boolean openFromUserList) {
+    public synchronized void setOpenFromUserList(boolean openFromUserList) {
         this.openFromUserList = openFromUserList;
     }
 
-    public boolean isOpenFromMap() {
+    public synchronized boolean isOpenFromMap() {
         return openFromMap;
     }
 
-    public void setOpenFromMap(boolean openFromMap) {
+    public synchronized void setOpenFromMap(boolean openFromMap) {
         this.openFromMap = openFromMap;
     }
 
-    public void openDetailsFragment(Fragment fragment, User user) {
+    public synchronized void openDetailsFragment(Fragment fragment, User user) {
         int layout_id;
         if (fragment instanceof MapFragment) {
             setOpenFromMap(true);
@@ -66,7 +66,6 @@ public final class UserDetailsControler {
                 .addToBackStack("")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .commit();
-
 
     }
 

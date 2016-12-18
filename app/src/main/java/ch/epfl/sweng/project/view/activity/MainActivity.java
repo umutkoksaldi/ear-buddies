@@ -23,18 +23,18 @@ import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
-import ch.epfl.sweng.project.view.util_view.Pager;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.controlers.UserDetailsControler;
+import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.models.User;
-import ch.epfl.sweng.project.medias.MusicInfoService;
+import ch.epfl.sweng.project.view.util_view.Pager;
 
+import static android.content.Intent.CATEGORY_APP_MUSIC;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_MAP;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_USERS;
-import static android.content.Intent.CATEGORY_APP_MUSIC;
 
 //import ch.epfl.sweng.project.media.MusicInfoService;
 
@@ -57,6 +57,7 @@ public final class MainActivity extends AppCompatActivity {
             mHandler.postDelayed(this, DELAY_MATCH_CALL);
         }
     };
+    private UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
 
     public static FragmentManager getMainActivityFragmentManager() {
         return fragmentManager;
@@ -110,7 +111,21 @@ public final class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                int pos = tab.getPosition();
+                if (FRAGMENT_USERS == pos) {
+                    // Leave the detail fragment if it had been opened
+                    if (UserDetailsControler.getConnectionControler().isOpenFromUserList()) {
+                        getSupportFragmentManager().popBackStackImmediate();
+                        userDetailsControler.setOpenFromUserList(false);
+                    }
+                }
+                if (FRAGMENT_MAP == pos) {
+                    // Leave the detail fragment if it had been opened
+                    if (UserDetailsControler.getConnectionControler().isOpenFromMap()) {
+                        getSupportFragmentManager().popBackStackImmediate();
+                        userDetailsControler.setOpenFromMap(false);
+                    }
+                }
             }
 
             @Override
@@ -163,6 +178,7 @@ public final class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
+
         if (mViewPager.getCurrentItem() == FRAGMENT_USERS) {
             if (userDetailsControler.isOpenFromUserList()) {
                 // Check if we are on a user details fragment
@@ -176,8 +192,6 @@ public final class MainActivity extends AppCompatActivity {
         } else if (mViewPager.getCurrentItem() == FRAGMENT_PROFILE) {
             mViewPager.setCurrentItem(FRAGMENT_MAP);
         } else if (mViewPager.getCurrentItem() == FRAGMENT_MAP) {
-
-
             if (userDetailsControler.isOpenFromMap()) {
                 // Check if we are on a user details fragment
                 super.onBackPressed();
