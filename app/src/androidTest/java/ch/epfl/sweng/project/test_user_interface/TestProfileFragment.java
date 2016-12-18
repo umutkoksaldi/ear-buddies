@@ -1,11 +1,9 @@
 package ch.epfl.sweng.project.test_user_interface;
 
-import android.support.test.espresso.Espresso;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 import org.junit.Rule;
@@ -21,6 +19,7 @@ import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
 import ch.epfl.sweng.project.view.activity.MainActivity;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -31,6 +30,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_CANCEL;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_OK;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_DESCRIPTION;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_FIRST_NAME;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
 import static java.lang.Thread.sleep;
@@ -65,6 +67,7 @@ public class TestProfileFragment {
 
     @Test
     public void testEditName() {
+        // Go to profile fragment
         ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
         Matcher<View> matcher = allOf(withText(PROFILE_TAB),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
@@ -79,7 +82,7 @@ public class TestProfileFragment {
         onView(withText(modelApplication.getUser().getFirstname()))
                 .check(matches(isDisplayed()))
                 .perform(replaceText(USER_NAME));
-        onView(withId(android.R.id.button1))
+        onView(withId(BUTTON_OK))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(USER_NAME))
@@ -91,7 +94,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_edit_name))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withId(android.R.id.button2))
+        onView(withId(BUTTON_CANCEL))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -104,10 +107,70 @@ public class TestProfileFragment {
         onView(withText(modelApplication.getUser().getFirstname()))
                 .check(matches(isDisplayed()))
                 .perform(replaceText(MOCK_USER_FIRST_NAME));
-        onView(withId(android.R.id.button1))
+        onView(withId(BUTTON_OK))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(MOCK_USER_FIRST_NAME))
+                .check(matches(isDisplayed()));
+
+        assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
+
+    }
+
+    @Test
+    public void testEditDescription() {
+        // Go to profile fragment
+        ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
+        Matcher<View> matcher = allOf(withText(PROFILE_TAB),
+                isDescendantOfA(withId(R.id.tabLayoutMain)));
+        onView(matcher).perform(click());
+
+        // Go to change description menu but cancel action
+        onView(withId(R.id.button_profile_menu))
+                .perform(click());
+        onView(withText(R.string.menu_edit_description))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withId(BUTTON_CANCEL))
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+
+        // Go again in description and do the action
+        onView(withId(R.id.button_profile_menu))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withText(R.string.menu_edit_description))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        String currentDescription;
+        if (modelApplication.getUser().getDescription() != null) {
+            currentDescription = modelApplication.getUser().getDescription();
+        } else {
+            currentDescription = getInstrumentation().getTargetContext().getResources().getString(R.string
+                    .default_description);
+        }
+        onView(withText(currentDescription))
+                .perform(replaceText(USER_DESCRIPTION));
+        onView(withId(BUTTON_OK))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withText(USER_DESCRIPTION))
+                .check(matches(isDisplayed()));
+
+        // Change the description back to the first one
+        onView(withId(R.id.button_profile_menu))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withText(R.string.menu_edit_description))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withText(USER_DESCRIPTION))
+                .perform(replaceText(MOCK_USER_DESCRIPTION));
+        onView(withId(BUTTON_OK))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withText(MOCK_USER_DESCRIPTION))
                 .check(matches(isDisplayed()));
 
         assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
@@ -122,80 +185,39 @@ public class TestProfileFragment {
         onView(matcher).perform(click());
         onView(withId(R.id.button_profile_menu))
                 .perform(click());
-        onView(withText("Delete account"))
+        onView(withText(R.string.menu_delete_account))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText("Cancel"))
+        onView(withId(BUTTON_CANCEL))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        assertThat(viewPager.getCurrentItem(), is(2));
+        assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
 
     }
 
-    @Test
-    public void testEditDescription() {
-        ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
-        Matcher<View> matcher = allOf(withText(PROFILE_TAB),
-                isDescendantOfA(withId(R.id.tabLayoutMain)));
-        TextView name = (TextView) viewPager.findViewById(R.id.menu_edit_description);
-        onView(matcher).perform(click());
-        onView(withId(R.id.button_profile_menu))
-                .perform(click());
-
-        onView(withText("Edit description"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-        onView(withText("Cancel"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-        onView(withId(R.id.button_profile_menu))
-                .check(matches(isDisplayed()))
-                .perform(click());
-
-        onView(withText("Edit description"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-        onView(withText("Choose your description"))
-                .perform(replaceText(USER_DESCRIPTION));
-        onView(withText("OK"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-
-        onView(withText(USER_DESCRIPTION))
-                .check(matches(isDisplayed()));
-
-        assertThat(viewPager.getCurrentItem(), is(2));
-
-    }
 
     @Test
     public void testLogout() {
+        // Go to profile
         ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
         Matcher<View> matcher = allOf(withText(PROFILE_TAB),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
         onView(matcher).perform(click());
+
+        // Go to logout menu but cancel the action
         onView(withId(R.id.button_profile_menu))
                 .perform(click());
-        onView(withText("Logout"))
+        onView(withText(R.string.menu_logout))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText("Cancel"))
+        onView(withId(BUTTON_CANCEL))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
-        assertThat(viewPager.getCurrentItem(), is(2));
+        assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
 
     }
-
-
-    @Test
-    public void testBackButtonOnEveryClickedButton() {
-        ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
-        Matcher<View> matcher = allOf(withText(PROFILE_TAB),
-                isDescendantOfA(withId(R.id.tabLayoutMain)));
-        onView(matcher).perform(click());
-        Espresso.pressBack();
-    }
+    
 
     @Test
     public void clickOnMusicTasteSlection() {

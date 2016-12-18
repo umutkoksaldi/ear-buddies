@@ -291,7 +291,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         builder.setTitle(R.string.description_message);
 
         final EditText input = new EditText(getActivity());
-        input.setText("Choose your description");
+        String description;
+        if (modelApplication.getUser().getDescription() != null) {
+            description = modelApplication.getUser().getDescription();
+        } else {
+            description = getString(R.string.default_description);
+        }
+        input.setText(description);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         builder.setView(input);
 
@@ -305,7 +311,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
                 serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
                         modelApplication.getUser().getIdApiConnection());
-                description.setText(input.getText().toString());
+                ProfileFragment.this.description.setText(input.getText().toString());
             }
         });
         builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener
