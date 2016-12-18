@@ -1,7 +1,10 @@
 package ch.epfl.sweng.project.test_user_interface;
 
+import android.app.Activity;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -11,12 +14,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
+import ch.epfl.sweng.project.view.activity.LoginActivity;
 import ch.epfl.sweng.project.view.activity.MainActivity;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
@@ -29,6 +34,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.internal.util.Checks.checkNotNull;
+import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_CANCEL;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_OK;
@@ -36,6 +43,7 @@ import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_D
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_FIRST_NAME;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
 import static java.lang.Thread.sleep;
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
@@ -52,6 +60,7 @@ public class TestProfileFragment {
     @Rule
     public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
     public GlobalTestSettings globalTestSettings;
+    private Activity curActivity;
 
     @Test
     public void testClickTheDistanceButton() {
@@ -216,8 +225,20 @@ public class TestProfileFragment {
 
         assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
 
+        // Go to the menu again and validate the logout action
+        onView(withId(R.id.button_profile_menu))
+                .perform(click());
+        onView(withText(R.string.menu_logout))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withId(BUTTON_OK))
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        // The user should be redirected to the login activity
+        assertCurrentActivityIsInstanceOf(LoginActivity.class);
     }
-    
+
 
     @Test
     public void clickOnMusicTasteSlection() {
@@ -256,6 +277,33 @@ public class TestProfileFragment {
         }
 
     }
+
+    public void assertCurrentActivityIsInstanceOf(Class<? extends AppCompatActivity> activityClass) {
+        Activity currentActivity = getActivityInstance();
+        checkNotNull(currentActivity);
+        checkNotNull(activityClass);
+        assertTrue(currentActivity.getClass().isAssignableFrom(activityClass));
+    }
+
+    public Activity getActivityInstance() {
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            public void run() {
+                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage
+                        (RESUMED);
+                if (resumedActivities.iterator().hasNext()) {
+                    setCurrentActivity((Activity) resumedActivities.iterator().next());
+                }
+            }
+        });
+
+        return curActivity;
+    }
+
+    private void setCurrentActivity(Activity activity) {
+        curActivity = activity;
+    }
+
 }
 
 
