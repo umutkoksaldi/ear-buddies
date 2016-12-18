@@ -30,8 +30,8 @@
             tools:replace="android:theme"/>
 
         <!-- _____________________________________________ other activities   ___________________________________ -->
-        <!-- Login Activity -->
-        <activity android:name=".WelcomeActivity">
+        <!-- LoginActivity Activity -->
+        <activity android:name=".view.activity.WelcomeActivity">
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             <intent-filter>
@@ -47,7 +47,7 @@
 
         <!-- First activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.MainActivity"
             android:launchMode='singleTask'
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
@@ -55,7 +55,7 @@
         </activity>
 
         <!-- Second activity -->
-        <activity android:name=".Login">
+        <activity android:name=".view.activity.LoginActivity">
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
         </activity>
@@ -67,7 +67,7 @@
         </activity>
 
         <!-- Webview activity-->
-        <activity android:name=".WebviewActivity">
+        <activity android:name=".view.activity.WebviewActivity">
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
         </activity>
@@ -84,7 +84,7 @@
 
         <!-- Service used to get information about the currently playing music -->
         <service
-            android:name=".media.MusicInfoService"
+            android:name=".medias.MusicInfoService"
             android:enabled="true"/>
 
     </application>
