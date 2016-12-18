@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.core.deps.guava.base.Predicate;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ServiceTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
 import android.util.Log;
 
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,9 +26,13 @@ import ch.epfl.sweng.project.controlers.ConnectionControler;
 import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 
+import static android.support.test.espresso.core.deps.guava.base.Predicates.not;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MAX_ITERATION_BIND;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.createMockUser;
 import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Created by Antoine Merino on 28/10/2016.
@@ -43,8 +51,8 @@ public class TestMusicInfoService {
     private static final String TAG_TEST = "pop";
 
 
-    @Rule
-    public final ServiceTestRule mServiceRule = new ServiceTestRule();
+    @ClassRule
+    public static ServiceTestRule mServiceRule = new ServiceTestRule();
     // Workaround for service creation. See https://code.google.com/p/android/issues/detail?id=180396
     private static final int MAX_ITERATION = 100;
     //----------------------------------------------------------------
@@ -54,13 +62,13 @@ public class TestMusicInfoService {
     //----------------------------------------------------------------
     // Test
     private boolean testChecked = false;
-    private Context context;
-    private IBinder binder;
-    private MusicInfoService service = null;
+    private static Context context;
+    private static IBinder binder;
+    private static MusicInfoService service = null;
 
-    @Before
-    public void init() throws TimeoutException {
-        context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
+    @BeforeClass
+    public static void  init() throws TimeoutException {
+         context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 "TestMusicInfoService");
         if (service == null) {
             Log.d("TestMusicInfoService", "init: null service");
@@ -72,8 +80,15 @@ public class TestMusicInfoService {
         Intent serviceIntent =
                 new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class);
 
+
         // Bind the service and grab a reference to the binder.
-        binder = mServiceRule.bindService(serviceIntent);
+        // it is a known bugs https://code.google.com/p/android/issues/detail?id=180396
+        int it = 0;
+        while(binder == null && it < MAX_ITERATION_BIND){
+            binder = mServiceRule.bindService(serviceIntent);
+            it++;
+        }
+        //binder = mServiceRule.bindService(serviceIntent);
 
         // Get the reference to the service, or you can call public methods on the binder directly.
         // If the binder is null, it means that the service hasn't been bound, in our case it's because
@@ -106,6 +121,8 @@ public class TestMusicInfoService {
         assertEquals(service.ping(), "pong");
     }
 
+
+
     @Test
     public void playingSong() throws TimeoutException {
         assertEquals(service.ping(), "pong");
@@ -117,7 +134,7 @@ public class TestMusicInfoService {
         Log.d("TestMusicInfoService", "mock music playing: " + ARTIST_NAME_REQUEST + " - " + MUSIC_NAME_REQUEST);
         context.sendBroadcast(trackIntent);
         try {
-            Thread.sleep(10000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             Log.e("TestMusicInfoService", e.toString());
         }

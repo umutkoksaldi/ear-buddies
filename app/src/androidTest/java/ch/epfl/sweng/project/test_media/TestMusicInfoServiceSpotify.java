@@ -21,6 +21,7 @@ import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MAX_ITERATION_BIND;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.createMockUser;
 import static junit.framework.Assert.assertEquals;
 
@@ -60,7 +61,12 @@ public class TestMusicInfoServiceSpotify {
                 new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class);
 
         // Bind the service and grab a reference to the binder.
-        binder = mServiceRule.bindService(serviceIntent);
+        // it is a known bugs https://code.google.com/p/android/issues/detail?id=180396
+        int it = 0;
+        while(binder == null && it < MAX_ITERATION_BIND){
+            binder = mServiceRule.bindService(serviceIntent);
+            it++;
+        }
 
         // Get the reference to the service, or you can call public methods on the binder directly.
         // If the binder is null, it means that the service hasn't been bound, in our case it's because

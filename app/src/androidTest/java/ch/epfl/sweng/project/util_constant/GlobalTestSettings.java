@@ -35,6 +35,7 @@ public class GlobalTestSettings {
     public static final String MOCK_USER_FIRST_NAME = "Sweng";
     public static final String MOCK_USER_LAST_NAME = "Rocks";
 
+
     // Sample song to test
     public static final String ARTIST_NAME_REQUEST = "rihana";
     public static final String MUSIC_NAME_REQUEST = "rude boy";
@@ -51,6 +52,7 @@ public class GlobalTestSettings {
     public static List<String> NAME_USER = Arrays.asList("Name Test 1","Name Test 2","Name Test 3",
             "Name Test 4","Name Test 5");
 
+    public static int MAX_ITERATION_BIND = 100;
     // ************************************************************************************************************************************************
 
     public static void createMockUser() {
