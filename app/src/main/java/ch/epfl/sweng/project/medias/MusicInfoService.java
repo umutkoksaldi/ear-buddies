@@ -165,22 +165,63 @@ public class MusicInfoService extends Service {
         iF.addAction("com.android.music.playbackcomplete");
         iF.addAction("com.android.music.queuechanged");
 
-        // MIUI music player
-        iF.addAction("com.miui.player.metachanged");
+        // AIMP
+        iF.addAction("com.aimp.player.metachanged");
+
+        // Amazon Music
+        iF.addAction("com.amazon.mp3.metachanged");
+
+        // Apollo music player
+        iF.addAction("com.andrew.apollo.metachanged");
 
         // HTC music player
         iF.addAction("com.htc.music.metachanged");
 
-        // WinAmp
-        iF.addAction("com.nullsoft.winamp.metachanged");
+        // MIUI music player
+        iF.addAction("com.miui.player.metachanged");
 
         // MyTouch4G
         iF.addAction("com.real.IMP.metachanged");
+
+        // Napster (Rhapsody Music Player)
+        iF.addAction("com.rhapsody.playstatechanged");
+
+        // Pandora radio (Rdio)
+        iF.addAction("com.rdio.android.metachanged");
+        iF.addAction("com.rdio.android.playstatechanged");
+
+        //PowerAmp
+        iF.addAction("com.maxmpz.audioplayer.playstatechanged");
+
+        //Samsung Music Player
+        iF.addAction("com.samsung.sec.android.MusicPlayer.playstatechanged");
+        iF.addAction("com.samsung.sec.android.MusicPlayer.playbackcomplete");
+        iF.addAction("com.samsung.sec.android.MusicPlayer.metachanged");
+        iF.addAction("com.sec.android.app.music.playstatechanged");
+        iF.addAction("com.sec.android.app.music.playbackcomplete");
+        iF.addAction("com.sec.android.app.music.metachanged");
+
+        // Sony Ericsson Music Player (Sony Walkman, Sony Music...)
+        iF.addAction("com.sonyericsson.music.metachanged");
 
         // Spotify
         // More doc about Spotify implementation : https://developer.spotify
         // .com/technologies/spotify-android-sdk/android-media-notifications
         iF.addAction("com.spotify.music.metadatachanged");
+
+        // WinAmp
+        iF.addAction("com.nullsoft.winamp.metachanged");
+
+        //will be added any....
+        //scrobblers detect for players (poweramp for example)
+        //Last.fm
+        iF.addAction("fm.last.android.metachanged");
+        iF.addAction("fm.last.android.playbackpaused");
+        iF.addAction("fm.last.android.playbackcomplete");
+        //A simple last.fm scrobbler
+        iF.addAction("com.adam.aslfms.notify.playstatechanged");
+        //Scrobble Droid
+        iF.addAction("net.jjc1138.android.scrobbler.action.MUSIC_STATUS");
 
         registerReceiver(mReceiver, iF);
     }
