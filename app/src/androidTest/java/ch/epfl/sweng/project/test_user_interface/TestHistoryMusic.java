@@ -24,12 +24,16 @@ import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.ARTIST_NAME_REQUEST;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.USERS_TAB;
 import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.allOf;
 
@@ -39,8 +43,9 @@ import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class TestHistoryMusic {
- 
-    public static String ARTIST = "Rihanna";
+
+
+    private static final String ARTIST_NAME = "Rihanna";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     @Rule
     public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
@@ -52,21 +57,26 @@ public class TestHistoryMusic {
         try {
 
             // Play a song that we know it's on Lastfm
-            TestMusicHistory.playSongIntent(mActivityRule.getActivity().getApplicationContext(), GlobalTestSettings
-                    .ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
+            TestMusicHistory.playSongIntent(mActivityRule.getActivity().getApplicationContext(),
+                    ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
 
             Matcher<View> matcher = allOf(withText(PROFILE_TAB),
                     isDescendantOfA(withId(R.id.tabLayoutMain)));
             onView(matcher).perform(click());
 
-            Thread.sleep(1000);
+            Thread.sleep(3000);
+
+            // swipe down to refresh the music history of the user.
+            onView(withId(R.id.profile_swipe_container)).perform(swipeDown());
+
+            Thread.sleep(3000);
 
             onView(withId(R.id.music_history_recyclerview))
-                    .check(matches(hasDescendant(withText(ARTIST))));
+                    .check(matches(hasDescendant(withText(ARTIST_NAME))));
 
             // check if the list contain Rihanna elements.
             Music music = new Music();
-            music.setArtist(ARTIST);
+            music.setArtist(ARTIST_NAME);
             List<Music> items = new ArrayList<>();
             items.add(music);
             RecyclerViewInteraction.<Music>onRecyclerView(withId(R.id.music_history_recyclerview))
