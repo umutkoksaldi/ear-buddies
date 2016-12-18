@@ -8,10 +8,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ch.epfl.sweng.project.view.activity.LoginActivity;
-import ch.epfl.sweng.project.view.fragment.PresentationAppFragment;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.util_rule.MockUserRule;
+import ch.epfl.sweng.project.view.activity.LoginActivity;
+import ch.epfl.sweng.project.view.fragment.PresentationAppFragment;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -20,7 +20,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
-public class TestConnexionFragment {
+public class TestConnectionFragment {
 
     @Rule
     public MockUserRule<LoginActivity> mActivityRule = new MockUserRule<>(LoginActivity.class);
@@ -79,6 +79,6 @@ public class TestConnexionFragment {
             assertFalse(true);
         }
     }
-
+ 
 
 }
