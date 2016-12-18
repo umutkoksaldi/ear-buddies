@@ -84,7 +84,7 @@
 
         <!-- Service used to get information about the currently playing music -->
         <service
-            android:name=".test_media.MusicInfoService"
+            android:name=".medias.MusicInfoService"
             android:enabled="true"/>
 
     </application>

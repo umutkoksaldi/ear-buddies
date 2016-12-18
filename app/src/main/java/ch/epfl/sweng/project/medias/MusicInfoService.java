@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,12 +16,13 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.BuildConfig;
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
 
 // Some code has been taken from this website :
 // http://www.codeproject.com/Articles/992398/Getting-Current-Playing-Song-with-BroadcastReceive
@@ -30,17 +31,22 @@ public class MusicInfoService extends Service {
     public static final String ARTIST_NAME = "artistName";
     public static final String MUSIC_NAME = "musicName";
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
-    private boolean mIsBound = false;
     private String artist = "";
     private String track = "";
     private Music music;
+    // Binder given to clients
+    private final IBinder mBinder = new LocalBinder();
     // For standard music players
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+
             String newTrack = intent.getStringExtra("track");
             String newArtist = intent.getStringExtra("artist");
-            Log.v("MusicInfoService", "mReceiver.onReceive : " + newArtist + " - " + newTrack);
+            if (BuildConfig.DEBUG) {
+                Log.d("MusicInfoService", intent.toString());
+                Log.v("MusicInfoService", intent.getExtras().toString());
+            }
 
             boolean playing = intent.getBooleanExtra("playing", false);
 
@@ -94,11 +100,21 @@ public class MusicInfoService extends Service {
 
     }
 
+    @Override
+    public void onDestroy() {
+        try {
+            if (mReceiver != null)
+                unregisterReceiver(mReceiver);
+        } catch (Exception e) {
 
-    @Nullable
+        }
+        super.onDestroy();
+    }
+
+
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return mBinder;
     }
 
     private void sendPost(String artistName, String trackName, @SuppressWarnings("SameParameterValue") String
@@ -142,6 +158,18 @@ public class MusicInfoService extends Service {
         String requestURL = GlobalSetting.URL + requestApi + modelApplication.getUser().getIdApiConnection();
         Log.d("MusicInfoService", "POST Request : " + requestURL);
         serviceHandler.doPost(params, requestURL, Music.class);
+    }
+
+    public String ping() {
+        return "pong";
+    }
+
+    public class LocalBinder extends Binder {
+
+        public MusicInfoService getService() {
+            // Return this instance of LocalService so clients can call public methods.
+            return MusicInfoService.this;
+        }
     }
 
 }

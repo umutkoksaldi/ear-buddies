@@ -2,6 +2,7 @@ package ch.epfl.sweng.project.test_media;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.IBinder;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ServiceTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -15,13 +16,12 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeoutException;
 
-import ch.epfl.sweng.project.medias.MusicInfoService;
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.controlers.ConnectionControler;
-import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
+import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.createMockUser;
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -46,26 +46,33 @@ public class TestMusicInfoServiceSpotify {
     private final ConnectionControler controlerConnection = ConnectionControler.getConnectionControler();
     //----------------------------------------------------------------
     // Test
-    private boolean testChecked = false;
     private Context context;
+    private IBinder binder;
+    private MusicInfoService service;
 
     @Before
-    public void init() {
+    public void init() throws TimeoutException {
         context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 "TestMusicInfoService");
-        controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
-                        .MOCK_ID_FACEBOOK,
-                GlobalSetting.USER_API, true);
+
+        // Create the service Intent.
+        Intent serviceIntent =
+                new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class);
+
+        // Bind the service and grab a reference to the binder.
+        binder = mServiceRule.bindService(serviceIntent);
+
+        // Get the reference to the service, or you can call public methods on the binder directly.
+        // If the binder is null, it means that the service hasn't been bound, in our case it's because
+        // it's bound one time for the first test, then it doesn't need to be bound again for the next ones.
+        if (binder != null) {
+            service = ((MusicInfoService.LocalBinder) binder).getService();
+        }
+        createMockUser();
     }
 
     @Test
-    public void testWithStartedService() {
-        try {
-            mServiceRule.startService(
-                    new Intent(InstrumentationRegistry.getTargetContext(), MusicInfoService.class));
-        } catch (TimeoutException e) {
-            Log.e("TestMusicInfoService", e.toString());
-        }
+    public void playingSong() {
 
         // Inform the service that a new song will be played
         Intent spotifyTrackIntent = new Intent("com.spotify.music.metadatachanged");
@@ -74,7 +81,7 @@ public class TestMusicInfoServiceSpotify {
         spotifyTrackIntent.putExtra("playing", true);
         context.sendBroadcast(spotifyTrackIntent);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             Log.e("TestMusicInfoService", e.toString());
         }
