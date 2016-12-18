@@ -32,14 +32,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.view.activity.LoginActivity;
+import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.medias.MusicHistory;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
-import ch.epfl.sweng.project.medias.MusicHistory;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.view.activity.LoginActivity;
 import ch.epfl.sweng.project.view.adapter_view.MusicListAdapter;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 
@@ -156,7 +156,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             showMoreMenu(v);
         } else if (v.equals(tastePicker)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.pick_taste)
+            builder.setTitle(R.string.choose_your_music_taste)
                     .setItems(R.array.music_taste_array, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which) {
@@ -256,7 +256,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         builder.setTitle(R.string.enter_name);
 
         final EditText input = new EditText(getActivity());
-        input.setText("Choose your name");
+        input.setText(modelApplication.getUser().getFirstname());
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         builder.setView(input);
 

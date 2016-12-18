@@ -43,7 +43,7 @@
     <string name="launch_facebook_connection">Launch Facebook connection</string>
 
     <!-- Profile Page -->
-    <string name="pick_taste">Choose your music taste:</string>
+    <string name="choose_your_music_taste">Choose your music taste:</string>
     <string name="rock">Rock</string>
     <string name="metal">Metal</string>
     <string name="pop">Pop</string>

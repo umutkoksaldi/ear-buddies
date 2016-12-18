@@ -31,6 +31,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_FIRST_NAME;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
 import static java.lang.Thread.sleep;
 import static junit.framework.Assert.fail;
@@ -67,50 +68,49 @@ public class TestProfileFragment {
         ViewPager viewPager = (ViewPager) mActivityRule.getActivity().findViewById(R.id.pagerMain);
         Matcher<View> matcher = allOf(withText(PROFILE_TAB),
                 isDescendantOfA(withId(R.id.tabLayoutMain)));
-        TextView name = (TextView) viewPager.findViewById(R.id.menu_edit_name);
         onView(matcher).perform(click());
+
+        // Change name to USER_NAME and check if it's changed
         onView(withId(R.id.button_profile_menu))
                 .perform(click());
-
-
-        onView(withText("Edit name"))
+        onView(withText(R.string.menu_edit_name))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText("Choose your name"))
+        onView(withText(modelApplication.getUser().getFirstname()))
                 .check(matches(isDisplayed()))
                 .perform(replaceText(USER_NAME));
-        onView(withText("OK"))
+        onView(withId(android.R.id.button1))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withId(R.id.button_profile_menu))
-                .perform(click());
-
-
-        onView(withText("Edit name"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-        onView(withText("Cancel"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-
-        onView(withId(R.id.button_profile_menu))
-                .perform(click());
-        onView(withText("Edit name"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-        onView(withText("Choose your name"))
-                .check(matches(isDisplayed()))
-                .perform(replaceText("Sweng"));
-        onView(withText("OK"))
-                .check(matches(isDisplayed()))
-                .perform(click());
-
-
-        onView(withText("Sweng"))
+        onView(withText(USER_NAME))
                 .check(matches(isDisplayed()));
 
+        // Go to the menu again but cancel action
+        onView(withId(R.id.button_profile_menu))
+                .perform(click());
+        onView(withText(R.string.menu_edit_name))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withId(android.R.id.button2))
+                .check(matches(isDisplayed()))
+                .perform(click());
 
-        assertThat(viewPager.getCurrentItem(), is(2));
+        // Change back to the previous name and check if it's been changed
+        onView(withId(R.id.button_profile_menu))
+                .perform(click());
+        onView(withText(R.string.menu_edit_name))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withText(modelApplication.getUser().getFirstname()))
+                .check(matches(isDisplayed()))
+                .perform(replaceText(MOCK_USER_FIRST_NAME));
+        onView(withId(android.R.id.button1))
+                .check(matches(isDisplayed()))
+                .perform(click());
+        onView(withText(MOCK_USER_FIRST_NAME))
+                .check(matches(isDisplayed()));
+
+        assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
 
     }
 
