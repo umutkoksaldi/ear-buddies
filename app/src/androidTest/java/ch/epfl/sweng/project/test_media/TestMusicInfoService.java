@@ -4,19 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.core.deps.guava.base.Predicate;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ServiceTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
 import android.util.Log;
 
-import org.hamcrest.Matcher;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,13 +21,10 @@ import ch.epfl.sweng.project.controlers.ConnectionControler;
 import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
-import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 
-import static android.support.test.espresso.core.deps.guava.base.Predicates.not;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MAX_ITERATION_BIND;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.createMockUser;
 import static junit.framework.Assert.assertEquals;
-import static org.hamcrest.Matchers.is;
 
 /**
  * Created by Antoine Merino on 28/10/2016.
@@ -49,12 +41,13 @@ public class TestMusicInfoService {
     private static final String MUSIC_NAME_TEST = "Umbrella";
     private static final String URL_TEST = "https://www.last.fm/music/Rihanna/_/Umbrella";
     private static final String TAG_TEST = "pop";
-
-
-    @ClassRule
-    public static ServiceTestRule mServiceRule = new ServiceTestRule();
     // Workaround for service creation. See https://code.google.com/p/android/issues/detail?id=180396
     private static final int MAX_ITERATION = 100;
+    @ClassRule
+    public static ServiceTestRule mServiceRule = new ServiceTestRule();
+    private static Context context;
+    private static IBinder binder;
+    private static MusicInfoService service = null;
     //----------------------------------------------------------------
     // Define constant
     private ModelApplication modelApplication;
@@ -62,9 +55,6 @@ public class TestMusicInfoService {
     //----------------------------------------------------------------
     // Test
     private boolean testChecked = false;
-    private static Context context;
-    private static IBinder binder;
-    private static MusicInfoService service = null;
 
     @BeforeClass
     public static void  init() throws TimeoutException {
@@ -104,15 +94,6 @@ public class TestMusicInfoService {
             Log.d("TestMusicInfoService", "init(end): null service");
         } else {
             Log.d("TestMusicInfoService", "init(end): " + service.toString());
-        }
-    }
-
-    @After
-    public void unbindService() {
-        if (service == null) {
-            Log.d("TestMusicInfoService", "After: null service");
-        } else {
-            Log.d("TestMusicInfoService", "After: " + service.toString());
         }
     }
 

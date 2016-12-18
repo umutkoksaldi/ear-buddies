@@ -15,11 +15,11 @@ import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.List;
 
+import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
 import ch.epfl.sweng.project.view.activity.MainActivity;
-import ch.epfl.sweng.project.models.ModelApplication;
-import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -30,9 +30,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
 import static java.lang.Thread.sleep;
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
@@ -42,16 +42,12 @@ import static org.hamcrest.Matchers.is;
  */
 @RunWith(AndroidJUnit4.class)
 public class TestProfileFragment {
-    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
-
-    @Rule
-    public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
-
-    public static List<String> NAME_SONG = Arrays.asList("Rock", "Pop", "Metal");
     private static final String USER_NAME = "Melania";
     private static final String USER_DESCRIPTION = "Trumpete";
-
-
+    public static List<String> NAME_SONG = Arrays.asList("Rock", "Pop", "Metal");
+    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
+    @Rule
+    public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
     public GlobalTestSettings globalTestSettings;
 
     @Test
@@ -62,7 +58,7 @@ public class TestProfileFragment {
         onView(matcher).perform(click());
         onView(withId(R.id.button_profile_radar))
                 .perform(click());
-        assertThat(viewPager.getCurrentItem(), is(2));
+        assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
     }
 
 
