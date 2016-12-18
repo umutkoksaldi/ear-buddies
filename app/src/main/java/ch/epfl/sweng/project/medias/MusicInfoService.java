@@ -48,7 +48,10 @@ public class MusicInfoService extends Service {
                 Log.v("MusicInfoService", intent.getExtras().toString());
             }
 
+            // Check is music is playing or not. The intent name depends on the player...
             boolean playing = intent.getBooleanExtra("playing", false);
+            playing |= intent.getBooleanExtra("isPlaying", false);
+            playing |= intent.getBooleanExtra("playstate", false);
 
 
             if (playing && newArtist != null && newTrack != null) {
@@ -167,23 +170,35 @@ public class MusicInfoService extends Service {
 
         // AIMP
         iF.addAction("com.aimp.player.metachanged");
+        iF.addAction("com.aimp.player.playstatechanged");
+
 
         // Amazon Music
         iF.addAction("com.amazon.mp3.metachanged");
+        iF.addAction("com.amazon.mp3.playstatechanged");
 
         // Apollo music player
         iF.addAction("com.andrew.apollo.metachanged");
+        iF.addAction("com.andrew.apollo.playstatechanged");
 
         // HTC music player
         iF.addAction("com.htc.music.metachanged");
+        iF.addAction("com.htc.music.playstatechanged");
+
+        // Huawei Music
+        iF.addAction("com.android.mediacenter.metachanged");
+        iF.addAction("com.android.mediacenter.playstatechanged");
 
         // MIUI music player
         iF.addAction("com.miui.player.metachanged");
+        iF.addAction("com.miui.player.playstatechanged");
 
         // MyTouch4G
         iF.addAction("com.real.IMP.metachanged");
+        iF.addAction("com.real.IMP.playstatechanged");
 
         // Napster (Rhapsody Music Player)
+        iF.addAction("com.rhapsody.metachanged");
         iF.addAction("com.rhapsody.playstatechanged");
 
         // Pandora radio (Rdio)
@@ -191,6 +206,7 @@ public class MusicInfoService extends Service {
         iF.addAction("com.rdio.android.playstatechanged");
 
         //PowerAmp
+        iF.addAction("com.maxmpz.audioplayer.metachanged");
         iF.addAction("com.maxmpz.audioplayer.playstatechanged");
 
         //Samsung Music Player
@@ -203,14 +219,17 @@ public class MusicInfoService extends Service {
 
         // Sony Ericsson Music Player (Sony Walkman, Sony Music...)
         iF.addAction("com.sonyericsson.music.metachanged");
+        iF.addAction("com.sonyericsson.music.playstatechanged");
 
         // Spotify
         // More doc about Spotify implementation : https://developer.spotify
         // .com/technologies/spotify-android-sdk/android-media-notifications
         iF.addAction("com.spotify.music.metadatachanged");
+        iF.addAction("com.spotify.music.playstatechanged");
 
         // WinAmp
         iF.addAction("com.nullsoft.winamp.metachanged");
+        iF.addAction("com.nullsoft.winamp.playstatechanged");
 
         //will be added any....
         //scrobblers detect for players (poweramp for example)
@@ -219,6 +238,7 @@ public class MusicInfoService extends Service {
         iF.addAction("fm.last.android.playbackpaused");
         iF.addAction("fm.last.android.playbackcomplete");
         //A simple last.fm scrobbler
+        iF.addAction("com.adam.aslfms.notify.metachanged");
         iF.addAction("com.adam.aslfms.notify.playstatechanged");
         //Scrobble Droid
         iF.addAction("net.jjc1138.android.scrobbler.action.MUSIC_STATUS");
