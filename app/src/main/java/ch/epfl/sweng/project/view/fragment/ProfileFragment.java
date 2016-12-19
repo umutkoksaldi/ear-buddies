@@ -142,8 +142,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                         modelApplication.getUser().getSetting().setMusicTaste(Arrays.asList(musicTaste));
                     }
 
-                    // update range.
-                    range.setText(radiusChoice + "" + " Km");
+                    // update range
+                    range.setText(radiusChoice + "" + " km");
                     modelApplication.getUser().getSetting().setRadius(radiusChoice);
 
 
@@ -178,7 +178,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 getResources().getColor(R.color.primary_dark),
                 getResources().getColor(R.color.color_accent));
 
-        range.setText(modelApplication.getUser().getSetting().getRadius() + "" + " Km");
+        range.setText(modelApplication.getUser().getSetting().getRadius() + "" + " km");
         if (!(modelApplication.getUser().getSetting().getMusicTaste() == null || modelApplication.getUser()
                 .getSetting().getMusicTaste().isEmpty() ))
             taste.setText(modelApplication.getUser().getSetting().getMusicTaste().get(0) + "");
@@ -262,7 +262,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             linear.setOrientation(LinearLayout.VERTICAL);
             final TextView text = new TextView(getActivity());
             text.setTextColor(getResources().getColor(R.color.light_text));
-            text.setText(modelApplication.getUser().getSetting().getRadius() + " Km");
+            text.setText(modelApplication.getUser().getSetting().getRadius() + " km");
             text.setPadding(10, 10, 100, 10);
             text.setGravity(center);
 
@@ -279,7 +279,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    text.setText(seek.getProgress() + 5 + " Km");
+                    text.setText(seek.getProgress() + 5 + " km");
                 }
 
                 @Override

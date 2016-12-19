@@ -6,6 +6,9 @@ import ch.epfl.sweng.project.BuildConfig;
 @SuppressWarnings("WeakerAccess")
 public class GlobalSetting {
 
+    // Music tags. MUST BE THE SAME ON THE SERVER
+    public static final String[] TAG_MUSIC_TABLE = {"pop", "rock", "rap", "metal", "hiphop"};
+
     // Marker bitmap size on the map
     public static final int MARKER_SIZE = 20;
 

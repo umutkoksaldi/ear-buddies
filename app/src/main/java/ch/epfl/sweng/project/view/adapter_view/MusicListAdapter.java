@@ -16,11 +16,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.BuildConfig;
 import ch.epfl.sweng.project.R;
+import ch.epfl.sweng.project.models.Music;
+import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 import ch.epfl.sweng.project.view.web_view.CustomTabActivityHelper;
 import ch.epfl.sweng.project.view.web_view.WebviewFallback;
-import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -56,9 +57,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
             String coverUrl = music.getUrlPicture();
             //String url = "https://pbs.twimg.com/profile_images/634829866504859648/GuMPPRJ6.png";
-            Log.d("MusicHistoryFragment", "music: " + music.getArtist() + " - " + music.getName() +
-                    " - " + music.getId() + " - " + music.getTag() + " - " + music.getUrl() + " - " + music
-                    .getUrlPicture());
+            if (BuildConfig.DEBUG) {
+                Log.d("MusicHistoryFragment", "music: " + music.getArtist() + " - " + music.getName() +
+                        " - " + music.getId() + " - " + music.getTag() + " - " + music.getUrl() + " - " + music
+                        .getUrlPicture());
+            }
             if (coverUrl != null && !coverUrl.isEmpty()) {
                 new DownloadImageTask(holder.cover).execute(coverUrl);
             }
