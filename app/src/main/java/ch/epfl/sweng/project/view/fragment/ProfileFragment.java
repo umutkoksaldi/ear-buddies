@@ -98,7 +98,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         // select initial music tastes
         musicTaste = modelApplication.getUser().getSetting().getMusicTaste() == null ? getResources().getString(R.string
                 .all_tastes): modelApplication.getUser().getSetting().getMusicTaste().get(0);
-        taste.setText(musicTaste);
+        taste.setText(musicTaste.toLowerCase());
         radiusChoice = modelApplication.getUser().getSetting().getRadius();
 
         rangeButton = (ImageButton) profile.findViewById(R.id.button_profile_radar);
@@ -134,11 +134,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
                    //update Music
                     if (musicTaste == null){
-                        taste.setText(R.string.all_tastes);
+                        taste.setText(getString(R.string.all_tastes).toLowerCase());
                         modelApplication.getUser().getSetting().setMusicTaste(null);
                     }
                     else {
-                        taste.setText(musicTaste);
+                        taste.setText(musicTaste.toLowerCase());
                         modelApplication.getUser().getSetting().setMusicTaste(Arrays.asList(musicTaste));
                     }
 
@@ -438,7 +438,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         new AlertDialog.Builder(getActivity(), R.style.Dialog)
                 .setTitle(R.string.log_out_message)
                 .setMessage(R.string.log_out_warning)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.button_confirm_logout), new DialogInterface
+                        .OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -460,7 +461,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         new AlertDialog.Builder(getActivity(), R.style.Dialog)
                 .setTitle(R.string.delete_user_alert)
                 .setMessage(getString(R.string.delete_warning))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.button_confirm_delete_account), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deleteUser();
                     }

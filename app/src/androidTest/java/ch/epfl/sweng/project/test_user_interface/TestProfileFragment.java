@@ -1,11 +1,11 @@
 package ch.epfl.sweng.project.test_user_interface;
 
 import android.app.Activity;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import org.hamcrest.Matcher;
@@ -13,9 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.models.ModelApplication;
@@ -30,19 +28,23 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.internal.util.Checks.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_CANCEL;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_OK;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_DESCRIPTION;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_FIRST_NAME;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.SHORT_REQUEST_DELAY;
 import static java.lang.Thread.sleep;
 import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
@@ -53,7 +55,6 @@ import static org.hamcrest.Matchers.is;
 public class TestProfileFragment {
     private static final String USER_NAME = "Melania";
     private static final String USER_DESCRIPTION = "Trumpete";
-    public static List<String> NAME_SONG = Arrays.asList("Rock", "Pop", "Metal");
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     @Rule
     public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
@@ -89,7 +90,7 @@ public class TestProfileFragment {
         onView(withText(modelApplication.getUser().getFirstname()))
                 .check(matches(isDisplayed()))
                 .perform(replaceText(USER_NAME));
-        onView(withText(R.string.button_ok))
+        onView(withId(BUTTON_OK))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(USER_NAME))
@@ -101,7 +102,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_edit_name))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText(R.string.button_cancel))
+        onView(withId(BUTTON_CANCEL))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -114,7 +115,7 @@ public class TestProfileFragment {
         onView(withText(modelApplication.getUser().getFirstname()))
                 .check(matches(isDisplayed()))
                 .perform(replaceText(MOCK_USER_FIRST_NAME));
-        onView(withText(R.string.button_ok))
+        onView(withId(BUTTON_OK))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(MOCK_USER_FIRST_NAME))
@@ -138,7 +139,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_edit_description))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText(R.string.button_cancel))
+        onView(withId(BUTTON_CANCEL))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -159,7 +160,7 @@ public class TestProfileFragment {
         }
         onView(withText(currentDescription))
                 .perform(replaceText(USER_DESCRIPTION));
-        onView(withText(R.string.button_ok))
+        onView(withId(BUTTON_OK))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(USER_DESCRIPTION))
@@ -174,7 +175,7 @@ public class TestProfileFragment {
                 .perform(click());
         onView(withText(USER_DESCRIPTION))
                 .perform(replaceText(MOCK_USER_DESCRIPTION));
-        onView(withText(R.string.button_ok))
+        onView(withId(BUTTON_OK))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(MOCK_USER_DESCRIPTION))
@@ -195,7 +196,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_delete_account))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText(R.string.button_cancel))
+        onView(withId(BUTTON_CANCEL))
                 .check(matches(isDisplayed()))
                 .perform(click());
         assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
@@ -217,7 +218,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_logout))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText(R.string.button_cancel))
+        onView(withId(BUTTON_CANCEL))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -229,7 +230,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_logout))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withText(R.string.button_ok))
+        onView(withId(BUTTON_OK))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -239,42 +240,35 @@ public class TestProfileFragment {
 
 
     @Test
-    public void clickOnMusicTasteSlection() {
-
-        try {
-
+    public void clickOnMusicTasteSlection() throws InterruptedException {
 
             Matcher<View> matcher = allOf(withText(PROFILE_TAB),
                     isDescendantOfA(withId(R.id.tabLayoutMain)));
             onView(matcher).perform(click());
-
-            sleep(1000);
-
             onView(withId(R.id.button_profile_music_tag)).perform(click());
-
-            sleep(1000);
-
+        String[] tastes = mActivityRule.getActivity().getResources().getStringArray(R.array
+                .music_taste_array);
             // check if the song is displayed
-            for (String elementNameSong : NAME_SONG) {
+        for (String elementNameSong : tastes) {
                 onView(withText(elementNameSong)).check(matches(isDisplayed()));
             }
+        // Choose a music taste and check if it changes correctly
+        onView(withText(tastes[0])).perform(click());
+        sleep(SHORT_REQUEST_DELAY);
+        onView(allOf(withId(R.id.tv_profile_music_tag),
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+                .check(matches(isCompletelyDisplayed()))
+                .check(matches(withText(tastes[0].toLowerCase())));
 
-            onView(withText(NAME_SONG.get(0))).perform(click());
 
-            sleep(2000);
-
-            onView(withText(NAME_SONG.get(0).toLowerCase())).check(matches(isDisplayed()));
-
-            try {
-                onView(withText(NAME_SONG.get(0))).check(matches(isDisplayed()));
-            } catch (Exception e) {
-                return;
-            }
-
-        } catch (Exception e) {
-            Log.e("clickOnMusic", e.getMessage());
-            fail();
-        }
+        // Do the same with another music taste
+        onView(withId(R.id.button_profile_music_tag)).perform(click());
+        onView(withText(tastes[1])).perform(click());
+        sleep(SHORT_REQUEST_DELAY);
+        onView(allOf(withId(R.id.tv_profile_music_tag),
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+                .check(matches(isCompletelyDisplayed()))
+                .check(matches(withText(tastes[1].toLowerCase())));
 
     }
 

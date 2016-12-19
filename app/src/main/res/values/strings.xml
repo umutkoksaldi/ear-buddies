@@ -52,6 +52,9 @@
     <string name="enter_name">"Enter your name: "</string>
     <string name="emtpy_string" translatable="false"/>
     <string name="more">more</string>
+    <string name="button_confirm_logout">Log out</string>
+    <string name="button_confirm_delete_account">Delete</string>
+
 
     <!-- Menu - Music taste picker -->
     <string name="menu_edit_name">Edit name</string>
@@ -76,7 +79,7 @@
 
     <!--Users Frag -->
     <string name="log_out_message">Log out of account?</string>
-    <string name="delete_warning">"Are you sure you want to delete your account? This will erase all records of you "</string>
+    <string name="delete_warning">Are you sure you want to delete your account? This will erase all records of you.</string>
     <string name="log_out_warning">Are you sure you want to log out of your account?</string>
     <string name="description_message">Enter a description</string>
     <string name="success_message">Operation completed successfully</string>
@@ -100,7 +103,7 @@
     <string name="tabProfile">Profile</string>
     <string name="tabUsers">People</string>`
     <string name="default_description">Hi ! I\'m loving this app !</string>
-    <string name="button_cancel">Cancel</string>
-    <string name="button_ok">Ok</string>
+    <string name="button_cancel">CANCEL</string>
+    <string name="button_ok">OK</string>
 
 </resources>
