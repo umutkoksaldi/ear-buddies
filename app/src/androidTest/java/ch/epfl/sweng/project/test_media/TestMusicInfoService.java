@@ -40,7 +40,7 @@ public class TestMusicInfoService {
     private static final String ARTIST_NAME_TEST = "Rihanna";
     private static final String MUSIC_NAME_TEST = "Umbrella";
     private static final String URL_TEST = "https://www.last.fm/music/Rihanna/_/Umbrella";
-    private static final String TAG_TEST = "pop";
+    private static final String TAG_TEST = "Pop";
     // Workaround for service creation. See https://code.google.com/p/android/issues/detail?id=180396
     private static final int MAX_ITERATION = 100;
     @ClassRule

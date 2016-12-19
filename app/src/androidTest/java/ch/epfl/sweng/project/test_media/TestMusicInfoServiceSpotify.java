@@ -37,7 +37,7 @@ public class TestMusicInfoServiceSpotify {
     // This is what the server should answer
     private static final String SPOTIFY_ARTIST_NAME_TEST = "Eminem";
     private static final String SPOTIFY_MUSIC_NAME_TEST = "Berzerk";
-    private static final String SPOTIFY_TAG_TEST = "rap";
+    private static final String SPOTIFY_TAG_TEST = "Rap";
     private static final String SPOTIFY_URL_TEST = "https://www.last.fm/music/Eminem/_/Berzerk";
     @Rule
     public final ServiceTestRule mServiceRule = new ServiceTestRule();
