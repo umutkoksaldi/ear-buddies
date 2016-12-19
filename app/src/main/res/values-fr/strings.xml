@@ -14,7 +14,6 @@
     <string name="delete_user_alert">Supprimer le compte</string>
     <string name="more">plus</string>
     <string name="no_lastfm_page_found">Nous n\'en savons pas plus sur ce morceau...</string>
-    <string name="no_listening"></string>
     <string name="no_music_player_installed">Bizarre... On dirait que vous n\'avez pas de lecteur de musique compatible installé sur votre appareil :(</string>
     <string name="no_user_facebook_page_found">Impossible de trouver cette personne sur Facebook !</string>
     <string name="presentation_music">Écoutez votre musique comme d\'habitude</string>
@@ -30,4 +29,8 @@
     <string name="description_message">À quoi pensez-vous ?</string>
     <string name="default_description">Salut ! J\'adore cette appli !</string>
     <string name="all_tastes">Écoute de tout</string>
+    <string name="hiphop">Hip-hop</string>
+    <string name="launch_facebook_connection">Se connecter à Facebook</string>
+    <string name="connexion_facebook_pending">Encore un instant... :)</string>
+    <string name="server_error_music_info">Impossible d\'identifier ce morceau :(</string>
 </resources>

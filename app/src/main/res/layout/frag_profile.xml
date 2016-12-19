@@ -46,7 +46,6 @@
             android:ellipsize="end"
             android:gravity="center_horizontal"
             android:maxLines="5"
-            android:text="@string/user_description"
             android:textColor="@color/secondary_text"
             android:textSize="13sp"
             />
@@ -59,7 +58,6 @@
             android:layout_centerHorizontal="true"
             android:ellipsize="end"
             android:gravity="center"
-            android:text="@string/user_name"
             android:textColor="?attr/editTextColor"
             android:textSize="26sp"/>
 
@@ -84,7 +82,6 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text="@string/one_kilometer"
             android:textColor="@color/secondary_text"
             android:textSize="13sp"/>
 

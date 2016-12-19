@@ -458,8 +458,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
     private void menuDeleteAccount() {
         new AlertDialog.Builder(getActivity(), R.style.Dialog)
                 .setTitle(R.string.delete_user_alert)
-                .setMessage(getString(R.string.delete_warning) +
-                        getString(R.string.delete_message))
+                .setMessage(getString(R.string.delete_warning))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deleteUser();

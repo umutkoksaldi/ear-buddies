@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-    <array
-        name="user_opt_array">
-        <item>Change Name</item>
-        <item>Add / Change Description</item>
-
-    </array>
-
         <array name="music_taste_array">
             <item>Pop</item>
             <item>Rock</item>

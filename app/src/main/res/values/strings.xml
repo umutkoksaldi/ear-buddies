@@ -2,7 +2,7 @@
     <string name="app_name">Sheepzik</string>
 
     <!-- Facebook configuration -->
-    <string name="facebook_app_id">1055317924581025</string>
+    <string name="facebook_app_id" translatable="false">1055317924581025</string>
 
 
     <!-- Pictures of Users -->
@@ -37,9 +37,6 @@
 
 
     <!-- Temporary -->
-    <string name="edit">Edit</string>
-    <string name="this_is_a_blank_fragment_that_we_need_to_change">This is a blank Fragment that we need to
-        change</string>
     <string name="launch_facebook_connection">Launch Facebook connection</string>
 
     <!-- Profile Page -->
@@ -47,28 +44,13 @@
     <string name="rock" translatable="false">Rock</string>
     <string name="metal">Metal</string>
     <string name="pop" translatable="false">Pop</string>
-    <string name="classic">Classic</string>
-    <string name="jazz">Jazz</string>
     <string name="rap" translatable="false">Rap</string>
     <string name="hiphop">Hip-hop</string>
     <string name="all_tastes">Everything</string>
-    <string name="edm">EDM</string>
-    <string name="user_name">User Name</string>
-    <string name="find_user_text">Find users within: Select Range</string>
-    <string name="no_music_taste_push_to_select">No music taste, push to select</string>
-    <string name="user_description">User Description</string>
     <string name="set_range">Range limit for people around</string>
-    <string name="hundred_meters">100 m</string>
-    <string name="twofifty_meters">250 m</string>
-    <string name="delete_account">Delete Account</string>
-    <string name="fivehundred_meters">500 m</string>
-    <string name="one_kilometer">1 km</string>
     <string name="delete_user_alert">Delete User</string>
-    <string name="delete_message">from our database!</string>
-    <string name="user_options">Options</string>
     <string name="enter_name">"Enter your name: "</string>
-    <string name="log_out_facebook">"Log out of facebook"</string>
-    <string name="emtpy_string"/>
+    <string name="emtpy_string" translatable="false"/>
     <string name="more">more</string>
 
     <!-- Menu - Music taste picker -->
@@ -93,49 +75,30 @@
 
 
     <!--Users Frag -->
-    <string name="choose_a_person_to_match_with">Choose a person to match with</string>
     <string name="log_out_message">Log out of account?</string>
     <string name="delete_warning">"Are you sure you want to delete your account? This will erase all records of you "</string>
     <string name="log_out_warning">Are you sure you want to log out of your account?</string>
     <string name="description_message">Enter a description</string>
     <string name="success_message">Operation completed successfully</string>
-    <string name="profile_picture"/>
-    <string name="textview2"/>
-    <string name="textview3"/>
+    <string name="profile_picture" translatable="false"/>
     <string name="no_user_facebook_page_found">Could not find this user on Facebook!</string>
-    <string name="no_listening">Not listening any song yet...</string>
 
     <!-- User Details Fragment -->
     <string name="facebook" translatable="false">Facebook</string>
 
     <!-- Music history fragment -->
-    <string name="separator" translatable="false"> ● </string>
     <string name="no_lastfm_page_found">No additional info about this song :(</string>
 
     <!-- MusicInfoService -->
-    <string name="textviewdetails"/>
-    <string name="more_info"/>
-    <string name="details_textview2"/>
-    <string name="is_listening_to"/>
-    <string name="details_textview"/>
-    <string name="back"/>
-    <string name="textview"/>
     <string name="no_music_player_installed">You don’t have any compatible music player installed. Sorry :(</string>
     <string name="server_error_music_info">Could not retrieve the info about the currently playing
         music :(</string>
-    <string name="recently_played_songs">RECENTLY PLAYED SONGS</string>
-    <string name="backbutton">back</string>
-    <string name="song_artist">song artist</string>
-    <string name="is_listening_to_the_song">Is listening to</string>
-    <string name="details_facebook_button">TextView</string>
 
 
     <!-- TabLayout -->
     <string name="tabMap">Map</string>
     <string name="tabProfile">Profile</string>
     <string name="tabUsers">People</string>`
-    <string name="song_name">song name</string>
-    <string name="button">Button</string>
     <string name="default_description">Hi ! I\'m loving this app !</string>
 
 </resources>
