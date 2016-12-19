@@ -263,7 +263,9 @@ public class TestProfileFragment {
 
             onView(withText(NAME_SONG.get(0))).perform(click());
 
-            sleep(1000);
+            sleep(2000);
+
+            onView(withText(NAME_SONG.get(0).toLowerCase())).check(matches(isDisplayed()));
 
             try {
                 onView(withText(NAME_SONG.get(0))).check(matches(isDisplayed()));

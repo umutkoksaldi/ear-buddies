@@ -17,7 +17,7 @@ public class GlobalSetting {
     public static final String URL = "https://sw-eng-go.herokuapp.com";
 
     // for local server
-    //public static final String URL = "http://192.168.0.164:3000";
+    //public static final String URL = "http://192.168.0.14:3000";
 
 
     // html code

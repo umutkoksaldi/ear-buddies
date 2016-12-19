@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,17 +30,20 @@ import com.facebook.login.LoginManager;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.medias.MusicHistory;
+
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.view.activity.LoginActivity;
+
+import ch.epfl.sweng.project.view.activity.WelcomeActivity;
 import ch.epfl.sweng.project.view.adapter_view.MusicListAdapter;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 
@@ -71,9 +75,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
     private ImageButton optionsButton;
     private ServiceHandler serviceHandler;
 
+    private String musicTaste;
+    private int radiusChoice;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("ProfileFragment", "onCreateView()");
+        Log.d("ProfileFrag", "onCreateView()");
 
         View profile = inflater.inflate(R.layout.frag_profile, container, false);
         profilePicture = (ImageView) profile.findViewById(R.id.user_profile_photo);
@@ -86,10 +93,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         description.setText(modelApplication.getUser().getDescription());
         tastePicker = (ImageButton) profile.findViewById(R.id.button_profile_music_tag);
         taste = (TextView) profile.findViewById(R.id.tv_profile_music_tag);
-        //String musicTaste = modelApplication.getUser().getSetting().getMusicTaste();
-        //taste.setText();
+
+        // select initial music tastes
+        musicTaste = modelApplication.getUser().getSetting().getMusicTaste() == null ? getResources().getString(R.string
+                .all_tastes): modelApplication.getUser().getSetting().getMusicTaste().get(0);
+        taste.setText(musicTaste);
+        radiusChoice = modelApplication.getUser().getSetting().getRadius();
+
         rangeButton = (ImageButton) profile.findViewById(R.id.button_profile_radar);
         range = (TextView) profile.findViewById(R.id.tv_profile_radar);
+
         menuButton = (ImageButton) profile.findViewById(R.id.button_profile_menu);
         rangeButton.setOnClickListener(this);
         tastePicker.setOnClickListener(this);
@@ -116,16 +129,39 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
                     Toast.makeText(getApplicationContext(), getString(R.string.success_message), Toast.LENGTH_SHORT).show();
 
+                   //update Music
+                    if (musicTaste == null){
+                        taste.setText(R.string.all_tastes);
+                        modelApplication.getUser().getSetting().setMusicTaste(null);
+                    }
+                    else {
+                        taste.setText(musicTaste);
+                        modelApplication.getUser().getSetting().setMusicTaste(Arrays.asList(musicTaste));
+                    }
+
+                    // update range.
+                    range.setText(radiusChoice + "" + " Km");
+                    modelApplication.getUser().getSetting().setRadius(radiusChoice);
+
+
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
                             .LENGTH_SHORT).show();
+
+                   if (modelApplication.getUser().getSetting().getMusicTaste() == null){
+                        musicTaste = null;
+                    }
+                    else {
+                        musicTaste = modelApplication.getUser().getSetting().getMusicTaste().get(0);
+                    }
+                    radiusChoice = modelApplication.getUser().getSetting().getRadius();
                 }
             }
 
             @Override
             public void onFailed() {
-                // Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
-                //       .LENGTH_SHORT).show();
+                 Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
+                       .LENGTH_SHORT).show();
                 Log.e("Profile", "Cannot connect to server");
             }
         });
@@ -139,13 +175,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 getResources().getColor(R.color.primary_dark),
                 getResources().getColor(R.color.color_accent));
 
+        range.setText(modelApplication.getUser().getSetting().getRadius() + "" + " Km");
+        if (!(modelApplication.getUser().getSetting().getMusicTaste() == null || modelApplication.getUser()
+                .getSetting().getMusicTaste().isEmpty() ))
+            taste.setText(modelApplication.getUser().getSetting().getMusicTaste().get(0) + "");
+        else
+            taste.setText(R.string.all_tastes);
         return profile;
     }
 
     @Override
     public void onRefresh() {
-        //UpdateMusicHistoryTask task = new UpdateMusicHistoryTask();
-        //task.execute(adapter);
         musicHistory.updateFromServer(adapter, swipeContainer);
     }
 
@@ -159,30 +199,48 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             builder.setTitle(R.string.choose_your_music_taste)
                     .setItems(R.array.music_taste_array, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            Map<String, String> params = new HashMap<>();
                             switch (which) {
                                 case 0:
-                                    taste.setText(R.string.rock);
-                                    //modelApplication.getUser().setTaste("Rock");
+                                    musicTaste = getResources().getString(R.string.pop);
+                                    params.put("musicTaste",  musicTaste );
+                                    params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
+                                    serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
+                                            "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 1:
-                                    taste.setText(R.string.metal);
-                                    //modelApplication.getUser().setTaste("Metal");
+                                    musicTaste = getResources().getString(R.string.rock);
+                                    params.put("musicTaste", musicTaste );
+                                    params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
+                                    serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
+                                            "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 2:
-                                    taste.setText(R.string.pop);
-                                    //modelApplication.getUser().setTaste("Pop");
+                                    musicTaste = getResources().getString(R.string.rap);
+                                    params.put("musicTaste",  musicTaste );
+                                    params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
+                                    serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
+                                            "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 3:
-                                    taste.setText(R.string.classic);
-                                    //modelApplication.getUser().setTaste("Classic");
+                                    musicTaste = getResources().getString(R.string.metal);
+                                    params.put("musicTaste", musicTaste );
+                                    params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
+                                    serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
+                                            "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 4:
-                                    taste.setText(R.string.jazz);
-                                    //modelApplication.getUser().setTaste("Jazz");
+                                    musicTaste = getResources().getString(R.string.hiphop);
+                                    params.put("musicTaste", musicTaste );
+                                    params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
+                                    serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
+                                            "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 5:
-                                    taste.setText(R.string.edm);
-                                    //modelApplication.getUser().setTaste("EDM");
+                                    musicTaste = null;
+                                    params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
+                                    serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
+                                            "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                             }
                         }
@@ -191,33 +249,69 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             AlertDialog dialog = builder.create();
             dialog.show();
         } else if (v.equals(rangeButton)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.set_range)
-                    .setItems(R.array.range_array, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case 0:
-                                    range.setText(R.string.hundred_meters);
-                                    //modelApplication.getUser().setRange(100);
-                                    break;
-                                case 1:
-                                    range.setText(R.string.twofifty_meters);
-                                    //modelApplication.getUser().setRange(250);
-                                    break;
-                                case 2:
-                                    range.setText(R.string.fivehundred_meters);
-                                    //modelApplication.getUser().setRange(500);
-                                    break;
-                                case 3:
-                                    range.setText(R.string.one_kilometer);
-                                    //modelApplication.getUser().setRange(1000);
-                                    break;
-                            }
-                        }
-                    });
 
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+
+            alert.setTitle("Set Range");
+
+            LinearLayout linear=new LinearLayout(getActivity());
+
+            linear.setOrientation(LinearLayout.VERTICAL);
+            final TextView text = new TextView(getActivity());
+            text.setText(modelApplication.getUser().getSetting().getRadius() + " Km");
+            text.setPadding(10, 10, 10, 10);
+
+            final SeekBar seek = new SeekBar(getActivity());
+            seek.setMax(35);
+            seek.setProgress(modelApplication.getUser().getSetting().getRadius() - 5);
+
+            linear.addView(seek);
+            linear.addView(text);
+
+            alert.setView(linear);
+
+            seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    text.setText(seek.getProgress() + 5 + " Km");
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+            alert.setPositiveButton("Ok",new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog,int id)
+                {
+                    int radius = seek.getProgress() + 5;
+                    radiusChoice = radius;
+                    // send request.
+                    Map <String, String> params = new HashMap<>();
+                    if (!(modelApplication.getUser().getSetting().getMusicTaste() == null || modelApplication.getUser()
+                        .getSetting().getMusicTaste().isEmpty())) {
+                        params.put("musicTaste", modelApplication.getUser().getSetting().getMusicTaste().get(0));
+                    }
+                    params.put("radius", radius + "");
+                    serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
+                            "/Setting/" + modelApplication.getUser().getIdApiConnection());
+
+                }
+            });
+
+            alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog,int id) {}
+            });
+
+            alert.show();
         }
 
     }
@@ -331,7 +425,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 .setMessage(R.string.log_out_warning)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
@@ -373,7 +467,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
     private void deleteUser() {
         serviceHandler.doDelete(GlobalSetting.URL + GlobalSetting.USER_API + modelApplication.getUser().getIdApiConnection());
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+        startActivity(new Intent(getActivity(), WelcomeActivity.class));
         getActivity().finish();
         logOutFace();
     }

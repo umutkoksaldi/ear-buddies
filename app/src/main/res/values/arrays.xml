@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array
-        name="music_taste_array">
-        <item>Rock</item>
-        <item>Metal</item>
-        <item>Pop</item>
-        <item>Classic</item>
-        <item>Jazz</item>
-        <item>EDM</item>
-    </array>
 
-    <array
-        name="range_array">
-        <item>100 Meters</item>
-        <item>250 Meters</item>
-        <item>500 Meters</item>
-        <item>1 Kilometer</item>
-
-    </array>
 
     <array
         name="user_opt_array">
@@ -25,4 +8,14 @@
         <item>Add / Change Description</item>
 
     </array>
+
+        <array name="music_taste_array">
+            <item>Pop</item>
+            <item>Rock</item>
+            <item>Rap</item>
+            <item>Metal</item>
+            <item>HipHop</item>
+            <item>No specific taste (match with anyone)</item>
+        </array>
+
 </resources>

@@ -104,6 +104,13 @@ public class User {
         this.email = email;
     }
 
+    public Setting getSetting() {
+        return setting;
+    }
+
+    public void setSetting(Setting setting) {
+        this.setting = setting;
+    }
 
     public long getCurrentMusicId() {
         return currentMusicId;

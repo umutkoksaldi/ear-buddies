@@ -44,9 +44,6 @@
 
     <!-- Profile Page -->
     <string name="choose_your_music_taste">Choose your music taste:</string>
-    <string name="rock">Rock</string>
-    <string name="metal">Metal</string>
-    <string name="pop">Pop</string>
     <string name="classic">Classic</string>
     <string name="jazz">Jazz</string>
     <string name="edm">EDM</string>
@@ -126,13 +123,19 @@
     <string name="is_listening_to_the_song">Is listening to</string>
     <string name="details_facebook_button">TextView</string>
 
-
     <!-- TabLayout -->
     <string name="tabMap">Map</string>
     <string name="tabProfile">Profile</string>
     <string name="tabUsers">People</string>`
     <string name="song_name">song name</string>
     <string name="button">Button</string>
+
+    <string name="all_tastes">Not specified</string>
+    <string name="rap">rap</string>
+    <string name="hiphop">hiphop</string>
+    <string name="rock">rock</string>
+    <string name="metal">metal</string>
+    <string name="pop">pop</string>
     <string name="default_description">Hi ! I\'m loving this app !</string>
 
 </resources>
