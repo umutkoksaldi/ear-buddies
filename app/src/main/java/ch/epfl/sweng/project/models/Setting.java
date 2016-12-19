@@ -1,18 +1,18 @@
 package ch.epfl.sweng.project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 /**
  * Created by arnauddupeyrat on 08/11/16.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Setting {
 
     private int ageMin;
     private int ageMax;
     private int radius;
-
-
     private List<String> musicTaste;
 
     public Setting(int ageMin, int ageMax, int radius, List<String> musicTaste) {

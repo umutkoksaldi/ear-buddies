@@ -58,7 +58,6 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
         intent.putExtras(bundle);
         // Set the intent.
 
-
         // Set the intent.
         setActivityIntent(intent);
         getActivity();

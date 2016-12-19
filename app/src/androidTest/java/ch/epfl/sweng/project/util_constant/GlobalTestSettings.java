@@ -5,6 +5,7 @@ import java.util.List;
 
 import ch.epfl.sweng.project.models.Location;
 import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Setting;
 import ch.epfl.sweng.project.models.User;
 
 /**
@@ -42,6 +43,7 @@ public class GlobalTestSettings {
     public static final String MOCK_USER_DESCRIPTION = "Swaggy Swaggy SwEng";
 
 
+
     // Sample song to test
     public static final String ARTIST_NAME_REQUEST = "rihana";
     public static final String MUSIC_NAME_REQUEST = "rude boy";
@@ -64,6 +66,7 @@ public class GlobalTestSettings {
     public static void createMockUser() {
         User mUser = new User();
         mUser.setLocation(new ch.epfl.sweng.project.models.Location(0, 0));
+        mUser.setSetting(new Setting());
         mUser.setAge(MOCK_USER_AGE);
         mUser.setBackgroundPicture(MOCK_USER_COVER_PICTURE);
         mUser.setProfilePicture(MOCK_USER_PROFILE_PICTURE);
@@ -81,6 +84,7 @@ public class GlobalTestSettings {
         for (int i = 0; i < NAME_USER.size() ; i++ ){
             User mUser = new User();
             mUser.setLocation(location);
+            mUser.setSetting(new Setting());
             mUser.setFirstname(NAME_USER.get(i));
             mUser.setAge(MOCK_USER_AGE);
             mUser.setCurrentMusicId(ID_MUSIC);
