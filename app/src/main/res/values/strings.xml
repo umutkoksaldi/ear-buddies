@@ -6,7 +6,7 @@
 
 
     <!-- Pictures of Users -->
-    <string-array name="titles">
+    <string-array name="titles" translatable="false">
         <item>Meme 1</item>
         <item>Meme 2</item>
         <item>Meme 3</item>
@@ -19,7 +19,7 @@
         <item>Meme 10</item>
     </string-array>
 
-    <string-array name="decriptions">
+    <string-array name="decriptions" translatable="false">
         <item>This is description 1</item>
         <item>This is description 2</item>
         <item>This is description 3</item>
