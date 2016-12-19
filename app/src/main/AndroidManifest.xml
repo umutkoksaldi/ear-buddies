@@ -18,7 +18,8 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateAlwaysHidden">
 
         <!-- _____________________________________________ Facebook activity  ___________________________________ -->
         <!-- suppress AndroidElementNotAllowed -->
@@ -48,8 +49,8 @@
         <!-- First activity -->
         <activity
             android:name=".view.activity.MainActivity"
-            android:launchMode='singleTask'
             android:configChanges="orientation|keyboardHidden"
+            android:launchMode='singleTask'
             android:screenOrientation="portrait">
 
         </activity>

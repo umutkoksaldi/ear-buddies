@@ -5,11 +5,42 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
     </style>
 
     <!-- for text -->
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- for Alert Dialog -->
+    <style name="Dialog" parent="Theme.AppCompat.Dialog">
+        <!-- Used for the buttons -->
+        <item name="android:colorAccent">@color/color_accent</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColor">@color/light_text</item>
+        <item name="android:color">@color/light_text</item>
+        <!-- Used for the icon -->
+        <item name="android:tint">@color/color_accent</item>
+        <!-- Used for the background -->
+        <item name="android:background">@color/primary_dark</item>
+    </style>
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/primary_dark</item>
+        <item name="android:textColor">@color/light_text</item>
+        <item name="android:background">@color/primary_dark</item>
+    </style>
+
+    <style name="myPopupMenuTextAppearanceSmall" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small">
+        <item name="android:textColor">@color/light_text</item>
+    </style>
+
+    <style name="myPopupMenuTextAppearanceLarge" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large">
+        <item name="android:textColor">@color/light_text</item>
     </style>
 
 </resources>

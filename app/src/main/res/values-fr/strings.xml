@@ -11,6 +11,7 @@
     <string name="menu_edit_name">Modifier nom</string>
     <string name="menu_edit_description">Modifier description</string>
     <string name="metal">Métal</string>
+    <string name="delete_user_alert">Supprimer le compte</string>
     <string name="more">plus</string>
     <string name="no_lastfm_page_found">Nous n\'en savons pas plus sur ce morceau...</string>
     <string name="no_listening"></string>
@@ -26,7 +27,7 @@
     <string name="tabUsers">Près d\'ici</string>
     <string name="choose_your_music_taste">Votre préférence musicale</string>
     <string name="delete_warning">Voulez-vous vraiment supprimer votre compte ? Vos préférences seront supprimées et les autres utilisateurs ne verront plus jamais votre profil.</string>
-    <string name="description_message">À quoi pensez-vous aujourd\'hui ?</string>
+    <string name="description_message">À quoi pensez-vous ?</string>
     <string name="default_description">Salut ! J\'adore cette appli !</string>
     <string name="all_tastes">Écoute de tout</string>
 </resources>
