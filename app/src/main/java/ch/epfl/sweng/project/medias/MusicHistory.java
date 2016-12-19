@@ -8,11 +8,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
 
 /**
  * Created by Antoine Merino on 18/11/2016.
@@ -86,7 +86,7 @@ public final class MusicHistory {
                         swipeContainer.setRefreshing(false);
                     }
                 } else {
-                    // Erreur pas pu communiquer avec le serveur
+                    // Error, couldn't communicate with the server
                     Log.e("MusicHistory", "onSuccess() != Code 200 (good answer)");
                 }
             }

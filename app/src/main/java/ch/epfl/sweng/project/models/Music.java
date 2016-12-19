@@ -1,5 +1,10 @@
 package ch.epfl.sweng.project.models;
 
+import ch.epfl.sweng.project.R;
+
+import static ch.epfl.sweng.project.util_constant.GlobalSetting.TAG_MUSIC_TABLE;
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by Antoine Merino on 28/10/2016.
  */
@@ -59,8 +64,23 @@ public class Music {
         return tag;
     }
 
+    /**
+     * Set a tag in the song accordingly to the user language.
+     * Eg. If the tag is "metal", it will be set as "Metal" if the locale is English
+     * @param tag must match one of the tags known by the server
+     */
     public void setTag(String tag) {
-        this.tag = tag;
+        String[] formatedTags = getApplicationContext().getResources().getStringArray(R.array.music_taste_array);
+        String result = "unknown";
+        int i = 0;
+        while (i < TAG_MUSIC_TABLE.length) {
+            if (TAG_MUSIC_TABLE[i].equals(tag)) {
+                result = formatedTags[i];
+                break;
+            }
+            ++i;
+        }
+        this.tag = result;
     }
 
     public String getUrlPicture() {

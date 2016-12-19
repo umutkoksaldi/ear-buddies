@@ -7,9 +7,11 @@
   <color name="color_accent">#CDDC39</color>
   <color name="primary_text">#212121</color>
   <color name="secondary_text">#757575</color>
+  <color name="light_text">#FFFFFF</color>
   <color name="icons">#FFFFFF</color>
   <color name="divider">#BDBDBD</color>
   <color name="background">#FAFAFA</color>
+  <color name="music_color">#cccccc</color>
 
 
   <!-- Old color scheme

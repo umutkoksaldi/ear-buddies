@@ -17,14 +17,14 @@ import android.view.ViewGroup;
 
 import org.springframework.http.ResponseEntity;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.controlers.UserSongControler;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.models.User;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.view.adapter_view.UserListAdapter;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -137,7 +137,7 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         swipeContainer.setRefreshing(false);
                     }
                 } else {
-                    // Erreur pas pu communiquer avec le serveur
+                    // Error, couldn't communicate with the server
                     Log.e("UsersFragment", "onSuccess() != Code 200 (good answer)");
                 }
             }

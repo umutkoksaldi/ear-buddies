@@ -19,10 +19,15 @@ public class GlobalTestSettings {
     // Main activity
 
     // ************************************************************************************************************************************************
+    // Time to wait for requests, in milliseconds
+    public static final int SHORT_REQUEST_DELAY = 2000;
+    public static final int MEDIUM_REQUEST_DELAY = 5000;
+    public static final int LONG_REQUEST_DELAY = 10000;
+
+
     // Dialog buttons
     public static final int BUTTON_OK = android.R.id.button1;
     public static final int BUTTON_CANCEL = android.R.id.button2;
-
 
     // Mock Users Data
     public static final String MOCK_ID_FACEBOOK = "121620614972695";

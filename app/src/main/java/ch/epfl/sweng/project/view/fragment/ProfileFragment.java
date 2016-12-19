@@ -34,19 +34,18 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.medias.MusicHistory;
-
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
-
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.view.activity.WelcomeActivity;
 import ch.epfl.sweng.project.view.adapter_view.MusicListAdapter;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 
+import static ch.epfl.sweng.project.R.id.center;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener, PopupMenu.OnMenuItemClickListener,
@@ -77,11 +76,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
     private String musicTaste;
     private int radiusChoice;
+    private Bundle savedInstanceState;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("ProfileFrag", "onCreateView()");
-
+        this.savedInstanceState = savedInstanceState;
         View profile = inflater.inflate(R.layout.frag_profile, container, false);
         profilePicture = (ImageView) profile.findViewById(R.id.user_profile_photo);
         new DownloadImageTask(profilePicture).execute(modelApplication.getUser().getProfilePicture());
@@ -97,7 +98,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         // select initial music tastes
         musicTaste = modelApplication.getUser().getSetting().getMusicTaste() == null ? getResources().getString(R.string
                 .all_tastes): modelApplication.getUser().getSetting().getMusicTaste().get(0);
-        taste.setText(musicTaste);
+        taste.setText(musicTaste.toLowerCase());
         radiusChoice = modelApplication.getUser().getSetting().getRadius();
 
         rangeButton = (ImageButton) profile.findViewById(R.id.button_profile_radar);
@@ -127,20 +128,22 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
                 // We associated the user to the new.
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.success_message), Toast.LENGTH_SHORT).show();
+                    // Toast disabled due to bad user experience
+                    //Toast.makeText(getApplicationContext(), getString(R.string.success_message), Toast.LENGTH_SHORT)
+                    //      .show();
 
                    //update Music
                     if (musicTaste == null){
-                        taste.setText(R.string.all_tastes);
+                        taste.setText(getString(R.string.all_tastes).toLowerCase());
                         modelApplication.getUser().getSetting().setMusicTaste(null);
                     }
                     else {
-                        taste.setText(musicTaste);
+                        taste.setText(musicTaste.toLowerCase());
                         modelApplication.getUser().getSetting().setMusicTaste(Arrays.asList(musicTaste));
                     }
 
-                    // update range.
-                    range.setText(radiusChoice + "" + " Km");
+                    // update range
+                    range.setText(radiusChoice + "" + " km");
                     modelApplication.getUser().getSetting().setRadius(radiusChoice);
 
 
@@ -175,7 +178,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 getResources().getColor(R.color.primary_dark),
                 getResources().getColor(R.color.color_accent));
 
-        range.setText(modelApplication.getUser().getSetting().getRadius() + "" + " Km");
+        range.setText(modelApplication.getUser().getSetting().getRadius() + "" + " km");
         if (!(modelApplication.getUser().getSetting().getMusicTaste() == null || modelApplication.getUser()
                 .getSetting().getMusicTaste().isEmpty() ))
             taste.setText(modelApplication.getUser().getSetting().getMusicTaste().get(0) + "");
@@ -195,7 +198,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         if (v.equals(menuButton)) {
             showMoreMenu(v);
         } else if (v.equals(tastePicker)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Dialog);
             builder.setTitle(R.string.choose_your_music_taste)
                     .setItems(R.array.music_taste_array, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -250,19 +253,22 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             dialog.show();
         } else if (v.equals(rangeButton)) {
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(), R.style.Dialog);
 
-            alert.setTitle("Set Range");
+            alert.setTitle(R.string.set_range);
 
             LinearLayout linear=new LinearLayout(getActivity());
 
             linear.setOrientation(LinearLayout.VERTICAL);
             final TextView text = new TextView(getActivity());
-            text.setText(modelApplication.getUser().getSetting().getRadius() + " Km");
-            text.setPadding(10, 10, 10, 10);
+            text.setTextColor(getResources().getColor(R.color.light_text));
+            text.setText(modelApplication.getUser().getSetting().getRadius() + " km");
+            text.setPadding(10, 10, 100, 10);
+            text.setGravity(center);
 
             final SeekBar seek = new SeekBar(getActivity());
             seek.setMax(35);
+            seek.setPadding(80, 40, 80, 20);
             seek.setProgress(modelApplication.getUser().getSetting().getRadius() - 5);
 
             linear.addView(seek);
@@ -273,7 +279,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    text.setText(seek.getProgress() + 5 + " Km");
+                    text.setText(seek.getProgress() + 5 + " km");
                 }
 
                 @Override
@@ -287,7 +293,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 }
             });
 
-            alert.setPositiveButton("Ok",new DialogInterface.OnClickListener()
+            alert.setPositiveButton(getResources().getString(R.string.button_ok), new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog,int id)
                 {
@@ -306,7 +312,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 }
             });
 
-            alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener()
+            alert.setNegativeButton(getResources().getString(R.string.button_cancel), new DialogInterface
+                    .OnClickListener()
             {
                 public void onClick(DialogInterface dialog,int id) {}
             });
@@ -346,13 +353,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
     }
 
     private void menuEditName() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Dialog);
         builder.setTitle(R.string.enter_name);
-
         final EditText input = new EditText(getActivity());
+        input.setTextColor(getResources().getColor(R.color.light_text));
         input.setText(modelApplication.getUser().getFirstname());
+
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         builder.setView(input);
+
 
         builder.setPositiveButton(android.R.string.yes, new DialogInterface
                 .OnClickListener() {
@@ -378,13 +387,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         });
 
         builder.show();
+        // Put the cursor at the end of the EditText
+        input.requestFocus();
+
     }
 
     private void menuEditDescription() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Dialog);
         builder.setTitle(R.string.description_message);
 
         final EditText input = new EditText(getActivity());
+        input.setTextColor(getResources().getColor(R.color.light_text));
         String description;
         if (modelApplication.getUser().getDescription() != null) {
             description = modelApplication.getUser().getDescription();
@@ -417,13 +430,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         });
 
         builder.show();
+        // Put the cursor at the end of the EditText and show the keyboard
+        input.requestFocus();
     }
 
     private void menuLogout() {
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(getActivity(), R.style.Dialog)
                 .setTitle(R.string.log_out_message)
                 .setMessage(R.string.log_out_warning)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.button_confirm_logout), new DialogInterface
+                        .OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -442,11 +458,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
     }
 
     private void menuDeleteAccount() {
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(getActivity(), R.style.Dialog)
                 .setTitle(R.string.delete_user_alert)
-                .setMessage(getString(R.string.delete_warning) +
-                        getString(R.string.delete_message))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setMessage(getString(R.string.delete_warning))
+                .setPositiveButton(getResources().getString(R.string.button_confirm_delete_account), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deleteUser();
                     }

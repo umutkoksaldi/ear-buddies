@@ -106,7 +106,8 @@ public final class MainActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                int pos = tab.getPosition();
+                mViewPager.setCurrentItem(pos);
             }
 
             @Override
@@ -130,7 +131,21 @@ public final class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                int pos = tab.getPosition();
+                if (FRAGMENT_USERS == pos) {
+                    // Leave the detail fragment if it had been opened
+                    if (UserDetailsControler.getConnectionControler().isOpenFromUserList()) {
+                        getSupportFragmentManager().popBackStackImmediate();
+                        userDetailsControler.setOpenFromUserList(false);
+                    }
+                }
+                if (FRAGMENT_MAP == pos) {
+                    // Leave the detail fragment if it had been opened
+                    if (UserDetailsControler.getConnectionControler().isOpenFromMap()) {
+                        getSupportFragmentManager().popBackStackImmediate();
+                        userDetailsControler.setOpenFromMap(false);
+                    }
+                }
             }
         });
     }
@@ -244,7 +259,7 @@ public final class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_star_black_24dp)
+                        .setSmallIcon(R.drawable.ic_whatshot_black_24dp)
                         .setContentTitle(match.getFirstname()+" is listening to the same music!")
                         .setContentText("Tap to learn more.")
                         .setAutoCancel(true);

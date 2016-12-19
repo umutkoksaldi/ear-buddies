@@ -56,16 +56,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.controlers.UserDetailsControler;
 import ch.epfl.sweng.project.models.Location;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.User;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
-import ch.epfl.sweng.project.view.util_view.DownloadImageMarker;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.view.adapter_view.InfoMarkerAdapter;
+import ch.epfl.sweng.project.view.util_view.DownloadImageMarker;
+
+import static ch.epfl.sweng.project.util_constant.GlobalSetting.MARKER_SIZE;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener {
@@ -337,7 +339,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
                 Activity activity = getActivity();
                 if (activity != null) {
                     Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
-                    bm = DownloadImageMarker.scaleDown(bm, 100, true);
+                    // Scale down the image size
+                    //bm = DownloadImageMarker.scaleDown(bm, MARKER_SIZE * getResources().getDisplayMetrics().density,
+                    //     true);
+                    int size = Math.round(MARKER_SIZE * getResources().getDisplayMetrics().density);
+                    bm = Bitmap.createScaledBitmap(bm, size, size, true);
                     BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(getCircleBitmap(bm));
                     marker.icon(defProfile);
                 }
