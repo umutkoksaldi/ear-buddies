@@ -33,4 +33,6 @@
     <string name="launch_facebook_connection">Se connecter à Facebook</string>
     <string name="connexion_facebook_pending">Encore un instant&#8230; :)</string>
     <string name="server_error_music_info">Impossible d\'identifier ce morceau :(</string>
+    <string name="button_cancel">Annuler</string>
+    <string name="button_ok">Ok</string>
 </resources>

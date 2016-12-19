@@ -293,7 +293,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 }
             });
 
-            alert.setPositiveButton("Ok",new DialogInterface.OnClickListener()
+            alert.setPositiveButton(getResources().getString(R.string.button_ok), new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog,int id)
                 {
@@ -312,7 +312,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 }
             });
 
-            alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener()
+            alert.setNegativeButton(getResources().getString(R.string.button_cancel), new DialogInterface
+                    .OnClickListener()
             {
                 public void onClick(DialogInterface dialog,int id) {}
             });

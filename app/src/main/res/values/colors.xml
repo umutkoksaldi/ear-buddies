@@ -11,6 +11,7 @@
   <color name="icons">#FFFFFF</color>
   <color name="divider">#BDBDBD</color>
   <color name="background">#FAFAFA</color>
+  <color name="music_color">#cccccc</color>
 
 
   <!-- Old color scheme

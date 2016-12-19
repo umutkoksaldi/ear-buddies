@@ -37,8 +37,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.internal.util.Checks.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
-import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_CANCEL;
-import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.BUTTON_OK;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_DESCRIPTION;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MOCK_USER_FIRST_NAME;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
@@ -91,7 +89,7 @@ public class TestProfileFragment {
         onView(withText(modelApplication.getUser().getFirstname()))
                 .check(matches(isDisplayed()))
                 .perform(replaceText(USER_NAME));
-        onView(withId(BUTTON_OK))
+        onView(withText(R.string.button_ok))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(USER_NAME))
@@ -103,7 +101,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_edit_name))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withId(BUTTON_CANCEL))
+        onView(withText(R.string.button_cancel))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -116,7 +114,7 @@ public class TestProfileFragment {
         onView(withText(modelApplication.getUser().getFirstname()))
                 .check(matches(isDisplayed()))
                 .perform(replaceText(MOCK_USER_FIRST_NAME));
-        onView(withId(BUTTON_OK))
+        onView(withText(R.string.button_ok))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(MOCK_USER_FIRST_NAME))
@@ -140,7 +138,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_edit_description))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withId(BUTTON_CANCEL))
+        onView(withText(R.string.button_cancel))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -161,7 +159,7 @@ public class TestProfileFragment {
         }
         onView(withText(currentDescription))
                 .perform(replaceText(USER_DESCRIPTION));
-        onView(withId(BUTTON_OK))
+        onView(withText(R.string.button_ok))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(USER_DESCRIPTION))
@@ -176,7 +174,7 @@ public class TestProfileFragment {
                 .perform(click());
         onView(withText(USER_DESCRIPTION))
                 .perform(replaceText(MOCK_USER_DESCRIPTION));
-        onView(withId(BUTTON_OK))
+        onView(withText(R.string.button_ok))
                 .check(matches(isDisplayed()))
                 .perform(click());
         onView(withText(MOCK_USER_DESCRIPTION))
@@ -197,7 +195,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_delete_account))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withId(BUTTON_CANCEL))
+        onView(withText(R.string.button_cancel))
                 .check(matches(isDisplayed()))
                 .perform(click());
         assertThat(viewPager.getCurrentItem(), is(FRAGMENT_PROFILE));
@@ -219,7 +217,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_logout))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withId(BUTTON_CANCEL))
+        onView(withText(R.string.button_cancel))
                 .check(matches(isDisplayed()))
                 .perform(click());
 
@@ -231,7 +229,7 @@ public class TestProfileFragment {
         onView(withText(R.string.menu_logout))
                 .check(matches(isDisplayed()))
                 .perform(click());
-        onView(withId(BUTTON_OK))
+        onView(withText(R.string.button_ok))
                 .check(matches(isDisplayed()))
                 .perform(click());
 

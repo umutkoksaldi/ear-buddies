@@ -100,5 +100,7 @@
     <string name="tabProfile">Profile</string>
     <string name="tabUsers">People</string>`
     <string name="default_description">Hi ! I\'m loving this app !</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_ok">Ok</string>
 
 </resources>

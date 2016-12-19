@@ -19,9 +19,6 @@ public class GlobalTestSettings {
     // Main activity
 
     // ************************************************************************************************************************************************
-    // Dialog buttons
-    public static final int BUTTON_OK = android.R.id.button1;
-    public static final int BUTTON_CANCEL = android.R.id.button2;
 
 
     // Mock Users Data
