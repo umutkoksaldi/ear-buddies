@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <array
+        name="user_opt_array">
+        <item>Modifier nom</item>
+        <item>Modifier description</item>
+
+    </array>
+
+    <array name="music_taste_array">
+        <item>Pop</item>
+        <item>Rock</item>
+        <item>Rap</item>
+        <item>Métal</item>
+        <item>Hip-hop</item>
+        <item>Peu importe !</item>
+    </array>
+
+</resources>

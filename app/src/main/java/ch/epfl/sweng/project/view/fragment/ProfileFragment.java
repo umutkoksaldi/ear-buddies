@@ -34,15 +34,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.medias.MusicHistory;
-
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
-
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.view.activity.WelcomeActivity;
 import ch.epfl.sweng.project.view.adapter_view.MusicListAdapter;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
@@ -252,7 +250,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
-            alert.setTitle("Set Range");
+            alert.setTitle(R.string.set_range);
 
             LinearLayout linear=new LinearLayout(getActivity());
 

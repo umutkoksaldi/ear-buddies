@@ -43,15 +43,21 @@
     <string name="launch_facebook_connection">Launch Facebook connection</string>
 
     <!-- Profile Page -->
-    <string name="choose_your_music_taste">Choose your music taste:</string>
+    <string name="choose_your_music_taste">Choose your music taste</string>
+    <string name="rock" translatable="false">Rock</string>
+    <string name="metal">Metal</string>
+    <string name="pop" translatable="false">Pop</string>
     <string name="classic">Classic</string>
     <string name="jazz">Jazz</string>
+    <string name="rap" translatable="false">Rap</string>
+    <string name="hiphop">Hip-hop</string>
+    <string name="all_tastes">Everything</string>
     <string name="edm">EDM</string>
     <string name="user_name">User Name</string>
     <string name="find_user_text">Find users within: Select Range</string>
     <string name="no_music_taste_push_to_select">No music taste, push to select</string>
     <string name="user_description">User Description</string>
-    <string name="set_range">Set your range</string>
+    <string name="set_range">Range limit for people around</string>
     <string name="hundred_meters">100 m</string>
     <string name="twofifty_meters">250 m</string>
     <string name="delete_account">Delete Account</string>
@@ -83,7 +89,7 @@
     <string name="presentation_people" tools:ignore="UnusedResources"> Find people around by music taste \n</string>
     <string name="presentation_interaction" tools:ignore="UnusedResources"> Have fun with your new mates ! :) \n
     </string>
-    <string name="facebook_warning">We do not post anything of facebook.</string>
+    <string name="facebook_warning">We do not publish anything on Facebook with your account.</string>
 
 
     <!--Users Frag -->
@@ -100,11 +106,11 @@
     <string name="no_listening">Not listening any song yet...</string>
 
     <!-- User Details Fragment -->
-    <string name="facebook">Facebook</string>
+    <string name="facebook" translatable="false">Facebook</string>
 
     <!-- Music history fragment -->
-    <string name="separator"> ● </string>
-    <string name="no_lastfm_page_found">Seems like this song is not on Lastfm !</string>
+    <string name="separator" translatable="false"> ● </string>
+    <string name="no_lastfm_page_found">No additional info about this song :(</string>
 
     <!-- MusicInfoService -->
     <string name="textviewdetails"/>
@@ -123,19 +129,13 @@
     <string name="is_listening_to_the_song">Is listening to</string>
     <string name="details_facebook_button">TextView</string>
 
+
     <!-- TabLayout -->
     <string name="tabMap">Map</string>
     <string name="tabProfile">Profile</string>
     <string name="tabUsers">People</string>`
     <string name="song_name">song name</string>
     <string name="button">Button</string>
-
-    <string name="all_tastes">Not specified</string>
-    <string name="rap">rap</string>
-    <string name="hiphop">hiphop</string>
-    <string name="rock">rock</string>
-    <string name="metal">metal</string>
-    <string name="pop">pop</string>
     <string name="default_description">Hi ! I\'m loving this app !</string>
 
 </resources>

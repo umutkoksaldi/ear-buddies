@@ -6,6 +6,9 @@ import ch.epfl.sweng.project.BuildConfig;
 @SuppressWarnings("WeakerAccess")
 public class GlobalSetting {
 
+    // Marker bitmap size on the map
+    public static final int MARKER_SIZE = 20;
+
     // ID of the fragments used by the Pager
     public static final int FRAGMENT_USERS = 0;
     public static final int FRAGMENT_MAP = 1;

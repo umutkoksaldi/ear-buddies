@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sheepzik</string>
+    <string name="enter_name">Entrez votre nom</string>
+    <string name="error_connexion_facebook">Oups, impossible de se connecter... Réessayez plus tard :(</string>
+    <string name="facebook_warning">Nous ne publions rien sur Facebook avec votre compte.</string>
+    <string name="log_out_message">Déconnexion ?</string>
+    <string name="log_out_warning">Voulez-vous vous déconnecter ? Vos préférences seront enregistrées pour votre prochaine connexion.</string>
+    <string name="menu_delete_account">Supprimer le compte</string>
+    <string name="menu_logout">Se déconnecter</string>
+    <string name="menu_edit_name">Modifier nom</string>
+    <string name="menu_edit_description">Modifier description</string>
+    <string name="metal">Métal</string>
+    <string name="more">plus</string>
+    <string name="no_lastfm_page_found">Nous n\'en savons pas plus sur ce morceau...</string>
+    <string name="no_listening"></string>
+    <string name="no_music_player_installed">Bizarre... On dirait que vous n\'avez pas de lecteur de musique compatible installé sur votre appareil :(</string>
+    <string name="no_user_facebook_page_found">Impossible de trouver cette personne sur Facebook !</string>
+    <string name="presentation_music">Écoutez votre musique comme d\'habitude</string>
+    <string name="presentation_people">Découvrez qui partage vos goûts musicaux près d\'ici</string>
+    <string name="presentation_interaction">À vous de faire de nouvelles rencontres :)</string>
+    <string name="set_range">Distance pour la recherche</string>
+    <string name="success_message">C\'est fait !</string>
+    <string name="tabMap">Carte</string>
+    <string name="tabProfile">Profil</string>
+    <string name="tabUsers">Près d\'ici</string>
+    <string name="choose_your_music_taste">Votre préférence musicale</string>
+    <string name="delete_warning">Voulez-vous vraiment supprimer votre compte ? Vos préférences seront supprimées et les autres utilisateurs ne verront plus jamais votre profil.</string>
+    <string name="description_message">À quoi pensez-vous aujourd\'hui ?</string>
+    <string name="default_description">Salut ! J\'adore cette appli !</string>
+    <string name="all_tastes">Écoute de tout</string>
+</resources>

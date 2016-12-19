@@ -1,10 +1,9 @@
 package ch.epfl.sweng.project.view.fragment;
 
 
-import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -16,12 +15,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.controlers.UserSongControler;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.models.User;
-import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.view.web_view.CustomTabActivityHelper;
-import ch.epfl.sweng.project.view.web_view.WebviewFallback;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 
 
@@ -123,20 +120,9 @@ public class DetailsFragment extends Fragment {
             public void onClick(View v) {
                 String fullUrl = "http://".concat(url.concat("/").concat(String.valueOf(user.getIdApiConnection())));
 
-                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
+                startActivity(browserIntent);
 
-                Activity activity = (Activity) v.getContext();
-
-                CustomTabActivityHelper.openCustomTab(
-
-                        activity,
-
-                        customTabsIntent,
-
-                        Uri.parse(fullUrl),
-
-                        new WebviewFallback()
-                );
             }
         });
     }
