@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Sheepzik</string>
     <string name="enter_name">Entrez votre nom</string>
-    <string name="error_connexion_facebook">Oups, impossible de se connecter... Réessayez plus tard :(</string>
+    <string name="error_connexion_facebook">Oups, impossible de se connecter&#8230; Réessayez plus tard :(</string>
     <string name="facebook_warning">Nous ne publions rien sur Facebook avec votre compte.</string>
     <string name="log_out_message">Déconnexion ?</string>
     <string name="log_out_warning">Voulez-vous vous déconnecter ? Vos préférences seront enregistrées pour votre prochaine connexion.</string>
@@ -13,8 +13,8 @@
     <string name="metal">Métal</string>
     <string name="delete_user_alert">Supprimer le compte</string>
     <string name="more">plus</string>
-    <string name="no_lastfm_page_found">Nous n\'en savons pas plus sur ce morceau...</string>
-    <string name="no_music_player_installed">Bizarre... On dirait que vous n\'avez pas de lecteur de musique compatible installé sur votre appareil :(</string>
+    <string name="no_lastfm_page_found">Nous n\'en savons pas plus sur ce morceau&#8230;</string>
+    <string name="no_music_player_installed">Bizarre&#8230; On dirait que vous n\'avez pas de lecteur de musique compatible installé sur votre appareil :(</string>
     <string name="no_user_facebook_page_found">Impossible de trouver cette personne sur Facebook !</string>
     <string name="presentation_music">Écoutez votre musique comme d\'habitude</string>
     <string name="presentation_people">Découvrez qui partage vos goûts musicaux près d\'ici</string>
@@ -31,6 +31,6 @@
     <string name="all_tastes">Écoute de tout</string>
     <string name="hiphop">Hip-hop</string>
     <string name="launch_facebook_connection">Se connecter à Facebook</string>
-    <string name="connexion_facebook_pending">Encore un instant... :)</string>
+    <string name="connexion_facebook_pending">Encore un instant&#8230; :)</string>
     <string name="server_error_music_info">Impossible d\'identifier ce morceau :(</string>
 </resources>

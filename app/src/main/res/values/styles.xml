@@ -19,7 +19,7 @@
     <!-- for Alert Dialog -->
     <style name="Dialog" parent="Theme.AppCompat.Dialog">
         <!-- Used for the buttons -->
-        <item name="android:colorAccent">@color/color_accent</item>
+        <item name="colorAccent">@color/color_accent</item>
         <!-- Used for the title and text -->
         <item name="android:textColor">@color/light_text</item>
         <item name="android:color">@color/light_text</item>
