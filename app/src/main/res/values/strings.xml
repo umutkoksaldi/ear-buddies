@@ -41,11 +41,11 @@
 
     <!-- Profile Page -->
     <string name="choose_your_music_taste">Choose your music taste</string>
-    <string name="rock" translatable="false">Rock</string>
-    <string name="metal">Metal</string>
-    <string name="pop" translatable="false">Pop</string>
-    <string name="rap" translatable="false">Rap</string>
-    <string name="hiphop">Hip-hop</string>
+    <string name="rock" translatable="false">rock</string>
+    <string name="metal">metal</string>
+    <string name="pop" translatable="false">pop</string>
+    <string name="rap" translatable="false">rap</string>
+    <string name="hiphop">hip-hop</string>
     <string name="all_tastes">Everything</string>
     <string name="set_range">Range limit for people around</string>
     <string name="delete_user_alert">Delete User</string>

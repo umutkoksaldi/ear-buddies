@@ -97,6 +97,8 @@ var PARAM_USER_NO_SETTINGS = {
   'longitude'       : LONGITUDE,
 }
 
+var ID_MUSIC = 1
+
 // ----------------------------------------------   TEST  -----------------------------------------
 
 //Our parent block
@@ -118,7 +120,8 @@ describe('Test User API getUsersAround.', () => {
             age : user1.age,
             profilePicture : user1.profilePicture,
             backgroundPicture : user1.backgroundPicture,
-            location : user1.point
+            location : user1.point,
+            CurrentMusicId : ID_MUSIC
 
             // callback if the user srequest succeed.
           }).then(function(createUser1) {
@@ -132,7 +135,8 @@ describe('Test User API getUsersAround.', () => {
               age : user2.age,
               profilePicture : user2.profilePicture,
               backgroundPicture : user2.backgroundPicture,
-              location : user2.point
+              location : user2.point,
+              CurrentMusicId : ID_MUSIC
 
               // callback if the user srequest succeed.
             }).then(function(createUser2) {
@@ -146,7 +150,8 @@ describe('Test User API getUsersAround.', () => {
                 age : user3.age,
                 profilePicture : user3.profilePicture,
                 backgroundPicture : user3.backgroundPicture,
-                location : user3.point
+                location : user3.point,
+                CurrentMusicId : ID_MUSIC
 
                 // callback if the user srequest succeed.
               }).then(function(createUser3) {
@@ -160,7 +165,8 @@ describe('Test User API getUsersAround.', () => {
                   age : user4.age,
                   profilePicture : user4.profilePicture,
                   backgroundPicture : user4.backgroundPicture,
-                  location : user4.point
+                  location : user4.point,
+                  CurrentMusicId : ID_MUSIC
 
                   // callback if the user srequest succeed.
                 }).then(function(createUser4) {
@@ -211,8 +217,9 @@ describe('Test User API getUsersAround.', () => {
         //test server response
         res.should.have.status(setting.htmlCode.succes_request);
         var body = res.body;
-        chai.assert.equal(body.length, 1, 'There should be one user');
-        chai.assert.equal(body[0].firstname, user3.firstname);
+        chai.assert.equal(body.length, 2, 'There should be one user');
+        chai.assert.equal(body[0].firstname, user4.firstname);
+        chai.assert.equal(body[1].firstname, user3.firstname);
         done();
       });
     });

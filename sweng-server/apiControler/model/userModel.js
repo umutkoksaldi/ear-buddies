@@ -116,67 +116,69 @@ function controllerUser(){
     }
 
 
-   var getUserAroundBySetting = function(idApi,callback){
+    var getUserAroundBySetting = function(idApi,callback){
 
-      utils.logInfo("controllerUser(), insertion or getting a user, adduser()");
+          utils.logInfo("controllerUtilisateur(), insertion or geetin a user, adduser()");
 
-      // I wanted to use the ORM but it does not work properly with geospatial request.
-      var queryRequest = 'SELECT *, ST_Distance_Sphere(ST_MakePoint(:lattitude,:longitude), "location") AS user_distance '+
-                          'FROM "Users" '+
-                          'WHERE ST_Distance_Sphere(ST_MakePoint(:lattitude, :longitude), "location") <= ( :radius*1000 ) ' +
-                          'AND age >= :ageMin '+
-                          'AND age < :ageMax '+
-                          'AND id != \':idUser\''+
-                          'ORDER by user_distance;'
+          User.sync().then(function () {
+            // select query.
+             var getUser =  User.findOne({
+                  where: {
+                    idApiConnection: idApi
+                  }
+                }).then(function(getUser) {
 
-      User.sync().then(function () {
-        // select query.
-         var getUser =  User.findOne({
-              where: {
-                idApiConnection: idApi
-              }
-            }).then(function(getUser) {
+                    utils.logInfo("request succeed"+idApi)
+                    getUser.getSetting().then(function(settingUser) {
 
-                utils.logInfo("request succeed"+idApi)
-                getUser.getSetting().then(function(settingUser) {
+                    // taking into account the value of the setting of the user.
+                    tasteMusicRequest = settingUser.musicTaste == null ? ' ' : 'AND tag IN (:tags) '
+                    utils.logInfo("selection music : " + tasteMusicRequest)
 
-                    // execute the query by replacing values in query.
-                    sequelize.query(queryRequest,
-                    {
-                        replacements:
-                                      {
-                                        lattitude: getUser.location.coordinates[0],
-                                        longitude: getUser.location.coordinates[1],
-                                        radius: settingUser.radius,
-                                        ageMin: settingUser.ageMin,
-                                        ageMax: settingUser.ageMax,
-                                        idUser : getUser.id
-                                      }, type: sequelize.QueryTypes.SELECT
+                    // I wanted to use the ORM but it does not work properly with geospatial request.
+                    var queryRequest = 'SELECT *, ST_Distance_Sphere(ST_MakePoint(:lattitude,:longitude), "location") AS user_distance '+
+                                        'FROM "Users" INNER JOIN "Music" ON ("Users"."CurrentMusicId" = "Music"."id") '+
+                                        'WHERE ST_Distance_Sphere(ST_MakePoint(:lattitude, :longitude), "location") <= ( :radius*1000 ) ' +
+                                        tasteMusicRequest+ 
+                                        'AND "Users".id != \':idUser\' '+
+                                        'ORDER by user_distance;'
 
-                      }).then(function(usersAround) {
-                            usersAround.forEach(function(value){
-                              userManipulation.transformResponseClient(value);
-                            });
+                        // execute the query by replacing values in query.
+                        sequelize.query(queryRequest,
+                        { 
+                            replacements: 
+                                          { 
+                                            lattitude: getUser.location.coordinates[0],
+                                            longitude: getUser.location.coordinates[1],
+                                            radius: settingUser.radius,
+                                            idUser : getUser.id,
+                                            tags : settingUser.musicTaste
+                                          }, type: sequelize.QueryTypes.SELECT 
 
-                            callback(usersAround,setting.htmlCode.succes_request);
+                          }).then(function(usersAround) {
+                                usersAround.forEach(function(value){
+                                  userManipulation.transformResponseClient(value);
+                                });   
 
-                      }).catch(function(error) {
-                            utils.logError('Query impossible '+error)
-                            callback(null,setting.htmlCode.unavailable_ressources);
-                      });
+                                callback(usersAround,setting.htmlCode.succes_request);
+
+                          }).catch(function(error) {
+                                utils.logError('Query impossible '+error)
+                                callback(null,setting.htmlCode.unavailable_ressources);
+                          });
+
+                    }).catch(function(error) {
+                      utils.logError("This User does not have any SettingValue"+error)
+                      callback(null,setting.htmlCode.unavailable_ressources);
+                    });
 
                 }).catch(function(error) {
-                  utils.logError("This User does not have any SettingValue"+error)
-                  callback(null,setting.htmlCode.unavailable_ressources);
+
+                    utils.logError("error getting user : "+idApi)
+                    callback(null,setting.htmlCode.unavailable_ressources);
                 });
-
-            }).catch(function(error) {
-
-                utils.logError("error getting user : "+idApi)
-                callback(null,setting.htmlCode.unavailable_ressources);
             });
-        });
-  }
+      }
 
 
     this.updateGetInformationUser = function (body,callback)
