@@ -48,7 +48,6 @@ function Utils()
 
     this.dateUtilsToString = function (mydateMili){
         var myDate = new Date(mydateMili)
-        //return myDate.getUTCFullYear()+"-"+myDate.getUTCMonth()+"-"+myDate.getUTCDate()
         return myDate.toDateString();
     }
 

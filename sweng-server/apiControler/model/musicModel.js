@@ -27,7 +27,12 @@ var SIZE_PHOTO = 'large'
 // Definition of the object controllerMusic
 function controllerMusic(){
 
-  // Implementation of the REST GET service.
+  /**
+   * Return the object music defined by hsi id.
+   * @param  {[int]}    idMusic  
+   * @param  {Function} callback method to send back the response to the client
+   * @return {[int]}             response contain the object music it exists in database.
+   */
   this.getMusic = function(idMusic,callback){
 
       utils.logInfo("getUserByIdConnection(), get the user"+ idMusic);
@@ -53,8 +58,13 @@ function controllerMusic(){
           });
     }
 
+    /**
+     * Search for the history of the user, return the last ten songs.
+     * @param  {[int]}       idUser   id of the user
+     * @param  {Function}    callback metthod to send response to che client
+     * @return {[json]}               contain the history of the user.
+     */
     this.getHistory = function(idUser,callback){
-
         User.sync().then(function () {
           // select query.
            var getUser =  User.findOne({
@@ -89,6 +99,13 @@ function controllerMusic(){
     }
 
 
+    /**
+     * Add a new music to the user.
+     * @param  {[int]}   idApi        id of the users
+     * @param  {[type]}   MusicObject Json describing the music 'artistName', 'musicName'
+     * @param  {Function} callback    method to response to the client.
+     * @return {[type]}               HttpCode
+     */
     this.updateMusic = function(idApi,MusicObject,callback)    {
 
         // GET the user description by doing a post on facebook API.
@@ -103,6 +120,7 @@ function controllerMusic(){
 
                 // get the value from the response.
                 res.raw_body  = JSON.parse(res.raw_body, (key, value) => {
+
                     // the case where we can't find any informations about the music.
                     if(key == 'error'){
                       resultFMRequest = {
@@ -204,6 +222,12 @@ function controllerMusic(){
     };
 
 
+    /**
+     * build the resquest to LastFm in order to return the description of the music.
+     * @param  {[String]} nameArtist artist name
+     * @param  {[String]} nameMusic  music name
+     * @return {[String]}            Request to LastFM
+     */
     var buildRequestLastFm = function(nameArtist, nameMusic){
       artistePart  = nameArtist == undefined ? '' : '&artist='+ nameArtist;
       musicPart    = nameMusic == undefined  ? '' : '&track='  + nameMusic;

@@ -20,6 +20,9 @@ var sequelize = require('../database/SequelizeORM.js').sequelize ;
 
 var URL_FACEBOOK = "https://graph.facebook.com/";
 var FIELDS_FACEBOOK = 'email,cover,birthday,first_name,last_name,name,picture';
+
+
+// Default location.
 var LATTITUDE = 46.526848
 var LONGITUDE = 6.601919
 
@@ -98,11 +101,14 @@ function controllerUser(){
             }).then(function(getUser) {
 
                 utils.logInfo("request succeed"+idApi)
+
+                // getting the setting object of the user.
                 getUser.getSetting().then(function(associatedTasks) {
                     userManipulation.changeSetting(getUser.dataValues,associatedTasks.dataValues)
                     delete getUser.dataValues['id']
                     var response = userManipulation.transformResponseClient(getUser.dataValues);
                     callback(response,setting.htmlCode.succes_request);
+
                 }).catch(function(error) {
                     utils.logError("This User does not have any SettingValue"+error)
                     callback(null,setting.htmlCode.unavailable_ressources);
@@ -116,6 +122,7 @@ function controllerUser(){
     }
 
 
+    // private methode who return the user around a user, selected using a circle.
     var getUserAroundBySetting = function(idApi,callback){
 
           utils.logInfo("controllerUtilisateur(), insertion or geetin a user, adduser()");
@@ -181,6 +188,12 @@ function controllerUser(){
       }
 
 
+    /**
+     * update or create a user in database searching information on facebook.
+     * @param  {[Json]}   body     object containing important information : 'id' and 'accesToken' information
+     * @param  {Function} callback method to send back the response.
+     * @return {[type]}            contain object User.
+     */
     this.updateGetInformationUser = function (body,callback)
     {
         utils.logDebug("adduser()"+JSON.stringify(buildRequestFacebook(body.id,body.accesToken)));
@@ -250,6 +263,14 @@ function controllerUser(){
         })
     };
 
+  /**
+   * Return all users selected by music tastes and distance. 
+   * Moreover the method update the location of the user.
+   * @param  {[Json]}   UserObject object containing important information : 'lattitude' and 'longitude'
+   * and  'idApiConnection'
+   * @param  {Function} callback method to send back the response.
+   * @return {[Json]}              contains the list of users.
+   */
   this.getUsersAround = function(UserObject,callback){
       utils.logInfo("getUsersAround()");
       utils.logInfo(UserObject);
@@ -288,6 +309,12 @@ function controllerUser(){
 
     }
 
+    /**
+     * Get a user with his id.
+     * @param  {[int]}   idApi     facebook id of the user.
+     * @param  {Function} callback method to send back the response
+     * @return {[Json]}            contains the user object
+     */
     this.getUser = function(idApi,callback){
       utils.logInfo("controllerUser(), get user "+idApi+", getUser()");
       getUserByIdConnection(idApi,callback)
@@ -318,6 +345,13 @@ function controllerUser(){
     }
 
 
+    /**
+     * Update information of the user such as desciption, name.
+     * @param  {[int]}    idApi      facebook id of the user.
+     * @param  {[Json]}   UserObject contains 'lastname', 'firstname' and 'description' parameters.
+     * @param  {Function} callback   method to send back to the client
+     * @return {[null]}              return null.
+     */
     this.updateUser = function (idApi,UserObject,callback){
 
       // We synchronize with the databse in order to change the name and the
@@ -347,10 +381,17 @@ function controllerUser(){
     }
 
 
+    /**
+     * Update the setting of the user.
+     * @param  {[int]}    idApi         facebook id of the user.
+     * @param  {[Json]}   SettingObject contains 'ageMin', 'ageMax', 'radius', 'musicTaste' parameters.
+     * @param  {Function} callback      method to send back the response
+     * @return {[null]}                 null
+     */
     this.updateSetting = function (idApi,SettingObject,callback){
 
       utils.logInfo("updateSetting()");
-
+         
          User.sync().then(function () {
            // select query.
            var getUser =  User.findOne({
@@ -372,11 +413,12 @@ function controllerUser(){
                                         ageMin        : SettingObject.ageMin,
                                         ageMax        : SettingObject.ageMax,
                                         radius        : SettingObject.radius,
+                                        musicTaste    : SettingObject.musicTaste,
                                 }).then(function(createSetting) {
                                         // create new settign
                                         utils.logInfo("initiateValue(), Added Setting default");
                                         // update the current value of the setting.
-                                        getUser.setSetting(createSetting.id);
+                                        getUser.setSetting(createSetting.id);                        
                                         callback(createSetting.id,setting.htmlCode.succes_request);
 
                                 }).catch(function(error) {
@@ -386,22 +428,28 @@ function controllerUser(){
                           });
                     }
 
-                    // We update the current Setting of the User, already differents
+                    // We update the current Setting of the User, already differents 
                     // from the default one.
-                    else {
+                    else { 
                          // Insert the default setting for everyone in the database.
                          Setting.sync({force: false}).then(function () {
-
+                            if (SettingObject.musicTaste != undefined){
+                              var array = []
+                              array.push(SettingObject.musicTaste);
+                              SettingObject.musicTaste = array
+                            }
+                            utils.logInfo(SettingObject.musicTaste);
                             // we create a new setting associated to the user.
                             var createSetting =  Setting.update({
                                     ageMin        : SettingObject.ageMin,
                                     ageMax        : SettingObject.ageMax,
                                     radius        : SettingObject.radius,
+                                    musicTaste    : SettingObject.musicTaste,
                              },
                              {
                                 where: {
                                           id: associatedTasks.dataValues.id
-                                       }
+                                       }  
                                 }).then(function(createSetting) {
 
                                         utils.logInfo("initiateValue(), Added Setting default");
@@ -413,7 +461,7 @@ function controllerUser(){
                                 })
                           });
                     }
-
+                    
                 }).catch(function(error) {
                     utils.logError("This User does not have any SettingValue"+error)
                     callback(null,setting.htmlCode.unavailable_ressources);
@@ -426,7 +474,7 @@ function controllerUser(){
         });
     }
 
-
+    // build request to acces to the facebook graph and get informations for specific to the user.
     var buildRequestFacebook = function(id , accessToken){
         return URL_FACEBOOK + id +"?fields="+ FIELDS_FACEBOOK +"&access_token="+ accessToken +"&height=500&width=500";
     }
