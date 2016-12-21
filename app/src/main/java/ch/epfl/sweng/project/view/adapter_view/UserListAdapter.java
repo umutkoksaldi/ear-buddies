@@ -12,10 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.controlers.UserDetailsControler;
 import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.models.User;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.view.fragment.UsersFragment;
 import ch.epfl.sweng.project.view.util_view.DownloadImageTask;
 
@@ -40,9 +40,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
     @Override
     public UserListAdapter.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_userslist, parent, false);
-        UserListAdapter.UserViewHolder viewHolder = new UserListAdapter
-                .UserViewHolder(v);
-        return viewHolder;
+        return new UserViewHolder(v);
     }
 
     @Override
@@ -101,7 +99,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter
         }
     }
 
-    public class UserViewHolder extends RecyclerView.ViewHolder {
+    public static class UserViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView name;
         protected TextView line2;

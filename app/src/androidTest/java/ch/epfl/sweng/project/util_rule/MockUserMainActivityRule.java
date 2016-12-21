@@ -22,9 +22,9 @@ import ch.epfl.sweng.project.view.activity.MainActivity;
 
 public class MockUserMainActivityRule extends ActivityTestRule<MainActivity> {
 
+    public static List<String> NAME_USER = Arrays.asList("Name Test 1", "Name Test 2", "Name Test 3",
+            "Name Test 4", "Name Test 5");
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
-    public static List<String> NAME_USER = Arrays.asList("Name Test 1","Name Test 2","Name Test 3",
-            "Name Test 4","Name Test 5");
 
     public MockUserMainActivityRule(Class<MainActivity> activityClass) {
         super(activityClass);
@@ -59,9 +59,8 @@ public class MockUserMainActivityRule extends ActivityTestRule<MainActivity> {
     @Override
     protected Intent getActivityIntent() {
         Log.d("MockUserMainActivity...", "getActivityIntent()");
-        Intent customIntent = new Intent();
         // add some custom extras and stuff
-        return customIntent;
+        return new Intent();
     }
 
     @Override

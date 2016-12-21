@@ -57,8 +57,8 @@ public class TestMusicInfoService {
     private boolean testChecked = false;
 
     @BeforeClass
-    public static void  init() throws TimeoutException {
-         context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
+    public static void init() throws TimeoutException {
+        context = new RenamingDelegatingContext(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 "TestMusicInfoService");
         if (service == null) {
             Log.d("TestMusicInfoService", "init: null service");
@@ -74,7 +74,7 @@ public class TestMusicInfoService {
         // Bind the service and grab a reference to the binder.
         // it is a known bugs https://code.google.com/p/android/issues/detail?id=180396
         int it = 0;
-        while(binder == null && it < MAX_ITERATION_BIND){
+        while (binder == null && it < MAX_ITERATION_BIND) {
             binder = mServiceRule.bindService(serviceIntent);
             it++;
         }
@@ -101,7 +101,6 @@ public class TestMusicInfoService {
     public void bindedService() throws TimeoutException {
         assertEquals(service.ping(), "pong");
     }
-
 
 
     @Test

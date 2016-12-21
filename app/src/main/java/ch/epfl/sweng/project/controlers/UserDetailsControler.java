@@ -47,13 +47,13 @@ public final class UserDetailsControler {
     }
 
     public synchronized void openDetailsFragment(Fragment fragment, User user) {
-        int layout_id;
+        int layoutId;
         if (fragment instanceof MapFragment) {
             setOpenFromMap(true);
-            layout_id = R.id.framelayout_map;
+            layoutId = R.id.framelayout_map;
         } else if (fragment instanceof UsersFragment) {
             setOpenFromUserList(true);
-            layout_id = R.id.framelayout_users;
+            layoutId = R.id.framelayout_users;
         } else {
             throw new IllegalArgumentException("Trying to open UserDetailsFragment from a fragment different than " +
                     "People or Map");
@@ -62,7 +62,7 @@ public final class UserDetailsControler {
         detailsFragment.setUser(user);
         fragment.getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(layout_id, detailsFragment)
+                .replace(layoutId, detailsFragment)
                 .addToBackStack("")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .commit();

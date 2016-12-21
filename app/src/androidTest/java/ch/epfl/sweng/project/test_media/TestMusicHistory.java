@@ -36,7 +36,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 
-
 /**
  * Created by Antoine Merino on 18/11/2016.
  */
@@ -86,7 +85,7 @@ public class TestMusicHistory {
         // Bind the service and grab a reference to the binder.
         // it is a known bugs https://code.google.com/p/android/issues/detail?id=180396
         int it = 0;
-        while(binder == null && it < MAX_ITERATION_BIND){
+        while (binder == null && it < MAX_ITERATION_BIND) {
             binder = mServiceRule.bindService(serviceIntent);
             it++;
         }
@@ -133,7 +132,7 @@ public class TestMusicHistory {
     }
 
     @Test
-    public void historyLengthShouldNotExceedMaxLength() {
+    public void historyTooLong() {
         boolean behavesAsExpected = false;
         try {
             musicHistory.setLength(GlobalSetting.MUSIC_HISTORY_MAX_LENGTH + 1);
@@ -147,7 +146,6 @@ public class TestMusicHistory {
     @Test
     public void testHistorySetLength() {
         int expectedLength = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH - 1;
-        boolean behavesAsExpected = false;
         musicHistory.setLength(expectedLength);
         assertEquals(musicHistory.getLength(), expectedLength);
     }
@@ -161,7 +159,7 @@ public class TestMusicHistory {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            Log.e("testHistory",e.getMessage());
+            Log.e("testHistory", e.getMessage());
             fail("Exception during the execution");
         }
         musicList = musicHistory.getHistory();
@@ -170,12 +168,12 @@ public class TestMusicHistory {
     }
 
     @Test
-    public void playingSong() { 
+    public void playingSong() {
         try {
             playSongIntent(context, GlobalTestSettings.ARTIST_NAME_REQUEST, GlobalTestSettings.MUSIC_NAME_REQUEST);
             Thread.sleep(10000);
         } catch (InterruptedException e) {
-            Log.e("testWithStartedService",e.getMessage());
+            Log.e("testWithStartedService", e.getMessage());
             fail("Exception during the execution");
         }
         Music newMusic = ModelApplication.getModelApplication().getMusic();
@@ -183,5 +181,5 @@ public class TestMusicHistory {
         assertEquals("Song names should be equals", GlobalTestSettings.MUSIC_NAME_RESPONSE, newMusic.getName());
 
     }
- 
+
 }

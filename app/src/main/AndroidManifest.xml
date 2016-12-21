@@ -5,7 +5,7 @@
 
     <!-- Permission Application -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 
     <!-- Use openGL to run the map -->
@@ -80,8 +80,10 @@
             android:value="@integer/google_play_services_version"/>
 
         <!-- Google maps API Key -->
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value =
-            "AIzaSyB4a_xRnaPVUW5-YRGRvrKHEscL5GB7uIs"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value=
+                "AIzaSyB4a_xRnaPVUW5-YRGRvrKHEscL5GB7uIs"/>
 
         <!-- Service used to get information about the currently playing music -->
         <service

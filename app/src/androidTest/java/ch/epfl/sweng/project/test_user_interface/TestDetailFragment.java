@@ -8,15 +8,12 @@ import android.util.Log;
 import android.view.View;
 
 import org.hamcrest.Matcher;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 import java.util.Arrays;
 import java.util.List;
-
 
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.models.ModelApplication;
@@ -34,7 +31,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.USERS_TAB;
-
 import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.allOf;
 
@@ -49,10 +45,9 @@ public class TestDetailFragment {
 
     public static String NAME_FIRST_USER = "Name Test 1";
     public static String NAME_ARTIST = "Rihana";
+    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
     @Rule
     public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
-
-    private final ModelApplication modelApplication = ModelApplication.getModelApplication();
 
     @Test
     public void testDisplayUsers() {
@@ -77,15 +72,14 @@ public class TestDetailFragment {
                                     .check(view, e);
                         }
                     });
-        }
-        catch(Exception e){
-            Log.e("testDisplayUsers",e.getMessage());
+        } catch (Exception e) {
+            Log.e("testDisplayUsers", e.getMessage());
             fail();
         }
     }
 
     @Test
-    public void ClickOnBackButton() {
+    public void clickOnBackButton() {
 
         try {
 
@@ -174,9 +168,9 @@ public class TestDetailFragment {
 
             // check if the fragment display something.
 
-            Matcher<View> matcherFacebookButton = allOf(withId(R.id.button_details_facebook),
+            Matcher<View> facebookButton = allOf(withId(R.id.button_details_facebook),
                     isDescendantOfA(withId(R.id.details_frag)));
-            onView(matcherFacebookButton).perform(click());
+            onView(facebookButton).perform(click());
 
             Thread.sleep(1000);
             // TODO check if the webview is opened.
@@ -186,7 +180,6 @@ public class TestDetailFragment {
             fail();
         }
     }
-
 
 
 }

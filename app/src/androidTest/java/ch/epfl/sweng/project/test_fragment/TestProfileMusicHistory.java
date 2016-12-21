@@ -21,7 +21,6 @@ import static junit.framework.Assert.assertEquals;
  */
 
 
-
 @RunWith(AndroidJUnit4.class)
 public class TestProfileMusicHistory {
 
@@ -32,7 +31,7 @@ public class TestProfileMusicHistory {
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Before
-    public  void setUp() throws Exception {
+    public void setUp() throws Exception {
 
         profileFragment = new ProfileFragment();
         musics = new ArrayList<>();

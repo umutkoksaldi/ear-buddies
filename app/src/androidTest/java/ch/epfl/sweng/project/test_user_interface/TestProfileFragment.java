@@ -235,23 +235,23 @@ public class TestProfileFragment {
                 .perform(click());
 
         // The user should be redirected to the login activity
-        assertCurrentActivityIsInstanceOf(LoginActivity.class);
+        assertCurrentActivityInstanceOf(LoginActivity.class);
     }
 
 
     @Test
     public void clickOnMusicTasteSlection() throws InterruptedException {
 
-            Matcher<View> matcher = allOf(withText(PROFILE_TAB),
-                    isDescendantOfA(withId(R.id.tabLayoutMain)));
-            onView(matcher).perform(click());
-            onView(withId(R.id.button_profile_music_tag)).perform(click());
+        Matcher<View> matcher = allOf(withText(PROFILE_TAB),
+                isDescendantOfA(withId(R.id.tabLayoutMain)));
+        onView(matcher).perform(click());
+        onView(withId(R.id.button_profile_music_tag)).perform(click());
         String[] tastes = mActivityRule.getActivity().getResources().getStringArray(R.array
                 .music_taste_array);
-            // check if the song is displayed
+        // check if the song is displayed
         for (String elementNameSong : tastes) {
-                onView(withText(elementNameSong)).check(matches(isDisplayed()));
-            }
+            onView(withText(elementNameSong)).check(matches(isDisplayed()));
+        }
         // Choose a music taste and check if it changes correctly
         onView(withText(tastes[0])).perform(click());
         sleep(SHORT_REQUEST_DELAY);
@@ -272,7 +272,7 @@ public class TestProfileFragment {
 
     }
 
-    public void assertCurrentActivityIsInstanceOf(Class<? extends AppCompatActivity> activityClass) {
+    public void assertCurrentActivityInstanceOf(Class<? extends AppCompatActivity> activityClass) {
         Activity currentActivity = getActivityInstance();
         checkNotNull(currentActivity);
         checkNotNull(activityClass);

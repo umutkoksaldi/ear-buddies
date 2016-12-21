@@ -30,7 +30,7 @@ import com.facebook.login.LoginManager;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,7 +97,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
         // select initial music tastes
         musicTaste = modelApplication.getUser().getSetting().getMusicTaste() == null ? getResources().getString(R.string
-                .all_tastes): modelApplication.getUser().getSetting().getMusicTaste().get(0);
+                .all_tastes) : modelApplication.getUser().getSetting().getMusicTaste().get(0);
         taste.setText(musicTaste.toLowerCase());
         radiusChoice = modelApplication.getUser().getSetting().getRadius();
 
@@ -132,14 +132,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                     //Toast.makeText(getApplicationContext(), getString(R.string.success_message), Toast.LENGTH_SHORT)
                     //      .show();
 
-                   //update Music
-                    if (musicTaste == null){
+                    //update Music
+                    if (musicTaste == null) {
                         taste.setText(getString(R.string.all_tastes).toLowerCase());
                         modelApplication.getUser().getSetting().setMusicTaste(null);
-                    }
-                    else {
+                    } else {
                         taste.setText(musicTaste.toLowerCase());
-                        modelApplication.getUser().getSetting().setMusicTaste(Arrays.asList(musicTaste));
+                        modelApplication.getUser().getSetting().setMusicTaste(Collections.singletonList(musicTaste));
                     }
 
                     // update range
@@ -154,8 +153,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                     if (modelApplication.getUser().getSetting() == null || modelApplication.getUser().getSetting()
                             .getMusicTaste() == null) {
                         musicTaste = null;
-                    }
-                    else {
+                    } else {
                         musicTaste = modelApplication.getUser().getSetting().getMusicTaste().get(0);
                     }
                     radiusChoice = modelApplication.getUser().getSetting().getRadius();
@@ -164,8 +162,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
             @Override
             public void onFailed() {
-                 Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
-                       .LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
+                        .LENGTH_SHORT).show();
                 Log.e("Profile", "Cannot connect to server");
             }
         });
@@ -181,7 +179,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
         range.setText(modelApplication.getUser().getSetting().getRadius() + "" + " km");
         if (!(modelApplication.getUser().getSetting().getMusicTaste() == null || modelApplication.getUser()
-                .getSetting().getMusicTaste().isEmpty() ))
+                .getSetting().getMusicTaste().isEmpty()))
             taste.setText(modelApplication.getUser().getSetting().getMusicTaste().get(0) + "");
         else
             taste.setText(R.string.all_tastes);
@@ -207,35 +205,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                             switch (which) {
                                 case 0:
                                     musicTaste = getResources().getString(R.string.pop);
-                                    params.put("musicTaste",  musicTaste );
+                                    params.put("musicTaste", musicTaste);
                                     params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
                                     serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
                                             "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 1:
                                     musicTaste = getResources().getString(R.string.rock);
-                                    params.put("musicTaste", musicTaste );
+                                    params.put("musicTaste", musicTaste);
                                     params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
                                     serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
                                             "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 2:
                                     musicTaste = getResources().getString(R.string.rap);
-                                    params.put("musicTaste",  musicTaste );
+                                    params.put("musicTaste", musicTaste);
                                     params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
                                     serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
                                             "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 3:
                                     musicTaste = getResources().getString(R.string.metal);
-                                    params.put("musicTaste", musicTaste );
+                                    params.put("musicTaste", musicTaste);
                                     params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
                                     serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
                                             "/Setting/" + modelApplication.getUser().getIdApiConnection());
                                     break;
                                 case 4:
                                     musicTaste = getResources().getString(R.string.hiphop);
-                                    params.put("musicTaste", musicTaste );
+                                    params.put("musicTaste", musicTaste);
                                     params.put("radius", modelApplication.getUser().getSetting().getRadius() + "");
                                     serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API +
                                             "/Setting/" + modelApplication.getUser().getIdApiConnection());
@@ -258,7 +256,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
 
             alert.setTitle(R.string.set_range);
 
-            LinearLayout linear=new LinearLayout(getActivity());
+            LinearLayout linear = new LinearLayout(getActivity());
 
             linear.setOrientation(LinearLayout.VERTICAL);
             final TextView text = new TextView(getActivity());
@@ -294,16 +292,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                 }
             });
 
-            alert.setPositiveButton(getResources().getString(R.string.button_ok), new DialogInterface.OnClickListener()
-            {
-                public void onClick(DialogInterface dialog,int id)
-                {
+            alert.setPositiveButton(getResources().getString(R.string.button_ok), new DialogInterface.OnClickListener
+                    () {
+                public void onClick(DialogInterface dialog, int id) {
                     int radius = seek.getProgress() + 5;
                     radiusChoice = radius;
                     // send request.
-                    Map <String, String> params = new HashMap<>();
+                    Map<String, String> params = new HashMap<>();
                     if (!(modelApplication.getUser().getSetting().getMusicTaste() == null || modelApplication.getUser()
-                        .getSetting().getMusicTaste().isEmpty())) {
+                            .getSetting().getMusicTaste().isEmpty())) {
                         params.put("musicTaste", modelApplication.getUser().getSetting().getMusicTaste().get(0));
                     }
                     params.put("radius", radius + "");
@@ -314,9 +311,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             });
 
             alert.setNegativeButton(getResources().getString(R.string.button_cancel), new DialogInterface
-                    .OnClickListener()
-            {
-                public void onClick(DialogInterface dialog,int id) {}
+                    .OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
             });
 
             alert.show();
@@ -360,7 +357,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         input.setTextColor(getResources().getColor(R.color.light_text));
         input.setText(modelApplication.getUser().getFirstname());
 
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
 
@@ -406,7 +403,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
             description = getString(R.string.default_description);
         }
         input.setText(description);
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener
@@ -462,7 +459,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
         new AlertDialog.Builder(getActivity(), R.style.Dialog)
                 .setTitle(R.string.delete_user_alert)
                 .setMessage(getString(R.string.delete_warning))
-                .setPositiveButton(getResources().getString(R.string.button_confirm_delete_account), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.button_confirm_delete_account), new
+                        DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deleteUser();
                     }
@@ -482,7 +480,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
     }
 
     private void deleteUser() {
-        serviceHandler.doDelete(GlobalSetting.URL + GlobalSetting.USER_API + modelApplication.getUser().getIdApiConnection());
+        serviceHandler.doDelete(GlobalSetting.URL + GlobalSetting.USER_API + modelApplication.getUser()
+                .getIdApiConnection());
         startActivity(new Intent(getActivity(), WelcomeActivity.class));
         getActivity().finish();
         logOutFace();

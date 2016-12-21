@@ -63,7 +63,7 @@ public class TestMusicInfoServiceSpotify {
         // Bind the service and grab a reference to the binder.
         // it is a known bugs https://code.google.com/p/android/issues/detail?id=180396
         int it = 0;
-        while(binder == null && it < MAX_ITERATION_BIND){
+        while (binder == null && it < MAX_ITERATION_BIND) {
             binder = mServiceRule.bindService(serviceIntent);
             it++;
         }

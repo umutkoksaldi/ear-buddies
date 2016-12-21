@@ -13,23 +13,22 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.view.activity.MainActivity;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.view.activity.MainActivity;
+
+import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.MEDIUM_REQUEST_DELAY;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class TestDeleteAndPut extends ActivityInstrumentationTestCase2<MainActivity> {
-    public TestDeleteAndPut() {
-        super(MainActivity.class);
-    }
-
     private final String NEW_NAME = "Tester";
     private final String ID = "121620614972695";
     private ServiceHandler serviceHandler;
-
-
+    public TestDeleteAndPut() {
+        super(MainActivity.class);
+    }
 
     @Before
     @Override
@@ -63,14 +62,14 @@ public class TestDeleteAndPut extends ActivityInstrumentationTestCase2<MainActiv
         params.put("lastname", "");
 
         serviceHandler.doPut(params, GlobalSetting.URL + GlobalSetting.USER_API + ID);
-        Thread.sleep(4000);
+        Thread.sleep(MEDIUM_REQUEST_DELAY);
 
     }
 
     @Test
     public void deleteUser() throws InterruptedException {
         serviceHandler.doDelete(GlobalSetting.URL + GlobalSetting.USER_API + ID);
-        Thread.sleep(4000);
+        Thread.sleep(MEDIUM_REQUEST_DELAY);
     }
 
 }

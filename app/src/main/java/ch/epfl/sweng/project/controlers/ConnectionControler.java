@@ -12,13 +12,13 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
-import ch.epfl.sweng.project.view.activity.MainActivity;
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.User;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.server_request.OnServerRequestComplete;
 import ch.epfl.sweng.project.server_request.ServiceHandler;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.view.activity.MainActivity;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -64,11 +64,11 @@ public final class ConnectionControler {
     /**
      * Send post to the server in order to get the profile
      *
-     * @param AccesToken given by facebook
+     * @param accesToken given by facebook
      * @param idFacebook given by facebook
      * @param requestApi url to get information
      */
-    public void sendPost(final Activity currentActivity, String AccesToken, String idFacebook, @SuppressWarnings
+    public void sendPost(final Activity currentActivity, String accesToken, String idFacebook, @SuppressWarnings
             ("SameParameterValue") String requestApi, final boolean isTest) {
         ServiceHandler serviceHandler = new ServiceHandler(new OnServerRequestComplete() {
 
@@ -105,7 +105,7 @@ public final class ConnectionControler {
         // Building the parameters for the
         Map<String, String> params = new HashMap<>();
         params.put(GlobalSetting.ID, idFacebook);
-        params.put(GlobalSetting.ACCESS_TOKEN, AccesToken);
+        params.put(GlobalSetting.ACCESS_TOKEN, accesToken);
 
         // the interface is already initiate above
         serviceHandler.doPost(params, GlobalSetting.URL + requestApi, User.class);

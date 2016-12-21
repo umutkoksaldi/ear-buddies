@@ -24,11 +24,13 @@
             android:layout_width="wrap_content"
             android:layout_height="10dp"
             android:src="@drawable/dot"/>
+
         <ImageView
             android:id="@+id/dotCenter"
             android:layout_width="wrap_content"
             android:layout_height="10dp"
             android:src="@drawable/dot"/>
+
         <ImageView
             android:id="@+id/dotLeft"
             android:layout_width="wrap_content"

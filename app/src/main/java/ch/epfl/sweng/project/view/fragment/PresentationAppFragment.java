@@ -44,23 +44,23 @@ public class PresentationAppFragment extends Fragment {
         int dot = R.drawable.dot;
 
         // render image depending of the position
-        switch(stateLocation) {
-            case 1 :
+        switch (stateLocation) {
+            case 1:
                 imageDotRight.setImageResource(dotSelected);
                 imageDotCenter.setImageResource(dot);
                 imageDotLeft.setImageResource(dot);
                 break;
-            case 2 :
+            case 2:
                 imageDotRight.setImageResource(dot);
                 imageDotCenter.setImageResource(dotSelected);
                 imageDotLeft.setImageResource(dot);
                 break;
-            case 3 :
+            case 3:
                 imageDotRight.setImageResource(dot);
                 imageDotCenter.setImageResource(dot);
                 imageDotLeft.setImageResource(dotSelected);
                 break;
-            default :
+            default:
                 imageDotRight.setImageResource(dot);
                 imageDotCenter.setImageResource(dot);
                 imageDotLeft.setImageResource(dot);
@@ -69,19 +69,12 @@ public class PresentationAppFragment extends Fragment {
         return view;
     }
 
-    public void setStateLocation(int stateLocation) {
-        this.stateLocation = stateLocation;
-    }
     public void setPresentation(int presentationTextId) {
         this.presentationTextId = presentationTextId;
     }
 
-    public void setDrawableId(int drawableId) {
-        this.drawableId = drawableId;
-    }
-
     @Override
-    public void onCreate (Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
@@ -90,11 +83,19 @@ public class PresentationAppFragment extends Fragment {
         return stateLocation;
     }
 
+    public void setStateLocation(int stateLocation) {
+        this.stateLocation = stateLocation;
+    }
+
     public int getPresentationTextId() {
         return presentationTextId;
     }
 
     public int getDrawableId() {
         return drawableId;
+    }
+
+    public void setDrawableId(int drawableId) {
+        this.drawableId = drawableId;
     }
 }

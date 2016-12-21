@@ -34,7 +34,7 @@ public class TestConnectionFragment {
             fragmentManager = mActivityRule.getActivity().getFragmentManager();
             PresentationAppFragment presentationFragmentById = (PresentationAppFragment) fragmentManager
                     .findFragmentById
-                    (R.id.containFragmentPresentation);
+                            (R.id.containFragmentPresentation);
             assertEquals("drawableId should be equals", presentationFragmentById.getDrawableId(), R.mipmap.music_image);
             assertEquals("drawableId should be equals", presentationFragmentById.getPresentationTextId(),
                     R.string.presentation_music);
@@ -45,13 +45,13 @@ public class TestConnectionFragment {
             Thread.sleep(1000);
             presentationFragmentById = (PresentationAppFragment) fragmentManager.findFragmentById
                     (R.id.containFragmentPresentation);
-            assertEquals("drawableId should be equals", presentationFragmentById.getDrawableId(), R.mipmap.people_image);
+            assertEquals("drawableId should be equals", presentationFragmentById.getDrawableId(), R.mipmap
+                    .people_image);
             assertEquals("drawableId should be equals", presentationFragmentById.getPresentationTextId(),
                     R.string.presentation_people);
             assertEquals("drawableId should be equals", presentationFragmentById.getStateLocation(), 2);
-        }
-        catch (Exception e){
-            Log.e("testPerformClick()",e.getMessage());
+        } catch (Exception e) {
+            Log.e("testPerformClick()", e.getMessage());
             assertFalse(true);
         }
     }
@@ -67,18 +67,19 @@ public class TestConnectionFragment {
             onView(withId(R.id.containFragmentPresentation)).perform(click());
 
             Thread.sleep(1000);
-            PresentationAppFragment presentationFragmentById = (PresentationAppFragment) fragmentManager.findFragmentById
+            PresentationAppFragment presentationFragmentById = (PresentationAppFragment) fragmentManager
+                    .findFragmentById
                     (R.id.containFragmentPresentation);
-            assertEquals("drawableId should be equals",presentationFragmentById.getDrawableId(), R.mipmap.interaction_image);
+            assertEquals("drawableId should be equals", presentationFragmentById.getDrawableId(), R.mipmap
+                    .interaction_image);
             assertEquals("drawableId should be equals", presentationFragmentById.getPresentationTextId(),
                     R.string.presentation_interaction);
-            assertEquals("drawableId should be equals", presentationFragmentById.getStateLocation(),3);
-        }
-        catch (Exception e){
-            Log.e("testPerformClick()",e.getMessage());
+            assertEquals("drawableId should be equals", presentationFragmentById.getStateLocation(), 3);
+        } catch (Exception e) {
+            Log.e("testPerformClick()", e.getMessage());
             assertFalse(true);
         }
     }
- 
+
 
 }

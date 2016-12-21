@@ -41,7 +41,7 @@ import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_USERS;
 
 public final class MainActivity extends AppCompatActivity {
 
-    private static FragmentManager fragmentManager;
+    private static FragmentManager fragmentManager = null;
     final int DELAY_MATCH_CALL = 10000;
     final int NOTIFICATION_ID = 0;
     ModelApplication modelApplication = ModelApplication.getModelApplication();
@@ -92,6 +92,7 @@ public final class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            assert tab != null;
             Drawable icon = tab.getIcon();
 
             if (icon != null) {
@@ -234,7 +235,7 @@ public final class MainActivity extends AppCompatActivity {
                 if (music != null && music.getId() != null) {
                     ourID = Long.parseLong(music.getId());
                 }
-                Log.i("ID", ourID + "///"+ musicID);
+                Log.i("ID", ourID + "///" + musicID);
 
                 if (musicID == ourID) {
 
@@ -260,7 +261,7 @@ public final class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_whatshot_black_24dp)
-                        .setContentTitle(match.getFirstname()+" is listening to the same music!")
+                        .setContentTitle(match.getFirstname() + " is listening to the same music!")
                         .setContentText("Tap to learn more.")
                         .setAutoCancel(true);
         Intent resultIntent = new Intent(this, MainActivity.class);

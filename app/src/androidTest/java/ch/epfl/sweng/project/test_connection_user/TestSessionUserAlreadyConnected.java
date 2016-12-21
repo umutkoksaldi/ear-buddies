@@ -61,7 +61,7 @@ public class TestSessionUserAlreadyConnected {
         try {
             latch.await(10, TimeUnit.SECONDS);
             // check the foreground activity.
-            assertCurrentActivityIsInstanceOf(MainActivity.class);
+            assertCurrentActivityInstanceOf(MainActivity.class);
 
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
@@ -69,7 +69,7 @@ public class TestSessionUserAlreadyConnected {
         }
     }
 
-    public void assertCurrentActivityIsInstanceOf(Class<? extends AppCompatActivity> activityClass) {
+    public void assertCurrentActivityInstanceOf(Class<? extends AppCompatActivity> activityClass) {
         Activity currentActivity = getActivityInstance();
         checkNotNull(currentActivity);
         checkNotNull(activityClass);

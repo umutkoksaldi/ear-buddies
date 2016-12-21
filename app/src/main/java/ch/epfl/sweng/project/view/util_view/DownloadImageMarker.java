@@ -23,7 +23,7 @@ public class DownloadImageMarker extends AsyncTask<String, Void, Bitmap> {
     private long mId;
 
 
-    public DownloadImageMarker(MarkerOptions marker, Map<Long, Bitmap> images, long id){
+    public DownloadImageMarker(MarkerOptions marker, Map<Long, Bitmap> images, long id) {
         mMarker = marker;
         mImages = images;
         mId = id;
@@ -37,9 +37,8 @@ public class DownloadImageMarker extends AsyncTask<String, Void, Bitmap> {
         int width = Math.round(ratio * realImage.getWidth());
         int height = Math.round(ratio * realImage.getHeight());
 
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+        return Bitmap.createScaledBitmap(realImage, width,
                 height, filter);
-        return newBitmap;
     }
 
     @Override
@@ -49,10 +48,10 @@ public class DownloadImageMarker extends AsyncTask<String, Void, Bitmap> {
         try {
             InputStream in = new java.net.URL(url).openStream();
             image = BitmapFactory.decodeStream(in);
-        } catch (Exception e){
-            Log.e("Error", e.getMessage() +"");
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage() + "");
         }
-        if (image != null){
+        if (image != null) {
             image = scaleDown(image, 100, true);
         }
         mImages.put(mId, getCircleBitmap(image));
