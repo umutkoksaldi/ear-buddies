@@ -151,7 +151,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, P
                     Toast.makeText(getApplicationContext(), getString(R.string.error_connexion_facebook), Toast
                             .LENGTH_SHORT).show();
 
-                   if (modelApplication.getUser().getSetting().getMusicTaste() == null){
+                    if (modelApplication.getUser().getSetting() == null || modelApplication.getUser().getSetting()
+                            .getMusicTaste() == null) {
                         musicTaste = null;
                     }
                     else {

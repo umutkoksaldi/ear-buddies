@@ -287,7 +287,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
                     mMap.clear();
                     showOtherUsers();
                     // Fill the users fragment if it's the first time we get location of users
-                    if (neverLocated) {
+                    if (neverLocated && getContext() != null) {
                         Intent intent = new Intent(GlobalSetting.MAP_REFRESHED);
                         getContext().sendBroadcast(intent);
                         neverLocated = false;
