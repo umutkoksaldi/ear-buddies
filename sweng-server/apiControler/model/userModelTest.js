@@ -61,6 +61,7 @@ function controllerUserTest(){
     }
 
 
+  // the method return three times the same user, useful in development and for tests.
   this.getUsersAround = function(UserObject,callback){
       utils.logInfo("getUsersAround()");
       utils.logInfo(UserObject);

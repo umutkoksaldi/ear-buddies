@@ -5,6 +5,12 @@ var utils = require('../utils/Utils.js');
 
 function UserDto(){
 
+
+    /**
+     * tranform a user object, remove cap at CurrentMusicId and create subobject location
+     * @param  {[Json]} UserObject 
+     * @return {[Json]} modified object.
+     */
     this.transformResponseClient = function (UserObject) {
 
         utils.logInfo("transformResponseClient(), Modify the Json client")
@@ -24,6 +30,7 @@ function UserDto(){
         return UserObject;
     }
 
+
     this.changeSetting = function(UserObject,SettingObject) {
         utils.logInfo("changeSetting(), Modify the Json client")
         delete UserObject['SettingId']
@@ -31,6 +38,11 @@ function UserDto(){
         return UserObject;
     }
 
+    /**
+     * Compute age from a birthdate.
+     * @param  {[Date]} birthdate 
+     * @return {[int]}  age
+     */
     this.computeAge = function (birthdate) {
 
         utils.logInfo(birthdate);
