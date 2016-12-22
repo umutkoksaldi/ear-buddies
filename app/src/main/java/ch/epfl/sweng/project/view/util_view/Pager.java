@@ -13,13 +13,13 @@ import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_MAP;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_PROFILE;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.FRAGMENT_USERS;
 
-public class Pager extends FragmentStatePagerAdapter{
+public class Pager extends FragmentStatePagerAdapter {
 
     private final int mTabCount;
     private UsersFragment usersFragment = new UsersFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
 
-    public Pager(FragmentManager fm, int tabCount){
+    public Pager(FragmentManager fm, int tabCount) {
         super(fm);
         mTabCount = tabCount;
     }

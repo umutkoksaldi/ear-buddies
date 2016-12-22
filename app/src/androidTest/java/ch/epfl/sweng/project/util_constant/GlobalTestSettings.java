@@ -12,7 +12,7 @@ import ch.epfl.sweng.project.models.User;
  * Created by Antoine Merino on 10/11/2016.
  */
 
-public class GlobalTestSettings {
+public final class GlobalTestSettings {
 
 
     // ************************************************************************************************************************************************
@@ -46,7 +46,7 @@ public class GlobalTestSettings {
     public static final String MOCK_USER_FIRST_NAME = "Sweng";
     public static final String MOCK_USER_LAST_NAME = "Rocks";
     public static final String MOCK_USER_DESCRIPTION = "Swaggy Swaggy SwEng";
-
+    public static final long MOCK_USER_SONG_ID = 1;
 
 
     // Sample song to test
@@ -62,10 +62,13 @@ public class GlobalTestSettings {
     public static String PROFILE_TAB = "Profile";
     public static String MAP_TAB = "Map";
 
-    public static List<String> NAME_USER = Arrays.asList("Name Test 1","Name Test 2","Name Test 3",
-            "Name Test 4","Name Test 5");
+    public static List<String> NAME_USER = Arrays.asList("Name Test 1", "Name Test 2", "Name Test 3",
+            "Name Test 4", "Name Test 5");
 
     public static int MAX_ITERATION_BIND = 100;
+
+    private GlobalTestSettings() {
+    }
     // ************************************************************************************************************************************************
 
     public static void createMockUser() {
@@ -84,9 +87,9 @@ public class GlobalTestSettings {
 
     public static void createMockUsers() {
 
-        Location location = new Location(40,32);
+        Location location = new Location(40, 32);
         User[] users = new User[NAME_USER.size()];
-        for (int i = 0; i < NAME_USER.size() ; i++ ){
+        for (int i = 0; i < NAME_USER.size(); i++) {
             User mUser = new User();
             mUser.setLocation(location);
             mUser.setSetting(new Setting());

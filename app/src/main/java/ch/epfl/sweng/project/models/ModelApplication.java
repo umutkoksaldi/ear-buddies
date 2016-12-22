@@ -9,19 +9,19 @@ import java.util.List;
 public final class ModelApplication {
 
     private static ModelApplication modelApplication = null;
+    boolean testingApp;
     private Music music = new Music();
     private User user = new User();
     private User[] mOtherUsers;
     private String mTest = "/";
     private List<MarkerOptions> markerOpt;
-    boolean testingApp;
 
-    private ModelApplication() {}
+    private ModelApplication() {
+    }
 
     // allow to have one instance of the class shared in multiple activity.
-    public static synchronized ModelApplication getModelApplication()
-    {
-        if (modelApplication == null){
+    public static synchronized ModelApplication getModelApplication() {
+        if (modelApplication == null) {
             modelApplication = new ModelApplication();
         }
         return modelApplication;
@@ -43,21 +43,21 @@ public final class ModelApplication {
         this.user = user;
     }
 
-    public User[] getOtherUsers(){
+    public User[] getOtherUsers() {
         return mOtherUsers;
     }
 
-    public void setOtherUsers(User[] users){
-        if(!testingApp){
+    public void setOtherUsers(User[] users) {
+        if (!testingApp) {
             mOtherUsers = users;
         }
     }
 
-    public void setTest(){
+    public void setTest() {
         mTest = "Test/";
     }
 
-    public String getTestState(){
+    public String getTestState() {
         return mTest;
     }
 
@@ -70,6 +70,6 @@ public final class ModelApplication {
     }
 
     public void setTestingApp(boolean testing) {
-        this.testingApp = testing;
+        testingApp = testing;
     }
 }

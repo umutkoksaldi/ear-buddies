@@ -12,7 +12,7 @@ import java.io.InputStream;
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     private final ImageView mImage;
 
-    public DownloadImageTask(ImageView image){
+    public DownloadImageTask(ImageView image) {
         mImage = image;
     }
 
@@ -23,7 +23,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         try {
             InputStream in = new java.net.URL(url).openStream();
             image = BitmapFactory.decodeStream(in);
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e("DownloadImageTask", e.toString());
         }
         return image;

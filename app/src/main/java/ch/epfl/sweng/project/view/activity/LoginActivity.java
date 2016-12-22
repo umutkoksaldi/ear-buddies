@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.epfl.sweng.project.R;
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.controlers.ConnectionControler;
-import ch.epfl.sweng.project.view.fragment.PresentationAppFragment;
 import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.view.fragment.PresentationAppFragment;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
         addPermissions();
-        defineActionOnClick ();
+        defineActionOnClick();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @SuppressWarnings("unused")
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * iniate the value in the fragment.
      */
-    private void initiateFragment(){
+    private void initiateFragment() {
 
         // create fragment
         PresentationAppFragment presentationfragmentUser = new PresentationAppFragment();
@@ -160,38 +160,37 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Increment the value of the indice.
      */
-    private void incrementIndiceFragment(){
-        indiceFragment ++;
-        indiceFragment = indiceFragment% NUMBER_FRAGMENT_PRESENTATION;
+    private void incrementIndiceFragment() {
+        indiceFragment++;
+        indiceFragment %= NUMBER_FRAGMENT_PRESENTATION;
     }
 
     /**
      * Define the action on click on frame Layout
      * The method should change the fragment inside to continue the presentation.
      */
-    private void defineActionOnClick () {
+    private void defineActionOnClick() {
 
         initiateFragment();
 
         FragmentTransaction ft = fragmentManager.beginTransaction();
         Fragment currentFragment = presentationApp.get(indiceFragment);
-        ft.replace(R.id.containFragmentPresentation,currentFragment, ""+indiceFragment);
+        ft.replace(R.id.containFragmentPresentation, currentFragment, "" + indiceFragment);
         ft.commit();
         incrementIndiceFragment();
 
-        FrameLayout fragmentPresentation =  (FrameLayout) findViewById(R.id.containFragmentPresentation);
+        FrameLayout fragmentPresentation = (FrameLayout) findViewById(R.id.containFragmentPresentation);
         fragmentPresentation.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 Fragment currentFragment = presentationApp.get(indiceFragment);
-                ft.replace(R.id.containFragmentPresentation,currentFragment, ""+indiceFragment);
+                ft.replace(R.id.containFragmentPresentation, currentFragment, "" + indiceFragment);
                 ft.commit();
                 incrementIndiceFragment();
             }
         }));
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")

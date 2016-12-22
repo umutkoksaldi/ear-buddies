@@ -14,30 +14,28 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 
-
-class BackgroundRequest extends AsyncTask<String, Void , Object> {
+class BackgroundRequest extends AsyncTask<String, Void, Object> {
     private final String mUrl;
-    private final int mRequest_type;
+    private final int mRequestType;
     private final OnServerRequestComplete mListener;
     private final Class mClazz;
     private final Object mParams;
 
 
     /**
-     *
-     * @param aParams           contain the key value of the request.
-     * @param url               destination url.
-     * @param aRequest_type     type of the request.
-     * @param aListener         the callback method.
-     * @param aClass            class represent the type.
+     * @param aParams     contain the key value of the request.
+     * @param url         destination url.
+     * @param requestType type of the request.
+     * @param aListener   the callback method.
+     * @param aClass      class represent the type.
      */
     public BackgroundRequest(Object aParams,
                              String url,
-                             int aRequest_type,
+                             int requestType,
                              OnServerRequestComplete aListener,
-                             Class aClass){
+                             Class aClass) {
         mUrl = url;
-        mRequest_type = aRequest_type;
+        mRequestType = requestType;
         mListener = aListener;
         mClazz = aClass;
         mParams = aParams;
@@ -55,7 +53,7 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
 
         Log.d("doInBackground", "in Background, url = " + mUrl);
         Log.d("doInBackground", "in Background, class = " + mClazz);
-        Log.d("doInBackground", "in Background, request Type = " + mRequest_type);
+        Log.d("doInBackground", "in Background, request Type = " + mRequestType);
 
         // initialize the RestTemplate in order
         ResponseEntity<Object> response = null;
@@ -68,17 +66,16 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         // do request in background.
-        switch (mRequest_type) {
+        switch (mRequestType) {
 
             // Do a post Request
             case SettingRequest.POST_REQUEST:
                 try {
                     //noinspection unchecked
                     response = restTemplate.postForEntity(mUrl, mParams, mClazz);
-                    Log.i("doInBackground()","the user does a post request");
+                    Log.i("doInBackground()", "the user does a post request");
                     break;
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     // The request doesn't work, so we call the fail method of the listener.
                     Log.e("Problem during post", e.getMessage(), e);
                 }
@@ -89,10 +86,9 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
                 try {
                     //noinspection unchecked
                     response = restTemplate.getForEntity(mUrl, mClazz);
-                    Log.i("doInBackground()","the user does a get request");
+                    Log.i("doInBackground()", "the user does a get request");
                     break;
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     // The request doesn't work, so we call the fail method of the listener
                     Log.e("Problem during get", e.getMessage(), e);
                 }
@@ -101,11 +97,10 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
             // Do a put request
             case SettingRequest.PUT_REQUEST:
                 try {
-                    response = restTemplate.exchange(mUrl, HttpMethod.PUT, new HttpEntity<Object>(mParams), mClazz, mParams);
-                    Log.i("doInBackground()","call put service");
+                    response = restTemplate.exchange(mUrl, HttpMethod.PUT, new HttpEntity<>(mParams), mClazz, mParams);
+                    Log.i("doInBackground()", "call put service");
                     break;
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     // The request doesn't work, so we call the fail method of the listener
                     Log.e("Problem during PUT", e.getMessage(), e);
                 }
@@ -117,9 +112,8 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
                     response = restTemplate.exchange(mUrl, HttpMethod.DELETE, HttpEntity.EMPTY, mClazz);
                     //restTemplate.delete(mUrl);
                     //response = new ResponseEntity<Object>(HttpStatus.OK);
-                    Log.i("doInBackground()","call delete service");
-                }
-                catch(Exception e) {
+                    Log.i("doInBackground()", "call delete service");
+                } catch (Exception e) {
                     // The request doesn't work, so we call the fail method of the listener
                     Log.e("Problem during DELETE", e.getMessage(), e);
                 }
@@ -132,6 +126,7 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
 
     /**
      * Call the callback method depending of the result of the request.
+     *
      * @param responseServer response of the server
      */
     @Override
@@ -139,11 +134,11 @@ class BackgroundRequest extends AsyncTask<String, Void , Object> {
         super.onPostExecute(responseServer);
 
         // If the responseServer is null, a exception have been raised before.
-        if(responseServer == null){
+        if (responseServer == null) {
             mListener.onFailed();
         }
         // In the case where the request has sent properly.
-        else{
+        else {
             mListener.onSucess((ResponseEntity) responseServer);
         }
     }

@@ -11,7 +11,10 @@ import org.hamcrest.Matcher;
  * MyViewAction is used to click on an item of a RecyclerView (eg: a music in the music hisoty) with Espresso.
  */
 
-public class MyViewAction {
+public final class MyViewAction {
+
+    private MyViewAction() {
+    }
 
     public static ViewAction clickChildViewWithId(final int id) {
         return new ViewAction() {

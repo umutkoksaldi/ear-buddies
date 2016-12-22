@@ -1,13 +1,9 @@
 package ch.epfl.sweng.project.test_module_request;
 
 import android.app.Activity;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.v7.app.AppCompatActivity;
-import android.test.ActivityInstrumentationTestCase2;
-
-import com.facebook.FacebookSdk;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,14 +14,10 @@ import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.controlers.ConnectionControler;
-import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
+import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.util_rule.MockUserRule;
 import ch.epfl.sweng.project.view.activity.LoginActivity;
-import ch.epfl.sweng.project.view.activity.MainActivity;
-import ch.epfl.sweng.project.models.ModelApplication;
-import ch.epfl.sweng.project.models.User;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.internal.util.Checks.checkNotNull;
@@ -45,12 +37,11 @@ public class TestChangeActivity {
     private Activity curActivity;
 
 
-
     /**
      * Testing actions linked to the button login.
      */
     @Test
-    public void test_new_user() {
+    public void testNewUser() {
 
         final CountDownLatch latch = new CountDownLatch(1);
 
@@ -61,7 +52,7 @@ public class TestChangeActivity {
         try {
             latch.await(2, TimeUnit.SECONDS);
             // check the foreground activity.
-            assertCurrentActivityIsInstanceOf(LoginActivity.class);
+            assertCurrentActivityInstanceOf(LoginActivity.class);
 
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
@@ -69,7 +60,7 @@ public class TestChangeActivity {
         }
     }
 
-    public void assertCurrentActivityIsInstanceOf(Class<? extends AppCompatActivity> activityClass) {
+    public void assertCurrentActivityInstanceOf(Class<? extends AppCompatActivity> activityClass) {
         Activity currentActivity = getActivityInstance();
         checkNotNull(currentActivity);
         checkNotNull(activityClass);

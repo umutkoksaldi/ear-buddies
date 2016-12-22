@@ -60,7 +60,7 @@ public class MusicInfoService extends Service {
                     // same song info.
                     // Do nothing
                     Log.d("MusicInfoService", "mReceiver.onReceive : new song is the same as the last one");
-                } else if (newArtist != null && newTrack != null) {
+                } else {
                     // Send the newly played song instead of just displaying a toast
                     Log.d("MusicInfoService", "mReceiver.onReceive new song playing: " + newArtist + " - " + newTrack);
                     sendPost(newArtist, newTrack, GlobalSetting.MUSIC_API);
@@ -95,12 +95,10 @@ public class MusicInfoService extends Service {
 
     @Override
     public void onDestroy() {
-        try {
-            if (mReceiver != null)
-                unregisterReceiver(mReceiver);
-        } catch (Exception e) {
 
-        }
+        if (mReceiver != null)
+            unregisterReceiver(mReceiver);
+
         super.onDestroy();
     }
 

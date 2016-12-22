@@ -4,10 +4,14 @@ package ch.epfl.sweng.project.util_constant;
 import ch.epfl.sweng.project.BuildConfig;
 
 @SuppressWarnings("WeakerAccess")
-public class GlobalSetting {
+public final class GlobalSetting {
 
     // Music tags. MUST BE THE SAME ON THE SERVER
     public static final String[] TAG_MUSIC_TABLE = {"pop", "rock", "rap", "metal", "hiphop"};
+
+    // Map location delays, in milliseconds
+    public static final int MAP_LOCATION_INTERVAL = 10000;
+    public static final int MAP_LOCATION_FASTEST_INTERVAL = 5000;
 
     // Marker bitmap size on the map
     public static final int MARKER_SIZE = 20;
@@ -44,4 +48,7 @@ public class GlobalSetting {
 
     // Related to users fragment
     public static final String MAP_REFRESHED = BuildConfig.APPLICATION_ID + ".maprefreshed";
+
+    private GlobalSetting() {
+    }
 }

@@ -50,7 +50,7 @@ public class DetailsFragment extends Fragment {
     }
 
     @Override
- public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("DetailsFragment", "onCreateView");
 
         View view = inflater.inflate(R.layout.frag_detail_user, container, false);
@@ -61,50 +61,50 @@ public class DetailsFragment extends Fragment {
             new DownloadImageTask(coverPicture).execute(user.getBackgroundPicture());
 
 
-
-        music = new Music();
-        //musicId =
-        musicArtist = (TextView) view.findViewById(R.id.tvArtistName);
-        musicName = (TextView) view.findViewById(R.id.tvSongName);
-        musicTag = (TextView) view.findViewById(R.id.tvSongTag);
-        musicContainer = (RelativeLayout) view.findViewById(R.id.details_music_container);
-        long musicId = user.getCurrentMusicId();
-        Log.d("DetailsFragment", "musicId = " + musicId);
-        if(musicId != 0 ) {
-            songCover = (ImageView) view.findViewById(R.id.ivCover);
-            Music music = userSongControler.getSongMap().get(user.getIdApiConnection());
-            if (music != null) {
-                musicArtist.setText(music.getArtist());
-                musicName.setText(music.getName());
-                String tag = music.getTag();
-                if (!tag.isEmpty() && tag != "unknown") {
-                    musicTag.setText(tag);
+            music = new Music();
+            //musicId =
+            musicArtist = (TextView) view.findViewById(R.id.tvArtistName);
+            musicName = (TextView) view.findViewById(R.id.tvSongName);
+            musicTag = (TextView) view.findViewById(R.id.tvSongTag);
+            musicContainer = (RelativeLayout) view.findViewById(R.id.details_music_container);
+            long musicId = user.getCurrentMusicId();
+            Log.d("DetailsFragment", "musicId = " + musicId);
+            if (musicId != 0) {
+                songCover = (ImageView) view.findViewById(R.id.ivCover);
+                Music music = userSongControler.getSongMap().get(user.getIdApiConnection());
+                if (music != null) {
+                    musicArtist.setText(music.getArtist());
+                    musicName.setText(music.getName());
+                    String tag = music.getTag();
+                    if (!tag.isEmpty() && !tag.equals("unknown")) {
+                        musicTag.setText(tag);
+                    }
+                    String coverUrl = music.getUrlPicture();
+                    if (coverUrl != null && !coverUrl.isEmpty()) {
+                        new DownloadImageTask(songCover).execute(coverUrl);
+                    }
+                    musicContainer.setVisibility(View.VISIBLE);
+                } else {
+                    Log.d("DetailsFragment", "musicId not null but no music associated with this user in the " +
+                            "userSongControler.");
                 }
-                String coverUrl = music.getUrlPicture();
-                if (coverUrl != null && !coverUrl.isEmpty()) {
-                    new DownloadImageTask(songCover).execute(coverUrl);
-                }
-                musicContainer.setVisibility(View.VISIBLE);
-            } else {
-                Log.d("DetailsFragment", "musicId not null but no music associated with this user in the " +
-                        "userSongControler.");
             }
-        }
 
-        nameDetails = (TextView) view.findViewById(R.id.details_name);
-        nameDetails.setText(user.getFirstname());
-        picture = (ImageView) view.findViewById(R.id.details_fragment_picture);
-        new DownloadImageTask(picture).execute(user.getProfilePicture());
-        description = (TextView) view.findViewById(R.id.details_description);
-        if(user.getDescription() != null) {
-            description.setText(user.getDescription());
-        }
+            nameDetails = (TextView) view.findViewById(R.id.details_name);
+            nameDetails.setText(user.getFirstname());
+            picture = (ImageView) view.findViewById(R.id.details_fragment_picture);
+            new DownloadImageTask(picture).execute(user.getProfilePicture());
+            description = (TextView) view.findViewById(R.id.details_description);
+            if (user.getDescription() != null) {
+                description.setText(user.getDescription());
+            }
 
-        facebookClicked(view);
+            facebookClicked(view);
         }
         return view;
     }
-    public User detailsGetUser (){
+
+    public User detailsGetUser() {
         return user;
     }
 
@@ -118,7 +118,7 @@ public class DetailsFragment extends Fragment {
         final String url = "www.facebook.com";
         facebookButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String fullUrl = "http://".concat(url.concat("/").concat(String.valueOf(user.getIdApiConnection())));
+                String fullUrl = "http://" + (url + "/").concat(String.valueOf(user.getIdApiConnection()));
 
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
                 startActivity(browserIntent);

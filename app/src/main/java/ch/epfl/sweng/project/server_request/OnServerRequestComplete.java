@@ -7,6 +7,7 @@ public interface OnServerRequestComplete {
 
     /**
      * The method is going to be called if the request succeed.
+     *
      * @param responseServer is the object containing the response of the server.
      */
     void onSucess(ResponseEntity responseServer);

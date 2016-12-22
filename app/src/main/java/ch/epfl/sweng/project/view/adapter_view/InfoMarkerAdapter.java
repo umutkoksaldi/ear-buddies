@@ -12,7 +12,7 @@ import ch.epfl.sweng.project.R;
 public class InfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
     private View mView;
 
-    public InfoMarkerAdapter(LayoutInflater inflater){
+    public InfoMarkerAdapter(LayoutInflater inflater) {
         mView = inflater.inflate(R.layout.info_marker, null);
     }
 

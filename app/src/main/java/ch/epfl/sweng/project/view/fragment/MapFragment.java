@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +34,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -67,9 +65,12 @@ import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.view.adapter_view.InfoMarkerAdapter;
 import ch.epfl.sweng.project.view.util_view.DownloadImageMarker;
 
+import static ch.epfl.sweng.project.util_constant.GlobalSetting.MAP_LOCATION_FASTEST_INTERVAL;
+import static ch.epfl.sweng.project.util_constant.GlobalSetting.MAP_LOCATION_INTERVAL;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.MARKER_SIZE;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
+public class MapFragment extends Fragment implements OnMapReadyCallback, ConnectionCallbacks,
+        OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnInfoWindowClickListener {
 
 
@@ -113,7 +114,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         userDetailsControler = UserDetailsControler.getConnectionControler();
-       // ModelApplication.getModelApplication().setTest();
+        // ModelApplication.getModelApplication().setTest();
         mInflater = inflater;
         mImages = new HashMap<>();
         mActivity = getActivity();
@@ -121,7 +122,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
         mTest = ModelApplication.getModelApplication().getTestState();
         // Map from Google
         sMapFragment = SupportMapFragment.newInstance();
-        FragmentManager fm = getFragmentManager();
         sMapFragment.getMapAsync(this);
         android.support.v4.app.FragmentManager sFm = getFragmentManager();
         if (!sMapFragment.isAdded())
@@ -241,8 +241,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
     private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
         //TODO DELAY
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(MAP_LOCATION_INTERVAL);
+        mLocationRequest.setFastestInterval(MAP_LOCATION_FASTEST_INTERVAL);
 
         //Check user parameters for location
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -254,9 +254,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
 
         result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
             @Override
-            public void onResult(LocationSettingsResult result) {
+            public void onResult(@NonNull LocationSettingsResult result) {
                 final Status status = result.getStatus();
-                final LocationSettingsStates lss = result.getLocationSettingsStates();
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         // All location settings are satisfied. The client can
@@ -287,7 +286,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
                     mMap.clear();
                     showOtherUsers();
                     // Fill the users fragment if it's the first time we get location of users
-                    if (neverLocated) {
+                    if (neverLocated && getContext() != null) {
                         Intent intent = new Intent(GlobalSetting.MAP_REFRESHED);
                         getContext().sendBroadcast(intent);
                         neverLocated = false;
@@ -355,7 +354,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
 
         mMap.clear();
         allMarkersMap = new HashMap<>();
-        for (int i = 0; i< markersOption.size(); ++i) {
+        for (int i = 0; i < markersOption.size(); ++i) {
             allMarkersMap.put(mMap.addMarker(markersOption.get(i)), otherUsers[i]);
         }
         ModelApplication.getModelApplication().setMarkerOpt(markersOption);
@@ -376,7 +375,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
 
         return output;
     }
-
 
 
 }

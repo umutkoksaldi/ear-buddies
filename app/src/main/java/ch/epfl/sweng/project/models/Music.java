@@ -67,6 +67,7 @@ public class Music {
     /**
      * Set a tag in the song accordingly to the user language.
      * Eg. If the tag is "metal", it will be set as "Metal" if the locale is English
+     *
      * @param tag must match one of the tags known by the server
      */
     public void setTag(String tag) {

@@ -13,14 +13,14 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.epfl.sweng.project.util_matcher.RecyclerViewInteraction;
-import ch.epfl.sweng.project.view.activity.MainActivity;
+import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
-import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
-import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.test_media.TestMusicHistory;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
+import ch.epfl.sweng.project.util_matcher.RecyclerViewInteraction;
+import ch.epfl.sweng.project.util_rule.MockUserMainActivityRule;
+import ch.epfl.sweng.project.view.activity.MainActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -28,12 +28,10 @@ import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.ARTIST_NAME_REQUEST;
 import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.PROFILE_TAB;
-import static ch.epfl.sweng.project.util_constant.GlobalTestSettings.USERS_TAB;
 import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.allOf;
 
@@ -88,7 +86,6 @@ public class TestHistoryMusic {
                                     .check(view, e);
                         }
                     });
-
 
 
             // Open history fragment ansd click on the first music, which should display its lastfm page

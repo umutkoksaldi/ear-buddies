@@ -9,11 +9,11 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.controlers.ConnectionControler;
-import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.User;
+import ch.epfl.sweng.project.util_constant.GlobalSetting;
+import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -38,14 +38,14 @@ public class TestConnectionUser {
     // Test
 
     @Test
-    public void Should_test_connexion_user() {
+    public void userConnection() {
 
         final CountDownLatch latch = new CountDownLatch(1);
 
         try {
             // we call the server to
             controlerConnection.sendPost(null, GlobalTestSettings.MOCK_ACCESS_TOKEN_FACEBOOK, GlobalTestSettings
-                    .MOCK_ID_FACEBOOK,
+                            .MOCK_ID_FACEBOOK,
                     GlobalSetting
                             .USER_API, true);
 

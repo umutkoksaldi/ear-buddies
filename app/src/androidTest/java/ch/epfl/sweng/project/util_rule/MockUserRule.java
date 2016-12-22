@@ -22,9 +22,9 @@ import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
 
 public class MockUserRule<A extends Activity> extends ActivityTestRule<A> {
 
+    public static List<String> NAME_USER = Arrays.asList("Name Test 1", "Name Test 2", "Name Test 3",
+            "Name Test 4", "Name Test 5");
     private final ModelApplication modelApplication = ModelApplication.getModelApplication();
-    public static List<String> NAME_USER = Arrays.asList("Name Test 1","Name Test 2","Name Test 3",
-            "Name Test 4","Name Test 5");
 
     public MockUserRule(Class<A> activityClass) {
         super(activityClass);

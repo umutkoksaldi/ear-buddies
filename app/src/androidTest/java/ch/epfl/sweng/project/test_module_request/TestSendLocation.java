@@ -1,10 +1,7 @@
 package ch.epfl.sweng.project.test_module_request;
 
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.ActivityInstrumentationTestCase2;
 
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -37,6 +34,6 @@ public class TestSendLocation {
         List<MarkerOptions> markerOpt = ModelApplication.getModelApplication().getMarkerOpt();
         assertEquals("Shoud have the same number of marker as user", others.length, markerOpt.size());
         MarkerOptions m = markerOpt.get(0);
-       assertNotNull("Marker should not be null", m);
-   }
+        assertNotNull("Marker should not be null", m);
+    }
 }

@@ -14,9 +14,9 @@ import java.util.Collection;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import ch.epfl.sweng.project.view.activity.LoginActivity;
 import ch.epfl.sweng.project.util_constant.GlobalSetting;
 import ch.epfl.sweng.project.util_constant.GlobalTestSettings;
+import ch.epfl.sweng.project.view.activity.LoginActivity;
 import ch.epfl.sweng.project.view.activity.WelcomeActivity;
 
 import static android.support.test.internal.util.Checks.checkNotNull;
@@ -67,7 +67,7 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
      * Testing actions linked to the button login.
      */
 
-    public void test_session_first_connection() {
+    public void firstUserConnection() {
 
         final CountDownLatch latch = new CountDownLatch(1);
 
@@ -77,7 +77,7 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
         try {
             latch.await(2, TimeUnit.SECONDS);
             // check the foreground activity.
-            assertCurrentActivityIsInstanceOf(LoginActivity.class);
+            assertCurrentActivityInstanceOf(LoginActivity.class);
         } catch (InterruptedException e) {
             assertTrue("Error in the time waiting", false);
 
@@ -85,7 +85,7 @@ public class TestSessionFirstConnection extends ActivityInstrumentationTestCase2
     }
 
 
-    public void assertCurrentActivityIsInstanceOf(Class<? extends AppCompatActivity> activityClass) {
+    public void assertCurrentActivityInstanceOf(Class<? extends AppCompatActivity> activityClass) {
         Activity currentActivity = getActivityInstance();
         checkNotNull(currentActivity);
         checkNotNull(activityClass);

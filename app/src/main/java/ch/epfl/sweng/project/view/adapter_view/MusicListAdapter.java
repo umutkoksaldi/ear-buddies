@@ -32,51 +32,50 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicViewHolder> {
 
-        private ArrayList<Music> musicList;
+    private ArrayList<Music> musicList;
 
-        public MusicListAdapter(ArrayList<Music> musicList, Context context) {
-            this.musicList = musicList;
+    public MusicListAdapter(ArrayList<Music> musicList, Context context) {
+        this.musicList = musicList;
+    }
+
+    @Override
+    public MusicListAdapter.MusicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_musichistory, parent, false);
+        return new MusicViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(MusicListAdapter.MusicViewHolder holder, int position) {
+        Music music = musicList.get(position);
+        holder.artist.setText(music.getArtist());
+        holder.song.setText(music.getName());
+        String tag = music.getTag();
+        if (!tag.equals("unknown")) {
+            holder.tag.setText(tag);
         }
 
-        @Override
-        public MusicListAdapter.MusicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_musichistory, parent, false);
-            MusicViewHolder viewHolder = new MusicViewHolder(v);
-            return viewHolder;
+        String coverUrl = music.getUrlPicture();
+        //String url = "https://pbs.twimg.com/profile_images/634829866504859648/GuMPPRJ6.png";
+        if (BuildConfig.DEBUG) {
+            Log.d("MusicHistoryFragment", "music: " + music.getArtist() + " - " + music.getName() +
+                    " - " + music.getId() + " - " + music.getTag() + " - " + music.getUrl() + " - " + music
+                    .getUrlPicture());
         }
-
-        @Override
-        public void onBindViewHolder(MusicListAdapter.MusicViewHolder holder, int position) {
-            Music music = musicList.get(position);
-            holder.artist.setText(music.getArtist());
-            holder.song.setText(music.getName());
-            String tag = music.getTag();
-            if (!tag.equals("unknown")) {
-                holder.tag.setText(tag);
-            }
-
-            String coverUrl = music.getUrlPicture();
-            //String url = "https://pbs.twimg.com/profile_images/634829866504859648/GuMPPRJ6.png";
-            if (BuildConfig.DEBUG) {
-                Log.d("MusicHistoryFragment", "music: " + music.getArtist() + " - " + music.getName() +
-                        " - " + music.getId() + " - " + music.getTag() + " - " + music.getUrl() + " - " + music
-                        .getUrlPicture());
-            }
-            if (coverUrl != null && !coverUrl.isEmpty()) {
-                new DownloadImageTask(holder.cover).execute(coverUrl);
-            }
-            holder.container.setOnClickListener(new SongOnClickListener(music.getUrl()));
+        if (coverUrl != null && !coverUrl.isEmpty()) {
+            new DownloadImageTask(holder.cover).execute(coverUrl);
         }
+        holder.container.setOnClickListener(new SongOnClickListener(music.getUrl()));
+    }
 
 
-        public Music getSongByPosition(int pos) {
-            return musicList.get(pos);
-        }
+    public Music getSongByPosition(int pos) {
+        return musicList.get(pos);
+    }
 
-        @Override
-        public int getItemCount() {
-            return musicList.size();
-        }
+    @Override
+    public int getItemCount() {
+        return musicList.size();
+    }
 
     private static class SongOnClickListener implements View.OnClickListener {
         String url;
@@ -108,7 +107,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     }
 
-    public class MusicViewHolder extends RecyclerView.ViewHolder {
+    public static class MusicViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView artist;
         protected TextView song;

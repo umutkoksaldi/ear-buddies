@@ -7,6 +7,7 @@ import android.util.Log;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
@@ -27,6 +28,7 @@ public final class MusicHistory {
     private int length = GlobalSetting.MUSIC_HISTORY_MAX_LENGTH;
     private ArrayList<Music> musicHistoryList = new ArrayList<>();
     private ModelApplication modelApplication = ModelApplication.getModelApplication();
+
     private MusicHistory() {
     }
 
@@ -78,9 +80,7 @@ public final class MusicHistory {
                 if (Integer.parseInt(response.getStatusCode().toString()) == GlobalSetting.GOOD_ANSWER) {
                     Log.d("MusicHistory", response.getBody().toString());
                     //modelApplication.setMusic((Music) response.getBody());
-                    for (Music music : (Music[]) response.getBody()) {
-                        musicHistoryList.add(music);
-                    }
+                    Collections.addAll(musicHistoryList, (Music[]) response.getBody());
                     adapter.notifyDataSetChanged();
                     if (swipeContainer != null) {
                         swipeContainer.setRefreshing(false);
