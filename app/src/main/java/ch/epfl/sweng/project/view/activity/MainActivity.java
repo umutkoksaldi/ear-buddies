@@ -2,7 +2,6 @@ package ch.epfl.sweng.project.view.activity;
 
 import android.app.FragmentManager;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -296,31 +294,21 @@ public final class MainActivity extends AppCompatActivity {
         ModelApplication.getModelApplication().setMatchedUser(match);
         Log.i("Match", "It's a match with " + match.getFirstname());
 
-        if (!isActive) {
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.ic_whatshot_black_24dp)
-                            .setContentTitle(match.getFirstname() + " is listening to the same music!")
-                            .setContentText("Tap to learn more.")
-                            .setAutoCancel(true);
+        //the isActive is commented because the service is not running background and we didn't have time to go
+        // through now
+        // if (!isActive) {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_whatshot_black_24dp)
+                        .setContentTitle(match.getFirstname() + " is listening to the same music!")
+                        .setContentText("Tap to learn more.")
+                        .setAutoCancel(true);
 
-            Intent resultIntent = new Intent(this, MainActivity.class);
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            stackBuilder.addParentStack(MainActivity.class);
-
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent =
-                    stackBuilder.getPendingIntent(
-                            0,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    );
-            mBuilder.setContentIntent(resultPendingIntent);
-            NotificationManager mNotificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-        }
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        //   }
     }
 
     public boolean gotMatch() {
