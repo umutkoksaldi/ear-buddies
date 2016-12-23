@@ -19,6 +19,10 @@ public class User {
     private long currentMusicId;
     private Setting setting;
 
+    public User() {
+        setting = new Setting();
+    }
+
     public long getIdApiConnection() {
         return idApiConnection;
     }

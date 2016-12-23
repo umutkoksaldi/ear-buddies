@@ -69,6 +69,7 @@ public class MockUserMainActivityRule extends ActivityTestRule<MainActivity> {
         super.afterActivityLaunched();
         // maybe you want to do something here
         FacebookSdk.sdkInitialize(getActivity());
+        GlobalTestSettings.mockMusicPlayed();
     }
 
     @Override

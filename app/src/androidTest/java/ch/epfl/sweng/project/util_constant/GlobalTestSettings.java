@@ -5,6 +5,7 @@ import java.util.List;
 
 import ch.epfl.sweng.project.models.Location;
 import ch.epfl.sweng.project.models.ModelApplication;
+import ch.epfl.sweng.project.models.Music;
 import ch.epfl.sweng.project.models.Setting;
 import ch.epfl.sweng.project.models.User;
 
@@ -79,6 +80,7 @@ public final class GlobalTestSettings {
         mUser.setBackgroundPicture(MOCK_USER_COVER_PICTURE);
         mUser.setProfilePicture(MOCK_USER_PROFILE_PICTURE);
         mUser.setEmail(MOCK_USER_EMAIL);
+        mUser.setCurrentMusicId(ID_MUSIC);
         mUser.setFirstname(MOCK_USER_FIRST_NAME);
         mUser.setLastname(MOCK_USER_LAST_NAME);
         mUser.setIdApiConnection(Long.parseLong(GlobalTestSettings.MOCK_ID_FACEBOOK));
@@ -107,6 +109,16 @@ public final class GlobalTestSettings {
         ModelApplication.getModelApplication().setOtherUsers(users);
 
     }
+
+    public static void mockMusicPlayed() {
+        Music music = new Music();
+        music.setId("1");
+        music.setArtist("Rihanna");
+        music.setName("Umbrella");
+        music.setUrl("https://www.last.fm/music/Rihanna/_/Umbrella");
+        music.setTag("pop");
+        music.setUrlPicture("https://lastfm-img2.akamaized.net/i/u/34s/a60d9d9ae55226699420b52ab28d3ad0.png");
+        ModelApplication.getModelApplication().setMusic(music);
 }
 
 

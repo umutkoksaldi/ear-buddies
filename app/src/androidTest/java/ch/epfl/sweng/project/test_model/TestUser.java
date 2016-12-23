@@ -35,7 +35,7 @@ public class TestUser {
         longDesc += points;
         // The description should be cropped
         user.setDescrition(longDesc);
-        String expected = longDesc.substring(0, SNIPPED_DESCRIPTION_LENGTH - 1) + "...";
+        String expected = longDesc.substring(0, SNIPPED_DESCRIPTION_LENGTH) + "...";
         assertEquals(user.getSnippetDescription(), expected);
     }
 
