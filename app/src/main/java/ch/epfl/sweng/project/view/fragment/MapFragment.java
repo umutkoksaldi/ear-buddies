@@ -67,7 +67,6 @@ import ch.epfl.sweng.project.view.util_view.DownloadImageMarker;
 
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.MAP_LOCATION_FASTEST_INTERVAL;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.MAP_LOCATION_INTERVAL;
-import static ch.epfl.sweng.project.util_constant.GlobalSetting.MARKER_SIZE;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, ConnectionCallbacks,
         OnConnectionFailedListener,
@@ -331,18 +330,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
             );
             // We already have the image => do not need to download
             if (mImages.containsKey(otherUsers[i].getIdApiConnection())) {
-                marker.icon(BitmapDescriptorFactory.fromBitmap(mImages.get(aUser.getIdApiConnection())));
+                Bitmap bitmap = mImages.get(aUser.getIdApiConnection());
+                marker.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
             } else {
                 String url = aUser.getProfilePicture();
                 new DownloadImageMarker(marker, mImages, aUser.getIdApiConnection()).execute(url);
                 Activity activity = getActivity();
                 if (activity != null) {
                     Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
-                    // Scale down the image size
-                    //bm = DownloadImageMarker.scaleDown(bm, MARKER_SIZE * getResources().getDisplayMetrics().density,
-                    //     true);
-                    int size = Math.round(MARKER_SIZE * getResources().getDisplayMetrics().density);
-                    bm = Bitmap.createScaledBitmap(bm, size, size, true);
                     BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(getCircleBitmap(bm));
                     marker.icon(defProfile);
                 }
@@ -351,6 +346,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
             }
             markersOption.add(marker);
         }
+
+        User match = ModelApplication.getModelApplication().getMatchedUser();
+        if (match != null) {
+            if (!ModelApplication.getModelApplication().isZoomedOnMatch()) {
+                ModelApplication.getModelApplication().setZoomedOnMatch(true);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(match.getLocation().getLattitude(),
+                        match.getLocation().getLongitude()), ZOOM));
+            }
+        }
+
 
         mMap.clear();
         allMarkersMap = new HashMap<>();
