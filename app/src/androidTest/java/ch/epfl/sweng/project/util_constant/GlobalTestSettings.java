@@ -119,6 +119,7 @@ public final class GlobalTestSettings {
         music.setTag("pop");
         music.setUrlPicture("https://lastfm-img2.akamaized.net/i/u/34s/a60d9d9ae55226699420b52ab28d3ad0.png");
         ModelApplication.getModelApplication().setMusic(music);
+    }
 }
 
 
