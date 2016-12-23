@@ -15,11 +15,6 @@ public final class ModelApplication {
     private User[] mOtherUsers;
     private String mTest = "/";
     private List<MarkerOptions> markerOpt;
-    private Music lastMatchedMusic;
-    private boolean matchDisplayed = false;
-    private User matchedUser = null;
-    private boolean zoomedOnMatch = false;
-
 
     private ModelApplication() {
     }
@@ -76,37 +71,5 @@ public final class ModelApplication {
 
     public void setTestingApp(boolean testing) {
         testingApp = testing;
-    }
-
-    public Music getLastMatchedMusic() {
-        return lastMatchedMusic;
-    }
-
-    public void setLastMatchedMusic(Music lastMatchedMusic) {
-        this.lastMatchedMusic = lastMatchedMusic;
-    }
-
-    public boolean isMatchDisplayed() {
-        return matchDisplayed;
-    }
-
-    public void setMatchDisplayed(boolean matchDisplayed) {
-        this.matchDisplayed = matchDisplayed;
-    }
-
-    public User getMatchedUser() {
-        return matchedUser;
-    }
-
-    public void setMatchedUser(User matchedUser) {
-        this.matchedUser = matchedUser;
-    }
-
-    public boolean isZoomedOnMatch() {
-        return zoomedOnMatch;
-    }
-
-    public void setZoomedOnMatch(boolean zoomedOnMatch) {
-        this.zoomedOnMatch = zoomedOnMatch;
     }
 }

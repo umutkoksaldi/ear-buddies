@@ -25,7 +25,6 @@ import com.facebook.FacebookSdk;
 
 import ch.epfl.sweng.project.R;
 import ch.epfl.sweng.project.controlers.UserDetailsControler;
-import ch.epfl.sweng.project.controlers.UserSongControler;
 import ch.epfl.sweng.project.medias.MusicInfoService;
 import ch.epfl.sweng.project.models.ModelApplication;
 import ch.epfl.sweng.project.models.Music;
@@ -49,8 +48,8 @@ public final class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
     private Handler mHandler = new Handler();
-    private boolean isActive = true;
-
+    private boolean matchDisplayed = false;
+    private long lastIDMatched = 0;
     private final Runnable matchRequest = new Runnable() {
         @Override
         public void run() {
@@ -58,7 +57,6 @@ public final class MainActivity extends AppCompatActivity {
             mHandler.postDelayed(this, DELAY_MATCH_CALL);
         }
     };
-
     private UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
 
     public static FragmentManager getMainActivityFragmentManager() {
@@ -80,18 +78,6 @@ public final class MainActivity extends AppCompatActivity {
 
         mHandler.postDelayed(matchRequest, DELAY_MATCH_CALL);
         fragmentManager = getFragmentManager();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isActive = false;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isActive = true;
     }
 
     private void createTabLayout() {
@@ -238,92 +224,65 @@ public final class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void matchSearch() {
+        User[] otherUsers = ModelApplication.getModelApplication().getOtherUsers();
 
-        ModelApplication ma = ModelApplication.getModelApplication();
-        User[] otherUsers = ma.getOtherUsers();
-        UserSongControler userSongControler = UserSongControler.getUserSongControler();
-        User ourUser = ma.getUser();
-        long ourMusicId = ourUser.getCurrentMusicId();
-        if (ourMusicId != 0) {
-            Music ourMusic = ma.getMusic();
-            if (ourMusic != null) {
-                checkStillSameMusic(ourMusic);
-                if (otherUsers != null) {
-                    for (int i = 0; i < otherUsers.length; i++) {
-                        long musicId = otherUsers[i].getCurrentMusicId();
+        if (otherUsers != null) {
+            for (int i = 0; i < otherUsers.length; i++) {
+                long musicID = otherUsers[i].getCurrentMusicId();
+                long ourID = -1;
+                Music music = ModelApplication.getModelApplication().getMusic();
+                if (music != null && music.getId() != null) {
+                    ourID = Long.parseLong(music.getId());
+                }
+                Log.i("ID", ourID + "///" + musicID);
 
-                        if (musicId != 0) {
-                            Music otherMusic = userSongControler.getSongMap().get(otherUsers[i].getIdApiConnection());
+                if (musicID == ourID) {
 
-                            if (otherMusic != null && otherMusic.getArtist().equals(ourMusic.getArtist()) && otherMusic
-                                    .getName().equals(ourMusic.getName())) {
+                    if (musicID != lastIDMatched) {
+                        matchDisplayed = false;
+                    }
 
-                                Music lastMatchedMusic = ma.getLastMatchedMusic();
-                                if (lastMatchedMusic == null || !(ourMusic.getArtist().equals(lastMatchedMusic
-                                        .getArtist()) && ourMusic.getName().equals(lastMatchedMusic.getName()))) {
-                                    ma.setMatchDisplayed(false);
-                                }
-
-                                if (!ma.isMatchDisplayed()) {
-                                    ma.setLastMatchedMusic(ourMusic);
-                                    displayMatch(i);
-                                    ma.setMatchDisplayed(true);
-                                    ma.setZoomedOnMatch(false);
-                                    break;
-                                }
-                            }
-                        }
+                    if (!matchDisplayed) {
+                        lastIDMatched = musicID;
+                        displayMatch(i);
+                        break;
                     }
                 }
             }
         }
     }
 
-    private void checkStillSameMusic(Music ourMusic) {
-        if (modelApplication.getLastMatchedMusic() != null) {
-            //We are not listening to the same matched music
-            if (!(modelApplication.getLastMatchedMusic().getArtist().equals(ourMusic.getArtist()) &&
-                    modelApplication.getLastMatchedMusic().getArtist().equals(ourMusic.getArtist()))) {
-                modelApplication.setMatchedUser(null);
-            }
-        }
-    }
-
     private void displayMatch(int userIndex) {
         User match = ModelApplication.getModelApplication().getOtherUsers()[userIndex];
-        ModelApplication.getModelApplication().setMatchedUser(match);
         Log.i("Match", "It's a match with " + match.getFirstname());
+        matchDisplayed = true;
 
-        if (!isActive) {
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.ic_whatshot_black_24dp)
-                            .setContentTitle(match.getFirstname() + " is listening to the same music!")
-                            .setContentText("Tap to learn more.")
-                            .setAutoCancel(true);
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_whatshot_black_24dp)
+                        .setContentTitle(match.getFirstname() + " is listening to the same music!")
+                        .setContentText("Tap to learn more.")
+                        .setAutoCancel(true);
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
-            Intent resultIntent = new Intent(this, MainActivity.class);
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
 
-            stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent =
-                    stackBuilder.getPendingIntent(
-                            0,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    );
-            mBuilder.setContentIntent(resultPendingIntent);
-            NotificationManager mNotificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-        }
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
     public boolean gotMatch() {
-        return modelApplication.isMatchDisplayed();
+        return matchDisplayed;
     }
 }

@@ -47,6 +47,7 @@ public class MockUserMainActivityRule extends ActivityTestRule<MainActivity> {
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
 
+
         // prepare the mock users for testing the list.
         GlobalTestSettings.createMockUsers();
 
@@ -68,7 +69,6 @@ public class MockUserMainActivityRule extends ActivityTestRule<MainActivity> {
         super.afterActivityLaunched();
         // maybe you want to do something here
         FacebookSdk.sdkInitialize(getActivity());
-        GlobalTestSettings.mockMusicPlayed();
     }
 
     @Override
