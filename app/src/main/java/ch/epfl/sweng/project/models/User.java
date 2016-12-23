@@ -2,10 +2,11 @@ package ch.epfl.sweng.project.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import static ch.epfl.sweng.project.util_constant.GlobalSetting.SNIPPED_DESCRIPTION_LENGTH;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     // Length of the user description on the map
-    private static int snippedDescriptionLength = 17;
     private long idApiConnection;
     private String backgroundPicture;
     private String description;
@@ -40,8 +41,8 @@ public class User {
 
     public String getSnippetDescription() {
         if (description != null) {
-            if (description.length() > snippedDescriptionLength) {
-                description = description.substring(0, snippedDescriptionLength) + "...";
+            if (description.length() > SNIPPED_DESCRIPTION_LENGTH) {
+                description = description.substring(0, SNIPPED_DESCRIPTION_LENGTH) + "...";
             }
         }
         return description;
@@ -93,7 +94,7 @@ public class User {
         this.location = location;
     }
 
-    public String isEmail() {
+    public String getEmail() {
         return email;
     }
 
