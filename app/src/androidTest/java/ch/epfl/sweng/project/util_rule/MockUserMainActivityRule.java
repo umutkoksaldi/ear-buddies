@@ -47,6 +47,7 @@ public class MockUserMainActivityRule extends ActivityTestRule<MainActivity> {
         userTest.setLocation(new Location());
         modelApplication.setUser(userTest);
 
+
         // prepare the mock users for testing the list.
         GlobalTestSettings.createMockUsers();
 

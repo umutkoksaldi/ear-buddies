@@ -13,6 +13,9 @@ public final class GlobalSetting {
     public static final int MAP_LOCATION_INTERVAL = 10000;
     public static final int MAP_LOCATION_FASTEST_INTERVAL = 5000;
 
+    // Description characters limit for users on the map
+    public static final int SNIPPED_DESCRIPTION_LENGTH = 17;
+
     // Marker bitmap size on the map
     public static final int MARKER_SIZE = 20;
 
