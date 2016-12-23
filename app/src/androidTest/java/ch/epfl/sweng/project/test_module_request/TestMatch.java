@@ -20,11 +20,9 @@ import static junit.framework.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class TestMatch {
-    private ModelApplication modelApplication = ModelApplication.getModelApplication();
-
     @Rule
     public MockUserMainActivityRule mActivityRule = new MockUserMainActivityRule(MainActivity.class);
-
+    private ModelApplication modelApplication = ModelApplication.getModelApplication();
 
     @Test
     public void gotMatch() throws InterruptedException {
@@ -46,7 +44,7 @@ public class TestMatch {
 
         assertTrue("We should find a match", mActivityRule.getActivity().gotMatch());
         assertEquals("Last music matched should be the current one", "" + GlobalTestSettings.ID_MUSIC,
-               modelApplication.getLastMatchedMusic().getId() + "");
+                modelApplication.getLastMatchedMusic().getId() + "");
     }
 
 

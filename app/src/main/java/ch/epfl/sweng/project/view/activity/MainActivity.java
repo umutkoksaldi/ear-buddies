@@ -47,10 +47,9 @@ public final class MainActivity extends AppCompatActivity {
     final int NOTIFICATION_ID = 0;
     ModelApplication modelApplication = ModelApplication.getModelApplication();
     private TabLayout mTabLayout = null;
+    private boolean isActive = true;
     private ViewPager mViewPager = null;
     private Handler mHandler = new Handler();
-    private boolean isActive = true;
-
     private final Runnable matchRequest = new Runnable() {
         @Override
         public void run() {
@@ -58,7 +57,8 @@ public final class MainActivity extends AppCompatActivity {
             mHandler.postDelayed(this, DELAY_MATCH_CALL);
         }
     };
-
+    private boolean matchDisplayed = false;
+    private long lastIDMatched = 0;
     private UserDetailsControler userDetailsControler = UserDetailsControler.getConnectionControler();
 
     public static FragmentManager getMainActivityFragmentManager() {
@@ -237,7 +237,6 @@ public final class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 
     private void matchSearch() {
 

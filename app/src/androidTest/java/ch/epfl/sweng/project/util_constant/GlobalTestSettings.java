@@ -80,9 +80,9 @@ public final class GlobalTestSettings {
         mUser.setBackgroundPicture(MOCK_USER_COVER_PICTURE);
         mUser.setProfilePicture(MOCK_USER_PROFILE_PICTURE);
         mUser.setEmail(MOCK_USER_EMAIL);
+        mUser.setCurrentMusicId(ID_MUSIC);
         mUser.setFirstname(MOCK_USER_FIRST_NAME);
         mUser.setLastname(MOCK_USER_LAST_NAME);
-        mUser.setCurrentMusicId(ID_MUSIC);
         mUser.setIdApiConnection(Long.parseLong(GlobalTestSettings.MOCK_ID_FACEBOOK));
         ModelApplication.getModelApplication().setUser(mUser);
     }
@@ -110,7 +110,7 @@ public final class GlobalTestSettings {
 
     }
 
-    public static void mockMusicPlayed(){
+    public static void mockMusicPlayed() {
         Music music = new Music();
         music.setId("1");
         music.setArtist("Rihanna");

@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.os.Bundle;
@@ -68,7 +67,6 @@ import ch.epfl.sweng.project.view.util_view.DownloadImageMarker;
 
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.MAP_LOCATION_FASTEST_INTERVAL;
 import static ch.epfl.sweng.project.util_constant.GlobalSetting.MAP_LOCATION_INTERVAL;
-import static ch.epfl.sweng.project.util_constant.GlobalSetting.MARKER_SIZE;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, ConnectionCallbacks,
         OnConnectionFailedListener,
@@ -188,6 +186,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         mUser.setLocation(new Location(latitude, longitude));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
     }
 
@@ -338,9 +337,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
                 new DownloadImageMarker(marker, mImages, aUser.getIdApiConnection()).execute(url);
                 Activity activity = getActivity();
                 if (activity != null) {
-
                     Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
-
                     BitmapDescriptor defProfile = BitmapDescriptorFactory.fromBitmap(getCircleBitmap(bm));
                     marker.icon(defProfile);
                 }
@@ -359,6 +356,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
             }
         }
 
+
         mMap.clear();
         allMarkersMap = new HashMap<>();
         for (int i = 0; i < markersOption.size(); ++i) {
@@ -372,12 +370,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Connect
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
+
         BitmapShader shader = new BitmapShader(output, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         Paint paint = new Paint();
         paint.setShader(shader);
         paint.setAntiAlias(true);
         Canvas c = new Canvas(output);
         c.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+
         return output;
     }
 
